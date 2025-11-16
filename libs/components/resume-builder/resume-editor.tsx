@@ -135,7 +135,15 @@ export function ResumeEditor({ style }: ResumeEditorProps) {
                                 "#profile-picture-upload .resume-profile-placeholder",
                             );
                             if (profilePic) {
-                                profilePic.innerHTML = `<img src="${imageUrl}" alt="Profile" style="width: 100%; height: 100%; object-fit: cover;" />`;
+                                // Create image element safely without innerHTML
+                                const img = document.createElement("img");
+                                img.src = imageUrl;
+                                img.alt = "Profile";
+                                img.style.width = "100%";
+                                img.style.height = "100%";
+                                img.style.objectFit = "cover";
+                                profilePic.innerHTML = ""; // Clear existing content
+                                profilePic.appendChild(img);
                             }
                         };
                         reader.readAsDataURL(file);

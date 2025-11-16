@@ -13,7 +13,6 @@ const securityHeaders = {
     "Permissions-Policy": "camera=(), microphone=(), geolocation=()",
     "X-XSS-Protection": "1; mode=block",
     "Strict-Transport-Security": "max-age=63072000; includeSubDomains; preload",
-    "Content-Security-Policy": "default-src 'self'; img-src *; object-src 'none'; script-src 'self'; style-src 'self' 'unsafe-inline'; frame-ancestors 'self';",
 };
 
 export async function middleware(request: NextRequest) {
@@ -38,7 +37,10 @@ export async function middleware(request: NextRequest) {
     const isApiRoute = request.nextUrl.pathname.startsWith("/api");
 
     // Skip rate limiting for auth callback routes (handle both formats)
-    const isAuthCallback = request.nextUrl.pathname === "/api/auth/callback";
+    const isAuthCallback =
+        request.nextUrl.pathname === "/api/auth/callback" ||
+        request.nextUrl.pathname.includes("/callback") ||
+        request.nextUrl.pathname.includes("/auth/callback");
 
     let limit: number | undefined;
     let reset: number | undefined;
@@ -116,18 +118,12 @@ export async function middleware(request: NextRequest) {
         response = sessionResponse.response;
         const user = sessionResponse.user;
 
-        // Skip login redirect for auth callback routes and public routes
-        const publicRoutes = ["/build-resume", "/login"];
-        const isPublicRoute = publicRoutes.some((route) =>
-            request.nextUrl.pathname.startsWith(route),
-        );
-
+        // Skip login redirect for auth callback routes
         if (
             !request.nextUrl.pathname.endsWith("/login") &&
-            request.nextUrl.pathname !== "/" &&
+            !request.nextUrl.pathname.includes("/") &&
             !user &&
-            !isAuthCallback &&
-            !isPublicRoute
+            !isAuthCallback
         ) {
             return NextResponse.redirect(new URL("/login", request.url));
         }
