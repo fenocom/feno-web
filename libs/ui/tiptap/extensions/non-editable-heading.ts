@@ -24,13 +24,13 @@ export const NonEditableHeading = Heading.extend({
                 class: "resume-section-title",
             });
 
-            Object.entries(attrs).forEach(([key, value]) => {
+            for (const [key, value] of Object.entries(attrs)) {
                 if (key === "class") {
                     dom.className = value as string;
                 } else {
                     dom.setAttribute(key, String(value));
                 }
-            });
+            }
 
             return {
                 dom,
