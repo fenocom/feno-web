@@ -28,10 +28,6 @@ export const metadata: Metadata = {
     title: "Feno — Your Story, Beautifully Told",
     description:
         "Transform your resume into a stunning digital portfolio in minutes. Share your professional journey with style and impact.",
-    other: {
-        "Content-Security-Policy":
-            "default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline'; img-src 'self' data: https:; connect-src 'self' https:; font-src 'self' data:; object-src 'none'; media-src 'self'; frame-src 'self'; base-uri 'self'; form-action 'self'; frame-ancestors 'self';",
-    },
 };
 
 export default function RootLayout({
@@ -42,10 +38,7 @@ export default function RootLayout({
     return (
         <html lang="en" className="light">
             <head>
-                <meta
-                    name="referrer"
-                    content="strict-origin-when-cross-origin"
-                />
+                <meta name="theme-color" content="#ffffff" />
             </head>
             <body
                 className={`${hostGrotesk.variable} ${serif.variable} ${jetbrains.variable}  antialiased`}
