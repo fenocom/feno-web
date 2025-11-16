@@ -1,0 +1,709 @@
+/* Modern Resume Style */
+.resume-modern-wrapper {
+    background: #f5f5dc;
+    padding: 2rem;
+    max-width: 900px;
+    margin: 0 auto;
+}
+
+.resume-header-modern {
+    background: #8b4513;
+    color: white;
+    padding: 2rem;
+    border-radius: 8px 8px 0 0;
+    margin-bottom: 0;
+}
+
+.resume-header-content {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.resume-profile-section {
+    display: flex;
+    align-items: center;
+    gap: 1.5rem;
+}
+
+.resume-profile-picture {
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    background: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 3px solid white;
+}
+
+.resume-profile-placeholder {
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    background: #e0e0e0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #666;
+    font-size: 0.875rem;
+    text-align: center;
+}
+
+.resume-name {
+    font-size: 2rem;
+    font-weight: bold;
+    margin: 0;
+}
+
+.resume-contact-info {
+    text-align: right;
+    font-size: 0.875rem;
+}
+
+.resume-section {
+    background: white;
+    padding: 1.5rem;
+    margin-bottom: 1rem;
+    border-radius: 4px;
+}
+
+.resume-section h2 {
+    background: #8b4513;
+    color: white;
+    padding: 0.5rem 1rem;
+    border-radius: 4px;
+    margin: -1.5rem -1.5rem 1rem -1.5rem;
+    font-size: 1.25rem;
+}
+
+.resume-experience-item,
+.resume-education-item {
+    margin-bottom: 1.5rem;
+}
+
+.resume-experience-item h3,
+.resume-education-item h3 {
+    font-size: 1.125rem;
+    font-weight: bold;
+    margin-bottom: 0.5rem;
+}
+
+/* Classic Resume Style */
+.resume-classic-wrapper {
+    background: white;
+    padding: 2rem;
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+.resume-header-classic {
+    text-align: center;
+    border-bottom: 2px solid black;
+    padding-bottom: 1rem;
+    margin-bottom: 1.5rem;
+}
+
+.resume-name-center {
+    font-size: 2.5rem;
+    font-weight: bold;
+    margin-bottom: 0.5rem;
+    text-transform: uppercase;
+}
+
+.resume-contact-center {
+    font-size: 0.875rem;
+}
+
+.resume-classic-wrapper .resume-section h2 {
+    font-size: 1.5rem;
+    font-weight: bold;
+    margin-top: 1.5rem;
+    margin-bottom: 1rem;
+    text-transform: uppercase;
+}
+
+/* Sidebar Resume Style */
+.resume-sidebar-wrapper {
+    background: #f5f5f5;
+    padding: 2rem;
+    max-width: 1000px;
+    margin: 0 auto;
+}
+
+.resume-sidebar-layout {
+    display: grid;
+    grid-template-columns: 300px 1fr;
+    gap: 2rem;
+    background: white;
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+.resume-sidebar-left {
+    background: #2c2c2c;
+    color: white;
+    padding: 2rem;
+}
+
+.resume-profile-picture-sidebar {
+    width: 150px;
+    height: 150px;
+    border-radius: 50%;
+    margin: 0 auto 2rem;
+    background: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.resume-sidebar-left .resume-section h2 {
+    color: white;
+    font-size: 1.125rem;
+    margin-bottom: 1rem;
+    text-transform: uppercase;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.3);
+    padding-bottom: 0.5rem;
+}
+
+.resume-sidebar-right {
+    padding: 2rem;
+    background: #f9f9f9;
+}
+
+.resume-header-sidebar h1 {
+    font-size: 2.5rem;
+    font-weight: bold;
+    text-transform: uppercase;
+    margin-bottom: 0.5rem;
+}
+
+.resume-contact-sidebar {
+    margin-top: 1rem;
+}
+
+/* Minimalist Resume Style */
+.resume-minimalist-wrapper {
+    background: white;
+    padding: 0;
+    max-width: 1100px;
+    margin: 0 auto;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+    border-radius: 0;
+    overflow: hidden;
+    min-height: 1000px;
+}
+
+.resume-minimalist-layout {
+    display: grid;
+    grid-template-columns: 300px 1fr;
+    gap: 0;
+    background: white;
+    min-height: 1000px;
+}
+
+.resume-minimalist-left {
+    background: #4a5568;
+    color: white;
+    padding: 2.5rem 2rem;
+    border-right: none;
+}
+
+.resume-profile-picture-minimalist {
+    width: 150px;
+    height: 150px;
+    border-radius: 50%;
+    margin: 0 auto 2rem;
+    background: #2d3748;
+    border: 4px solid rgba(255, 255, 255, 0.1);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.resume-profile-picture-minimalist:hover {
+    transform: scale(1.03);
+    border-color: rgba(255, 255, 255, 0.3);
+}
+
+.resume-profile-placeholder {
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    background: #2d3748;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    color: rgba(255, 255, 255, 0.6);
+    font-size: 0.75rem;
+    text-align: center;
+    padding: 1rem;
+}
+
+.profile-picture-text {
+    font-weight: 500;
+    margin-bottom: 0.25rem;
+}
+
+.profile-picture-hint {
+    font-size: 0.625rem;
+    color: rgba(255, 255, 255, 0.5);
+    opacity: 0;
+    transition: opacity 0.2s ease;
+}
+
+.resume-profile-picture-minimalist:hover .profile-picture-hint {
+    opacity: 1;
+}
+
+.resume-profile-picture-minimalist img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 50%;
+}
+
+.resume-header-minimalist {
+    margin-bottom: 2.5rem;
+    padding-bottom: 1.5rem;
+    border-bottom: 3px solid #2d3748;
+}
+
+.resume-header-top {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 2rem;
+}
+
+.resume-name-minimalist {
+    font-size: 2.75rem;
+    font-weight: 800;
+    margin-bottom: 0;
+    line-height: 1;
+    text-transform: uppercase;
+    font-family: sans-serif;
+    letter-spacing: 1px;
+    color: #1a202c;
+}
+
+.resume-title-minimalist {
+    color: #4a5568;
+    margin-top: 0.75rem;
+    margin-bottom: 0;
+    text-transform: uppercase;
+    font-size: 0.95rem;
+    font-weight: 500;
+    letter-spacing: 3px;
+}
+
+.resume-contact-minimalist {
+    text-align: right;
+    font-size: 0.85rem;
+    line-height: 1.8;
+}
+
+.resume-contact-minimalist p {
+    margin-bottom: 0.25rem;
+    color: #4a5568;
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    gap: 0.5rem;
+}
+
+.resume-minimalist-left .resume-section {
+    margin-bottom: 2rem;
+    padding: 0;
+}
+
+.resume-minimalist-left .resume-section h2 {
+    font-size: 0.9rem;
+    font-weight: bold;
+    margin-top: 0;
+    margin-bottom: 1rem;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+    padding-bottom: 0.5rem;
+    color: white;
+}
+
+.resume-minimalist-right .resume-section h2 {
+    font-size: 1rem;
+    font-weight: bold;
+    margin-top: 0;
+    margin-bottom: 1rem;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    border-bottom: 2px solid #2d3748;
+    padding-bottom: 0.5rem;
+    color: #2d3748;
+}
+
+.resume-section-title {
+    pointer-events: none;
+    user-select: none;
+    cursor: default;
+}
+
+
+.resume-editor [contenteditable="false"] {
+    pointer-events: none;
+    user-select: none;
+    cursor: default;
+}
+
+.resume-minimalist-right a {
+    color: #2563eb;
+    text-decoration: underline;
+}
+
+.resume-minimalist-right a:hover {
+    color: #1d4ed8;
+}
+
+.resume-minimalist-left a {
+    color: rgba(255, 255, 255, 0.7);
+    text-decoration: none;
+}
+
+.resume-minimalist-left a:hover {
+    color: rgba(255, 255, 255, 1);
+}
+
+.resume-editor .resume-minimalist-left {
+    pointer-events: auto;
+}
+
+.resume-editor .resume-minimalist-left > * {
+    pointer-events: auto;
+}
+
+.resume-minimalist-left .resume-section p,
+.resume-minimalist-left .resume-section ul {
+    font-size: 0.85rem;
+    line-height: 1.6;
+    margin-bottom: 0.5rem;
+    color: rgba(255, 255, 255, 0.9);
+}
+
+.resume-minimalist-left .resume-section ul {
+    list-style: none;
+    padding-left: 0;
+}
+
+.resume-minimalist-left .resume-section ul li {
+    position: relative;
+    padding-left: 1.25rem;
+    margin-bottom: 0.5rem;
+}
+
+.resume-minimalist-left .resume-section ul li::before {
+    content: "•";
+    position: absolute;
+    left: 0;
+    color: rgba(255, 255, 255, 0.7);
+}
+
+/* Link items in sidebar */
+.resume-link-item {
+    margin-bottom: 1rem;
+}
+
+.resume-link-item p {
+    margin-bottom: 0.25rem;
+    color: rgba(255, 255, 255, 0.9);
+    font-size: 0.85rem;
+}
+
+.resume-link-item a {
+    display: block;
+    word-break: break-all;
+    font-size: 0.75rem;
+    line-height: 1.4;
+    color: rgba(255, 255, 255, 0.7);
+    text-decoration: none;
+}
+
+.resume-link-item a:hover {
+    color: rgba(255, 255, 255, 1);
+}
+
+/* Reference details */
+.resume-reference-name {
+    margin-bottom: 0.5rem !important;
+    color: rgba(255, 255, 255, 0.9);
+}
+
+.resume-reference-detail {
+    font-size: 0.85rem;
+    margin-bottom: 0.25rem;
+    line-height: 1.4;
+    color: rgba(255, 255, 255, 0.8);
+}
+
+/* Contact icons */
+.contact-icon {
+    display: inline-block;
+    margin-right: 0.5rem;
+    font-size: 1rem;
+    opacity: 0.8;
+}
+
+/* Skills grid */
+.resume-skills-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 0.75rem;
+    font-size: 0.875rem;
+}
+
+.resume-skills-grid span {
+    padding: 0.5rem;
+    background: #e2e8f0;
+    border-radius: 4px;
+    text-align: center;
+    font-weight: 500;
+    color: #2d3748;
+}
+
+.resume-language-item {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    margin-bottom: 0.75rem;
+    font-size: 0.85rem;
+    color: rgba(255, 255, 255, 0.9);
+}
+
+.resume-language-item span {
+    min-width: 70px;
+}
+
+.resume-progress-bar {
+    flex: 1;
+    height: 6px;
+    background: rgba(255, 255, 255, 0.2);
+    border-radius: 3px;
+    overflow: hidden;
+}
+
+.resume-progress-fill {
+    height: 100%;
+    background: rgba(255, 255, 255, 0.9);
+    border-radius: 3px;
+    transition: width 0.3s ease;
+}
+
+.resume-progress-light {
+    background: rgba(255, 255, 255, 0.5);
+}
+
+.resume-minimalist-right {
+    padding: 2.5rem 2.5rem 2.5rem 2.5rem;
+    background: white;
+}
+
+.resume-minimalist-right .resume-section {
+    margin-bottom: 2rem;
+    padding: 0;
+}
+
+.resume-minimalist-right .resume-section p {
+    font-size: 0.9rem;
+    line-height: 1.7;
+    margin-bottom: 0.5rem;
+    color: #2d3748;
+}
+
+.resume-experience-item,
+.resume-education-item {
+    margin-bottom: 2rem;
+    padding-bottom: 1.5rem;
+    border-bottom: 1px solid #e2e8f0;
+}
+
+.resume-experience-item:last-child,
+.resume-education-item:last-child {
+    border-bottom: none;
+}
+
+.resume-experience-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 0.5rem;
+}
+
+.resume-experience-item h3,
+.resume-education-item h3 {
+    font-size: 1rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    margin: 0;
+    color: #2d3748;
+    letter-spacing: 0.5px;
+}
+
+.resume-date {
+    font-size: 0.8rem;
+    color: #718096;
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.resume-experience-item p,
+.resume-education-item p {
+    font-size: 0.9rem;
+    margin-bottom: 0.5rem;
+    color: #4a5568;
+}
+
+.resume-experience-item ul,
+.resume-education-item ul {
+    font-size: 0.875rem;
+    line-height: 1.7;
+    margin-top: 0.75rem;
+    padding-left: 1.25rem;
+    color: #2d3748;
+}
+
+.resume-experience-item ul li,
+.resume-education-item ul li {
+    position: relative;
+    margin-bottom: 0.5rem;
+}
+
+.resume-experience-item ul li::before,
+.resume-education-item ul li::before {
+    content: "●";
+    position: absolute;
+    left: -1.25rem;
+    color: #4a5568;
+    font-size: 0.6rem;
+}
+
+/* Two Column Resume Style */
+.resume-two-column-wrapper {
+    background: white;
+    padding: 2rem;
+    max-width: 900px;
+    margin: 0 auto;
+}
+
+.resume-two-column-layout {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 2rem;
+}
+
+.resume-header-two-column {
+    margin-bottom: 1.5rem;
+}
+
+.resume-header-two-column h1 {
+    font-size: 2rem;
+    font-weight: bold;
+    margin-bottom: 0.5rem;
+}
+
+.resume-contact-two-column {
+    font-size: 0.875rem;
+    color: #666;
+}
+
+/* Resume Paper Container - Makes it look like a real document */
+.resume-paper-container {
+    background: #f5f5f5;
+    min-height: 100vh;
+    padding: 2rem;
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+}
+
+/* General Resume Editor Styles */
+.resume-editor {
+    min-height: 800px;
+}
+
+.resume-editor [contenteditable="true"] {
+    outline: none;
+    cursor: text;
+    transition: background-color 0.15s ease;
+}
+
+.resume-minimalist-right [contenteditable="true"]:hover {
+    background: rgba(59, 130, 246, 0.05);
+    border-radius: 2px;
+}
+
+.resume-minimalist-right [contenteditable="true"]:focus {
+    background: rgba(59, 130, 246, 0.1);
+    border-radius: 2px;
+    padding: 2px;
+    margin: -2px;
+}
+
+.resume-minimalist-left [contenteditable="true"]:hover {
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: 2px;
+}
+
+.resume-minimalist-left [contenteditable="true"]:focus {
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 2px;
+    padding: 2px;
+    margin: -2px;
+}
+
+.resume-editor [data-editable="false"] {
+    pointer-events: none;
+    opacity: 0.7;
+}
+
+.resume-editor ul,
+.resume-editor ol {
+    margin-left: 1.5rem;
+    margin-top: 0.5rem;
+}
+
+.resume-editor p {
+    margin-bottom: 0.5rem;
+}
+
+/* Print Styles */
+@media print {
+    .resume-paper-container {
+        background: white !important;
+        padding: 0 !important;
+        min-height: auto !important;
+    }
+
+    .resume-wrapper {
+        box-shadow: none !important;
+        margin: 0 !important;
+        padding: 1.5rem !important;
+    }
+
+    .resume-minimalist-wrapper {
+        box-shadow: none !important;
+        border-radius: 0 !important;
+        padding: 1.5rem !important;
+    }
+
+    .resume-editor {
+        min-height: auto;
+    }
+
+    .resume-editor [contenteditable="true"]:focus {
+        background: transparent !important;
+        outline: none !important;
+    }
+}
