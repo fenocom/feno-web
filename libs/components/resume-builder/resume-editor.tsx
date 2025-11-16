@@ -52,7 +52,7 @@ export function ResumeEditor({ style }: ResumeEditorProps) {
                 class: template.editorClass,
             },
             handleDOMEvents: {
-                mousedown: (view, event) => {
+                mousedown: (_view, event) => {
                     const target = event.target as HTMLElement;
                     // Prevent editing on non-editable elements
                     if (
@@ -109,7 +109,7 @@ export function ResumeEditor({ style }: ResumeEditorProps) {
         if (editor && initialContent) {
             editor.commands.setContent(initialContent);
         }
-    }, [style, editor, initialContent]);
+    }, [editor, initialContent]);
 
     useEffect(() => {
         if (!editor) return;
