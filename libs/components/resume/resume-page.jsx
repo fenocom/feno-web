@@ -6,6 +6,7 @@ import { GridColumn, GridNode } from "./extensions/grid";
 import { ResumeSlashCommand } from "./extensions/slash-command";
 import { classicTemplate } from "./templates/classic";
 import { buildDocFromTemplate } from "./utils/build-doc";
+import styles from "./resume-editor.module.css";
 
 const classicDoc = buildDocFromTemplate(classicTemplate);
 
@@ -22,8 +23,17 @@ export const ResumeEditor = () => {
       GridNode,
       ResumeSlashCommand,
     ],
+    editorProps: {
+      attributes: {
+        class: styles.proseMirror,
+      },
+    },
     content: classicDoc,
   });
 
-  return <EditorContent editor={editor} />;
+  return (
+    <div className={styles.root}>
+      <EditorContent editor={editor} />
+    </div>
+  );
 };

@@ -16,6 +16,8 @@ const paragraph = (text = "") => ({
   content: textNode(text),
 });
 
+const spacer = () => paragraph("");
+
 const heading = (text, level = 2) => ({
   type: "heading",
   attrs: { level },
@@ -77,11 +79,13 @@ export const buildDocFromTemplate = (template) => {
 
   if (summary) {
     content.push(heading("Summary"));
+    content.push(spacer());
     content.push(paragraph(summary));
   }
 
   if (Array.isArray(experience) && experience.length > 0) {
     content.push(heading("Experience"));
+    content.push(spacer());
 
     experience.forEach((role) => {
       content.push(heading(role.title, 3));
@@ -101,6 +105,7 @@ export const buildDocFromTemplate = (template) => {
 
   if (Array.isArray(projects) && projects.length > 0) {
     content.push(heading("Projects"));
+    content.push(spacer());
     projects.forEach((project) => {
       content.push(projectParagraph(project));
     });
@@ -108,6 +113,7 @@ export const buildDocFromTemplate = (template) => {
 
   if (Array.isArray(education) && education.length > 0) {
     content.push(heading("Education"));
+    content.push(spacer());
     education.forEach((degree) => {
       content.push(heading(degree.degree, 3));
       content.push(
@@ -130,6 +136,7 @@ export const buildDocFromTemplate = (template) => {
 
   if (Array.isArray(skills) && skills.length > 0) {
     content.push(heading("Skills"));
+    content.push(spacer());
     content.push(paragraph(skills.join(", ")));
   }
 

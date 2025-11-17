@@ -109,18 +109,27 @@ const commandList = () => {
   let component;
   let selectedIndex = 0;
 
-  const selectItem = (props) => {
-    const item = props.items[selectedIndex];
+  const selectItem = (props = {}) => {
+    const items = Array.isArray(props.items) ? props.items : [];
+    const item = items[selectedIndex];
     if (item) {
       item.action(props);
     }
   };
 
-  const updateList = (props) => {
+  const updateList = (props = {}) => {
     if (!component) return;
 
     component.innerHTML = "";
-    props.items.forEach((item, index) => {
+    const items = Array.isArray(props.items) ? props.items : [];
+    if (items.length === 0) {
+      component.style.display = "none";
+      return;
+    }
+
+    component.style.display = "flex";
+
+    items.forEach((item, index) => {
       const option = document.createElement("button");
       option.type = "button";
       option.className = "slash-command__item";
@@ -172,17 +181,24 @@ const commandList = () => {
       selectedIndex = Math.min(selectedIndex, props.items.length - 1);
       updateList(props);
     },
-    onKeyDown: (props) => {
+    onKeyDown: (props = {}) => {
+    const itemsLength = Array.isArray(props.items) ? props.items.length : 0;
+    if (itemsLength === 0) {
+      return false;
+    }
       if (props.event.key === "ArrowDown") {
         selectedIndex =
-          (selectedIndex + 1) % Math.max(props.items.length, 1);
+          itemsLength === 0
+            ? 0
+            : (selectedIndex + 1) % itemsLength;
         updateList(props);
         return true;
       }
       if (props.event.key === "ArrowUp") {
         selectedIndex =
-          (selectedIndex + props.items.length - 1) %
-          Math.max(props.items.length, 1);
+          itemsLength === 0
+            ? 0
+            : (selectedIndex + itemsLength - 1) % itemsLength;
         updateList(props);
         return true;
       }
