@@ -18,7 +18,6 @@ const GridRenderer = ({ node }: NodeViewProps) => {
         style={{
           display: "grid",
           gridTemplateColumns: gridTemplate,
-          gap: "1rem",
           width: "100%",
         }}
       />

@@ -28,6 +28,7 @@ export const metadata: Metadata = {
     title: "Feno — Your Story, Beautifully Told",
     description:
         "Transform your resume into a stunning digital portfolio in minutes. Share your professional journey with style and impact.",
+    themeColor: "#ffffff",
 };
 
 export default function RootLayout({
@@ -37,9 +38,6 @@ export default function RootLayout({
 }>) {
     return (
         <html lang="en" className="light">
-            <head>
-                <meta name="theme-color" content="#ffffff" />
-            </head>
             <body
                 className={`${hostGrotesk.variable} ${serif.variable} ${jetbrains.variable}  antialiased`}
             >
