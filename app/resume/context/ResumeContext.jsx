@@ -1,12 +1,21 @@
 "use client";
 
-import { createContext, useCallback, useContext, useMemo } from "react";
+import {
+  createContext,
+  useCallback,
+  useContext,
+  useEffect,
+  useMemo,
+} from "react";
 
 import defaultDocument from "../data/defaultDocument.json";
 import { defaultTemplateId } from "../data/templatesIndex.js";
 import { useLocalStorage } from "../hooks/useLocalStorage.js";
 
 const ResumeContext = createContext(null);
+
+const isValidDocument = (doc) =>
+  Array.isArray(doc?.content) && doc.content.length > 0;
 
 export function ResumeProvider({ children }) {
   const [document, setDocument] = useLocalStorage(
@@ -18,16 +27,26 @@ export function ResumeProvider({ children }) {
     defaultTemplateId
   );
 
+  useEffect(() => {
+    if (!isValidDocument(document)) {
+      setDocument(defaultDocument);
+    }
+  }, [document, setDocument]);
+
   const updateDocument = useCallback(
     (nextDoc) => {
-      setDocument(typeof nextDoc === "function" ? nextDoc(document) : nextDoc);
+      setDocument((current) => {
+        const resolved =
+          typeof nextDoc === "function" ? nextDoc(current) : nextDoc;
+        return isValidDocument(resolved) ? resolved : defaultDocument;
+      });
     },
-    [document, setDocument]
+    [setDocument]
   );
 
   const value = useMemo(
     () => ({
-      document,
+      document: isValidDocument(document) ? document : defaultDocument,
       setDocument: updateDocument,
       selectedTheme,
       setSelectedTheme,

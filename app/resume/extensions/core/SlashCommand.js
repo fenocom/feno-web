@@ -76,7 +76,27 @@ const resumeCommands = [
   }),
 ];
 
+const headingCommand = (level) => ({
+  title: `Heading ${level}`,
+  keywords: ["heading", `h${level}`],
+  action: ({ editor, range }) => {
+    editor.chain().focus().deleteRange(range).toggleHeading({ level }).run();
+  },
+});
+
+const paragraphCommand = {
+  title: "Paragraph",
+  keywords: ["text", "paragraph"],
+  action: ({ editor, range }) => {
+    editor.chain().focus().deleteRange(range).setParagraph().run();
+  },
+};
+
 const formattingCommands = [
+  headingCommand(1),
+  headingCommand(2),
+  headingCommand(3),
+  paragraphCommand,
   formatCommand("Bold", ["bold", "strong"], (editor) =>
     editor.chain().focus().toggleBold().run(),
   ),
@@ -231,7 +251,7 @@ export const SlashCommand = Extension.create({
                 .toLowerCase();
               return haystack.includes(normalized);
             })
-            .slice(0, 7);
+            .slice(0, 14);
         },
         command: ({ editor, range, props }) => {
           props.action({ editor, range });
