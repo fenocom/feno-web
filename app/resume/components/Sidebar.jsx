@@ -29,14 +29,14 @@ export function Sidebar() {
 
   return (
     <aside className="mt-6 space-y-4">
-      <div className="rounded-2xl border border-slate-200 bg-white p-4 shadow-sm">
+      {/* <div className="rounded-2xl border border-slate-200 bg-white p-4 shadow-sm">
         <p className="text-xs font-semibold uppercase tracking-[0.4em] text-slate-500">
           Preview
         </p>
         <div className="mt-3 overflow-hidden rounded-xl border border-slate-100 bg-slate-50">
           <RendererEngine document={document} />
         </div>
-      </div>
+      </div> */}
       <div className="space-y-3 rounded-2xl border border-slate-200 bg-white p-4 shadow-sm">
         <p className="text-xs font-semibold uppercase tracking-[0.4em] text-slate-500">
           Exports

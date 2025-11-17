@@ -3,30 +3,25 @@
 import { EditorContent } from "@tiptap/react";
 
 import { useEditorSetup } from "./useEditorSetup.js";
-import { Toolbar } from "./toolbar/Toolbar.jsx";
-import { BlockMenu } from "./menus/BlockMenu.jsx";
-import { FloatingMenu } from "./menus/FloatingMenu.jsx";
 
 export function ResumeEditor() {
   const editor = useEditorSetup();
 
-  if (!editor) {
-    return (
-      <div className="flex h-full min-h-[520px] items-center justify-center text-sm text-slate-500">
-        Preparing editor…
-      </div>
-    );
-  }
-
   return (
-    <div className="flex h-full min-h-[640px] flex-col">
-      <Toolbar editor={editor} />
-      <div className="relative flex-1 overflow-auto bg-slate-25 p-4">
-        <div className="mx-auto max-w-[700px] rounded-xl bg-white p-6 shadow-lg">
-          <EditorContent editor={editor} />
+    <div className="flex w-full justify-center bg-slate-100/70 p-4 md:p-10">
+      <div className="w-full max-w-[860px]">
+        <div
+          className="resume-sheet mx-auto w-full max-w-[820px] rounded-[1.25rem] border border-slate-200 bg-white shadow-2xl shadow-slate-500/10"
+          style={{ width: "210mm", minHeight: "297mm", padding: "48px" }}
+        >
+          {editor ? (
+            <EditorContent editor={editor} className="h-full w-full" />
+          ) : (
+            <div className="flex h-full min-h-[400px] items-center justify-center text-sm text-slate-500">
+              Preparing editor…
+            </div>
+          )}
         </div>
-        <BlockMenu editor={editor} />
-        <FloatingMenu editor={editor} />
       </div>
     </div>
   );

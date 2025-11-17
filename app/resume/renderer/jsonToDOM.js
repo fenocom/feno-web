@@ -72,7 +72,7 @@ const renderNode = (node) => {
       )}</div></section>`;
     case "skills": {
       const items = node.attrs?.items ?? [];
-      return `<section class="space-y-2"><div class="section-title">Skills</div><ul class="m-0 flex flex-wrap gap-2 list-none p-0 text-sm text-slate-600">${items
+      return `<section class="space-y-2"><div class="section-title">Skills</div><ul class="skills-list m-0 flex flex-wrap gap-2 list-none p-0 text-sm text-slate-600">${items
         .map(
           (skill) =>
             `<li class="rounded-full bg-slate-100 px-3 py-1 text-slate-700">${escapeHtml(skill)}</li>`,

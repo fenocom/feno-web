@@ -24,7 +24,7 @@ export const SkillsNode = Node.create({
         "ul",
         {
           class:
-            "m-0 flex flex-wrap gap-2 list-none p-0 text-sm text-slate-600",
+            "skills-list m-0 flex flex-wrap gap-2 list-none p-0 text-sm text-slate-600",
         },
         ...items.map((skill) => [
           "li",

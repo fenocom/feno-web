@@ -7,6 +7,7 @@ import { CustomItalic } from "./core/Italic.js";
 import { Underline } from "./core/Underline.js";
 import { CustomLink } from "./core/Link.js";
 import { CustomHighlight } from "./core/Highlight.js";
+import { SlashCommand } from "./core/SlashCommand.js";
 
 import { PersonalInfoNode } from "./blocks/PersonalInfoNode.js";
 import { SummaryNode } from "./blocks/SummaryNode.js";
@@ -33,6 +34,7 @@ export const extensions = [
   Underline,
   CustomLink,
   CustomHighlight.configure({ multicolor: true }),
+  SlashCommand,
   PersonalInfoNode,
   SummaryNode,
   ExperienceNode,

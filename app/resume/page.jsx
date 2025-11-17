@@ -11,14 +11,12 @@ import { ThemeProvider } from "./context/ThemeContext.jsx";
 function ResumeApp() {
   return (
     <ThemeProvider>
-      <div className="flex flex-1 flex-col gap-6 md:flex-row">
-        <div className="w-full md:w-80">
+      <div className="flex flex-1 flex-col items-center gap-8">
+        <div className="hidden" aria-hidden="true">
           <TemplateSelector />
           <Sidebar />
         </div>
-        <div className="flex-1 rounded-2xl border border-slate-200 bg-white shadow-sm">
-          <ResumeEditor />
-        </div>
+        <ResumeEditor />
       </div>
     </ThemeProvider>
   );

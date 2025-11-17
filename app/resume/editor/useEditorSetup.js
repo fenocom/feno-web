@@ -7,7 +7,7 @@ import { useResumeContext } from "../context/ResumeContext.jsx";
 import { extensions as baseExtensions } from "../extensions/index.js";
 
 const placeholderExtension = Placeholder.configure({
-  placeholder: "Start typing your story…",
+  placeholder: "Use / to add resume sections or formatting.",
 });
 
 export const useEditorSetup = () => {
@@ -19,7 +19,9 @@ export const useEditorSetup = () => {
     autofocus: "start",
     editorProps: {
       attributes: {
-        class: "prose prose-slate max-w-none focus:outline-none",
+        class:
+          "resume-editor-content prose prose-slate max-w-none whitespace-pre-wrap focus:outline-none text-slate-800",
+        spellCheck: "true",
       },
     },
     onUpdate: ({ editor: instance }) => {
