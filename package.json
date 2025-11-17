@@ -48,6 +48,7 @@
         "@tiptap/extension-typography": "^3.10.7",
         "@tiptap/react": "^3.10.7",
         "@tiptap/starter-kit": "^3.10.7",
+        "@tiptap/suggestion": "^3.10.7",
         "@types/color": "^4.2.0",
         "@upstash/ratelimit": "^2.0.5",
         "@upstash/redis": "^1.34.8",
