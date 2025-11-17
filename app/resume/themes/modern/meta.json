@@ -1,0 +1,17 @@
+{
+  "id": "modern",
+  "name": "Modern",
+  "description": "Clean sans-serif layout with focus on hierarchy and generous spacing.",
+  "preview": "/app/resume/assets/thumbnails/modern.png",
+  "fonts": {
+    "primary": "Inter",
+    "secondary": "Source Serif Pro"
+  },
+  "colors": {
+    "primary": "#111827",
+    "secondary": "#6366F1",
+    "muted": "#6B7280"
+  }
+}
+
+

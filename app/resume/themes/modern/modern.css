@@ -1,0 +1,71 @@
+.resume-modern {
+  font-family: "Inter", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  color: #111827;
+  background: #ffffff;
+  padding: 2.5rem;
+  border-radius: 1.25rem;
+  border: 1px solid #e5e7eb;
+  box-shadow: 0 10px 30px rgba(15, 23, 42, 0.08);
+}
+
+.resume-modern h1,
+.resume-modern h2,
+.resume-modern h3 {
+  font-family: "Inter", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  color: #111827;
+  margin-bottom: 0.35em;
+}
+
+.resume-modern h1 {
+  font-size: 2.5rem;
+  font-weight: 600;
+  letter-spacing: -0.04em;
+}
+
+.resume-modern h2 {
+  font-size: 1.15rem;
+  text-transform: uppercase;
+  letter-spacing: 0.2em;
+  color: #6366f1;
+}
+
+.resume-modern section {
+  margin-top: 1.75rem;
+}
+
+.resume-modern .section-title {
+  font-size: 0.85rem;
+  letter-spacing: 0.18em;
+  font-weight: 600;
+  color: #4b5563;
+  text-transform: uppercase;
+  margin-bottom: 0.75rem;
+}
+
+.resume-modern .summary {
+  font-size: 1rem;
+  line-height: 1.7;
+  color: #4b5563;
+}
+
+.resume-modern .experience-card {
+  padding: 1rem 0;
+  border-bottom: 1px solid #e5e7eb;
+}
+
+.resume-modern .experience-card:last-child {
+  border-bottom: none;
+}
+
+.resume-modern .experience-card h3 {
+  font-size: 1.15rem;
+  font-weight: 600;
+}
+
+.resume-modern .experience-card .metadata {
+  font-size: 0.9rem;
+  color: #6b7280;
+  margin-bottom: 0.35rem;
+}
+
+
