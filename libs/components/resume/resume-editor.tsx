@@ -4,7 +4,7 @@ import "./resume-editor.css";
 
 import { EditorContent, useEditor } from "@tiptap/react";
 import StarterKit from "@tiptap/starter-kit";
-import { Grid, GridColumn } from "./extensions/grid/grid";
+import { Grid, GridColumn } from "./extensions/grid";
 
 export const ResumeEditor = () => {
   const editor = useEditor({

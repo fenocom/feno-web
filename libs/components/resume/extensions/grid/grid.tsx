@@ -34,25 +34,6 @@ declare module "@tiptap/core" {
   }
 }
 
-export const GridColumn = Node.create({
-  name: "gridColumn",
-  group: "block",
-  content: "block+",
-  isolating: true,
-
-  parseHTML() {
-    return [{ tag: "div[data-type='grid-column']" }];
-  },
-
-  renderHTML({ HTMLAttributes }) {
-    return [
-      "div",
-      mergeAttributes(HTMLAttributes, { "data-type": "grid-column" }),
-      0,
-    ];
-  },
-});
-
 export const Grid = Node.create({
   name: "grid",
   group: "block",
@@ -90,11 +71,9 @@ export const Grid = Node.create({
         ({ tr, dispatch, state }) => {
           const { schema } = state;
 
-          const nodes = cols.map((_, index) => {
+          const nodes = cols.map((_) => {
             return schema.nodes.gridColumn.create({}, [
-              schema.nodes.paragraph.create({}, [
-                schema.text(`Col ${index + 1}`),
-              ]),
+              schema.nodes.paragraph.create({}, []),
             ]);
           });
 
