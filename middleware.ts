@@ -121,9 +121,7 @@ export async function middleware(request: NextRequest) {
 
         // Skip login redirect for auth callback routes and public routes
         const publicRoutes = ["/build-resume", "/login", "/resume", "/"];
-        const isPublicRoute = publicRoutes.some((route) =>
-            request.nextUrl.pathname.startsWith(route),
-        );
+        const isPublicRoute = publicRoutes.includes(request.nextUrl.pathname);
 
         if (
             !user &&
