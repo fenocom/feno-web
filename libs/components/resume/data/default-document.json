@@ -1,0 +1,46 @@
+{
+    "type": "doc",
+    "content": [
+      {
+        "type": "customHeading",
+        "attrs": { "level": 1 },
+        "content": [{ "type": "text", "text": "Alex Taylor" }]
+      },
+      {
+        "type": "personalInfo",
+        "attrs": {
+          "title": "Product Designer",
+          "location": "San Francisco, CA",
+          "email": "alex.taylor@example.com",
+          "phone": "(123) 456-7890"
+        }
+      },
+      {
+        "type": "summary",
+        "content": [
+          {
+            "type": "text",
+            "text": "Human-centered designer with 6+ years of experience shipping enterprise web applications."
+          }
+        ]
+      },
+      {
+        "type": "experience",
+        "attrs": { "company": "Feno", "role": "Senior Product Designer", "dates": "2022 — Present" },
+        "content": [
+          {
+            "type": "customParagraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "Own the resume product surface area, introducing a modular template system that improved exports by 40%."
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  }
+  
+  
+  

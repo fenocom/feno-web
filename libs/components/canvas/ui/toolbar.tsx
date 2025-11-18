@@ -2,7 +2,7 @@
 
 import { generateWebsiteHtml } from "@/libs/actions/generate-website";
 import { type Template, templates } from "@/libs/constants/templates";
-import { usePDFJS } from "@/libs/hooks/use-pdf";
+import { usePDFJS } from "@/libs/components/resume/hooks/use-pdf";
 import { Button } from "@/libs/ui/button";
 import logger from "@/libs/utils/logger";
 import { IconTemplate, IconUpload, IconX } from "@tabler/icons-react";
