@@ -9,7 +9,9 @@ import { TextStyle } from "@tiptap/extension-text-style";
 import Image from "@tiptap/extension-image";
 import Heading from "@tiptap/extension-heading";
 import Paragraph from "@tiptap/extension-paragraph";
+import Highlight from "@tiptap/extension-highlight";
 import { mergeAttributes } from "@tiptap/core";
+
 import { Grid, GridColumn } from "./grid";
 
 const styleAttribute = {
@@ -18,14 +20,14 @@ const styleAttribute = {
     const data = element.getAttribute("data-styles");
     return data ? JSON.parse(data) : {};
   },
-  renderHTML: (attributes: Record<string, string | number>) => {
+  renderHTML: (attributes: Record<string, any>) => {
     const styles = attributes.styles;
-    if (!styles || Object.keys(styles).length === 0) {
-      return {};
-    }
+    if (!styles || Object.keys(styles).length === 0) return {};
+
     const styleString = Object.entries(styles)
-      .map(([key, value]) => `${key}: ${value}`)
+      .map(([k, v]) => `${k}: ${v}`)
       .join("; ");
+
     return {
       "data-styles": JSON.stringify(styles),
       style: styleString,
@@ -35,8 +37,10 @@ const styleAttribute = {
 
 export const extensionsConfig = [
   StarterKit.configure({
-    heading: false,
-    paragraph: false,
+    // BubbleMenu,
+    strike: false, // disabling strike
+    heading: false, // Because you're overriding Heading manually
+    paragraph: false, // Overridden below
     bulletList: {
       keepMarks: true,
       keepAttributes: false,
@@ -57,6 +61,9 @@ export const extensionsConfig = [
       },
     },
   }),
+
+  Highlight,
+
   Heading.extend({
     addAttributes() {
       return {
@@ -65,10 +72,11 @@ export const extensionsConfig = [
       };
     },
     renderHTML({ node, HTMLAttributes }) {
-      const hasLevel = this.options.levels.includes(node.attrs.level);
-      const level = hasLevel ? node.attrs.level : this.options.levels[0];
+      const level = this.options.levels.includes(node.attrs.level)
+        ? node.attrs.level
+        : 1;
 
-      const classes: Record<number, string> = {
+      const classes = {
         1: "text-4xl font-bold mb-4",
         2: "text-xl font-bold mb-2 mt-4",
         3: "text-lg font-bold mb-2",
@@ -77,13 +85,12 @@ export const extensionsConfig = [
 
       return [
         `h${level}`,
-        mergeAttributes(this.options.HTMLAttributes, HTMLAttributes, {
-          class: classes[level],
-        }),
+        mergeAttributes(HTMLAttributes, { class: classes[level as 1 | 2 | 3 | 4] }),
         0,
       ];
     },
   }),
+
   Paragraph.extend({
     addAttributes() {
       return {
@@ -94,22 +101,26 @@ export const extensionsConfig = [
     renderHTML({ HTMLAttributes }) {
       return [
         "p",
-        mergeAttributes(this.options.HTMLAttributes, HTMLAttributes, {
+        mergeAttributes(HTMLAttributes, {
           class: "text-sm leading-relaxed mb-1.5",
         }),
         0,
       ];
     },
   }),
+
   Grid,
   GridColumn,
+
   Image.configure({
     inline: true,
     allowBase64: true,
   }),
+
   TextStyle,
   Color,
   Typography,
+
   Link.configure({
     openOnClick: false,
     autolink: true,
@@ -117,10 +128,12 @@ export const extensionsConfig = [
       class: "text-blue-500 hover:underline cursor-pointer",
     },
   }),
+
   TaskList,
   TaskItem.configure({
     nested: true,
   }),
+
   Placeholder.configure({
     placeholder: "Type something...",
   }),
