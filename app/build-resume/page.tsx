@@ -1,17 +1,4 @@
-"use client";
-
-import dynamic from "next/dynamic";
-
-const ResumeBuilder = dynamic(
-    () =>
-        import("@/libs/components/resume-builder/resume-builder").then(
-            (mod) => ({ default: mod.ResumeBuilder }),
-        ),
-    {
-        ssr: false,
-    },
-);
-
+import { ResumePage } from "@/libs/components/resume/resume-page";
 export default function BuildResumePage() {
-    return <ResumeBuilder />;
+  return <ResumePage />;
 }
