@@ -16,6 +16,7 @@ const securityHeaders = {
 };
 
 export async function middleware(request: NextRequest) {
+  console.log("Request pathname:", request.nextUrl.pathname);
     if (!request.nextUrl.pathname.startsWith("/_next")) {
         const subdomains = request.headers.get("host")?.split(".");
         const subdomain = subdomains?.[0];
@@ -118,12 +119,14 @@ export async function middleware(request: NextRequest) {
         response = sessionResponse.response;
         const user = sessionResponse.user;
 
-        // Skip login redirect for auth callback routes
+        // Skip login redirect for auth callback routes and public routes
+        const publicRoutes = ["/build-resume", "/login", "/resume", "/"];
+        const isPublicRoute = publicRoutes.includes(request.nextUrl.pathname);
+
         if (
-            !request.nextUrl.pathname.endsWith("/login") &&
-            !request.nextUrl.pathname.includes("/") &&
             !user &&
-            !isAuthCallback
+            !isAuthCallback &&
+            !isPublicRoute
         ) {
             return NextResponse.redirect(new URL("/login", request.url));
         }
