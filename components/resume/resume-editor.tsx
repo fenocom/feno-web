@@ -1,6 +1,6 @@
 "use client";
 
-import "./resume-editor.css";
+import "./styles/resume-editor.css";
 
 import { EditorContent, useEditor } from "@tiptap/react";
 import { extensionsConfig } from "./extensions/config";
