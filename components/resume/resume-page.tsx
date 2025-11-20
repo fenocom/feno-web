@@ -2,10 +2,12 @@ import { ResumeEditor } from "./resume-editor";
 
 export const ResumePage = () => {
   return (
-    <div className="min-h-screen w-full flex justify-center items-center bg-[#f7f7f7]">
-      <div className="z-10 p-2.5 bg-linear-to-b from-[#eae5e9] overflow-hidden to-[#eae9e3] rounded-3xl outline outline-black my-8">
-        <div className="rounded-2xl overflow-hidden shadow-[0_0_10px_1px_#cdcace]">
-          <ResumeEditor />
+    <div className="dot-pattern-bg overflow-auto">
+      <div className="min-h-screen w-full flex justify-center items-center">
+        <div className="z-10 p-1 rounded-[16px] outline outline-[#eda1f0] my-8">
+          <div className="rounded-[14px] overflow-hidden shadow-elevation-01">
+            <ResumeEditor />
+          </div>
         </div>
       </div>
     </div>
