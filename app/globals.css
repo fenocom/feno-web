@@ -1,14 +1,16 @@
 @import "tailwindcss";
 
 @theme {
-  --color-layer-01: #fdfdfd;
+  --color-layer-01: #fffbf7;
+  --color-layer-accent-01: #fae5f8;
+  --color-layer-accent-02: #cbeab7;
 
-  --color-edge-01: #b7b4b1;
+  --color-edge-01: #c8c4c0;
 
-  --shadow-elevation-01: 0 0 20px 2px #a1a1a1;
+  --shadow-elevation-01: 0 0 50px 1px #c8c4c0;
 }
 
 .dot-pattern-bg {
-  background-image: radial-gradient(#aaa 0.5px, #fdfdfd 0.5px);
+  background-image: radial-gradient(#aaa 0.5px, var(--color-layer-01) 0.5px);
   background-size: 20px 20px;
 }
