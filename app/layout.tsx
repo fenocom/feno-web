@@ -37,11 +37,11 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className="light">
+    <html lang="en" className="light bg-layer-01">
       <body
         className={`${hostGrotesk.variable} ${serif.variable} ${jetbrains.variable}  antialiased`}
       >
-        <main className="w-full h-screen bg-layer-01">{children}</main>
+        <main className="w-full h-screen">{children}</main>
       </body>
     </html>
   );

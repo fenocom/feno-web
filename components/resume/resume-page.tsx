@@ -1,3 +1,4 @@
+import { MainMenu } from "../main-menu";
 import { ResumeEditor } from "./resume-editor";
 
 export const ResumePage = () => {
@@ -10,6 +11,7 @@ export const ResumePage = () => {
           </div>
         </div>
       </div>
+      <MainMenu />
     </div>
   );
 };
