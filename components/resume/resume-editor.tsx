@@ -15,7 +15,7 @@ export const ResumeEditor = () => {
 
   return (
     <EditorContent
-      className="w-[210mm] p-0 min-h-[297mm] outline-none box-border"
+      className="w-[210mm] p-0 min-h-[297mm] outline-none box-border nodrag"
       editor={editor}
     />
   );
