@@ -9,23 +9,27 @@ export const template = {
           type: "gridColumn",
           attrs: {
             styles: {
-              padding: "2rem",
+              padding: "32px",
               "font-family": "Inter, Arial, sans-serif",
               color: "#111",
+              "background-color": "#ffffff",
+              width: "210mm",
+              "min-height": "297mm",
+              "box-sizing": "border-box",
             },
           },
           content: [
             /* ===========================
-             * NAME + TITLE + CONTACT
+             * HEADER
              * =========================== */
             {
               type: "heading",
               attrs: {
                 level: 1,
                 styles: {
-                  "font-size": "2.4rem",
+                  "font-size": "2.6rem",
                   "font-weight": "700",
-                  "margin-bottom": "0.25rem",
+                  "margin-bottom": "0.35rem",
                 },
               },
               content: [{ type: "text", text: "ALEXANDER MORGAN" }],
@@ -35,18 +39,18 @@ export const template = {
               type: "paragraph",
               attrs: {
                 styles: {
-                  "font-size": "0.95rem",
+                  "font-size": "1rem",
                   "font-weight": "500",
                   color: "#444",
-                  "margin-bottom": "0.75rem",
+                  "margin-bottom": "1rem",
                 },
               },
               content: [
-                { type: "text", text: "+1 555 908 3321 | " },
+                { type: "text", text: "+1 555 908 3321  |  " },
                 { type: "text", text: "alex.morgan@example.com", marks: [{ type: "underline" }] },
-                { type: "text", text: " | " },
+                { type: "text", text: "  |  " },
                 { type: "text", text: "github.com/alexdev", marks: [{ type: "underline" }] },
-                { type: "text", text: " | " },
+                { type: "text", text: "  |  " },
                 {
                   type: "text",
                   text: "linkedin.com/in/alexmorgan",
@@ -65,18 +69,19 @@ export const template = {
               attrs: {
                 level: 2,
                 styles: {
-                  "font-size": "1.3rem",
+                  "font-size": "1.4rem",
+                  "margin-top": "1.8rem",
                   "font-weight": "700",
-                  "margin-top": "1.6rem",
                 },
               },
               content: [{ type: "text", text: "EDUCATION" }],
             },
+
             { type: "horizontalRule" },
 
             {
               type: "paragraph",
-              attrs: { styles: { "margin-top": "0.5rem" } },
+              attrs: { styles: { "margin-top": "0.65rem" } },
               content: [
                 {
                   type: "text",
@@ -85,10 +90,12 @@ export const template = {
                 },
               ],
             },
+
             {
               type: "paragraph",
               content: [{ type: "text", text: "B.Sc. in Software Engineering" }],
             },
+
             {
               type: "paragraph",
               content: [{ type: "text", text: "CGPA: 8.12 / 10" }],
@@ -102,16 +109,16 @@ export const template = {
               attrs: {
                 level: 2,
                 styles: {
-                  "font-size": "1.3rem",
+                  "font-size": "1.4rem",
+                  "margin-top": "1.8rem",
                   "font-weight": "700",
-                  "margin-top": "1.6rem",
                 },
               },
               content: [{ type: "text", text: "EXPERIENCE" }],
             },
+
             { type: "horizontalRule" },
 
-            /* --- Job 1 --- */
             {
               type: "grid",
               attrs: { columnWidth: [70, 30] },
@@ -140,7 +147,7 @@ export const template = {
                   content: [
                     {
                       type: "paragraph",
-                      content: [{ type: "text", text: "07/2022 - Present" }],
+                      content: [{ type: "text", text: "07/2022 — Present" }],
                     },
                   ],
                 },
@@ -158,7 +165,7 @@ export const template = {
                       content: [
                         {
                           type: "text",
-                          text: "Developed responsive UIs using React, Next.js and TypeScript.",
+                          text: "Built responsive interfaces using React, Next.js, and TypeScript.",
                         },
                       ],
                     },
@@ -172,7 +179,7 @@ export const template = {
                       content: [
                         {
                           type: "text",
-                          text: "Optimized rendering performance, improving page speed by 32%.",
+                          text: "Improved application performance, reducing load times by 32%.",
                         },
                       ],
                     },
@@ -186,7 +193,7 @@ export const template = {
                       content: [
                         {
                           type: "text",
-                          text: "Integrated company-wide design system and reusable components.",
+                          text: "Implemented reusable UI components and internal design system.",
                         },
                       ],
                     },
@@ -200,7 +207,7 @@ export const template = {
                       content: [
                         {
                           type: "text",
-                          text: "Collaborated with backend team on scalable API design.",
+                          text: "Worked closely with backend teams on scalable API integrations.",
                         },
                       ],
                     },
@@ -217,13 +224,14 @@ export const template = {
               attrs: {
                 level: 2,
                 styles: {
-                  "font-size": "1.3rem",
+                  "font-size": "1.4rem",
+                  "margin-top": "1.8rem",
                   "font-weight": "700",
-                  "margin-top": "1.6rem",
                 },
               },
-              content: [{ type: "text", text: "TECHNICAL SKILLS" }],
+              content: [{ type: "text", text: "SKILLS" }],
             },
+
             { type: "horizontalRule" },
 
             {
@@ -238,7 +246,7 @@ export const template = {
                         {
                           type: "text",
                           text:
-                            "JavaScript, TypeScript, React, Next.js, Redux, Zustand, Tailwind CSS, Node.js, Express.js, PostgreSQL, MongoDB, GraphQL, Docker",
+                            "JavaScript, TypeScript, React, Next.js, Zustand, Tailwind CSS, Node.js, Express.js, PostgreSQL, MongoDB, GraphQL, Docker",
                         },
                       ],
                     },
@@ -255,13 +263,14 @@ export const template = {
               attrs: {
                 level: 2,
                 styles: {
-                  "font-size": "1.3rem",
+                  "font-size": "1.4rem",
+                  "margin-top": "1.8rem",
                   "font-weight": "700",
-                  "margin-top": "1.6rem",
                 },
               },
               content: [{ type: "text", text: "PROJECTS" }],
             },
+
             { type: "horizontalRule" },
 
             {
@@ -272,21 +281,9 @@ export const template = {
                   marks: [{ type: "bold" }],
                   text: "TaskFlow — Kanban Task Manager",
                 },
-                { type: "text", text: " — Built a real-time task board using Zustand + WebSockets." },
-              ],
-            },
-
-            {
-              type: "paragraph",
-              content: [
                 {
                   type: "text",
-                  marks: [{ type: "bold" }],
-                  text: "ShopBase",
-                },
-                {
-                  type: "text",
-                  text: " — E-commerce starter kit built with Next.js + Stripe.",
+                  text: " — Real-time collaboration using Zustand + WebSockets.",
                 },
               ],
             },
@@ -294,14 +291,21 @@ export const template = {
             {
               type: "paragraph",
               content: [
+                { type: "text", marks: [{ type: "bold" }], text: "ShopBase" },
                 {
                   type: "text",
-                  marks: [{ type: "bold" }],
-                  text: "PictoAI",
+                  text: " — E-commerce starter kit powered by Next.js + Stripe.",
                 },
+              ],
+            },
+
+            {
+              type: "paragraph",
+              content: [
+                { type: "text", marks: [{ type: "bold" }], text: "PictoAI" },
                 {
                   type: "text",
-                  text: " — AI-powered image caption generator using HuggingFace APIs.",
+                  text: " — AI-based image caption generator using HuggingFace APIs.",
                 },
               ],
             },

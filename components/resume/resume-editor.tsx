@@ -5,11 +5,12 @@ import "./styles/resume-editor.css";
 import { EditorContent, useEditor } from "@tiptap/react";
 import { extensionsConfig } from "./extensions/config";
 import { template } from "./templates/default-1/template";
+import { template as classicTemplate } from "./templates/classic/template";
 import BubbleMenuGlobal from "./menus/bubble-menu";
 
 export const ResumeEditor = () => {
   const editor = useEditor({
-    content: template,
+    content: classicTemplate,
     immediatelyRender: false,
     extensions: extensionsConfig as any, // Temporary fix for Tiptap extension type incompatibility
   });
