@@ -37,7 +37,6 @@ const styleAttribute = {
 
 export const extensionsConfig = [
   StarterKit.configure({
-    // BubbleMenu,
     strike: false, // disabling strike
     heading: false, // Because you're overriding Heading manually
     paragraph: false, // Overridden below
@@ -61,7 +60,6 @@ export const extensionsConfig = [
       },
     },
   }),
-
   Highlight,
 
   Heading.extend({

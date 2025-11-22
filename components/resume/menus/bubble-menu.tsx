@@ -39,7 +39,7 @@ export default function BubbleMenuGlobal({ editor }: { editor: Editor }) {
           onMouseDown={(e) => e.preventDefault()} // prevent editor losing focus
           onClick={() => editor.chain().focus().toggleBold().run()}
         >
-          <strong>B</strong>
+          <strong>Bold</strong>
         </button>
 
         <button
@@ -49,7 +49,7 @@ export default function BubbleMenuGlobal({ editor }: { editor: Editor }) {
           onMouseDown={(e) => e.preventDefault()}
           onClick={() => editor.chain().focus().toggleItalic().run()}
         >
-          <em>I</em>
+          <em>Italic</em>
         </button>
 
         <button
@@ -58,7 +58,7 @@ export default function BubbleMenuGlobal({ editor }: { editor: Editor }) {
           className={`rm-btn ${isHighlight ? "active" : ""}`}
           onMouseDown={(e) => e.preventDefault()}
         >
-          <span style={{ fontWeight: 600 }}>H</span>
+          <span style={{ fontWeight: 600 }}>Highlight</span>
         </button>
       </div>
     </BubbleMenu>
