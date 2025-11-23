@@ -7,7 +7,7 @@ import {
   Moon,
 } from "lucide-react";
 
-import { ThreeBackground } from "./ThreeBackground";
+import { ThreeBackground } from "./three-background";
 
 export const LandingPage = () => {
   return (
