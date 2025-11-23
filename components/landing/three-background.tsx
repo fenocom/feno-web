@@ -44,21 +44,21 @@ const fragmentShader = `
     beams3 = smoothstep(0.0, 0.5, beams3) * (1.0 - smoothstep(0.8, 1.0, beams3));
 
     // Combine layers
-    float totalLight = beams1 * 0.5 + beams2 * 0.3 + beams3 * 0.2; // Reduced intensity
+    float totalLight = beams1 * 0.3 + beams2 * 0.15 + beams3 * 0.1; // Significantly reduced intensity
     
     // Add mouse interaction (local brightness boost)
     float dist = distance(vUv, uMouse);
     float mouseGlow = 1.0 - smoothstep(0.0, 0.6, dist);
-    totalLight += mouseGlow * 0.15; // Reduced mouse glow
+    totalLight += mouseGlow * 0.08; // Reduced mouse glow further
 
     // Color mapping
     // Core is NO LONGER white, but a lighter blue
-    vec3 coreColor = vec3(0.4, 0.6, 0.9); // Soft Blue
+    vec3 coreColor = vec3(0.2, 0.4, 0.8); // Darker Blue
     vec3 glowColor = uColor2; // Darker Cyan/Indigo
     vec3 baseColor = uColor1; // Dark background
     
-    vec3 finalColor = mix(baseColor, glowColor, totalLight * 0.6); // 60% max intensity
-    finalColor = mix(finalColor, coreColor, pow(totalLight, 3.0) * 0.3); // Reduced core intensity
+    vec3 finalColor = mix(baseColor, glowColor, totalLight * 0.4); // Reduced max intensity
+    finalColor = mix(finalColor, coreColor, pow(totalLight, 3.0) * 0.15); // Reduced core intensity
     
     // Vignette
     float vignette = 1.0 - distance(vUv, vec2(0.5));
