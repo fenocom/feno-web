@@ -22,6 +22,6 @@
             "@/*": ["./*"]
         }
     },
-    "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts", "libs/components/resume/template-selector.jsx", "libs/components/resume/resume-editor.jsx"],
+    "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts", "libs/components/resume/template-selector.jsx", "libs/components/resume/resume-editor.jsx", "components/resume/menus/bubble-menu.jsx"],
     "exclude": ["node_modules"]
 }
