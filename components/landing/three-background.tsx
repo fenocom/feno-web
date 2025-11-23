@@ -1,177 +1,117 @@
 "use client";
 
-import { Canvas, useFrame } from "@react-three/fiber";
-import { useRef, useMemo, useEffect } from "react";
+import { Canvas, useFrame, useThree } from "@react-three/fiber";
+import { useMemo, useRef } from "react";
 import * as THREE from "three";
 
 const vertexShader = `
-  uniform float uTime;
-  uniform vec2 uMouse;
-  
-  attribute float aSpeed;
-  attribute float aOffset;
-  attribute vec3 aColor;
-  
-  varying vec3 vColor;
-  varying float vAlpha;
-
+  varying vec2 vUv;
   void main() {
-    vec3 pos = position;
-    
-    // Tunnel effect: Move along Z axis
-    // We use the instance matrix to position initially, but we'll override z in shader
-    vec4 instancePos = instanceMatrix * vec4(0.0, 0.0, 0.0, 1.0);
-    
-    // Slow down speed significantly (0.1x)
-    float zPos = instancePos.z + (uTime * aSpeed * 2.0); 
-    
-    // Loop z position
-    float tunnelLength = 100.0;
-    zPos = mod(zPos, tunnelLength) - 50.0; // Range -50 to 50
-    
-    // Subtle curve/warp
-    float zProgress = (zPos + 50.0) / tunnelLength; // 0 to 1
-    vec2 warp = uMouse * 2.0 * pow(zProgress, 2.0); // Reduced warp strength
-    
-    vec3 finalPos = instancePos.xyz;
-    finalPos.z = zPos;
-    finalPos.xy += warp;
-    
-    // Apply local vertex position (the streak shape)
-    vec4 modelPosition = vec4(finalPos + pos, 1.0);
-    vec4 viewPosition = viewMatrix * modelPosition;
-    vec4 projectedPosition = projectionMatrix * viewPosition;
-
-    gl_Position = projectedPosition;
-    
-    vColor = aColor;
-    
-    // Smoother fade out at ends
-    float dist = abs(zPos);
-    vAlpha = 1.0 - smoothstep(10.0, 45.0, dist);
+    vUv = uv;
+    gl_Position = projectionMatrix * modelViewMatrix * vec4(position, 1.0);
   }
 `;
 
 const fragmentShader = `
-  varying vec3 vColor;
-  varying float vAlpha;
+  uniform float uTime;
+  uniform vec2 uMouse;
+  uniform vec3 uColor1;
+  uniform vec3 uColor2;
+  
+  varying vec2 vUv;
 
   void main() {
-    // Soft glow from center of the streak
-    // We can use UVs if we had them, but for simple streaks we can just use color
+    // Rotate UVs for diagonal effect (-30 degrees)
+    float angle = -0.52;
+    mat2 rot = mat2(cos(angle), -sin(angle), sin(angle), cos(angle));
+    vec2 rotatedUv = rot * (vUv - 0.5) + 0.5;
+
+    // Create repeating sharp beams
+    // Layer 1: Main beams (Slower)
+    float t1 = uTime * 0.05; // Slowed down
+    float beams1 = fract(rotatedUv.x * 5.0 + t1);
+    // Softer edge using wider smoothstep range
+    beams1 = smoothstep(0.0, 0.3, beams1) * (1.0 - smoothstep(0.7, 1.0, beams1));
     
-    // Very subtle opacity
-    float strength = 0.4; // Reduced base opacity
-    gl_FragColor = vec4(vColor, vAlpha * strength);
+    // Layer 2: Thinner beams (Slower)
+    float t2 = uTime * 0.08; // Slowed down
+    float beams2 = fract(rotatedUv.x * 8.0 + t2 + 0.5);
+    beams2 = smoothstep(0.0, 0.2, beams2) * (1.0 - smoothstep(0.3, 0.5, beams2));
+    
+    // Layer 3: Background ambient flow
+    float t3 = uTime * 0.02;
+    float beams3 = fract(rotatedUv.x * 3.0 - t3);
+    beams3 = smoothstep(0.0, 0.5, beams3) * (1.0 - smoothstep(0.8, 1.0, beams3));
+
+    // Combine layers
+    float totalLight = beams1 * 0.5 + beams2 * 0.3 + beams3 * 0.2; // Reduced intensity
+    
+    // Add mouse interaction (local brightness boost)
+    float dist = distance(vUv, uMouse);
+    float mouseGlow = 1.0 - smoothstep(0.0, 0.6, dist);
+    totalLight += mouseGlow * 0.15; // Reduced mouse glow
+
+    // Color mapping
+    // Core is NO LONGER white, but a lighter blue
+    vec3 coreColor = vec3(0.4, 0.6, 0.9); // Soft Blue
+    vec3 glowColor = uColor2; // Darker Cyan/Indigo
+    vec3 baseColor = uColor1; // Dark background
+    
+    vec3 finalColor = mix(baseColor, glowColor, totalLight * 0.6); // 60% max intensity
+    finalColor = mix(finalColor, coreColor, pow(totalLight, 3.0) * 0.3); // Reduced core intensity
+    
+    // Vignette
+    float vignette = 1.0 - distance(vUv, vec2(0.5));
+    vignette = smoothstep(0.0, 1.0, vignette);
+    
+    gl_FragColor = vec4(finalColor, 1.0);
   }
 `;
 
-const Tunnel = () => {
-    const mesh = useRef<THREE.InstancedMesh>(null!);
-    const count = 1500; // Increased count for density but thinner
+const Rays = () => {
+    const mesh = useRef<THREE.Mesh>(null!);
+    const { viewport } = useThree();
 
-    const { attributes, uniforms } = useMemo(() => {
-        const speeds = new Float32Array(count);
-        const offsets = new Float32Array(count);
-        const colors = new Float32Array(count * 3);
-
-        const colorPalette = [
-            new THREE.Color("#1e1b4b"), // Very Dark Indigo
-            new THREE.Color("#312e81"), // Dark Indigo
-            new THREE.Color("#172554"), // Dark Blue
-            new THREE.Color("#1e3a8a"), // Blue 900
-        ];
-
-        for (let i = 0; i < count; i++) {
-            speeds[i] = Math.random() * 0.2 + 0.1; // Slower speeds
-            offsets[i] = Math.random() * 100;
-
-            const color = colorPalette[Math.floor(Math.random() * colorPalette.length)];
-            colors[i * 3] = color.r;
-            colors[i * 3 + 1] = color.g;
-            colors[i * 3 + 2] = color.b;
-        }
-
-        return {
-            attributes: {
-                aSpeed: speeds,
-                aOffset: offsets,
-                aColor: colors,
-            },
-            uniforms: {
-                uTime: { value: 0 },
-                uMouse: { value: new THREE.Vector2(0, 0) },
-            }
-        };
-    }, []);
+    const uniforms = useMemo(
+        () => ({
+            uTime: { value: 0 },
+            uMouse: { value: new THREE.Vector2(0.5, 0.5) },
+            uColor1: { value: new THREE.Color("#020617") }, // Slate 950
+            uColor2: { value: new THREE.Color("#1e3a8a") }, // Blue 900 (Darker)
+        }),
+        []
+    );
 
     useFrame((state) => {
-        const { clock, mouse } = state;
+        const { clock, pointer } = state;
         const material = mesh.current.material as THREE.ShaderMaterial;
         if (material.uniforms) {
             material.uniforms.uTime.value = clock.getElapsedTime();
+
+            // Smooth mouse interpolation
+            // Pointer is -1 to 1, convert to 0 to 1 for UVs
+            const targetX = (pointer.x + 1) / 2;
+            const targetY = (pointer.y + 1) / 2;
+
             material.uniforms.uMouse.value.lerp(
-                new THREE.Vector2(mouse.x, mouse.y),
-                0.02 // Slower mouse reaction
+                new THREE.Vector2(targetX, targetY),
+                0.05
             );
         }
     });
 
-    useEffect(() => {
-        if (!mesh.current) return;
-
-        const tempObject = new THREE.Object3D();
-
-        for (let i = 0; i < count; i++) {
-            const radius = 10 + Math.random() * 20; // Wider tunnel
-            const angle = Math.random() * Math.PI * 2;
-            const z = (Math.random() - 0.5) * 100;
-
-            const x = Math.cos(angle) * radius;
-            const y = Math.sin(angle) * radius;
-
-            tempObject.position.set(x, y, z);
-            tempObject.rotation.z = angle;
-            tempObject.rotation.x = Math.PI / 2;
-
-            const length = Math.random() * 10 + 5; // Longer lines
-            tempObject.scale.set(0.02, length, 1); // Very thin lines
-
-            tempObject.updateMatrix();
-            mesh.current.setMatrixAt(i, tempObject.matrix);
-        }
-        mesh.current.instanceMatrix.needsUpdate = true;
-    }, []);
-
     return (
-        <instancedMesh
-            ref={mesh}
-            args={[undefined, undefined, count]}
-        >
-            <planeGeometry args={[1, 1]}>
-                <instancedBufferAttribute
-                    attach="attributes-aSpeed"
-                    args={[attributes.aSpeed, 1]}
-                />
-                <instancedBufferAttribute
-                    attach="attributes-aOffset"
-                    args={[attributes.aOffset, 1]}
-                />
-                <instancedBufferAttribute
-                    attach="attributes-aColor"
-                    args={[attributes.aColor, 3]}
-                />
-            </planeGeometry>
+        <mesh ref={mesh} scale={[viewport.width, viewport.height, 1]}>
+            <planeGeometry args={[1, 1]} />
             <shaderMaterial
                 vertexShader={vertexShader}
                 fragmentShader={fragmentShader}
                 uniforms={uniforms}
                 transparent
-                blending={THREE.AdditiveBlending}
+                blending={THREE.NormalBlending} // Switch to Normal for solid background coverage
                 depthWrite={false}
-                side={THREE.DoubleSide}
             />
-        </instancedMesh>
+        </mesh>
     );
 };
 
@@ -179,12 +119,11 @@ export const ThreeBackground = () => {
     return (
         <div className="absolute inset-0 z-0">
             <Canvas
-                camera={{ position: [0, 0, 20], fov: 45 }} // Narrower FOV for depth
+                camera={{ position: [0, 0, 1] }}
                 gl={{ alpha: true, antialias: true }}
                 dpr={[1, 2]}
             >
-                <Tunnel />
-                <fog attach="fog" args={['#02040a', 20, 60]} />
+                <Rays />
             </Canvas>
         </div>
     );
