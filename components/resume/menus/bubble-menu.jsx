@@ -31,7 +31,7 @@ export default function BubbleMenuGlobal({ editor }) {
 
   const applyFontSize = (size) => {
     setFontSize(size);
-    editor.chain().focus().setFontSize(`${size}px`).run();
+    editor.chain().focus().setFontSize(size + "px").run();
   };
 
   const applyColor = (color) => {
@@ -54,7 +54,6 @@ export default function BubbleMenuGlobal({ editor }) {
     >
       <div className="bubble-menu" onMouseDown={stopBubble}>
 
-        {/* 🎨 Color */}
         <input
           type="color"
           className="color-picker"
@@ -63,13 +62,11 @@ export default function BubbleMenuGlobal({ editor }) {
           onChange={(e) => applyColor(e.target.value)}
         />
 
-        {/* Aa Font-Family Dropdown */}
         <TypographyDropdown
           editor={editor}
           currentFont={editorState.fontFamily}
         />
 
-        {/* Font size number */}
         <input
           type="number"
           min={8}
@@ -80,7 +77,6 @@ export default function BubbleMenuGlobal({ editor }) {
           onChange={(e) => applyFontSize(parseInt(e.target.value))}
         />
 
-        {/* Bold */}
         <button
           className={`bm-btn ${editorState.isBold ? "active" : ""}`}
           onMouseDown={stopBubble}
@@ -89,7 +85,6 @@ export default function BubbleMenuGlobal({ editor }) {
           B
         </button>
 
-        {/* Italic */}
         <button
           className={`bm-btn ${editorState.isItalic ? "active" : ""}`}
           onMouseDown={stopBubble}
@@ -98,16 +93,18 @@ export default function BubbleMenuGlobal({ editor }) {
           I
         </button>
 
-        {/* Slider */}
-        <input
-          type="range"
-          min={8}
-          max={64}
-          value={fontSize}
-          onMouseDown={stopBubble}
-          onChange={(e) => applyFontSize(parseInt(e.target.value))}
-          className="font-slider"
-        />
+        <div className="slider-wrapper">
+          <input
+            type="range"
+            min={8}
+            max={64}
+            className="font-slider"
+            value={fontSize}
+            onMouseDown={(e) => e.preventDefault()}
+            onChange={(e) => applyFontSize(parseInt(e.target.value))}
+          />
+        </div>
+
       </div>
     </BubbleMenu>
   );

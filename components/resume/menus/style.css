@@ -1,51 +1,85 @@
-  .bubble-wrap {
-    z-index: 9999;
-  }
-  
-  .bubble-menu {
-    display: flex;
-    align-items: center;
-    gap: 8px;
-  
-    background: #2f2f2f;
-    padding: 8px 14px;
-    border-radius: 12px;
-  }
-  
-  .bm-btn {
-    padding: 4px 8px;
-    background: transparent;
-    color: white;
-    border-radius: 6px;
-  }
-  
-  .bm-btn.active {
-    background: rgba(255,255,255,0.15);
-  }
-  
-  .color-picker {
-    width: 28px;
-    height: 28px;
-    border-radius: 6px;
-    border: none;
-    padding: 0;
-  }
-  
-  .font-size-input {
-    width: 40px;
-    border: none;
-    border-radius: 6px;
-    padding: 2px 4px;
-    background: #444;
-    color: white;
-  }
-  
-  .slider-wrapper {
-    margin-top: 6px;
-    width: 100%;
-  }
-  
-  .font-slider {
-    width: 100px;
-  }
-  
+.bubble-wrap {
+  z-index: 9999;
+}
+
+.bubble-menu {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background: #2f2f2f;
+  padding: 8px 14px;
+  border-radius: 14px;
+}
+
+/* Buttons */
+.bm-btn {
+  padding: 4px 10px;
+  background: transparent;
+  color: white;
+  border-radius: 6px;
+  font-size: 14px;
+}
+
+.bm-btn.active {
+  background: rgba(255, 255, 255, 0.18);
+}
+
+/* Color Picker */
+.color-picker {
+  width: 28px;
+  height: 28px;
+  border-radius: 6px;
+  border: none;
+  background: transparent;
+  padding: 0;
+  cursor: pointer;
+}
+
+/* Font Size Input */
+.font-size-input {
+  width: 38px;
+  height: 26px;
+  background: #444;
+  color: #fff;
+  border: none;
+  border-radius: 6px;
+  text-align: center;
+  font-size: 14px;
+}
+
+.slider-wrapper {
+  width: 140px;
+  position: absolute;
+  top: -26px;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+.font-slider {
+  width: 100%;
+  height: 4px;
+  appearance: none;
+  background: #999;
+  border-radius: 4px;
+  outline: none;
+}
+
+.font-slider::-webkit-slider-thumb {
+  appearance: none;
+  width: 14px;
+  height: 14px;
+  background: white;
+  border: 1px solid black;
+  border-radius: 50%;
+  cursor: pointer;
+}
+
+.font-slider::-moz-range-thumb {
+  width: 14px;
+  height: 14px;
+  border: 1px solid black;
+  background: rgba(51, 48, 48, 0.083);
+  border-radius: 50%;
+  cursor: pointer;
+}

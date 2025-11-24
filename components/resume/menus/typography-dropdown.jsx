@@ -25,7 +25,7 @@ export default function TypographyDropdown({ editor, currentFont }) {
           side="bottom"
           align="start"
           sideOffset={6}
-          className="z-[99999] bg-white text-black shadow-lg border rounded-lg p-2 w-48"
+          className="z-[999] bg-white text-black shadow-lg border rounded-lg p-2 w-48"
           onOpenAutoFocus={(e) => e.preventDefault()}
         >
           <div className="flex flex-col gap-1">
