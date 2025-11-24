@@ -62,16 +62,6 @@ export const extensionsConfig = [
     },
   }),
 
-  TextStyle.extend({
-    addAttributes() {
-      return {
-        fontSize: { default: null },
-        color: { default: null },
-        fontFamily: { default: null }, // 👈 REQUIRED FOR Aa DROPDOWN
-      };
-    },
-  }),
-
   Highlight,
   FontFamily,
 
@@ -128,7 +118,6 @@ export const extensionsConfig = [
     allowBase64: true,
   }),
 
-  TextStyle,
   Color,
   Typography,
 
