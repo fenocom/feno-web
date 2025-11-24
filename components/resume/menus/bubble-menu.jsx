@@ -31,16 +31,14 @@ export default function BubbleMenuGlobal({ editor }) {
 
   const applyFontSize = (size) => {
     setFontSize(size);
-    editor
-      .chain()
-      .focus()
-      .setMark("textStyle", { fontSize: `${size}px` })
-      .run();
+    editor.chain().focus().setFontSize(`${size}px`).run();
   };
 
-  const applyColor = (c) => {
-    editor.chain().focus().setColor(c).run();
+  const applyColor = (color) => {
+    editor.chain().focus().setColor(color).run();
   };
+
+  const stopBubble = (e) => e.stopPropagation();
 
   return (
     <BubbleMenu
@@ -54,15 +52,15 @@ export default function BubbleMenuGlobal({ editor }) {
         placement: "top",
       }}
     >
-      <div className="bubble-menu">
+      <div className="bubble-menu" onMouseDown={stopBubble}>
 
         {/* 🎨 Color */}
         <input
           type="color"
           className="color-picker"
           value={editorState.color}
-          onMouseDown={(e) => e.preventDefault()}
-          onInput={(e) => applyColor(e.target.value)}
+          onMouseDown={stopBubble}
+          onChange={(e) => applyColor(e.target.value)}
         />
 
         {/* Aa Font-Family Dropdown */}
@@ -78,14 +76,14 @@ export default function BubbleMenuGlobal({ editor }) {
           max={64}
           className="font-size-input"
           value={fontSize}
-          onMouseDown={(e) => e.preventDefault()}
+          onMouseDown={stopBubble}
           onChange={(e) => applyFontSize(parseInt(e.target.value))}
         />
 
         {/* Bold */}
         <button
           className={`bm-btn ${editorState.isBold ? "active" : ""}`}
-          onMouseDown={(e) => e.preventDefault()}
+          onMouseDown={stopBubble}
           onClick={() => editor.chain().focus().toggleBold().run()}
         >
           B
@@ -94,24 +92,22 @@ export default function BubbleMenuGlobal({ editor }) {
         {/* Italic */}
         <button
           className={`bm-btn ${editorState.isItalic ? "active" : ""}`}
-          onMouseDown={(e) => e.preventDefault()}
+          onMouseDown={stopBubble}
           onClick={() => editor.chain().focus().toggleItalic().run()}
         >
           I
         </button>
 
         {/* Slider */}
-        <div className="slider-wrapper">
-          <input
-            type="range"
-            min={8}
-            max={64}
-            value={fontSize}
-            onChange={(e) => applyFontSize(parseInt(e.target.value))}
-            onMouseDown={(e) => e.preventDefault()}
-            className="font-slider"
-          />
-        </div>
+        <input
+          type="range"
+          min={8}
+          max={64}
+          value={fontSize}
+          onMouseDown={stopBubble}
+          onChange={(e) => applyFontSize(parseInt(e.target.value))}
+          className="font-slider"
+        />
       </div>
     </BubbleMenu>
   );
