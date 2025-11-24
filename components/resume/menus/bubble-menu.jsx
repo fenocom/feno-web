@@ -100,7 +100,7 @@ export default function BubbleMenuGlobal({ editor }) {
             max={64}
             className="font-slider"
             value={fontSize}
-            onMouseDown={(e) => e.preventDefault()}
+            onMouseDown={stopBubble}
             onChange={(e) => applyFontSize(parseInt(e.target.value))}
           />
         </div>
