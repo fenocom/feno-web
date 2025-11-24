@@ -1,4 +1,4 @@
-import logger from "@/libs/utils/logger";
+// import logger from "@/libs/utils/logger";
 import type { SupabaseClient } from "@supabase/supabase-js";
 
 export const getAuthUserQuery = async ({
@@ -8,7 +8,7 @@ export const getAuthUserQuery = async ({
         const response = await supabase.auth.getUser();
         return response;
     } catch (error) {
-        logger.error({ error }, "Error getting auth user");
+        // logger.error({ error }, "Error getting auth user");
     }
 };
 
