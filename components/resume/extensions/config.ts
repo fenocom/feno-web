@@ -13,6 +13,7 @@ import Highlight from "@tiptap/extension-highlight";
 import { mergeAttributes } from "@tiptap/core";
 
 import { Grid, GridColumn } from "./grid";
+import { FontFamily } from "./font-family";
 
 const styleAttribute = {
   default: {},
@@ -20,7 +21,7 @@ const styleAttribute = {
     const data = element.getAttribute("data-styles");
     return data ? JSON.parse(data) : {};
   },
-  renderHTML: (attributes: Record<string, any>) => {
+  renderHTML: (attributes: any) => {
     const styles = attributes.styles;
     if (!styles || Object.keys(styles).length === 0) return {};
 
@@ -60,7 +61,19 @@ export const extensionsConfig = [
       },
     },
   }),
+
+  TextStyle.extend({
+    addAttributes() {
+      return {
+        fontSize: { default: null },
+        color: { default: null },
+        fontFamily: { default: null }, // 👈 REQUIRED FOR Aa DROPDOWN
+      };
+    },
+  }),
+
   Highlight,
+  FontFamily,
 
   Heading.extend({
     addAttributes() {

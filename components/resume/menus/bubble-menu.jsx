@@ -3,58 +3,60 @@
 import { BubbleMenu } from "@tiptap/react/menus";
 import { useEditorState } from "@tiptap/react";
 import { useState, useEffect } from "react";
-import "./style.css"
+import TypographyDropdown from "./typography-dropdown";
+import "./style.css";
 
 export default function BubbleMenuGlobal({ editor }) {
   if (!editor) return null;
 
-  // ---- GET ACTIVE STATE FROM EDITOR ----
   const editorState = useEditorState({
     editor,
-    selector: (ctx) => {
-      return {
-        isBold: ctx.editor.isActive("bold"),
-        isItalic: ctx.editor.isActive("italic"),
-
-        // Read font size mark
-        fontSize:
-          parseInt(
-            ctx.editor.getAttributes("textStyle")?.fontSize?.replace("px", "")
-          ) || 16,
-
-        // Text color detection
-        color: ctx.editor.getAttributes("textStyle")?.color || "#000000",
-      };
-    },
+    selector: (ctx) => ({
+      isBold: ctx.editor.isActive("bold"),
+      isItalic: ctx.editor.isActive("italic"),
+      fontSize:
+        parseInt(
+          ctx.editor.getAttributes("textStyle")?.fontSize?.replace("px", "")
+        ) || 16,
+      color: ctx.editor.getAttributes("textStyle")?.color || "#000000",
+      fontFamily: ctx.editor.getAttributes("textStyle")?.fontFamily || "",
+    }),
   });
 
   const [fontSize, setFontSize] = useState(16);
 
-  // Sync React fontSize state with editor state
-  useEffect(() => {
-    setFontSize(editorState.fontSize);
-  }, [editorState.fontSize]);
+  useEffect(() => setFontSize(editorState.fontSize), [editorState.fontSize]);
 
-  // ---- Should show only when text is selected ----
-  const shouldShow = ({ editor }) => {
-    const { empty } = editor.state.selection;
-    return !empty;
-  };
+  const shouldShow = ({ editor }) => !editor.state.selection.empty;
 
   const applyFontSize = (size) => {
     setFontSize(size);
-    editor.chain().focus().setMark("textStyle", { fontSize: `${size}px` }).run();
+    editor
+      .chain()
+      .focus()
+      .setMark("textStyle", { fontSize: `${size}px` })
+      .run();
   };
 
-  const applyColor = (color) => {
-    editor.chain().focus().setColor(color).run();
+  const applyColor = (c) => {
+    editor.chain().focus().setColor(c).run();
   };
 
   return (
-    <BubbleMenu editor={editor} shouldShow={shouldShow} className="bubble-wrap">
+    <BubbleMenu
+      editor={editor}
+      shouldShow={shouldShow}
+      className="bubble-wrap"
+      tippyoptions={{
+        interactive: true,
+        duration: 0,
+        hideOnClick: false,
+        placement: "top",
+      }}
+    >
       <div className="bubble-menu">
 
-        {/* 🎨 Color Picker */}
+        {/* 🎨 Color */}
         <input
           type="color"
           className="color-picker"
@@ -63,12 +65,13 @@ export default function BubbleMenuGlobal({ editor }) {
           onInput={(e) => applyColor(e.target.value)}
         />
 
-        {/* Aa Typography (placeholder button) */}
-        <button className="bm-btn" onMouseDown={(e) => e.preventDefault()}>
-          Aa
-        </button>
+        {/* Aa Font-Family Dropdown */}
+        <TypographyDropdown
+          editor={editor}
+          currentFont={editorState.fontFamily}
+        />
 
-        {/* Font Size Number Input */}
+        {/* Font size number */}
         <input
           type="number"
           min={8}
@@ -97,21 +100,16 @@ export default function BubbleMenuGlobal({ editor }) {
           I
         </button>
 
-        {/* More */}
-        <button className="bm-btn" onMouseDown={(e) => e.preventDefault()}>
-          …
-        </button>
-
-        {/* ---- SLIDER (Below the menu) ---- */}
+        {/* Slider */}
         <div className="slider-wrapper">
           <input
             type="range"
             min={8}
             max={64}
             value={fontSize}
-            className="font-slider"
-            onMouseDown={(e) => e.preventDefault()}
             onChange={(e) => applyFontSize(parseInt(e.target.value))}
+            onMouseDown={(e) => e.preventDefault()}
+            className="font-slider"
           />
         </div>
       </div>
