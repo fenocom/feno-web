@@ -52,7 +52,7 @@ export default function BubbleMenuGlobal({ editor }) {
       editor={editor}
       shouldShow={shouldShow}
       className="bubble-wrap"
-      tippyOptions={{
+      tippyoptions={{
         interactive: true,
         duration: 0,
         hideOnClick: false,
