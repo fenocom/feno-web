@@ -5,6 +5,7 @@ import { useEditorState } from "@tiptap/react";
 import { useState, useEffect } from "react";
 import TypographyDropdown from "./typography-dropdown";
 import { Button, Slider } from "@radix-ui/themes";
+import { Bold, Italic } from "lucide-react";
 import ColorPicker from "./color-picker";
 
 import "./style.css";
@@ -86,7 +87,7 @@ export default function BubbleMenuGlobal({ editor }) {
           onMouseDown={stopBubble}
           onClick={() => editor.chain().focus().toggleBold().run()}
         >
-          B
+          <Bold size={16} />
         </Button>
 
         <Button
@@ -95,7 +96,7 @@ export default function BubbleMenuGlobal({ editor }) {
           onMouseDown={stopBubble}
           onClick={() => editor.chain().focus().toggleItalic().run()}
         >
-          I
+          <Italic size={16} />
         </Button>
 
         <div className="slider-wrapper" onMouseDown={stopBubble}>
