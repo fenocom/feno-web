@@ -4,6 +4,7 @@ import { BubbleMenu } from "@tiptap/react/menus";
 import { useEditorState } from "@tiptap/react";
 import { useState, useEffect } from "react";
 import TypographyDropdown from "./typography-dropdown";
+import { Button } from "@radix-ui/themes";
 import "./style.css";
 
 export default function BubbleMenuGlobal({ editor }) {
@@ -45,7 +46,7 @@ export default function BubbleMenuGlobal({ editor }) {
       editor={editor}
       shouldShow={shouldShow}
       className="bubble-wrap"
-      tippyoptions={{
+      tippyOptions={{
         interactive: true,
         duration: 0,
         hideOnClick: false,
@@ -77,21 +78,23 @@ export default function BubbleMenuGlobal({ editor }) {
           onChange={(e) => applyFontSize(parseInt(e.target.value))}
         />
 
-        <button
+        <Button
+          size="1"
           className={`bm-btn ${editorState.isBold ? "active" : ""}`}
           onMouseDown={stopBubble}
           onClick={() => editor.chain().focus().toggleBold().run()}
         >
           B
-        </button>
+        </Button>
 
-        <button
+        <Button
+          size="1"
           className={`bm-btn ${editorState.isItalic ? "active" : ""}`}
           onMouseDown={stopBubble}
           onClick={() => editor.chain().focus().toggleItalic().run()}
         >
           I
-        </button>
+        </Button>
 
         <div className="slider-wrapper">
           <input
