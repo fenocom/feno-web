@@ -34,7 +34,11 @@ export default function BubbleMenuGlobal({ editor }) {
 
   const applyFontSize = (size) => {
     setFontSize(size);
-    editor.chain().focus().setFontSize(size + "px").run();
+    editor
+      .chain()
+      .focus()
+      .setFontSize(size + "px")
+      .run();
   };
 
   const applyColor = (color) => {
@@ -56,11 +60,10 @@ export default function BubbleMenuGlobal({ editor }) {
       }}
     >
       <div className="bubble-menu" onMouseDown={stopBubble}>
-
-      <ColorPicker
-        color={editorState.color}
-        onChange={(c) => applyColor(c)}
-      />
+        <ColorPicker
+          color={editorState.color}
+          onChange={(c) => applyColor(c)}
+        />
 
         <TypographyDropdown
           editor={editor}
@@ -105,7 +108,6 @@ export default function BubbleMenuGlobal({ editor }) {
             className="font-slider"
           />
         </div>
-
       </div>
     </BubbleMenu>
   );
