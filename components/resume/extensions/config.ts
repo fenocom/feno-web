@@ -111,6 +111,16 @@ export const extensionsConfig = [
     },
   }),
 
+  Link.configure({
+    openOnClick: false,
+    autolink: true,
+    defaultProtocol: "https",
+    validate: (href) => /^https?:\/\//.test(href),
+    HTMLAttributes: {
+      class: "text-blue-500 underline cursor-pointer",
+    },
+  }),
+
   Grid,
   GridColumn,
 
@@ -121,14 +131,6 @@ export const extensionsConfig = [
 
   Color,
   Typography,
-
-  Link.configure({
-    openOnClick: false,
-    autolink: true,
-    HTMLAttributes: {
-      class: "text-blue-500 hover:underline cursor-pointer",
-    },
-  }),
 
   TaskList,
   TaskItem.configure({

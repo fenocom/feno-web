@@ -5,7 +5,7 @@ import { useEditorState } from "@tiptap/react";
 import { useState, useEffect } from "react";
 import TypographyDropdown from "./typography-dropdown";
 import { Button, Slider } from "@radix-ui/themes";
-import { Bold, Italic } from "lucide-react";
+import { Bold, Italic, Link as LinkIcon, Link2Off } from "lucide-react";
 import ColorPicker from "./color-picker";
 
 import "./style.css";
@@ -18,6 +18,7 @@ export default function BubbleMenuGlobal({ editor }) {
     selector: (ctx) => ({
       isBold: ctx.editor.isActive("bold"),
       isItalic: ctx.editor.isActive("italic"),
+      isLink: ctx.editor.isActive("link"),
       fontSize:
         parseInt(
           ctx.editor.getAttributes("textStyle")?.fontSize?.replace("px", "")
@@ -28,18 +29,13 @@ export default function BubbleMenuGlobal({ editor }) {
   });
 
   const [fontSize, setFontSize] = useState(16);
-
   useEffect(() => setFontSize(editorState.fontSize), [editorState.fontSize]);
 
   const shouldShow = ({ editor }) => !editor.state.selection.empty;
 
   const applyFontSize = (size) => {
     setFontSize(size);
-    editor
-      .chain()
-      .focus()
-      .setFontSize(size + "px")
-      .run();
+    editor.chain().focus().setFontSize(size + "px").run();
   };
 
   const applyColor = (color) => {
@@ -48,12 +44,29 @@ export default function BubbleMenuGlobal({ editor }) {
 
   const stopBubble = (e) => e.stopPropagation();
 
+  const setLink = () => {
+    const prev = editor.getAttributes("link").href;
+    const url = window.prompt("Enter URL", prev || "");
+    if (url === null) return;
+    if (url === "") {
+      editor.chain().focus().extendMarkRange("link").unsetLink().run();
+      return;
+    }
+    try {
+      editor.chain().focus().extendMarkRange("link").setLink({ href: url }).run();
+    } catch {}
+  };
+
+  const unsetLink = () => {
+    editor.chain().focus().unsetLink().run();
+  };
+
   return (
     <BubbleMenu
       editor={editor}
       shouldShow={shouldShow}
       className="bubble-wrap"
-      tippyoptions={{
+      tippyOptions={{
         interactive: true,
         duration: 0,
         hideOnClick: false,
@@ -61,15 +74,9 @@ export default function BubbleMenuGlobal({ editor }) {
       }}
     >
       <div className="bubble-menu" onMouseDown={stopBubble}>
-        <ColorPicker
-          color={editorState.color}
-          onChange={(c) => applyColor(c)}
-        />
+        <ColorPicker color={editorState.color} onChange={(c) => applyColor(c)} />
 
-        <TypographyDropdown
-          editor={editor}
-          currentFont={editorState.fontFamily}
-        />
+        <TypographyDropdown editor={editor} currentFont={editorState.fontFamily} />
 
         <input
           type="number"
@@ -97,6 +104,25 @@ export default function BubbleMenuGlobal({ editor }) {
           onClick={() => editor.chain().focus().toggleItalic().run()}
         >
           <Italic size={16} />
+        </Button>
+
+        <Button
+          size="1"
+          className={`bm-btn ${editorState.isLink ? "active" : ""}`}
+          onMouseDown={stopBubble}
+          onClick={setLink}
+        >
+          <LinkIcon size={16} />
+        </Button>
+
+        <Button
+          size="1"
+          className="bm-btn"
+          onMouseDown={stopBubble}
+          disabled={!editorState.isLink}
+          onClick={unsetLink}
+        >
+          <Link2Off size={16} />
         </Button>
 
         <div className="slider-wrapper" onMouseDown={stopBubble}>
