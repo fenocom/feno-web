@@ -5,6 +5,8 @@ import { useEditorState } from "@tiptap/react";
 import { useState, useEffect } from "react";
 import TypographyDropdown from "./typography-dropdown";
 import { Button, Slider } from "@radix-ui/themes";
+import ColorPicker from "./color-picker";
+
 import "./style.css";
 
 export default function BubbleMenuGlobal({ editor }) {
@@ -55,13 +57,10 @@ export default function BubbleMenuGlobal({ editor }) {
     >
       <div className="bubble-menu" onMouseDown={stopBubble}>
 
-        <input
-          type="color"
-          className="color-picker"
-          value={editorState.color}
-          onMouseDown={stopBubble}
-          onChange={(e) => applyColor(e.target.value)}
-        />
+      <ColorPicker
+        color={editorState.color}
+        onChange={(c) => applyColor(c)}
+      />
 
         <TypographyDropdown
           editor={editor}
