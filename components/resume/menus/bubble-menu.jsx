@@ -4,7 +4,7 @@ import { BubbleMenu } from "@tiptap/react/menus";
 import { useEditorState } from "@tiptap/react";
 import { useState, useEffect } from "react";
 import TypographyDropdown from "./typography-dropdown";
-import { Button } from "@radix-ui/themes";
+import { Button, Slider } from "@radix-ui/themes";
 import "./style.css";
 
 export default function BubbleMenuGlobal({ editor }) {
@@ -96,15 +96,14 @@ export default function BubbleMenuGlobal({ editor }) {
           I
         </Button>
 
-        <div className="slider-wrapper">
-          <input
-            type="range"
+        <div className="slider-wrapper" onMouseDown={stopBubble}>
+          <Slider
+            size="1"
             min={8}
             max={64}
+            value={[fontSize]}
+            onValueChange={(val) => applyFontSize(val[0])}
             className="font-slider"
-            value={fontSize}
-            onMouseDown={stopBubble}
-            onChange={(e) => applyFontSize(parseInt(e.target.value))}
           />
         </div>
 
