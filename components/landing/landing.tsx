@@ -11,11 +11,14 @@ export const LandingPage = () => {
       <Navbar />
 
       <main className="relative pt-20 pb-20 overflow-hidden">
-        <ThreeBackground />
-
-        <div className="absolute top-0 left-1/2 -translate-x-1/2 w-full h-[800px] pointer-events-none z-0">
-          <div className="absolute top-[-20%] left-1/2 -translate-x-1/2 w-[120%] h-full bg-[conic-gradient(from_180deg_at_50%_50%,#00000000_0deg,#1e3a8a_160deg,#3b82f6_180deg,#1e3a8a_200deg,#00000000_360deg)] opacity-40 blur-[80px]" />
-          <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[80%] h-[60%] bg-blue-900/20 blur-[100px] rounded-full mix-blend-screen" />
+        <div className="absolute max-h-screen top-0 left-0 w-full h-full pointer-events-none z-0">
+          <div
+            className="absolute inset-0 w-full h-full bg-cover bg-center bg-no-repeat"
+            style={{
+              backgroundImage: "url('/hero-bg.png'), linear-gradient(to bottom, #000000 0%, #001a57 50%, #d9e1e8 100%)",
+              backgroundBlendMode: "normal"
+            }}
+          />
         </div>
 
         <div className="container mx-auto px-4 relative z-10">

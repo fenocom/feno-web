@@ -4,7 +4,7 @@ import { motion } from "framer-motion";
 
 export const HeroSection = () => {
     return (
-        <div className="flex flex-col items-center text-center pt-16 pb-24">
+        <div className="flex flex-col items-center text-center pt-16 pb-24 max-h-screen">
             <motion.div
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
