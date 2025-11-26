@@ -4,8 +4,8 @@ import { motion } from "framer-motion";
 
 export const HeroSection = () => {
     return (
-        <div className="flex flex-col items-center text-center pt-16 pb-24 max-h-screen">
-            <motion.div
+        <div className="flex flex-col items-center text-center pt-[23vh] pb-24 max-h-screen">
+            {/* <motion.div
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.6 }}
@@ -15,7 +15,7 @@ export const HeroSection = () => {
                     {[1, 2, 3, 4].map((i) => (
                         <div
                             key={i}
-                            className="w-8 h-8 rounded-full border-2 border-black bg-gradient-to-br from-slate-700 to-slate-600"
+                            className="w-8 h-8 rounded-full border-2 border-black bg-linear-to-br from-slate-700 to-slate-600"
                         />
                     ))}
                     <div className="w-8 h-8 rounded-full border-2 border-black bg-slate-800 flex items-center justify-center text-[10px] font-medium">
@@ -25,7 +25,7 @@ export const HeroSection = () => {
                 <span className="text-xs font-medium tracking-widest text-slate-400 uppercase">
                     Trusted by #10,000 delighted customers
                 </span>
-            </motion.div>
+            </motion.div> */}
 
             <motion.h1
                 initial={{ opacity: 0, y: 20 }}
@@ -34,8 +34,8 @@ export const HeroSection = () => {
                 className="text-5xl md:text-7xl lg:text-8xl font-medium tracking-tight mb-8 max-w-5xl mx-auto leading-[1.1]"
             >
                 Designed to elevate your{" "}
-                <span className="font-serif italic font-normal bg-gradient-to-r from-blue-200 via-white to-blue-200 bg-clip-text text-transparent">
-                    growth-ready
+                <span className="font-serif pr-2.5 italic font-normal bg-linear-to-r from-blue-200 via-white to-blue-200 bg-clip-text text-transparent">
+                career
                 </span>{" "}
                 momentum
             </motion.h1>
