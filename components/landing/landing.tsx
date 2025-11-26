@@ -2,6 +2,7 @@
 
 import { DashboardPreview } from "./dashboard-preview";
 import { HeroSection } from "./hero-section";
+import { InfographicSection } from "./infographic-section";
 import { Navbar } from "./navbar";
 import { ThreeBackground } from "./three-background";
 
@@ -30,9 +31,7 @@ export const LandingPage = () => {
         <div className="container mx-auto px-4 relative z-10">
           <HeroSection />
           <DashboardPreview />
-          <DashboardPreview />
-          <DashboardPreview />
-          <DashboardPreview />
+          <InfographicSection />
         </div>
       </main>
     </div>
