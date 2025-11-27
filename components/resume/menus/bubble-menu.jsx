@@ -3,7 +3,7 @@
 import { BubbleMenu } from "@tiptap/react/menus";
 import { useEditorState } from "@tiptap/react";
 import { useState, useEffect } from "react";
-import TypographyDropdown from "./typography-dropdown";
+import TypographyDropdown from "../../common/typography-dropdown";
 import { Button, Slider } from "@radix-ui/themes";
 import { Bold, Italic, Link as LinkIcon, Link2Off } from "lucide-react";
 import { ColorPicker } from "../../atoms/color-picker";
