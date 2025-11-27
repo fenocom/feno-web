@@ -6,7 +6,7 @@ import { useState, useEffect } from "react";
 import TypographyDropdown from "./typography-dropdown";
 import { Button, Slider } from "@radix-ui/themes";
 import { Bold, Italic, Link as LinkIcon, Link2Off } from "lucide-react";
-import { ColorPicker } from "./color-picker";
+import { ColorPicker } from "../../common/color-picker";
 
 import "./style.css";
 
