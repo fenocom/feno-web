@@ -25,7 +25,7 @@ export const Navbar = () => {
             Login
           </Button>
         </div>
-        <div className="top-0 left-0 absolute pointer-events-none w-full h-full bg-[url('/noise.png')] bg-repeat bg-size-[100px]" />
+        <div className="top-0 left-0 absolute pointer-events-none w-full h-full bg-[url('/noise.png')] bg-repeat bg-size-[70px]" />
         <div className="bg-black/5 top-0 left-0 absolute pointer-events-none z-50 w-full h-full" />
       </header>
     </>
