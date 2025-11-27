@@ -4,7 +4,7 @@ import { HexColorPicker } from "react-colorful";
 import * as Popover from "@radix-ui/react-popover";
 import "./style.css";
 
-export default function ColorPicker({ color, onChange }) {
+export function ColorPicker({ color, onChange }) {
   return (
     <Popover.Root>
       <Popover.Trigger asChild>
