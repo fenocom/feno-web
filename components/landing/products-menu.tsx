@@ -1,159 +1,158 @@
 import {
-  FloatingPortal,
-  autoUpdate,
-  flip,
-  offset,
-  safePolygon,
-  shift,
-  useDismiss,
-  useFloating,
-  useHover,
-  useInteractions,
+    FloatingPortal,
+    autoUpdate,
+    flip,
+    offset,
+    safePolygon,
+    shift,
+    useDismiss,
+    useFloating,
+    useHover,
+    useInteractions,
 } from "@floating-ui/react";
 import { AnimatePresence, motion } from "framer-motion";
 import { ArrowRight } from "lucide-react";
 import { useState } from "react";
 
 const menuTriggerClassname =
-  "rounded-lg px-3 py-2 hover:bg-[#1148b8] flex items-center justify-between text-white font-hero cursor-pointer text-base transition-colors duration-200 group";
+    "rounded-lg px-3 py-2 hover:bg-[#1148b8] flex items-center justify-between text-white font-hero cursor-pointer text-base transition-colors duration-200 group";
 
 const PRODUCTS = [
-  {
-    title: "Resume Builder",
-    description:
-      "Craft professional resumes effortlessly with our advanced WYSIWYT editor.",
-  },
-  {
-    title: "Portfolio Builder",
-    description:
-      "Showcase your work with a professional and personal portfolio in one click.",
-  },
-  {
-    title: "Analytics",
-    description: "Track views and engagement on your resume and portfolio.",
-  },
-  {
-    title: "Extension",
-    description:
-      "Save jobs and autofill applications with our browser extension.",
-  },
+    {
+        title: "Resume Builder",
+        description:
+            "Craft professional resumes effortlessly with our advanced WYSIWYT editor.",
+    },
+    {
+        title: "Portfolio Builder",
+        description:
+            "Showcase your work with a professional and personal portfolio in one click.",
+    },
+    {
+        title: "Analytics",
+        description: "Track views and engagement on your resume and portfolio.",
+    },
+    {
+        title: "Extension",
+        description:
+            "Save jobs and autofill applications with our browser extension.",
+    },
 ];
 
 interface ProductsMenuProps {
-  triggerClassname?: string;
+    triggerClassname?: string;
 }
 
 export const ProductsMenu = ({ triggerClassname }: ProductsMenuProps) => {
-  const [isOpen, setIsOpen] = useState(false);
-  const [activeItem, setActiveItem] = useState(PRODUCTS[0]);
+    const [isOpen, setIsOpen] = useState(false);
+    const [activeItem, setActiveItem] = useState(PRODUCTS[0]);
 
-  const { refs, context, x, y, strategy } = useFloating({
-    open: isOpen,
-    onOpenChange: setIsOpen,
-    placement: "bottom-start",
-    strategy: "fixed",
-    middleware: [offset({ mainAxis: 20, crossAxis: -50 }), flip(), shift()],
-    whileElementsMounted: autoUpdate,
-  });
+    const { refs, context, x, y, strategy } = useFloating({
+        open: isOpen,
+        onOpenChange: setIsOpen,
+        placement: "bottom-start",
+        strategy: "fixed",
+        middleware: [offset({ mainAxis: 20, crossAxis: -50 }), flip(), shift()],
+        whileElementsMounted: autoUpdate,
+    });
 
-  const hover = useHover(context, {
-    handleClose: safePolygon({
-      buffer: 1,
-    }),
-    delay: {
-      close: 100,
-    },
-  });
-  const dismiss = useDismiss(context);
+    const hover = useHover(context, {
+        handleClose: safePolygon({
+            buffer: 1,
+        }),
+        delay: {
+            close: 100,
+        },
+    });
+    const dismiss = useDismiss(context);
 
-  const { getReferenceProps, getFloatingProps } = useInteractions([
-    hover,
-    dismiss,
-  ]);
+    const { getReferenceProps, getFloatingProps } = useInteractions([
+        hover,
+        dismiss,
+    ]);
 
-  const getItemProps = (product: (typeof PRODUCTS)[0]) => ({
-    className: `${menuTriggerClassname} ${
-      activeItem.title === product.title ? "bg-[#1148b8]" : ""
-    }`,
-    onClick: () => setActiveItem(product),
-    onMouseEnter: () => setActiveItem(product),
-  });
+    const getItemProps = (product: (typeof PRODUCTS)[0]) => ({
+        className: `${menuTriggerClassname} ${activeItem.title === product.title ? "bg-[#1148b8]" : ""
+            }`,
+        onClick: () => setActiveItem(product),
+        onMouseEnter: () => setActiveItem(product),
+    });
 
-  return (
-    <>
-      <div
-        className={triggerClassname}
-        ref={refs.setReference}
-        {...getReferenceProps()}
-      >
-        Products
-      </div>
-      <FloatingPortal>
-        <AnimatePresence>
-          {isOpen && (
-            <motion.div
-              ref={refs.setFloating}
-              style={{
-                position: strategy,
-                top: y ?? 0,
-                left: x ?? 0,
-              }}
-              initial={{ opacity: 0, x: "-20%" }}
-              animate={{ opacity: 1, x: 0 }}
-              exit={{ opacity: 0, x: "-20%" }}
-              transition={{ type: "spring", stiffness: 200, damping: 25 }}
-              {...getFloatingProps()}
-              className="isolate px-3 py-3 rounded-2xl overflow-hidden w-[600px] h-[300px] backdrop-blur-xl z-60"
+    return (
+        <>
+            <div
+                className={triggerClassname}
+                ref={refs.setReference}
+                {...getReferenceProps()}
             >
-              <div className="top-0 -z-1 left-0 absolute pointer-events-none w-full h-full bg-[url('/noise.png')] bg-repeat bg-size-[80px]" />
-              <div className="bg-white/5 top-0 left-0 absolute pointer-events-none z-50 w-full h-full" />
-              <div className="w-full grid grid-cols-[1fr_2fr] z-90 gap-2 h-full">
-                <div className="flex flex-col">
-                  <div className="font-serif text-white/60 font-bold italic text-2xl py-1 mb-1">
-                    <div className="border-b border-white/20 w-full">
-                      builders
-                    </div>
-                  </div>
-                  <div className="pl-4 border-b border-white/20 pb-3 mb-3">
-                    <div {...getItemProps(PRODUCTS[0])}>
-                      {PRODUCTS[0].title}
-                      {activeItem.title === PRODUCTS[0].title && (
-                        <ArrowRight className="w-4 h-4 text-white" />
-                      )}
-                    </div>
-                    <div {...getItemProps(PRODUCTS[1])}>
-                      {PRODUCTS[1].title}
-                      {activeItem.title === PRODUCTS[1].title && (
-                        <ArrowRight className="w-4 h-4 text-white" />
-                      )}
-                    </div>
-                  </div>
-                  <div {...getItemProps(PRODUCTS[2])}>
-                    {PRODUCTS[2].title}
-                    {activeItem.title === PRODUCTS[2].title && (
-                      <ArrowRight className="w-4 h-4 text-white" />
+                Products
+            </div>
+            <FloatingPortal>
+                <AnimatePresence>
+                    {isOpen && (
+                        <motion.div
+                            ref={refs.setFloating}
+                            style={{
+                                position: strategy,
+                                top: y ?? 0,
+                                left: x ?? 0,
+                            }}
+                            initial={{ opacity: 0, x: "-20%" }}
+                            animate={{ opacity: 1, x: 0 }}
+                            exit={{ opacity: 0, x: "-20%" }}
+                            transition={{ type: "spring", stiffness: 200, damping: 25 }}
+                            {...getFloatingProps()}
+                            className="isolate px-3 py-3 rounded-2xl overflow-hidden w-[600px] h-[300px] backdrop-blur-xl z-60"
+                        >
+                            <div className="top-0 -z-1 left-0 absolute pointer-events-none w-full h-full bg-[url('/noise.png')] bg-repeat bg-size-[80px]" />
+                            <div className="bg-white/5 top-0 left-0 absolute pointer-events-none z-50 w-full h-full" />
+                            <div className="w-full grid grid-cols-[1fr_2fr] z-90 gap-2 h-full">
+                                <div className="flex flex-col">
+                                    <div className="font-serif text-white/60 font-bold italic text-2xl py-1 mb-1">
+                                        <div className="border-b border-white/20 w-full">
+                                            builders
+                                        </div>
+                                    </div>
+                                    <div className="pl-3 border-b border-white/20 pb-3 mb-3">
+                                        <div {...getItemProps(PRODUCTS[0])}>
+                                            {PRODUCTS[0].title}
+                                            {activeItem.title === PRODUCTS[0].title && (
+                                                <ArrowRight className="w-4 h-4 text-white" />
+                                            )}
+                                        </div>
+                                        <div {...getItemProps(PRODUCTS[1])}>
+                                            {PRODUCTS[1].title}
+                                            {activeItem.title === PRODUCTS[1].title && (
+                                                <ArrowRight className="w-4 h-4 text-white" />
+                                            )}
+                                        </div>
+                                    </div>
+                                    <div {...getItemProps(PRODUCTS[2])}>
+                                        {PRODUCTS[2].title}
+                                        {activeItem.title === PRODUCTS[2].title && (
+                                            <ArrowRight className="w-4 h-4 text-white" />
+                                        )}
+                                    </div>
+                                    <div {...getItemProps(PRODUCTS[3])}>
+                                        {PRODUCTS[3].title}
+                                        {activeItem.title === PRODUCTS[3].title && (
+                                            <ArrowRight className="w-4 h-4 text-white" />
+                                        )}
+                                    </div>
+                                </div>
+                                <div className="bg-black/90 rounded-lg w-full h-full p-6 flex flex-col justify-center items-start">
+                                    <h3 className="text-2xl font-bold text-white mb-2 font-host">
+                                        {activeItem.title}
+                                    </h3>
+                                    <p className="text-white/70 text-lg leading-relaxed">
+                                        {activeItem.description}
+                                    </p>
+                                </div>
+                            </div>
+                        </motion.div>
                     )}
-                  </div>
-                  <div {...getItemProps(PRODUCTS[3])}>
-                    {PRODUCTS[3].title}
-                    {activeItem.title === PRODUCTS[3].title && (
-                      <ArrowRight className="w-4 h-4 text-white" />
-                    )}
-                  </div>
-                </div>
-                <div className="bg-black/90 rounded-lg w-full h-full p-6 flex flex-col justify-center items-start">
-                  <h3 className="text-2xl font-bold text-white mb-2 font-host">
-                    {activeItem.title}
-                  </h3>
-                  <p className="text-white/70 text-lg leading-relaxed">
-                    {activeItem.description}
-                  </p>
-                </div>
-              </div>
-            </motion.div>
-          )}
-        </AnimatePresence>
-      </FloatingPortal>
-    </>
-  );
+                </AnimatePresence>
+            </FloatingPortal>
+        </>
+    );
 };
