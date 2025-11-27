@@ -32,15 +32,22 @@ export const HeroSection = () => {
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.6, delay: 0.3 }}
-                className="relative group"
+                className="relative group flex gap-1"
             >
-                <div className="absolute -inset-1 bg-gradient-to-r from-blue-600 to-indigo-600 rounded opacity-20 blur group-hover:opacity-40 transition duration-200" />
-                <button className="relative px-8 py-4 bg-black border border-white/20 text-white text-sm font-medium tracking-widest uppercase hover:bg-white/5 transition-colors">
-                    Book Your Call
-                </button>
-
-                <div className="absolute top-1/2 -left-12 w-8 h-[1px] bg-gradient-to-r from-transparent to-white/20" />
-                <div className="absolute top-1/2 -right-12 w-8 h-[1px] bg-gradient-to-l from-transparent to-white/20" />
+                <div className="relative isolate overflow-hidden rounded-l-2xl rounded-r-sm min-w-[150px] h-14 flex items-center justify-center cursor-pointer group/btn">
+                    <div className="absolute inset-0 bg-white/5 backdrop-blur-lg transition-colors duration-300 group-hover/btn:bg-white/10" />
+                    <div className="absolute inset-0 bg-[url('/noise.png')] bg-repeat bg-size-[60px] pointer-events-none" />
+                    <span className="relative z-10 font-host text-white font-medium">
+                        Resume
+                    </span>
+                </div>
+                <div className="relative isolate overflow-hidden backdrop-blur-lg  rounded-l-sm rounded-r-2xl min-w-[150px] h-14 flex items-center justify-center cursor-pointer group/btn backdrop-blur-lg">
+                    <div className="absolute inset-0 bg-white/5 transition-colors duration-300 group-hover/btn:bg-white/10" />
+                    <div className="absolute inset-0 bg-[url('/noise.png')] bg-repeat bg-size-[60px] pointer-events-none" />
+                    <span className="relative z-10 font-host text-white font-medium">
+                        Portfolio
+                    </span>
+                </div>
             </motion.div>
         </div>
     );
