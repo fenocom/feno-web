@@ -5,14 +5,15 @@ import Link from "@tiptap/extension-link";
 import TaskList from "@tiptap/extension-task-list";
 import TaskItem from "@tiptap/extension-task-item";
 import { Color } from "@tiptap/extension-color";
-import { TextStyle } from "@tiptap/extension-text-style";
 import Image from "@tiptap/extension-image";
 import Heading from "@tiptap/extension-heading";
 import Paragraph from "@tiptap/extension-paragraph";
 import Highlight from "@tiptap/extension-highlight";
 import { mergeAttributes } from "@tiptap/core";
+import { FontSize } from "@tiptap/extension-text-style/font-size";
 
 import { Grid, GridColumn } from "./grid";
+import { FontFamily } from "./font-family";
 
 const styleAttribute = {
   default: {},
@@ -20,7 +21,7 @@ const styleAttribute = {
     const data = element.getAttribute("data-styles");
     return data ? JSON.parse(data) : {};
   },
-  renderHTML: (attributes: Record<string, any>) => {
+  renderHTML: (attributes: any) => {
     const styles = attributes.styles;
     if (!styles || Object.keys(styles).length === 0) return {};
 
@@ -37,7 +38,6 @@ const styleAttribute = {
 
 export const extensionsConfig = [
   StarterKit.configure({
-    // BubbleMenu,
     strike: false, // disabling strike
     heading: false, // Because you're overriding Heading manually
     paragraph: false, // Overridden below
@@ -63,6 +63,8 @@ export const extensionsConfig = [
   }),
 
   Highlight,
+  FontFamily,
+  FontSize,
 
   Heading.extend({
     addAttributes() {
@@ -109,6 +111,16 @@ export const extensionsConfig = [
     },
   }),
 
+  Link.configure({
+    openOnClick: false,
+    autolink: true,
+    defaultProtocol: "https",
+    validate: (href) => /^https?:\/\//.test(href),
+    HTMLAttributes: {
+      class: "text-blue-500 underline cursor-pointer",
+    },
+  }),
+
   Grid,
   GridColumn,
 
@@ -117,17 +129,8 @@ export const extensionsConfig = [
     allowBase64: true,
   }),
 
-  TextStyle,
   Color,
   Typography,
-
-  Link.configure({
-    openOnClick: false,
-    autolink: true,
-    HTMLAttributes: {
-      class: "text-blue-500 hover:underline cursor-pointer",
-    },
-  }),
 
   TaskList,
   TaskItem.configure({
