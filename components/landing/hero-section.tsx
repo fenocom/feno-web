@@ -12,7 +12,7 @@ export const HeroSection = () => {
                 className="text-5xl md:text-7xl lg:text-8xl font-medium tracking-tight mb-8 max-w-5xl mx-auto leading-[1]"
             >
                 Designed to elevate your{" "}
-                <span className="font-serif pr-2.5 italic font-normal bg-linear-to-r from-blue-200 via-white to-blue-200 bg-clip-text text-transparent">
+                <span className="font-serif pr-2.5 italic font-normal text-[#a1ccff]">
                     career
                 </span>{" "}
                 <span className="font-mono bg-white/10 px-2 py-1 rounded text-6xl md:text-7xl lg:text-8xl leading-[0.8] inline-block mt-2 lg:mt-0">
