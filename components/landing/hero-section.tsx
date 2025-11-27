@@ -5,28 +5,6 @@ import { motion } from "framer-motion";
 export const HeroSection = () => {
     return (
         <div className="flex flex-col items-center text-center pt-[23vh] pb-24 max-h-screen">
-            {/* <motion.div
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.6 }}
-                className="flex items-center gap-3 mb-10"
-            >
-                <div className="flex -space-x-3">
-                    {[1, 2, 3, 4].map((i) => (
-                        <div
-                            key={i}
-                            className="w-8 h-8 rounded-full border-2 border-black bg-linear-to-br from-slate-700 to-slate-600"
-                        />
-                    ))}
-                    <div className="w-8 h-8 rounded-full border-2 border-black bg-slate-800 flex items-center justify-center text-[10px] font-medium">
-                        +9k
-                    </div>
-                </div>
-                <span className="text-xs font-medium tracking-widest text-slate-400 uppercase">
-                    Trusted by #10,000 delighted customers
-                </span>
-            </motion.div> */}
-
             <motion.h1
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
@@ -35,7 +13,7 @@ export const HeroSection = () => {
             >
                 Designed to elevate your{" "}
                 <span className="font-serif pr-2.5 italic font-normal bg-linear-to-r from-blue-200 via-white to-blue-200 bg-clip-text text-transparent">
-                career
+                    career
                 </span>{" "}
                 momentum
             </motion.h1>
@@ -46,8 +24,8 @@ export const HeroSection = () => {
                 transition={{ duration: 0.6, delay: 0.2 }}
                 className="text-lg text-slate-400 max-w-xl mx-auto mb-12 leading-relaxed"
             >
-                Become customer #10,001 and start winning with a dashboard that surfaces
-                every growth opportunity in real time.
+                You are one click away from building a professional resume, a stunning
+                portfolio, and tracking your career growth with real-time analytics.
             </motion.p>
 
             <motion.div
