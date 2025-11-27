@@ -6,6 +6,7 @@ import { useState, useEffect } from "react";
 import TypographyDropdown from "../../common/typography-dropdown";
 import { Button, Slider } from "@radix-ui/themes";
 import { Bold, Italic, Link as LinkIcon, Link2Off } from "lucide-react";
+import { FontSlider } from "../../common/slider/index"
 import { ColorPicker } from "../../atoms/color-picker";
 
 import "./style.css";
@@ -126,14 +127,7 @@ export default function BubbleMenuGlobal({ editor }) {
         </Button>
 
         <div className="slider-wrapper" onMouseDown={stopBubble}>
-          <Slider
-            size="1"
-            min={8}
-            max={64}
-            value={[fontSize]}
-            onValueChange={(val) => applyFontSize(val[0])}
-            className="font-slider"
-          />
+          <FontSlider value={fontSize} onChange={applyFontSize} />
         </div>
       </div>
     </BubbleMenu>
