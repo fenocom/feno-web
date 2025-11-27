@@ -2,8 +2,8 @@ import { Logo } from "../common";
 
 export const Navbar = () => {
   return (
-    <header className="fixed min-w-[90vh] max-w-[400px] top-5 left-[50%] transform -translate-x-[50%] rounded-2xl z-50 bg-black/25 backdrop-blur-sm border border-white/5">
-      <div className="px-4 py-3 flex items-center justify-between gap-10">
+    <header className="fixed min-w-[90vh] max-w-[400px] top-5 left-[50%] isolate transform bg-black/5 -translate-x-[50%] rounded-2xl z-50 backdrop-blur-sm border border-white/5">
+      <div className="px-4 py-3 flex items-center justify-between gap-10 z-10">
         <div className="w-8 h-8 bg-white text-black rounded flex items-center justify-center">
           <Logo />
         </div>
@@ -12,6 +12,7 @@ export const Navbar = () => {
           Login
         </button>
       </div>
+      <div className="top-0 left-0 absolute w-full h-full bg-[url('/noise.png')] bg-repeat bg-size-[30px]" />
     </header>
   );
 };
