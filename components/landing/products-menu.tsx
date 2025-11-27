@@ -15,7 +15,7 @@ import { ArrowRight } from "lucide-react";
 import { useState } from "react";
 
 const menuTriggerClassname =
-    "rounded-lg px-3 py-2 hover:bg-[#1148b8] flex items-center justify-between text-white font-hero cursor-pointer text-base transition-colors duration-200 group";
+    "rounded-lg px-3 py-2 flex items-center justify-between text-white font-hero cursor-pointer text-base transition-colors duration-200 group relative z-10";
 
 const PRODUCTS = [
     {
@@ -72,11 +72,28 @@ export const ProductsMenu = ({ triggerClassname }: ProductsMenuProps) => {
     ]);
 
     const getItemProps = (product: (typeof PRODUCTS)[0]) => ({
-        className: `${menuTriggerClassname} ${activeItem.title === product.title ? "bg-[#1148b8]" : ""
-            }`,
+        className: menuTriggerClassname,
         onClick: () => setActiveItem(product),
         onMouseEnter: () => setActiveItem(product),
     });
+
+    const renderProductItem = (product: (typeof PRODUCTS)[0]) => (
+        <div {...getItemProps(product)}>
+            <span className="z-20 relative">{product.title}</span>
+            {activeItem.title === product.title && (
+                <motion.div
+                    layoutId="active-product-bg"
+                    className="absolute inset-0 bg-[#1148b8] rounded-lg z-10"
+                    transition={{ type: "spring", bounce: 0.2, duration: 0.6 }}
+                />
+            )}
+            {activeItem.title === product.title && (
+                <motion.div layoutId="active-product-arrow" className="z-20 relative">
+                    <ArrowRight className="w-4 h-4 text-white" />
+                </motion.div>
+            )}
+        </div>
+    );
 
     return (
         <>
@@ -114,31 +131,11 @@ export const ProductsMenu = ({ triggerClassname }: ProductsMenuProps) => {
                                         </div>
                                     </div>
                                     <div className="pl-3 border-b border-white/20 pb-3 mb-3">
-                                        <div {...getItemProps(PRODUCTS[0])}>
-                                            {PRODUCTS[0].title}
-                                            {activeItem.title === PRODUCTS[0].title && (
-                                                <ArrowRight className="w-4 h-4 text-white" />
-                                            )}
-                                        </div>
-                                        <div {...getItemProps(PRODUCTS[1])}>
-                                            {PRODUCTS[1].title}
-                                            {activeItem.title === PRODUCTS[1].title && (
-                                                <ArrowRight className="w-4 h-4 text-white" />
-                                            )}
-                                        </div>
+                                        {renderProductItem(PRODUCTS[0])}
+                                        {renderProductItem(PRODUCTS[1])}
                                     </div>
-                                    <div {...getItemProps(PRODUCTS[2])}>
-                                        {PRODUCTS[2].title}
-                                        {activeItem.title === PRODUCTS[2].title && (
-                                            <ArrowRight className="w-4 h-4 text-white" />
-                                        )}
-                                    </div>
-                                    <div {...getItemProps(PRODUCTS[3])}>
-                                        {PRODUCTS[3].title}
-                                        {activeItem.title === PRODUCTS[3].title && (
-                                            <ArrowRight className="w-4 h-4 text-white" />
-                                        )}
-                                    </div>
+                                    {renderProductItem(PRODUCTS[2])}
+                                    {renderProductItem(PRODUCTS[3])}
                                 </div>
                                 <div className="bg-black/90 rounded-lg w-full h-full p-6 flex flex-col justify-center items-start">
                                     <h3 className="text-2xl font-bold text-white mb-2 font-host">
