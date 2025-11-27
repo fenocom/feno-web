@@ -1,8 +1,9 @@
 "use client";
 
-import { DashboardPreview } from "./dashboard-preview";
+
 import { HeroSection } from "./hero-section";
 import { Navbar } from "./navbar";
+import { ProductPreview } from "./product-preview";
 
 export const LandingPage = () => {
   return (
@@ -30,7 +31,7 @@ export const LandingPage = () => {
 
         <div className="container mx-auto px-4 relative z-10">
           <HeroSection />
-          <DashboardPreview />
+          <ProductPreview />
         </div>
       </main>
     </div>

@@ -1,9 +1,8 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { Bell, Moon } from "lucide-react";
 
-export const DashboardPreview = () => {
+export const ProductPreview = () => {
     return (
         <motion.div
             initial={{ opacity: 0, y: 40 }}
