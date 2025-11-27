@@ -15,7 +15,7 @@ export const HeroSection = () => {
                 <span className="font-serif pr-2.5 italic font-normal bg-linear-to-r from-blue-200 via-white to-blue-200 bg-clip-text text-transparent">
                     career
                 </span>{" "}
-                <span className="font-mono bg-white/10 px-2 rounded text-6xl md:text-7xl lg:text-8xl">
+                <span className="font-mono bg-white/10 px-2 py-1 rounded text-6xl md:text-7xl lg:text-8xl leading-[0.8] inline-block mt-2 lg:mt-0">
                     momentum
                 </span>
             </motion.h1>
@@ -40,7 +40,7 @@ export const HeroSection = () => {
                     <div className="absolute inset-0 bg-[url('/noise.png')] bg-repeat bg-size-[100px] opacity-20 pointer-events-none" />
                     <div className="flex items-center pl-4 pr-1">
                         <span className="text-slate-400 font-mono text-sm mr-1">
-                            feno.com/
+                            feno.app/
                         </span>
                         <input
                             type="text"
