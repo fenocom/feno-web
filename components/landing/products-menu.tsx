@@ -14,7 +14,7 @@ import { AnimatePresence, motion } from "framer-motion";
 import { useState } from "react";
 
 const menuTriggerClassname =
-    "rounded-lg px-3 py-2 hover:bg-[#1148b8] flex items-center text-white font-hero text-base";
+    "rounded-lg px-3 py-2 hover:bg-[#1148b8] flex items-center text-white font-hero cursor-default text-base";
 
 interface ProductsMenuProps {
     triggerClassname?: string;
@@ -77,12 +77,16 @@ export const ProductsMenu = ({ triggerClassname }: ProductsMenuProps) => {
                             <div className="bg-white/5 top-0 left-0 absolute pointer-events-none z-50 w-full h-full" />
                             <div className="w-full grid grid-cols-[1fr_2fr] z-90 gap-2 h-full">
                                 <div className="flex flex-col">
-                                    <div className="font-serif text-white/60 font-bold italic text-2xl px-3 py-1 mb-1">
-                                        <div className="border-b border-white/20 w-full">Builder</div>
+                                    <div className="font-serif text-white/60 font-bold italic text-2xl py-1 mb-1">
+                                        <div className="border-b border-white/20 w-full">
+                                            builders
+                                        </div>
                                     </div>
-                                    <div className="px-5 border-b border-white/20 pb-3 mb-3">
+                                    <div className="pl-4 border-b border-white/20 pb-3 mb-3">
                                         <div className={menuTriggerClassname}>Resume Builder</div>
-                                        <div className={menuTriggerClassname}>Portfolio Builder</div>
+                                        <div className={menuTriggerClassname}>
+                                            Portfolio Builder
+                                        </div>
                                     </div>
                                     <div className={menuTriggerClassname}>Analytics</div>
                                     <div className={menuTriggerClassname}>Extension</div>
