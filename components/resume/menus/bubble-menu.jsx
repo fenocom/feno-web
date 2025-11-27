@@ -64,7 +64,7 @@ export default function BubbleMenuGlobal({ editor }) {
     <BubbleMenu
       editor={editor}
       shouldShow={shouldShow}
-      className="z-[9999]"
+      className="z-9999"
       tippyOptions={{
         interactive: true,
         duration: 0,

@@ -23,7 +23,7 @@ export function ColorPicker({ color, onChange }) {
           <HexColorPicker
             color={color}
             onChange={onChange}
-            className="!w-[170px] !h-[150px]"
+            className="w-[170px]! h-[150px]!"
           />
 
           <Popover.Arrow className="fill-neutral-800" />
