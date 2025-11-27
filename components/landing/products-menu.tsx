@@ -121,7 +121,7 @@ export const ProductsMenu = ({ triggerClassname }: ProductsMenuProps) => {
                             {...getFloatingProps()}
                             className="isolate px-3 py-3 rounded-2xl overflow-hidden w-[600px] h-[300px] backdrop-blur-xl z-60"
                         >
-                            <div className="top-0 -z-1 left-0 absolute pointer-events-none w-full h-full bg-[url('/noise.png')] bg-repeat bg-size-[80px]" />
+                            <div className="top-0 -z-1 left-0 absolute pointer-events-none w-full h-full bg-[url('/noise.png')] bg-repeat bg-size-[100px]" />
                             <div className="bg-white/5 top-0 left-0 absolute pointer-events-none z-50 w-full h-full" />
                             <div className="w-full grid grid-cols-[1fr_2fr] z-90 gap-2 h-full">
                                 <div className="flex flex-col">
