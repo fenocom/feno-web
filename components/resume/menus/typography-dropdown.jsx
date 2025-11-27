@@ -5,7 +5,6 @@ import { Check } from "lucide-react";
 
 const FONT_OPTIONS = [
   { label: "Inter", value: "Inter, sans-serif" },
-  { label: "Roboto", value: "Roboto, sans-serif" },
   { label: "Georgia", value: "Georgia, serif" },
   { label: "Times New Roman", value: "Times New Roman, serif" },
   { label: "Mono", value: "ui-monospace, monospace" },
