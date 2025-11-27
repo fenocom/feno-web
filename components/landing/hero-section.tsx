@@ -26,7 +26,8 @@ export const HeroSection = () => {
                 transition={{ duration: 0.6, delay: 0.2 }}
                 className="text-lg text-slate-400 max-w-xl mx-auto mb-12 leading-relaxed"
             >
-                The Operating System for Your Career.
+                You are one click away from building a professional resume, a stunning
+                portfolio, and tracking your career growth with real-time analytics.
             </motion.p>
 
             <motion.div
