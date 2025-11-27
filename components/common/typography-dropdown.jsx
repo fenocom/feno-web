@@ -14,7 +14,7 @@ export default function TypographyDropdown({ editor, currentFont }) {
   return (
     <Popover.Root>
       <Popover.Trigger asChild>
-        <button className="bm-btn" onMouseDown={(e) => e.preventDefault()}>
+        <button className="bm-btn text-white " onMouseDown={(e) => e.preventDefault()}>
           Aa
         </button>
       </Popover.Trigger>
