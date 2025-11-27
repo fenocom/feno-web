@@ -4,12 +4,10 @@ import { BubbleMenu } from "@tiptap/react/menus";
 import { useEditorState } from "@tiptap/react";
 import { useState, useEffect } from "react";
 import TypographyDropdown from "../../common/typography-dropdown";
-import { Button, Slider } from "@radix-ui/themes";
+import { Button } from "@radix-ui/themes";
 import { Bold, Italic, Link as LinkIcon, Link2Off } from "lucide-react";
-import { FontSlider } from "../../common/slider/index"
+import { FontSlider } from "../../common/slider";
 import { ColorPicker } from "../../atoms/color-picker";
-
-import "./style.css";
 
 export default function BubbleMenuGlobal({ editor }) {
   if (!editor) return null;
@@ -66,7 +64,7 @@ export default function BubbleMenuGlobal({ editor }) {
     <BubbleMenu
       editor={editor}
       shouldShow={shouldShow}
-      className="bubble-wrap"
+      className="z-[9999]"
       tippyOptions={{
         interactive: true,
         duration: 0,
@@ -74,7 +72,10 @@ export default function BubbleMenuGlobal({ editor }) {
         placement: "top",
       }}
     >
-      <div className="bubble-menu" onMouseDown={stopBubble}>
+      <div
+        className="relative flex items-center gap-2 bg-[#2f2f2f] px-4 py-2 rounded-xl"
+        onMouseDown={stopBubble}
+      >
         <ColorPicker color={editorState.color} onChange={(c) => applyColor(c)} />
 
         <TypographyDropdown editor={editor} currentFont={editorState.fontFamily} />
@@ -83,50 +84,56 @@ export default function BubbleMenuGlobal({ editor }) {
           type="number"
           min={8}
           max={64}
-          className="font-size-input"
           value={fontSize}
           onMouseDown={stopBubble}
           onChange={(e) => applyFontSize(parseInt(e.target.value))}
+          className="w-10 h-7 bg-[#444] text-white text-sm rounded-md text-center focus:outline-none"
         />
 
         <Button
           size="1"
-          className={`bm-btn ${editorState.isBold ? "active" : ""}`}
           onMouseDown={stopBubble}
           onClick={() => editor.chain().focus().toggleBold().run()}
+          className={`p-1 rounded-md ${
+            editorState.isBold ? "bg-white/20" : "bg-transparent"
+          } text-white`}
         >
           <Bold size={16} />
         </Button>
 
         <Button
           size="1"
-          className={`bm-btn ${editorState.isItalic ? "active" : ""}`}
           onMouseDown={stopBubble}
           onClick={() => editor.chain().focus().toggleItalic().run()}
+          className={`p-1 rounded-md ${
+            editorState.isItalic ? "bg-white/20" : "bg-transparent"
+          } text-white`}
         >
           <Italic size={16} />
         </Button>
 
         <Button
           size="1"
-          className={`bm-btn ${editorState.isLink ? "active" : ""}`}
           onMouseDown={stopBubble}
           onClick={setLink}
+          className={`p-1 rounded-md ${
+            editorState.isLink ? "bg-white/20" : "bg-transparent"
+          } text-white`}
         >
           <LinkIcon size={16} />
         </Button>
 
         <Button
           size="1"
-          className="bm-btn"
           onMouseDown={stopBubble}
           disabled={!editorState.isLink}
           onClick={unsetLink}
+          className="p-1 rounded-md text-white disabled:opacity-30"
         >
           <Link2Off size={16} />
         </Button>
 
-        <div className="slider-wrapper" onMouseDown={stopBubble}>
+        <div className="absolute w-[140px] -top-6 left-1/2 -translate-x-1/2">
           <FontSlider value={fontSize} onChange={applyFontSize} />
         </div>
       </div>
