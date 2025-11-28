@@ -4,14 +4,10 @@ import { HeroSection } from "./hero-section";
 import { Navbar } from "./navbar";
 import { ProductPreview } from "./product-preview";
 import { FeaturesSection } from "./features-section";
-import { PricingSection } from "./pricing-section";
 import { Footer } from "./footer";
 import { RoadmapSection } from "./roadmap-section";
-import { TestimonialsSection } from "./testimonials-section";
 import { CTASection } from "./cta-section";
-import { IntegrationsSection } from "./integrations-section";
 import { TemplatesSection } from "./templates-section";
-import { KeyboardSection } from "./keyboard-section";
 import { MetricsSection } from "./metrics-section";
 
 export const LandingPage = () => {
@@ -50,10 +46,6 @@ export const LandingPage = () => {
         <RoadmapSection />
         <MetricsSection />
         <TemplatesSection />
-        <KeyboardSection />
-        <IntegrationsSection />
-        <TestimonialsSection />
-        <PricingSection />
         <CTASection />
         <Footer />
       </main>
