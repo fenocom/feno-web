@@ -1,9 +1,11 @@
 "use client";
 
-
 import { HeroSection } from "./hero-section";
 import { Navbar } from "./navbar";
 import { ProductPreview } from "./product-preview";
+import { FeaturesSection } from "./features-section";
+import { PricingSection } from "./pricing-section";
+import { Footer } from "./footer";
 
 export const LandingPage = () => {
   return (
@@ -27,8 +29,6 @@ export const LandingPage = () => {
               backgroundBlendMode: "normal",
             }}
           />
-          {/* Spatial Grid Overlay */}
-          <div className="absolute inset-0 bg-[linear-gradient(to_right,#80808012_1px,transparent_1px),linear-gradient(to_bottom,#80808012_1px,transparent_1px)] bg-[size:24px_24px] [mask-image:radial-gradient(ellipse_60%_50%_at_50%_0%,#000_70%,transparent_100%)]" />
 
           {/* Dither Noise Overlay */}
           <div className="absolute inset-0 bg-[url('/noise.png')] opacity-[0.03] mix-blend-overlay" />
@@ -38,6 +38,10 @@ export const LandingPage = () => {
           <HeroSection />
           <ProductPreview />
         </div>
+
+        <FeaturesSection />
+        <PricingSection />
+        <Footer />
       </main>
     </div>
   );
