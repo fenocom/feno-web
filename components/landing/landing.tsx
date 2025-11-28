@@ -9,6 +9,9 @@ import { Footer } from "./footer";
 import { RoadmapSection } from "./roadmap-section";
 import { TestimonialsSection } from "./testimonials-section";
 import { CTASection } from "./cta-section";
+import { IntegrationsSection } from "./integrations-section";
+import { TemplatesSection } from "./templates-section";
+import { KeyboardSection } from "./keyboard-section";
 
 export const LandingPage = () => {
   return (
@@ -44,6 +47,9 @@ export const LandingPage = () => {
 
         <FeaturesSection />
         <RoadmapSection />
+        <TemplatesSection />
+        <KeyboardSection />
+        <IntegrationsSection />
         <TestimonialsSection />
         <PricingSection />
         <CTASection />

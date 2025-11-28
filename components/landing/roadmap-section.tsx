@@ -6,96 +6,110 @@ import { FileText, Globe, Rocket, TrendingUp } from "lucide-react";
 const steps = [
     {
         id: 1,
-        title: "Craft Your Story",
-        description:
-            "Use our block-based editor to build a resume that truly represents you. No rigid templates, just flexible design.",
+        title: "Craft",
+        description: "Build your story with our spatial editor.",
         icon: FileText,
+        color: "text-blue-400",
+        bg: "bg-blue-400/10",
+        border: "border-blue-400/20",
     },
     {
         id: 2,
-        title: "Showcase Your Work",
-        description:
-            "Turn your experience into a stunning web portfolio instantly. Let your work speak for itself with AI-generated layouts.",
+        title: "Publish",
+        description: "Deploy a stunning portfolio in one click.",
         icon: Globe,
+        color: "text-purple-400",
+        bg: "bg-purple-400/10",
+        border: "border-purple-400/20",
     },
     {
         id: 3,
-        title: "Optimize & Apply",
-        description:
-            "Beat the ATS with our visual optimizer. Tailor your applications to specific roles and ensure you get noticed.",
+        title: "Automate",
+        description: "Let AI apply to jobs while you sleep.",
         icon: Rocket,
+        color: "text-amber-400",
+        bg: "bg-amber-400/10",
+        border: "border-amber-400/20",
     },
     {
         id: 4,
-        title: "Track & Grow",
-        description:
-            "Monitor your application performance. See who's viewing your profile and make data-driven career moves.",
+        title: "Track",
+        description: "Get radar visibility on your applications.",
         icon: TrendingUp,
+        color: "text-emerald-400",
+        bg: "bg-emerald-400/10",
+        border: "border-emerald-400/20",
     },
 ];
 
 export const RoadmapSection = () => {
     return (
-        <section className="py-24 relative z-10 overflow-hidden">
+        <section className="py-32 relative z-10 overflow-hidden border-t border-white/5">
             <div className="container mx-auto px-4">
-                <div className="text-center mb-20">
-                    <motion.h2
-                        initial={{ opacity: 0, y: 20 }}
-                        whileInView={{ opacity: 1, y: 0 }}
-                        viewport={{ once: true }}
-                        transition={{ duration: 0.6 }}
-                        className="text-3xl md:text-5xl font-medium mb-6 tracking-tight font-host"
-                    >
-                        Level up your <span className="text-[#a1ccff] font-serif italic">career game</span>
-                    </motion.h2>
+                <div className="flex flex-col md:flex-row justify-between items-end mb-20 gap-6">
+                    <div className="max-w-2xl">
+                        <motion.div
+                            initial={{ opacity: 0, y: 20 }}
+                            whileInView={{ opacity: 1, y: 0 }}
+                            viewport={{ once: true }}
+                            className="text-[#a1ccff] font-mono text-sm mb-4 tracking-wider uppercase"
+                        >
+                            Workflow
+                        </motion.div>
+                        <motion.h2
+                            initial={{ opacity: 0, y: 20 }}
+                            whileInView={{ opacity: 1, y: 0 }}
+                            viewport={{ once: true }}
+                            transition={{ duration: 0.6, delay: 0.1 }}
+                            className="text-4xl md:text-5xl font-medium tracking-tight font-host text-white"
+                        >
+                            Level up your career game
+                        </motion.h2>
+                    </div>
                     <motion.p
                         initial={{ opacity: 0, y: 20 }}
                         whileInView={{ opacity: 1, y: 0 }}
                         viewport={{ once: true }}
-                        transition={{ duration: 0.6, delay: 0.1 }}
-                        className="text-slate-400 max-w-2xl mx-auto text-lg"
+                        transition={{ duration: 0.6, delay: 0.2 }}
+                        className="text-slate-400 max-w-sm text-lg leading-relaxed text-right md:text-left"
                     >
                         A simple, powerful workflow designed to take you from applicant to hired.
                     </motion.p>
                 </div>
 
-                <div className="relative max-w-4xl mx-auto">
-                    {/* Connecting Line */}
-                    <div className="absolute left-[28px] md:left-1/2 top-0 bottom-0 w-px bg-gradient-to-b from-transparent via-[#a1ccff]/30 to-transparent transform md:-translate-x-1/2" />
+                <div className="relative">
+                    {/* Connecting Line (Desktop) */}
+                    <div className="hidden lg:block absolute top-[45px] left-0 right-0 h-[2px] bg-white/10 z-0">
+                        <div className="absolute inset-0 bg-gradient-to-r from-transparent via-[#a1ccff]/50 to-transparent w-1/2 mx-auto" />
+                    </div>
 
-                    <div className="space-y-12 md:space-y-24">
+                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 relative">
                         {steps.map((step, index) => (
                             <motion.div
                                 key={step.id}
                                 initial={{ opacity: 0, y: 20 }}
                                 whileInView={{ opacity: 1, y: 0 }}
-                                viewport={{ once: true, margin: "-50px" }}
+                                viewport={{ once: true }}
                                 transition={{ duration: 0.6, delay: index * 0.1 }}
-                                className={`relative flex flex-col md:flex-row gap-8 md:gap-0 items-start md:items-center ${index % 2 === 0 ? "md:flex-row-reverse" : ""
-                                    }`}
+                                className="relative z-10 flex flex-col items-start group"
                             >
-                                {/* Content Side */}
-                                <div className="flex-1 w-full md:w-1/2 pl-16 md:pl-0 md:px-12">
-                                    <div
-                                        className={`flex flex-col gap-3 ${index % 2 === 0 ? "md:text-left" : "md:text-right"
-                                            }`}
-                                    >
-                                        <h3 className="text-2xl font-medium text-white">
-                                            {step.title}
-                                        </h3>
-                                        <p className="text-slate-400 leading-relaxed">
-                                            {step.description}
-                                        </p>
-                                    </div>
+                                <div className={`w-24 h-24 rounded-2xl ${step.bg} ${step.border} border flex items-center justify-center mb-8 backdrop-blur-sm shadow-[0_0_30px_-10px_rgba(0,0,0,0.5)] group-hover:scale-105 transition-transform duration-300 relative`}>
+                                    <step.icon className={`w-10 h-10 ${step.color}`} />
+                                    {/* Dot on line */}
+                                    <div className="hidden lg:block absolute -top-[52px] left-1/2 -translate-x-1/2 w-3 h-3 rounded-full bg-[#001a57] border-2 border-[#a1ccff] z-20" />
+                                    {/* Vertical Line to Dot */}
+                                    <div className="hidden lg:block absolute -top-[40px] left-1/2 -translate-x-1/2 w-[2px] h-[40px] bg-gradient-to-b from-[#a1ccff]/50 to-transparent z-0" />
                                 </div>
 
-                                {/* Center Icon */}
-                                <div className="absolute left-0 md:left-1/2 transform md:-translate-x-1/2 flex items-center justify-center w-14 h-14 rounded-full bg-[#001a57] border border-[#a1ccff]/30 shadow-[0_0_15px_rgba(161,204,255,0.2)] z-10">
-                                    <step.icon className="w-6 h-6 text-[#a1ccff]" />
+                                <div className="flex items-center gap-3 mb-3">
+                                    <span className="font-mono text-[#a1ccff]/50 text-sm">0{step.id}</span>
+                                    <h3 className="text-xl font-medium text-white">
+                                        {step.title}
+                                    </h3>
                                 </div>
-
-                                {/* Empty Side for Balance */}
-                                <div className="flex-1 hidden md:block" />
+                                <p className="text-slate-400 text-base leading-relaxed">
+                                    {step.description}
+                                </p>
                             </motion.div>
                         ))}
                     </div>
