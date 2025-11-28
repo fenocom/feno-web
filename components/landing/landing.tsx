@@ -12,6 +12,7 @@ import { CTASection } from "./cta-section";
 import { IntegrationsSection } from "./integrations-section";
 import { TemplatesSection } from "./templates-section";
 import { KeyboardSection } from "./keyboard-section";
+import { MetricsSection } from "./metrics-section";
 
 export const LandingPage = () => {
   return (
@@ -47,6 +48,7 @@ export const LandingPage = () => {
 
         <FeaturesSection />
         <RoadmapSection />
+        <MetricsSection />
         <TemplatesSection />
         <KeyboardSection />
         <IntegrationsSection />

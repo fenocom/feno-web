@@ -3,49 +3,35 @@
 import { motion } from "framer-motion";
 import { FileText, Globe, BarChart3, Layout, Zap } from "lucide-react";
 
+import { SchematicResume, SchematicPrism, SchematicRadar, SchematicBrowser } from "./illustrations";
+
 // --- Visual Components ---
 
 const ResumeVisual = () => (
-    <div className="w-full h-full relative flex flex-col items-center justify-center p-6 overflow-hidden bg-black/20 group">
-        <img
-            src="/feature_unbound_nodes_1764369859983.png"
-            alt="Unbound Workspace"
-            className="w-full h-full object-cover rounded-xl opacity-90 group-hover:scale-105 transition-transform duration-700"
-        />
-        <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent" />
+    <div className="w-full h-full relative overflow-hidden bg-[#000510] group">
+        <SchematicResume />
+        <div className="absolute inset-0 bg-gradient-to-t from-[#000510] via-transparent to-transparent opacity-50" />
     </div>
 );
 
 const PortfolioVisual = () => (
-    <div className="w-full h-full relative flex flex-col items-center justify-center p-6 overflow-hidden bg-black/20 group">
-        <img
-            src="/feature_prism_portfolio_1764369877820.png"
-            alt="Prism Portfolio Generation"
-            className="w-full h-full object-cover rounded-xl opacity-90 group-hover:scale-105 transition-transform duration-700"
-        />
-        <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent" />
+    <div className="w-full h-full relative overflow-hidden bg-[#000510] group">
+        <SchematicPrism />
+        <div className="absolute inset-0 bg-gradient-to-t from-[#000510] via-transparent to-transparent opacity-50" />
     </div>
 );
 
 const AnalyticsVisual = () => (
-    <div className="w-full h-full relative flex flex-col items-center justify-center p-6 overflow-hidden bg-black/20 group">
-        <img
-            src="/feature_radar_analytics_1764369894067.png"
-            alt="Radar Analytics"
-            className="w-full h-full object-cover rounded-xl opacity-90 group-hover:scale-105 transition-transform duration-700"
-        />
-        <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent" />
+    <div className="w-full h-full relative overflow-hidden bg-[#000510] group">
+        <SchematicRadar />
+        <div className="absolute inset-0 bg-gradient-to-t from-[#000510] via-transparent to-transparent opacity-50" />
     </div>
 );
 
 const AutoApplyVisual = () => (
-    <div className="w-full h-full relative flex flex-col items-center justify-center p-6 overflow-hidden bg-black/20 group">
-        <img
-            src="/feature_auto_apply_1764369909694.png"
-            alt="Auto Apply Ghost"
-            className="w-full h-full object-cover rounded-xl opacity-90 group-hover:scale-105 transition-transform duration-700"
-        />
-        <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent" />
+    <div className="w-full h-full relative overflow-hidden bg-[#000510] group">
+        <SchematicBrowser />
+        <div className="absolute inset-0 bg-gradient-to-t from-[#000510] via-transparent to-transparent opacity-50" />
     </div>
 );
 
