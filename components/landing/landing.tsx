@@ -6,6 +6,9 @@ import { ProductPreview } from "./product-preview";
 import { FeaturesSection } from "./features-section";
 import { PricingSection } from "./pricing-section";
 import { Footer } from "./footer";
+import { RoadmapSection } from "./roadmap-section";
+import { TestimonialsSection } from "./testimonials-section";
+import { CTASection } from "./cta-section";
 
 export const LandingPage = () => {
   return (
@@ -40,7 +43,10 @@ export const LandingPage = () => {
         </div>
 
         <FeaturesSection />
+        <RoadmapSection />
+        <TestimonialsSection />
         <PricingSection />
+        <CTASection />
         <Footer />
       </main>
     </div>
