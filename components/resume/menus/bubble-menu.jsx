@@ -73,7 +73,7 @@ export default function BubbleMenuGlobal({ editor }) {
       }}
     >
       <div
-        className="relative flex items-center gap-2 bg-[#2f2f2f] px-4 py-2 rounded-xl"
+        className="relative flex items-center gap-2 bg-toolbar px-4 py-2 rounded-xl"
         onMouseDown={stopBubble}
       >
         <ColorPicker color={editorState.color} onChange={(c) => applyColor(c)} />

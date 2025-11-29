@@ -28,3 +28,7 @@
   background-image: radial-gradient(#d6d6d6 1px, #fafafa 0.6px);
   background-size: 11px 11px;
 }
+
+.bg-toolbar {
+  background-color: #2f2f2f;
+}
