@@ -15,6 +15,7 @@ import { useCallback, useState } from "react";
 import { MainMenu } from "../main-menu";
 import { ResumeEditor } from "./resume-editor";
 import Toolbar from "./menus/toolbar"
+import { toolbarConfig } from "./utils";
 
 const nodeTypes = {
   "resume-editor": ResumeEditor,
@@ -52,9 +53,7 @@ export const ResumePage = () => {
   return (
     <div style={{ width: "100vw", height: "100vh" }}>
       <Toolbar
-        onDownload={() => console.log("download")}
-        onSwitchTemplate={() => console.log("switch")}
-        onCreatePortfolio={() => console.log("portfolio")}
+        config={toolbarConfig}
       />
 
       <ReactFlow
