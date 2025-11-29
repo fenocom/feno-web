@@ -9,149 +9,130 @@ export const template = {
           type: "gridColumn",
           attrs: {
             styles: {
-              padding: "32px",
-              "font-family": "Inter, Arial, sans-serif",
-              color: "#111",
+              padding: "20px 28px",
+              "font-family": "Georgia, serif",
+              color: "#000000",
               "background-color": "#ffffff",
               width: "210mm",
               "min-height": "297mm",
               "box-sizing": "border-box",
-            },
+              "font-size": "13px",
+              "line-height": "1.5"
+            }
           },
           content: [
-            /* ===========================
-             * HEADER
-             * =========================== */
+            /* ======================= HEADER ======================= */
             {
               type: "heading",
               attrs: {
                 level: 1,
                 styles: {
-                  "font-size": "2.6rem",
+                  "text-align": "center",
+                  "font-size": "28px",
                   "font-weight": "700",
-                  "margin-bottom": "0.35rem",
-                },
+                  "margin-bottom": "6px"
+                }
               },
-              content: [{ type: "text", text: "ALEXANDER MORGAN" }],
+              content: [{ type: "text", text: "ALEXANDER MORGAN" }]
             },
 
             {
               type: "paragraph",
               attrs: {
                 styles: {
-                  "font-size": "1rem",
-                  "font-weight": "500",
+                  "text-align": "center",
+                  "font-size": "12px",
                   color: "#444",
-                  "margin-bottom": "1rem",
-                },
+                  "margin-bottom": "4px"
+                }
               },
               content: [
-                { type: "text", text: "+1 555 908 3321  |  " },
-                { type: "text", text: "alex.morgan@example.com", marks: [{ type: "underline" }] },
-                { type: "text", text: "  |  " },
-                { type: "text", text: "github.com/alexdev", marks: [{ type: "underline" }] },
-                { type: "text", text: "  |  " },
-                {
-                  type: "text",
-                  text: "linkedin.com/in/alexmorgan",
-                  marks: [{ type: "underline" }],
-                },
-              ],
+                { type: "text", text: "+1 555 908 3321 | alex.morgan@example.com | alexm.dev" }
+              ]
+            },
+
+            {
+              type: "paragraph",
+              attrs: {
+                styles: {
+                  "text-align": "center",
+                  "font-size": "12px",
+                  color: "#444",
+                  "margin-bottom": "14px"
+                }
+              },
+              content: [
+                { type: "text", text: "github.com/alexdev | linkedin.com/in/alexmorgan" }
+              ]
             },
 
             { type: "horizontalRule" },
 
-            /* ===========================
-             * EDUCATION
-             * =========================== */
+            /* ======================= SUMMARY ======================= */
             {
               type: "heading",
               attrs: {
                 level: 2,
                 styles: {
-                  "font-size": "1.4rem",
-                  "margin-top": "1.8rem",
-                  "font-weight": "700",
-                },
+                  "font-size": "16px",
+                  "margin-top": "14px",
+                  "font-weight": "700"
+                }
               },
-              content: [{ type: "text", text: "EDUCATION" }],
+              content: [{ type: "text", text: "PROFESSIONAL SUMMARY" }]
             },
-
-            { type: "horizontalRule" },
 
             {
               type: "paragraph",
-              attrs: { styles: { "margin-top": "0.65rem" } },
               content: [
                 {
                   type: "text",
-                  marks: [{ type: "bold" }],
-                  text: "California Institute of Technology (2018–2022)",
-                },
-              ],
+                  text:
+                    "Frontend Engineer with 3+ years of experience building scalable, high-performance web applications using React, Next.js, TypeScript, and modern UI systems. Strong focus on performance optimization, clean architecture, and delivering production-ready features. Proven ability to collaborate across teams and improve engineering efficiency."
+                }
+              ]
             },
 
-            {
-              type: "paragraph",
-              content: [{ type: "text", text: "B.Sc. in Software Engineering" }],
-            },
-
-            {
-              type: "paragraph",
-              content: [{ type: "text", text: "CGPA: 8.12 / 10" }],
-            },
-
-            /* ===========================
-             * EXPERIENCE
-             * =========================== */
+            /* ======================= EXPERIENCE ======================= */
             {
               type: "heading",
               attrs: {
                 level: 2,
                 styles: {
-                  "font-size": "1.4rem",
-                  "margin-top": "1.8rem",
-                  "font-weight": "700",
-                },
+                  "font-size": "16px",
+                  "margin-top": "18px",
+                  "font-weight": "700"
+                }
               },
-              content: [{ type: "text", text: "EXPERIENCE" }],
+              content: [{ type: "text", text: "EXPERIENCE" }]
             },
 
-            { type: "horizontalRule" },
-
+            /* Job 1 */
             {
               type: "grid",
               attrs: { columnWidth: [70, 30] },
               content: [
                 {
                   type: "gridColumn",
-                  attrs: { styles: { padding: "0", "font-weight": "600" } },
+                  attrs: { styles: { "font-weight": "600", "font-size": "14px" } },
                   content: [
                     {
                       type: "paragraph",
-                      content: [
-                        { type: "text", text: "TechNova Solutions — Frontend Engineer" },
-                      ],
-                    },
-                  ],
+                      content: [{ type: "text", text: "TechNova Solutions — Frontend Engineer" }]
+                    }
+                  ]
                 },
                 {
                   type: "gridColumn",
-                  attrs: {
-                    styles: {
-                      padding: "0",
-                      "text-align": "right",
-                      "white-space": "nowrap",
-                    },
-                  },
+                  attrs: { styles: { "text-align": "right", "white-space": "nowrap" } },
                   content: [
                     {
                       type: "paragraph",
-                      content: [{ type: "text", text: "07/2022 — Present" }],
-                    },
-                  ],
-                },
-              ],
+                      content: [{ type: "text", text: "July 2022 – Present" }]
+                    }
+                  ]
+                }
+              ]
             },
 
             {
@@ -160,79 +141,62 @@ export const template = {
                 {
                   type: "listItem",
                   content: [
-                    {
-                      type: "paragraph",
-                      content: [
-                        {
-                          type: "text",
-                          text: "Built responsive interfaces using React, Next.js, and TypeScript.",
-                        },
-                      ],
-                    },
-                  ],
+                    { type: "paragraph", content: [
+                      { type: "text", text: "Developed and optimized React components used by 200,000+ monthly users, improving page performance by 32%." }
+                    ]}
+                  ]
                 },
                 {
                   type: "listItem",
                   content: [
-                    {
-                      type: "paragraph",
-                      content: [
-                        {
-                          type: "text",
-                          text: "Improved application performance, reducing load times by 32%.",
-                        },
-                      ],
-                    },
-                  ],
+                    { type: "paragraph", content: [
+                      { type: "text", text: "Led migration from JavaScript to TypeScript across 30+ modules, reducing runtime errors by 45%." }
+                    ]}
+                  ]
                 },
                 {
                   type: "listItem",
                   content: [
-                    {
-                      type: "paragraph",
-                      content: [
-                        {
-                          type: "text",
-                          text: "Implemented reusable UI components and internal design system.",
-                        },
-                      ],
-                    },
-                  ],
+                    { type: "paragraph", content: [
+                      { type: "text", text: "Implemented reusable UI component systems using Tailwind CSS and Radix UI, cutting development time by 25%." }
+                    ]}
+                  ]
                 },
                 {
                   type: "listItem",
                   content: [
-                    {
-                      type: "paragraph",
-                      content: [
-                        {
-                          type: "text",
-                          text: "Worked closely with backend teams on scalable API integrations.",
-                        },
-                      ],
-                    },
-                  ],
-                },
-              ],
+                    { type: "paragraph", content: [
+                      { type: "text", text: "Collaborated with backend teams to build scalable REST and GraphQL integrations." }
+                    ]}
+                  ]
+                }
+              ]
             },
 
-            /* ===========================
-             * SKILLS
-             * =========================== */
+            /* Job 2 */
             {
-              type: "heading",
-              attrs: {
-                level: 2,
-                styles: {
-                  "font-size": "1.4rem",
-                  "margin-top": "1.8rem",
-                  "font-weight": "700",
+              type: "grid",
+              attrs: { columnWidth: [70, 30] },
+              content: [
+                {
+                  type: "gridColumn",
+                  attrs: { styles: { "font-weight": "600", "font-size": "14px" } },
+                  content: [
+                    {
+                      type: "paragraph",
+                      content: [{ type: "text", text: "BrightLabs — Software Engineer Intern" }]
+                    }
+                  ]
                 },
-              },
-              content: [{ type: "text", text: "SKILLS" }],
+                {
+                  type: "gridColumn",
+                  attrs: { styles: { "text-align": "right" } },
+                  content: [
+                    { type: "paragraph", content: [{ type: "text", text: "Jan 2022 – June 2022" }] }
+                  ]
+                }
+              ]
             },
-
-            { type: "horizontalRule" },
 
             {
               type: "bulletList",
@@ -240,78 +204,144 @@ export const template = {
                 {
                   type: "listItem",
                   content: [
-                    {
-                      type: "paragraph",
-                      content: [
-                        {
-                          type: "text",
-                          text:
-                            "JavaScript, TypeScript, React, Next.js, Zustand, Tailwind CSS, Node.js, Express.js, PostgreSQL, MongoDB, GraphQL, Docker",
-                        },
-                      ],
-                    },
-                  ],
-                },
-              ],
+                    { type: "paragraph", content: [
+                      { type: "text", text: "Built internal tooling dashboards using React and Zustand, reducing report generation time by 70%." }
+                    ]}
+                  ]
+                }
+              ]
             },
 
-            /* ===========================
-             * PROJECTS
-             * =========================== */
+            /* ======================= EDUCATION ======================= */
             {
               type: "heading",
               attrs: {
                 level: 2,
                 styles: {
-                  "font-size": "1.4rem",
-                  "margin-top": "1.8rem",
-                  "font-weight": "700",
-                },
+                  "font-size": "16px",
+                  "margin-top": "18px",
+                  "font-weight": "700"
+                }
               },
-              content: [{ type: "text", text: "PROJECTS" }],
-            },
-
-            { type: "horizontalRule" },
-
-            {
-              type: "paragraph",
-              content: [
-                {
-                  type: "text",
-                  marks: [{ type: "bold" }],
-                  text: "TaskFlow — Kanban Task Manager",
-                },
-                {
-                  type: "text",
-                  text: " — Real-time collaboration using Zustand + WebSockets.",
-                },
-              ],
+              content: [{ type: "text", text: "EDUCATION" }]
             },
 
             {
-              type: "paragraph",
+              type: "grid",
+              attrs: { columnWidth: [75, 25] },
               content: [
-                { type: "text", marks: [{ type: "bold" }], text: "ShopBase" },
                 {
-                  type: "text",
-                  text: " — E-commerce starter kit powered by Next.js + Stripe.",
+                  type: "gridColumn",
+                  attrs: { styles: { "font-weight": "600" } },
+                  content: [
+                    {
+                      type: "paragraph",
+                      content: [{ type: "text", text: "California Institute of Technology — B.Sc. Software Engineering" }]
+                    }
+                  ]
                 },
-              ],
+                {
+                  type: "gridColumn",
+                  attrs: { styles: { "text-align": "right" } },
+                  content: [
+                    { type: "paragraph", content: [{ type: "text", text: "2018 – 2022" }] }
+                  ]
+                }
+              ]
             },
 
             {
               type: "paragraph",
+              content: [{ type: "text", text: "CGPA: 8.12 / 10" }]
+            },
+
+            /* ======================= SKILLS ======================= */
+            {
+              type: "heading",
+              attrs: {
+                level: 2,
+                styles: {
+                  "font-size": "16px",
+                  "margin-top": "18px",
+                  "font-weight": "700"
+                }
+              },
+              content: [{ type: "text", text: "SKILLS" }]
+            },
+
+            {
+              type: "bulletList",
               content: [
-                { type: "text", marks: [{ type: "bold" }], text: "PictoAI" },
+                {
+                  type: "listItem",
+                  content: [
+                    { type: "paragraph",
+                      content: [
+                        { type: "text", text: "React, Next.js, JavaScript, TypeScript, Zustand, Tailwind CSS, Radix UI, Node.js, Express.js, PostgreSQL, MongoDB, GraphQL, Docker" }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            },
+
+            /* ======================= PROJECTS ======================= */
+            {
+              type: "heading",
+              attrs: {
+                level: 2,
+                styles: {
+                  "font-size": "16px",
+                  "margin-top": "18px",
+                  "font-weight": "700"
+                }
+              },
+              content: [{ type: "text", text: "PROJECTS" }]
+            },
+
+            {
+              type: "paragraph",
+              content: [
+                { type: "text", marks: [{ type: "bold" }], text: "TaskFlow — " },
+                { type: "text", text: "Kanban task manager with real-time collaboration using WebSockets." }
+              ]
+            },
+
+            {
+              type: "paragraph",
+              content: [
+                { type: "text", marks: [{ type: "bold" }], text: "ShopBase — " },
+                { type: "text", text: "Full-stack e-commerce starter kit using Next.js + Stripe." }
+              ]
+            },
+
+            /* ======================= PUBLICATIONS ======================= */
+            {
+              type: "heading",
+              attrs: {
+                level: 2,
+                styles: {
+                  "font-size": "16px",
+                  "margin-top": "18px",
+                  "font-weight": "700"
+                }
+              },
+              content: [{ type: "text", text: "PUBLICATIONS" }]
+            },
+
+            {
+              type: "paragraph",
+              content: [
+                { type: "text", marks: [{ type: "bold" }], text: "[J.1] " },
                 {
                   type: "text",
-                  text: " — AI-based image caption generator using HuggingFace APIs.",
-                },
-              ],
-            },
-          ],
-        },
-      ],
-    },
-  ],
+                  text: "Morgan, A., et al. (2021). A Study on Frontend Performance Optimization. IEEE Journal."
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ]
 };
