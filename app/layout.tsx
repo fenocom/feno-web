@@ -37,7 +37,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className="light bg-black">
+    <html lang="en" className="resume-bg">
       <body
         className={`${hostGrotesk.variable} ${serif.variable} ${jetbrains.variable}  antialiased`}
       >

@@ -22,3 +22,9 @@
 .react-colorful__hue-pointer {
   @apply !w-3 !h-3 rounded-full border border-white shadow-md;
 }
+
+.resume-bg {
+  background-color: #fafafa;
+  background-image: radial-gradient(#d6d6d6 1px, #fafafa 0.6px);
+  background-size: 11px 11px;
+}
