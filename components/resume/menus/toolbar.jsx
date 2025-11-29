@@ -21,7 +21,7 @@ export default function Toolbar({ config = toolbarConfig }) {
                 size="2"
                 disabled={item.disabled}
                 onClick={item.action}
-                className={`flex items-center gap-2 text-white ${item.className || ""}`}
+                className={`flex items-center gap-2 text-white cursor-pointer ${item.className || ""}`}
               >
                 {item.icon && <item.icon size={18} />}
                 {item.label}

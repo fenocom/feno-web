@@ -26,8 +26,7 @@ export const toolbarConfig = [
     icon: FileDown,
     action: () => console.log("Download PDF"),
     disabled: false,
-    tooltip: "Export your resume",
-    className: "hover:bg-neutral-700"
+    // tooltip: "Export your resume",
   },
   {
     id: "switch-template",
@@ -35,7 +34,7 @@ export const toolbarConfig = [
     icon: Shuffle,
     action: () => console.log("Switch template"),
     disabled: false,
-    tooltip: "Try a different resume layout",
+    // tooltip: "Try a different resume layout",
   },
   {
     id: "create-portfolio",
@@ -43,7 +42,7 @@ export const toolbarConfig = [
     icon: Globe,
     action: () => console.log("Go to portfolio builder"),
     disabled: true,
-    tooltip: "Coming soon",
+    // tooltip: "Coming soon",
     className: "opacity-50 cursor-not-allowed"
   }
 ];
