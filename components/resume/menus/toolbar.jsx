@@ -11,7 +11,7 @@ export default function Toolbar({ config = toolbarConfig }) {
       initial={{ y: 40, opacity: 0 }}
       animate={{ y: 0, opacity: 1 }}
       transition={{ duration: 0.25 }}
-      className="fixed bottom-6 left-1/2 -translate-x-1/2 bg-neutral-900/90 backdrop-blur-md px-5 py-3 rounded-xl flex items-center gap-4 shadow-xl border border-neutral-700 z-[999]"
+      className="fixed bottom-6 left-1/2 -translate-x-1/2 bg-neutral-900/90 backdrop-blur-md px-5 py-3 rounded-xl flex items-center gap-4 shadow-xl border border-neutral-700 z-999"
     >
       <Tooltip.Provider delayDuration={100}>
         {config.map((item) => (
