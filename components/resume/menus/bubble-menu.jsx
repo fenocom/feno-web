@@ -65,7 +65,7 @@ export default function BubbleMenuGlobal({ editor }) {
       editor={editor}
       shouldShow={shouldShow}
       className="z-9999"
-      tippyOptions={{
+      tippyoptions={{
         interactive: true,
         duration: 0,
         hideOnClick: false,

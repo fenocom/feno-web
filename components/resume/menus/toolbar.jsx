@@ -3,9 +3,8 @@
 import { motion } from "framer-motion";
 import { Button } from "@radix-ui/themes";
 import * as Tooltip from "@radix-ui/react-tooltip";
-import { toolbarConfig } from "../utils";
 
-export default function Toolbar({ config = toolbarConfig }) {
+export default function Toolbar({ config }) {
   return (
     <motion.div
       initial={{ y: 40, opacity: 0 }}

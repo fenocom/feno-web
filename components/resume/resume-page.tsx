@@ -12,10 +12,10 @@ import {
   type EdgeChange,
 } from "@xyflow/react";
 import { useCallback, useState } from "react";
-import { MainMenu } from "../main-menu";
+import { FileDown, Shuffle, Globe } from "lucide-react";
+import Toolbar from "./menus/toolbar";
 import { ResumeEditor } from "./resume-editor";
-import Toolbar from "./menus/toolbar"
-import { toolbarConfig } from "./utils";
+import { downloadPDF } from "./utils";
 
 const nodeTypes = {
   "resume-editor": ResumeEditor,
@@ -37,24 +37,55 @@ export const ResumePage = () => {
   const onNodesChange = useCallback(
     (changes: NodeChange<Node>[]) =>
       setNodes((nodesSnapshot) => applyNodeChanges(changes, nodesSnapshot)),
-    [],
+    []
   );
   const onEdgesChange = useCallback(
     (changes: EdgeChange<Edge>[]) =>
       setEdges((edgesSnapshot) => applyEdgeChanges(changes, edgesSnapshot)),
-    [],
+    []
   );
   const onConnect = useCallback(
     (params: Connection) =>
       setEdges((edgesSnapshot) => addEdge(params, edgesSnapshot)),
-    [],
+    []
   );
+
+  const switchTemplate = () => {
+    console.log("Switching template...");
+  };
+
+  const createPortfolio = () => {
+    console.log("Opening portfolio builder...");
+  };
+
+  const toolbarConfig = [
+    {
+      id: "download",
+      label: "Download PDF",
+      icon: FileDown,
+      action: downloadPDF,
+      disabled: false,
+    },
+    {
+      id: "switch-template",
+      label: "Switch Template",
+      icon: Shuffle,
+      action: switchTemplate,
+      disabled: false,
+    },
+    {
+      id: "create-portfolio",
+      label: "Create Portfolio",
+      icon: Globe,
+      action: createPortfolio,
+      disabled: true,
+      className: "opacity-50 cursor-not-allowed",
+    },
+  ];
 
   return (
     <div style={{ width: "100vw", height: "100vh" }}>
-      <Toolbar
-        config={toolbarConfig}
-      />
+      <Toolbar config={toolbarConfig} />
 
       <ReactFlow
         nodes={nodes}
