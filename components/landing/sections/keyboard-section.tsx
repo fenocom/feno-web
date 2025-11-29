@@ -38,7 +38,7 @@ export const KeyboardSection = () => {
                     Navigate your entire career without lifting your hands from the keyboard. The Feno Command Palette gives you instant access to everything.
                 </motion.p>
 
-                {/* Command Palette Mockup */}
+
                 <motion.div
                     initial={{ opacity: 0, y: 40 }}
                     whileInView={{ opacity: 1, y: 0 }}

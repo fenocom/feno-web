@@ -1,6 +1,6 @@
 import { Button } from "@radix-ui/themes";
-import { Logo } from "../common";
-import { ProductsMenu } from "./products-menu";
+import { Logo } from "../../common";
+import { ProductsMenu } from "../ui/products-menu";
 
 const triggerClassname =
   "font-host hover:text-[#a1ccff] text-base cursor-pointer flex justify-center items-center";

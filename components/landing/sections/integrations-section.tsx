@@ -8,7 +8,7 @@ const integrations = [
     { name: "GitHub", icon: Github, color: "text-white" },
     { name: "Gmail", icon: Mail, color: "text-red-500" },
     { name: "Slack", icon: Slack, color: "text-purple-500" },
-    { name: "ATS Systems", icon: Trello, color: "text-blue-400" }, // Using Trello as generic ATS placeholder
+    { name: "ATS Systems", icon: Trello, color: "text-blue-400" },
 ];
 
 export const IntegrationsSection = () => {
@@ -43,12 +43,12 @@ export const IntegrationsSection = () => {
                 </motion.p>
 
                 <div className="relative max-w-4xl mx-auto h-[400px] flex items-center justify-center">
-                    {/* Central Hub */}
+
                     <div className="relative z-20 w-32 h-32 rounded-full bg-[#001a57] border border-[#a1ccff]/30 flex items-center justify-center shadow-[0_0_50px_-10px_rgba(161,204,255,0.3)]">
                         <span className="font-host text-3xl font-bold text-white">feno</span>
                     </div>
 
-                    {/* Orbiting Icons */}
+
                     {integrations.map((item, index) => {
                         const angle = (index / integrations.length) * 2 * Math.PI;
                         const radius = 160; // Distance from center
@@ -69,7 +69,7 @@ export const IntegrationsSection = () => {
                         );
                     })}
 
-                    {/* Connecting Lines */}
+
                     <svg className="absolute inset-0 w-full h-full pointer-events-none z-0">
                         <circle cx="50%" cy="50%" r="160" stroke="white" strokeOpacity="0.05" fill="none" strokeDasharray="4 4" />
                     </svg>

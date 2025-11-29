@@ -3,9 +3,9 @@
 import { motion } from "framer-motion";
 import { FileText, Globe, BarChart3, Layout, Zap } from "lucide-react";
 
-import { SchematicResume, SchematicPrism, SchematicRadar, SchematicBrowser } from "./illustrations";
+import { SchematicResume, SchematicPrism, SchematicRadar, SchematicBrowser } from "../ui/illustrations";
 
-// --- Visual Components ---
+
 
 const ResumeVisual = () => (
     <div className="w-full h-full relative overflow-hidden bg-[#000510] group">
@@ -35,7 +35,7 @@ const AutoApplyVisual = () => (
     </div>
 );
 
-// --- Main Component ---
+
 
 export const FeaturesSection = () => {
     return (
@@ -62,10 +62,10 @@ export const FeaturesSection = () => {
                     </motion.p>
                 </div>
 
-                {/* Bento Grid Layout */}
+
                 <div className="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-7xl mx-auto">
 
-                    {/* Item 1: Resume (Large, Span 2) */}
+
                     <motion.div
                         initial={{ opacity: 0, y: 20 }}
                         whileInView={{ opacity: 1, y: 0 }}
@@ -85,7 +85,7 @@ export const FeaturesSection = () => {
                         </div>
                     </motion.div>
 
-                    {/* Item 2: Auto-Apply (Small, Span 1) */}
+
                     <motion.div
                         initial={{ opacity: 0, y: 20 }}
                         whileInView={{ opacity: 1, y: 0 }}
@@ -105,7 +105,7 @@ export const FeaturesSection = () => {
                         </div>
                     </motion.div>
 
-                    {/* Item 3: Portfolio (Small, Span 1) */}
+
                     <motion.div
                         initial={{ opacity: 0, y: 20 }}
                         whileInView={{ opacity: 1, y: 0 }}
@@ -125,7 +125,7 @@ export const FeaturesSection = () => {
                         </div>
                     </motion.div>
 
-                    {/* Item 4: Analytics (Large, Span 2) */}
+
                     <motion.div
                         initial={{ opacity: 0, y: 20 }}
                         whileInView={{ opacity: 1, y: 0 }}

@@ -1,6 +1,6 @@
 "use client";
 
-import { Logo } from "../common";
+import { Logo } from "../../common";
 
 export const Footer = () => {
     return (

@@ -1,14 +1,14 @@
 "use client";
 
-import { HeroSection } from "./hero-section";
-import { Navbar } from "./navbar";
-import { ProductPreview } from "./product-preview";
-import { FeaturesSection } from "./features-section";
-import { Footer } from "./footer";
-import { RoadmapSection } from "./roadmap-section";
-import { CTASection } from "./cta-section";
-import { TemplatesSection } from "./templates-section";
-import { MetricsSection } from "./metrics-section";
+import { HeroSection } from "./sections/hero-section";
+import { Navbar } from "./layout/navbar";
+import { ProductPreview } from "./ui/product-preview";
+import { FeaturesSection } from "./sections/features-section";
+import { Footer } from "./layout/footer";
+import { RoadmapSection } from "./sections/roadmap-section";
+import { CTASection } from "./sections/cta-section";
+import { TemplatesSection } from "./sections/templates-section";
+import { MetricsSection } from "./sections/metrics-section";
 
 export const LandingPage = () => {
   return (
@@ -33,7 +33,6 @@ export const LandingPage = () => {
             }}
           />
 
-          {/* Dither Noise Overlay */}
           <div className="absolute inset-0 bg-[url('/noise.png')] opacity-[0.03] mix-blend-overlay" />
         </div>
 

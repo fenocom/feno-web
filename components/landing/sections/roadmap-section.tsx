@@ -32,7 +32,7 @@ const steps = [
         id: "05",
         title: "Succeed",
         description: "Land your dream job with data-backed confidence.",
-        icon: TrendingUp, // Reusing icon for now
+        icon: TrendingUp,
     },
 ];
 
@@ -41,7 +41,7 @@ export const RoadmapSection = () => {
         <section className="py-32 relative z-10 border-t border-white/5 bg-gradient-to-b from-[#000510] to-black">
             <div className="container mx-auto px-4">
                 <div className="flex flex-col lg:flex-row gap-20">
-                    {/* Left Side: Sticky Header */}
+
                     <div className="lg:w-1/3">
                         <div className="sticky top-32">
                             <motion.div
@@ -74,7 +74,7 @@ export const RoadmapSection = () => {
                         </div>
                     </div>
 
-                    {/* Right Side: Vertical List */}
+
                     <div className="lg:w-2/3">
                         <div className="space-y-12">
                             {steps.map((step, index) => (

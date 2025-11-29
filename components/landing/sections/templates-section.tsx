@@ -54,7 +54,7 @@ export const TemplatesSection = () => {
                             transition={{ duration: 0.6, delay: index * 0.1 }}
                             className="group relative aspect-[3/4] rounded-2xl overflow-hidden border border-white/10 bg-white/5 backdrop-blur-sm cursor-pointer"
                         >
-                            {/* Mockup Content */}
+
                             <div className={`absolute inset-4 rounded-lg ${template.color} opacity-10 group-hover:opacity-20 transition-opacity`} />
                             <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300">
                                 <button className="bg-white text-black px-6 py-2 rounded-full font-medium text-sm">
