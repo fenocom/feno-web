@@ -10,7 +10,7 @@ import BubbleMenuGlobal from "./menus/bubble-menu";
 
 export const ResumeEditor = () => {
   const editor = useEditor({
-    content: defaultTemplate,
+    content: classicTemplate,
     immediatelyRender: false,
     extensions: extensionsConfig as any, // Temporary fix for Tiptap extension type incompatibility
   });
