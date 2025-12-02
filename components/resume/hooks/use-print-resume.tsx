@@ -5,25 +5,27 @@ export function usePrintResume() {
     const original = document.querySelector("#resume-container");
     if (!original) return;
 
-    const clone = original.cloneNode(true) as HTMLElement;
-    clone.id = "resume-print";
+    const clone = original.cloneNode(true);
+
+    const wrapper = document.createElement("div");
+    wrapper.id = "resume-print-root";
+
+    wrapper.appendChild(clone);
 
     const printRoot = document.getElementById("print-root");
     if (!printRoot) return;
 
-    // CLEAR & INSERT CLONE
     printRoot.innerHTML = "";
-    printRoot.appendChild(clone);
+    printRoot.appendChild(wrapper);
 
-    // Wait for browser paint
-    setTimeout(() => {
+    requestAnimationFrame(() => {
       window.print();
 
-      // After closing print dialog, clean DOM
+      // cleanup
       setTimeout(() => {
         printRoot.innerHTML = "";
       }, 50);
-    }, 50);
+    });
   };
 
   return { printResume };
