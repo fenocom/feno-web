@@ -42,6 +42,7 @@ export default function RootLayout({
         className={`${hostGrotesk.variable} ${serif.variable} ${jetbrains.variable}  antialiased`}
       >
         <main className="w-full h-screen">{children}</main>
+        <div id="print-root"></div>
       </body>
     </html>
   );

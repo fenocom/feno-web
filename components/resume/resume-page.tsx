@@ -16,6 +16,7 @@ import { FileDown, Shuffle, Globe } from "lucide-react";
 import Toolbar from "./menus/toolbar";
 import { ResumeEditor } from "./resume-editor";
 import { downloadPDF } from "./utils";
+import { usePrintResume } from "./hooks/use-print-resume";
 
 const nodeTypes = {
   "resume-editor": ResumeEditor,
@@ -33,6 +34,7 @@ const initialNodes: Node[] = [
 export const ResumePage = () => {
   const [nodes, setNodes] = useState<Node[]>(initialNodes);
   const [edges, setEdges] = useState<Edge[]>([]);
+  const {printResume} = usePrintResume();
 
   const onNodesChange = useCallback(
     (changes: NodeChange<Node>[]) =>
@@ -63,7 +65,7 @@ export const ResumePage = () => {
       id: "download",
       label: "Download PDF",
       icon: FileDown,
-      action: downloadPDF,
+      action: printResume,
       disabled: false,
     },
     {
@@ -82,6 +84,8 @@ export const ResumePage = () => {
       className: "opacity-50 cursor-not-allowed",
     },
   ];
+
+
 
   return (
     <div style={{ width: "100vw", height: "100vh" }}>

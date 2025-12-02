@@ -20,6 +20,7 @@ export const ResumeEditor = () => {
       {editor && <BubbleMenuGlobal editor={editor} />}
       <div className="resume-page-export">
         <EditorContent
+          id="resume-container"
           className="w-[210mm] p-0 min-h-[297mm] outline-none box-border nodrag"
           editor={editor}
         />
