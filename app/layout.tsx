@@ -4,12 +4,15 @@ import {
   Host_Grotesk,
   JetBrains_Mono,
 } from "next/font/google";
+
+import "@radix-ui/themes/styles.css";
 import "./globals.css";
+import { Theme } from "@radix-ui/themes";
 
 const hostGrotesk = Host_Grotesk({
   variable: "--font-host",
   subsets: ["latin"],
-  weight: ["400", "500", "600", "700"],
+  weight: ["400", "500", "600", "700", "800"],
 });
 
 const jetbrains = JetBrains_Mono({
@@ -41,8 +44,10 @@ export default function RootLayout({
       <body
         className={`${hostGrotesk.variable} ${serif.variable} ${jetbrains.variable}  antialiased`}
       >
-        <main className="w-full h-screen">{children}</main>
-        <div id="print-root"></div>
+        <Theme>
+          <main className="w-full h-screen">{children}</main>
+          <div id="print-root"></div>
+        </Theme>
       </body>
     </html>
   );

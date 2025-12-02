@@ -10,6 +10,9 @@
 
   --shadow-elevation-01: 0 0 50px 1px #c8c4c0;
   --shadow-elevation-02: 0 0 100px 0px #c8c4c0;
+
+  --font-host: var(--font-host);
+  --font-serif: var(--font-serif);
 }
 
 .dot-pattern-bg {
@@ -20,7 +23,7 @@
 /* react-colorful pointer styling using Tailwind utilities */
 .react-colorful__saturation-pointer,
 .react-colorful__hue-pointer {
-  @apply !w-3 !h-3 rounded-full border border-white shadow-md;
+  @apply w-3! h-3! rounded-full border border-white shadow-md;
 }
 
 .react-flow-bg {
