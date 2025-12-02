@@ -34,8 +34,6 @@
 }
 
 @media print {
-
-  /* Hide everything except print-root */
   body * {
     visibility: hidden !important;
   }
@@ -51,10 +49,15 @@
     left: 0 !important;
     box-shadow: none !important;
   }
-
-  /* A4 Page */
   @page {
     size: A4;
     margin: 0;
+  }
+
+  @media print {
+    * {
+      -webkit-print-color-adjust: exact !important;
+      print-color-adjust: exact !important;
+    }
   }
 }
