@@ -1,27 +1,33 @@
-import { Button } from "@radix-ui/themes";
+import { Link, Button } from "@heroui/react";
+
 import { Logo } from "../../common";
 import { ProductsMenu } from "../ui/products-menu";
 
 const triggerClassname =
-  "font-host hover:text-[#a1ccff] text-base cursor-pointer flex justify-center items-center";
+  "font-host text-base cursor-pointer flex justify-center items-center";
 
 export const Navbar = () => {
   return (
     <>
-      <header className="fixed min-w-[90vh] max-w-[400px] top-5 left-[50%] isolate transform -translate-x-[50%] rounded-2xl z-50 overflow-hidden">
+      <header className="fixed max-w-[80vw] min-w-[700px] top-5 left-[50%] isolate transform -translate-x-[50%] rounded-2xl z-50 overflow-hidden">
         <div className="px-4 py-3 flex items-center justify-between gap-10 z-80 backdrop-blur-lg">
           <div className="h-6 px-3 bg-white rounded-full gap-2 text-black flex items-center justify-center">
             <Logo /> <span className="font-bold font-host">FENO</span>
           </div>
           <nav className="flex items-center justify-center gap-8 min-h-8">
             <ProductsMenu triggerClassname={triggerClassname} />
-            <div className={triggerClassname}>Showcase</div>
-            <div className={triggerClassname}>Pricing</div>
+            <div className={triggerClassname}>
+              <Link href="/showcase" className="text-base font-normal">
+                Showcase <Link.Icon />
+              </Link>
+            </div>
+            <div className={triggerClassname}>
+              <Link href="/pricing" className="text-base font-normal">
+                Pricing <Link.Icon />
+              </Link>
+            </div>
           </nav>
-          <Button
-            className="rounded-full! px-5! text-white! bg-[#1148b8]!"
-            variant="ghost"
-          >
+          <Button size="sm" className="bg-[#1148b8]! max-h-7! px-5!">
             Login
           </Button>
         </div>

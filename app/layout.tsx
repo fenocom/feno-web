@@ -5,9 +5,7 @@ import {
   JetBrains_Mono,
 } from "next/font/google";
 
-import "@radix-ui/themes/styles.css";
 import "./globals.css";
-import { Theme } from "@radix-ui/themes";
 
 const hostGrotesk = Host_Grotesk({
   variable: "--font-host",
@@ -40,13 +38,11 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className="light bg-black">
+    <html lang="en" className="dark bg-background font-host">
       <body
         className={`${hostGrotesk.variable} ${serif.variable} ${jetbrains.variable}  antialiased`}
       >
-        <Theme>
-          <main className="w-full h-screen">{children}</main>
-        </Theme>
+        <main className="w-full h-screen">{children}</main>
       </body>
     </html>
   );
