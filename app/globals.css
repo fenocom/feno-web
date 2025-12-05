@@ -2,7 +2,7 @@
 @import "@heroui/styles";
 
 @theme {
-    --font-host: var(--font-inter);
+    --font-host: var(--font-host);
     --font-serif: var(--font-serif);
     --font-mono: var(--font-jetbrains);
 }

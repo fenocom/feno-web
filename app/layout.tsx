@@ -38,10 +38,11 @@ export default function RootLayout({
     children: React.ReactNode;
 }>) {
     return (
-        <html lang="en" className="dark bg-black font-host">
-            <body
-                className={`${hostGrotesk.variable} ${serif.variable} ${jetbrains.variable}  antialiased`}
-            >
+        <html
+            lang="en"
+            className={`dark bg-black font-host ${hostGrotesk.variable} ${serif.variable} ${jetbrains.variable} antialiased`}
+        >
+            <body>
                 <main className="w-full h-screen">{children}</main>
                 <div id="print-root"></div>
             </body>
