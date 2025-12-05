@@ -32,7 +32,7 @@ export const Navbar = () => {
           </Button>
         </div>
         <div className="top-0 left-0 absolute pointer-events-none w-full h-full bg-[url('/noise.png')] bg-repeat bg-size-[70px]" />
-        <div className="bg-black/5 top-0 left-0 absolute pointer-events-none z-50 w-full h-full" />
+        <div className="bg-black/15 top-0 left-0 absolute pointer-events-none z-50 w-full h-full" />
       </header>
     </>
   );

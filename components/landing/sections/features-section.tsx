@@ -9,22 +9,22 @@ export const FeaturesSection = () => {
     return (
         <section className="py-32 relative z-10">
             <div className="container mx-auto px-4">
-                <div className="mb-24">
+                <div className="mb-24 flex flex-col justify-center items-center">
                     <motion.h2
                         initial={{ opacity: 0, y: 20 }}
                         whileInView={{ opacity: 1, y: 0 }}
                         viewport={{ once: true }}
                         transition={{ duration: 0.6 }}
-                        className="text-5xl md:text-7xl font-medium tracking-tight font-host text-white mb-6"
+                        className="text-5xl font-medium tracking-tight text-center font-host text-white mb-6"
                     >
-                        Suits to help you at <span className="text-[#a1ccff]">every step.</span>
+                        Everything you need to <span className="text-[#a1ccff] font-mono">succeed</span>
                     </motion.h2>
                     <motion.p
                         initial={{ opacity: 0, y: 20 }}
                         whileInView={{ opacity: 1, y: 0 }}
                         viewport={{ once: true }}
                         transition={{ duration: 0.6, delay: 0.1 }}
-                        className="text-slate-400 max-w-2xl text-xl leading-relaxed"
+                        className="text-slate-400 text-center max-w-2xl text-xl leading-relaxed"
                     >
                         A complete ecosystem designed to architect your career narrative from every angle, without a single line of code.
                     </motion.p>
