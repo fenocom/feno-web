@@ -52,13 +52,9 @@ export const ResumePage = () => {
     []
   );
 
-  const switchTemplate = () => {
-    console.log("Switching template...");
-  };
+  const switchTemplate = () => {};
 
-  const createPortfolio = () => {
-    console.log("Opening portfolio builder...");
-  };
+  const createPortfolio = () => {};
 
   const toolbarConfig = [
     {
