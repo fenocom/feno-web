@@ -9,149 +9,188 @@ export const template = {
           type: "gridColumn",
           attrs: {
             styles: {
-              padding: "32px",
-              "font-family": "Inter, Arial, sans-serif",
-              color: "#111",
+              "padding": "28px 36px",
               "background-color": "#ffffff",
-              width: "210mm",
-              "min-height": "297mm",
+              "font-family": "Georgia, serif",
+              "color": "#000",
+              "font-size": "13px",
+              "line-height": "1.55",
               "box-sizing": "border-box",
-            },
+              "width": "100%",
+              "min-height": "297mm"
+            }
           },
           content: [
-            /* ===========================
+
+            /* ===========================================================
              * HEADER
-             * =========================== */
+             * =========================================================== */
             {
               type: "heading",
               attrs: {
                 level: 1,
                 styles: {
-                  "font-size": "2.6rem",
+                  "text-align": "center",
+                  "font-size": "28px",
                   "font-weight": "700",
-                  "margin-bottom": "0.35rem",
-                },
+                  "margin-bottom": "4px"
+                }
               },
-              content: [{ type: "text", text: "ALEXANDER MORGAN" }],
+              content: [{ type: "text", text: "ALEXANDER MORGAN" }]
             },
 
             {
               type: "paragraph",
               attrs: {
                 styles: {
-                  "font-size": "1rem",
-                  "font-weight": "500",
-                  color: "#444",
-                  "margin-bottom": "1rem",
-                },
+                  "text-align": "center",
+                  "font-size": "12px",
+                  "color": "#444",
+                  "margin-bottom": "2px"
+                }
               },
               content: [
-                { type: "text", text: "+1 555 908 3321  |  " },
-                { type: "text", text: "alex.morgan@example.com", marks: [{ type: "underline" }] },
-                { type: "text", text: "  |  " },
-                { type: "text", text: "github.com/alexdev", marks: [{ type: "underline" }] },
-                { type: "text", text: "  |  " },
-                {
-                  type: "text",
-                  text: "linkedin.com/in/alexmorgan",
-                  marks: [{ type: "underline" }],
-                },
-              ],
+                { type: "text", text: "+1 555 908 3321 • alex.morgan@example.com • alexm.dev" }
+              ]
+            },
+
+            {
+              type: "paragraph",
+              attrs: {
+                styles: {
+                  "text-align": "center",
+                  "font-size": "12px",
+                  "color": "#444",
+                  "margin-bottom": "14px"
+                }
+              },
+              content: [
+                { type: "text", text: "GitHub: github.com/alexdev • LinkedIn: linkedin.com/in/alexmorgan" }
+              ]
             },
 
             { type: "horizontalRule" },
 
-            /* ===========================
-             * EDUCATION
-             * =========================== */
+            /* ===========================================================
+             * SUMMARY
+             * =========================================================== */
             {
               type: "heading",
               attrs: {
                 level: 2,
                 styles: {
-                  "font-size": "1.4rem",
-                  "margin-top": "1.8rem",
-                  "font-weight": "700",
-                },
+                  "font-size": "16px",
+                  "margin-top": "20px",
+                  "font-weight": "700"
+                }
               },
-              content: [{ type: "text", text: "EDUCATION" }],
+              content: [{ type: "text", text: "PROFESSIONAL SUMMARY" }]
             },
-
-            { type: "horizontalRule" },
 
             {
               type: "paragraph",
-              attrs: { styles: { "margin-top": "0.65rem" } },
               content: [
                 {
                   type: "text",
-                  marks: [{ type: "bold" }],
-                  text: "California Institute of Technology (2018–2022)",
-                },
-              ],
+                  text:
+                    "Frontend Engineer with 3+ years of experience building performant, scalable web applications using React, Next.js, TypeScript, and modern UI systems. Strong focus on clean architecture, reusable components, and cross-functional collaboration."
+                }
+              ]
             },
 
-            {
-              type: "paragraph",
-              content: [{ type: "text", text: "B.Sc. in Software Engineering" }],
-            },
-
-            {
-              type: "paragraph",
-              content: [{ type: "text", text: "CGPA: 8.12 / 10" }],
-            },
-
-            /* ===========================
+            /* ===========================================================
              * EXPERIENCE
-             * =========================== */
+             * =========================================================== */
             {
               type: "heading",
               attrs: {
                 level: 2,
                 styles: {
-                  "font-size": "1.4rem",
-                  "margin-top": "1.8rem",
-                  "font-weight": "700",
-                },
+                  "font-size": "16px",
+                  "margin-top": "22px",
+                  "font-weight": "700"
+                }
               },
-              content: [{ type: "text", text: "EXPERIENCE" }],
+              content: [{ type: "text", text: "EXPERIENCE" }]
             },
 
-            { type: "horizontalRule" },
+            /* —— Job 1 —— */
+            {
+              type: "paragraph",
+              attrs: {
+                styles: {
+                  "font-weight": "700",
+                  "font-size": "14px",
+                  "margin-top": "8px"
+                }
+              },
+              content: [{ type: "text", text: "TechNova Solutions — Frontend Engineer" }]
+            },
 
             {
-              type: "grid",
-              attrs: { columnWidth: [70, 30] },
+              type: "paragraph",
+              attrs: {
+                styles: {
+                  "font-size": "12px",
+                  "color": "#555",
+                  "margin-bottom": "6px"
+                }
+              },
+              content: [{ type: "text", text: "Jul 2022 – Present" }]
+            },
+
+            {
+              type: "bulletList",
               content: [
                 {
-                  type: "gridColumn",
-                  attrs: { styles: { padding: "0", "font-weight": "600" } },
+                  type: "listItem",
                   content: [
                     {
                       type: "paragraph",
-                      content: [
-                        { type: "text", text: "TechNova Solutions — Frontend Engineer" },
-                      ],
-                    },
-                  ],
+                      content: [{ type: "text", text: "Optimized React components serving 200k+ monthly users, improving speed by 32%." }]
+                    }
+                  ]
                 },
                 {
-                  type: "gridColumn",
-                  attrs: {
-                    styles: {
-                      padding: "0",
-                      "text-align": "right",
-                      "white-space": "nowrap",
-                    },
-                  },
+                  type: "listItem",
                   content: [
                     {
                       type: "paragraph",
-                      content: [{ type: "text", text: "07/2022 — Present" }],
-                    },
-                  ],
+                      content: [{ type: "text", text: "Migrated 30+ modules from JS → TS reducing runtime bugs by 40%." }]
+                    }
+                  ]
                 },
-              ],
+                {
+                  type: "listItem",
+                  content: [
+                    {
+                      type: "paragraph",
+                      content: [{ type: "text", text: "Designed reusable UI systems in Tailwind + Radix UI reducing dev time by 25%." }]
+                    }
+                  ]
+                }
+              ]
+            },
+
+            /* —— Job 2 —— */
+            {
+              type: "paragraph",
+              attrs: {
+                styles: {
+                  "font-weight": "700",
+                  "font-size": "14px",
+                  "margin-top": "14px"
+                }
+              },
+              content: [{ type: "text", text: "BrightLabs — Software Engineer Intern" }]
+            },
+
+            {
+              type: "paragraph",
+              attrs: {
+                styles: { "font-size": "12px", "color": "#555", "margin-bottom": "6px" }
+              },
+              content: [{ type: "text", text: "Jan 2022 – Jun 2022" }]
             },
 
             {
@@ -165,153 +204,98 @@ export const template = {
                       content: [
                         {
                           type: "text",
-                          text: "Built responsive interfaces using React, Next.js, and TypeScript.",
-                        },
-                      ],
-                    },
-                  ],
-                },
-                {
-                  type: "listItem",
-                  content: [
-                    {
-                      type: "paragraph",
-                      content: [
-                        {
-                          type: "text",
-                          text: "Improved application performance, reducing load times by 32%.",
-                        },
-                      ],
-                    },
-                  ],
-                },
-                {
-                  type: "listItem",
-                  content: [
-                    {
-                      type: "paragraph",
-                      content: [
-                        {
-                          type: "text",
-                          text: "Implemented reusable UI components and internal design system.",
-                        },
-                      ],
-                    },
-                  ],
-                },
-                {
-                  type: "listItem",
-                  content: [
-                    {
-                      type: "paragraph",
-                      content: [
-                        {
-                          type: "text",
-                          text: "Worked closely with backend teams on scalable API integrations.",
-                        },
-                      ],
-                    },
-                  ],
-                },
-              ],
+                          text: "Built internal dashboards using React + Zustand, reducing reporting time by 70%."
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
             },
 
-            /* ===========================
+            /* ===========================================================
+             * EDUCATION
+             * =========================================================== */
+            {
+              type: "heading",
+              attrs: {
+                level: 2,
+                styles: { "font-size": "16px", "margin-top": "22px", "font-weight": "700" }
+              },
+              content: [{ type: "text", text: "EDUCATION" }]
+            },
+
+            {
+              type: "paragraph",
+              attrs: { styles: { "font-weight": "700", "margin-top": "6px" } },
+              content: [
+                {
+                  type: "text",
+                  text: "California Institute of Technology — B.Sc. Software Engineering"
+                }
+              ]
+            },
+
+            {
+              type: "paragraph",
+              attrs: { styles: { "font-size": "12px", "color": "#555", "margin-bottom": "6px" } },
+              content: [{ type: "text", text: "2018 – 2022" }]
+            },
+
+            /* ===========================================================
              * SKILLS
-             * =========================== */
+             * =========================================================== */
             {
               type: "heading",
               attrs: {
                 level: 2,
-                styles: {
-                  "font-size": "1.4rem",
-                  "margin-top": "1.8rem",
-                  "font-weight": "700",
-                },
+                styles: { "font-size": "16px", "margin-top": "22px", "font-weight": "700" }
               },
-              content: [{ type: "text", text: "SKILLS" }],
+              content: [{ type: "text", text: "SKILLS" }]
             },
-
-            { type: "horizontalRule" },
 
             {
-              type: "bulletList",
+              type: "paragraph",
               content: [
                 {
-                  type: "listItem",
-                  content: [
-                    {
-                      type: "paragraph",
-                      content: [
-                        {
-                          type: "text",
-                          text:
-                            "JavaScript, TypeScript, React, Next.js, Zustand, Tailwind CSS, Node.js, Express.js, PostgreSQL, MongoDB, GraphQL, Docker",
-                        },
-                      ],
-                    },
-                  ],
-                },
-              ],
+                  type: "text",
+                  text:
+                    "React, Next.js, TypeScript, Zustand, TailwindCSS, Radix UI, Node.js, Express.js, PostgreSQL, MongoDB, Docker, Redis"
+                }
+              ]
             },
 
-            /* ===========================
+            /* ===========================================================
              * PROJECTS
-             * =========================== */
+             * =========================================================== */
             {
               type: "heading",
               attrs: {
                 level: 2,
-                styles: {
-                  "font-size": "1.4rem",
-                  "margin-top": "1.8rem",
-                  "font-weight": "700",
-                },
+                styles: { "font-size": "16px", "margin-top": "22px", "font-weight": "700" }
               },
-              content: [{ type: "text", text: "PROJECTS" }],
-            },
-
-            { type: "horizontalRule" },
-
-            {
-              type: "paragraph",
-              content: [
-                {
-                  type: "text",
-                  marks: [{ type: "bold" }],
-                  text: "TaskFlow — Kanban Task Manager",
-                },
-                {
-                  type: "text",
-                  text: " — Real-time collaboration using Zustand + WebSockets.",
-                },
-              ],
+              content: [{ type: "text", text: "PROJECTS" }]
             },
 
             {
               type: "paragraph",
               content: [
-                { type: "text", marks: [{ type: "bold" }], text: "ShopBase" },
-                {
-                  type: "text",
-                  text: " — E-commerce starter kit powered by Next.js + Stripe.",
-                },
-              ],
+                { type: "text", marks: [{ type: "bold" }], text: "TaskFlow — " },
+                { type: "text", text: "Kanban task manager with real-time collaboration." }
+              ]
             },
 
             {
               type: "paragraph",
               content: [
-                { type: "text", marks: [{ type: "bold" }], text: "PictoAI" },
-                {
-                  type: "text",
-                  text: " — AI-based image caption generator using HuggingFace APIs.",
-                },
-              ],
+                { type: "text", marks: [{ type: "bold" }], text: "ShopBase — " },
+                { type: "text", text: "E-commerce starter kit using Next.js + Stripe." }
+              ]
             },
-          ],
-        },
-      ],
-    },
-  ],
+
+          ]
+        }
+      ]
+    }
+  ]
 };

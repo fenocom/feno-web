@@ -5,3 +5,52 @@
   --font-host: var(--font-host);
   --font-serif: var(--font-serif);
 }
+
+.dot-pattern-bg {
+  background-image: radial-gradient(#aaa 0.5px, var(--color-layer-01) 0.5px);
+  background-size: 20px 20px;
+}
+
+/* react-colorful pointer styling using Tailwind utilities */
+.react-colorful__saturation-pointer,
+.react-colorful__hue-pointer {
+  @apply w-3! h-3! rounded-full border border-white shadow-md;
+}
+
+.react-flow-bg {
+  background-color: #fafafa;
+  background-image: radial-gradient(#d6d6d6 1px, #fafafa 0.6px);
+  background-size: 11px 11px;
+}
+
+@media print {
+  main {
+    display: none !important;
+    visibility: hidden !important;
+  }
+
+  #resume-print-root {
+    display: block !important;
+    visibility: visible !important;
+
+    position: absolute !important;
+    inset: 0 !important;
+
+    width: 210mm !important;
+    min-height: 297mm !important;
+
+    background: white !important;
+    padding: 0 !important;
+    margin: 0 !important;
+  }
+
+  * {
+    -webkit-print-color-adjust: exact !important;
+    print-color-adjust: exact !important;
+  }
+
+  @page {
+    size: A4;
+    margin: 0;
+  }
+}
