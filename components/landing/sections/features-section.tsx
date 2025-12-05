@@ -1,150 +1,304 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { BuilderIllustration } from "../ui/illustrations/builder";
-import { SonarIllustration } from "../ui/illustrations/sonar";
-import { TransformIllustration } from "../ui/illustrations/transformer";
+import { clsx } from "clsx";
+import Image from "next/image";
+import { ArrowRight, Sparkles, FileText, Zap, Chrome, BarChart3, Layout } from "lucide-react";
+
+const FeatureBlock = ({
+    title,
+    description,
+    imageSrc,
+    imageAlt,
+    align,
+    children,
+    subFeatures,
+    miniHeading,
+    miniIcon,
+    withSeparator = false,
+}: {
+    title: string;
+    description: string;
+    imageSrc: string;
+    imageAlt: string;
+    align: "left" | "right";
+    children?: React.ReactNode;
+    subFeatures?: { title: string; description: string; icon: React.ReactNode }[];
+    miniHeading?: string;
+    miniIcon?: React.ReactNode;
+    withSeparator?: boolean;
+}) => {
+    return (
+        <div className="relative">
+            {withSeparator && (
+                <div className="absolute top-0 left-4 right-4 lg:left-0 lg:right-0 h-px bg-gradient-to-r from-transparent via-white/10 to-transparent" />
+            )}
+            <div className={clsx(
+                "flex flex-col gap-12 items-center py-20 lg:py-24",
+                align === "left" ? "lg:flex-row" : "lg:flex-row-reverse"
+            )}>
+                {/* Image Side */}
+                <motion.div
+                    initial={{ opacity: 0, scale: 0.95 }}
+                    whileInView={{ opacity: 1, scale: 1 }}
+                    viewport={{ once: true }}
+                    transition={{ duration: 0.5 }}
+                    className="flex-1 w-full"
+                >
+                    <div className="relative rounded-2xl overflow-hidden h-[400px] lg:h-[500px] group">
+                        <div className="absolute inset-0 bg-gradient-to-br from-blue-500/10 to-purple-500/10 opacity-20 group-hover:opacity-40 transition-opacity" />
+                        {/* Placeholder for the actual image */}
+                        <div className="absolute inset-0 flex items-center justify-center">
+                            {imageSrc ? (
+                                <img src={imageSrc} alt={imageAlt} className="w-full h-full object-contain" />
+                            ) : (
+                                <span className="text-slate-500">{imageAlt}</span>
+                            )}
+                        </div>
+                    </div>
+                </motion.div>
+
+                {/* Text Side */}
+                <motion.div
+                    initial={{ opacity: 0, x: align === "left" ? 20 : -20 }}
+                    whileInView={{ opacity: 1, x: 0 }}
+                    viewport={{ once: true }}
+                    transition={{ duration: 0.5, delay: 0.2 }}
+                    className="flex-1 space-y-8 px-4 lg:px-0"
+                >
+                    <div className="space-y-4">
+                        {miniHeading && (
+                            <div className="flex items-center gap-2 text-slate-400 text-sm font-medium mb-2">
+                                {miniIcon}
+                                <span>{miniHeading}</span>
+                            </div>
+                        )}
+                        <h3 className="text-3xl lg:text-4xl font-semibold text-white tracking-tight">
+                            {title}
+                        </h3>
+                        <p className="text-slate-400 text-lg leading-relaxed max-w-lg">
+                            {description}
+                        </p>
+                    </div>
+
+                    {subFeatures && (
+                        <div className="space-y-6">
+                            {subFeatures.map((feature, idx) => (
+                                <div key={idx} className="flex gap-4">
+                                    <div className="mt-1 flex-shrink-0 w-10 h-10 rounded-lg bg-white/5 border border-white/10 flex items-center justify-center text-[#a1ccff]">
+                                        {feature.icon}
+                                    </div>
+                                    <div>
+                                        <h4 className="text-white font-medium text-lg">{feature.title}</h4>
+                                        <p className="text-slate-400 text-sm leading-relaxed">{feature.description}</p>
+                                    </div>
+                                </div>
+                            ))}
+                        </div>
+                    )}
+
+                    {children}
+                </motion.div>
+            </div>
+        </div>
+    );
+};
 
 export const FeaturesSection = () => {
     return (
-        <section className="py-32 relative z-10">
-            <div className="container mx-auto px-4">
-                <div className="mb-24 flex flex-col justify-center items-center">
+        <section className="py-24 relative z-10 overflow-hidden">
+            <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,_var(--tw-gradient-stops))] from-blue-900/20 via-transparent to-transparent opacity-40 pointer-events-none" />
+
+            <div className="container mx-auto px-4 pt-20 max-w-6xl">
+                <div className="text-center mb-32">
                     <motion.h2
                         initial={{ opacity: 0, y: 20 }}
                         whileInView={{ opacity: 1, y: 0 }}
                         viewport={{ once: true }}
-                        transition={{ duration: 0.6 }}
-                        className="text-5xl font-medium tracking-tight text-center font-host text-white mb-6"
+                        className="text-4xl md:text-5xl font-medium tracking-tight text-white mb-6 font-host"
                     >
-                        Everything you need to <span className="text-[#a1ccff] font-mono">succeed</span>
+                        Built for the <span className="text-[#a1ccff]">modern professional</span>
                     </motion.h2>
-                    <motion.p
-                        initial={{ opacity: 0, y: 20 }}
-                        whileInView={{ opacity: 1, y: 0 }}
-                        viewport={{ once: true }}
-                        transition={{ duration: 0.6, delay: 0.1 }}
-                        className="text-slate-400 text-center max-w-2xl text-xl leading-relaxed"
-                    >
-                        A complete ecosystem designed to architect your career narrative from every angle, without a single line of code.
-                    </motion.p>
+                    <p className="text-slate-400 max-w-2xl mx-auto text-lg">
+                        Everything you need to manage your career, from building your resume to tracking your success, all in one place.
+                    </p>
                 </div>
 
-                <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 max-w-7xl mx-auto">
+                {/* Feature 1: Resume Builder */}
+                <FeatureBlock
+                    align="left"
+                    title="Resume Builder"
+                    description="Craft a resume that stands out with our intelligent, block-based editor."
+                    imageSrc="/_next/static/media/feature_table_ui.png" // This will need to be fixed in real env
+                    imageAlt="Resume Builder interface showing block editor"
+                    miniHeading="Create without limits"
+                    miniIcon={<FileText size={16} />}
+                    subFeatures={[
+                        {
+                            title: "Composition Focus",
+                            description: "Feno handles the formatting so you can focus purely on composing your narrative.",
+                            icon: <FileText size={20} />
+                        },
+                        {
+                            title: "Notion-like Experience",
+                            description: "A familiar slash-command interface makes writing your experience intuitive and fast.",
+                            icon: <Layout size={20} />
+                        },
+                        {
+                            title: "One-Click Build",
+                            description: "Instantly compile your blocks into a perfectly formatted, ATS-friendly PDF.",
+                            icon: <Zap size={20} />
+                        }
+                    ]}
+                />
 
-                    {/* Row 1: Resume Builder (Full Width) */}
-                    <div className="lg:col-span-3">
+                {/* Feature 2: Portfolio Builder */}
+                <FeatureBlock
+                    align="right"
+                    title="Portfolio Builder"
+                    description="Transform your resume into a stunning visual portfolio in seconds."
+                    imageSrc="/feature_portfolio.png"
+                    imageAlt="Portfolio Builder interface"
+                    miniHeading="Publish your work"
+                    miniIcon={<Sparkles size={16} />}
+                    withSeparator
+                    subFeatures={[
+                        {
+                            title: "Instant Transformation",
+                            description: "Turn your text-based resume into an interactive website with a single click.",
+                            icon: <Sparkles size={20} />
+                        },
+                        {
+                            title: "AI Customization",
+                            description: "Let AI generate layouts and copy that perfectly match your personal brand.",
+                            icon: <StarsIcon size={20} />
+                        }
+                    ]}
+                />
+
+                {/* Feature 3: Chrome Extension */}
+                <FeatureBlock
+                    align="left"
+                    title="Chrome Extension"
+                    description="Bring Feno with you to every job board. Apply faster and smarter."
+                    imageSrc="/feature_extension.png"
+                    imageAlt="Feno Chrome Extension overlay on a job board"
+                    miniHeading="Apply smarter"
+                    miniIcon={<Chrome size={16} />}
+                    withSeparator
+                    subFeatures={[
+                        {
+                            title: "Auto-Fill Applications",
+                            description: "Automatically populate job applications with data from your Feno profile.",
+                            icon: <AppWindowIcon size={20} />
+                        },
+                        {
+                            title: "Job Tracking",
+                            description: "Save jobs to your dashboard with one click to track your application status.",
+                            icon: <Chrome size={20} />
+                        }
+                    ]}
+                />
+
+                {/* Feature 4: Analytics */}
+                <div className="relative">
+                    <div className="absolute top-0 left-4 right-4 lg:left-0 lg:right-0 h-px bg-gradient-to-r from-transparent via-white/10 to-transparent" />
+                    <div className="flex flex-col lg:flex-row-reverse gap-12 items-center py-20 lg:py-24">
                         <motion.div
-                            initial={{ opacity: 0, y: 20 }}
-                            whileInView={{ opacity: 1, y: 0 }}
+                            initial={{ opacity: 0, scale: 0.95 }}
+                            whileInView={{ opacity: 1, scale: 1 }}
                             viewport={{ once: true }}
-                            transition={{ duration: 0.6 }}
-                            className="relative overflow-hidden h-[600px] group rounded-[2rem]"
+                            transition={{ duration: 0.5 }}
+                            className="flex-1 w-full"
                         >
-                            {/* Background blending - darker gradient for better illustration pop */}
-                            <div className="absolute inset-0 bg-[#050505]/50 group-hover:bg-[#050505]/30 transition-colors duration-700" />
-
-                            <div className="absolute inset-0 z-0 flex items-center justify-center">
-                                <div className="w-full h-full opacity-60 grayscale group-hover:grayscale-0 group-hover:opacity-100 transition-all duration-700 ease-in-out">
-                                    <TransformIllustration />
+                            <div className="relative rounded-2xl overflow-hidden h-[400px] lg:h-[500px] group">
+                                <div className="absolute inset-0 bg-gradient-to-br from-green-500/10 to-emerald-500/10 opacity-20 group-hover:opacity-40 transition-opacity" />
+                                <div className="absolute inset-0 flex items-center justify-center">
+                                    {/* Placeholder for Analytics */}
+                                    {/* <img src="..." className="object-contain" /> */}
+                                    <span className="text-xl font-mono text-emerald-400">Analytics Dashboard</span>
                                 </div>
                             </div>
-
-                            <div className="absolute bottom-12 left-12 z-10 pointer-events-none">
-                                <h3 className="text-3xl font-medium text-white mb-3">Resume Builder</h3>
-                                <p className="text-slate-400 max-w-md text-lg leading-relaxed group-hover:text-white transition-colors duration-500">
-                                    A new way to build resumes. No more forms and endless fields—focus on composition.
-                                </p>
-                            </div>
                         </motion.div>
-                    </div>
 
-                    {/* Row 2: Portfolio (Tall Left) and Others (Stacked Right) */}
-
-                    {/* Portfolio Generation (Tall Left - 2 Cols) */}
-                    <div className="lg:col-span-2">
                         <motion.div
-                            initial={{ opacity: 0, y: 20 }}
-                            whileInView={{ opacity: 1, y: 0 }}
+                            initial={{ opacity: 0, x: -20 }}
+                            whileInView={{ opacity: 1, x: 0 }}
                             viewport={{ once: true }}
-                            transition={{ duration: 0.6, delay: 0.1 }}
-                            className="relative overflow-hidden h-[700px] group rounded-[2rem]"
+                            transition={{ duration: 0.5, delay: 0.2 }}
+                            className="flex-1 space-y-8 px-4 lg:px-0"
                         >
-                            <div className="absolute inset-0 bg-[#050505]/50 group-hover:bg-[#050505]/30 transition-colors duration-700" />
-
-                            <div className="absolute inset-0 z-0">
-                                <div className="w-full h-full opacity-60 grayscale group-hover:grayscale-0 group-hover:opacity-100 transition-all duration-700 ease-in-out">
-                                    <BuilderIllustration />
+                            <div className="space-y-4">
+                                <div className="flex items-center gap-2 text-slate-400 text-sm font-medium mb-2">
+                                    <BarChart3 size={16} />
+                                    <span>Measure your impact</span>
                                 </div>
-                            </div>
-                            <div className="absolute bottom-12 left-12 z-10 pointer-events-none">
-                                <h3 className="text-3xl font-medium text-white mb-3">Portfolio Generation</h3>
-                                <p className="text-slate-400 max-w-md text-lg leading-relaxed group-hover:text-white transition-colors duration-500">
-                                    One click transformations. Turn your resume into an interactive, convincing digital presence.
+                                <h3 className="text-3xl lg:text-4xl font-semibold text-white tracking-tight">
+                                    Real-time Analytics
+                                </h3>
+                                <p className="text-slate-400 text-lg leading-relaxed max-w-lg">
+                                    Stop guessing. Know exactly when recruiters view your resume and portfolio.
                                 </p>
                             </div>
-                        </motion.div>
-                    </div>
-
-                    {/* Stacked Column (1 Col) */}
-                    <div className="lg:col-span-1 space-y-8 flex flex-col">
-
-                        {/* Chrome Extension */}
-                        <motion.div
-                            initial={{ opacity: 0, y: 20 }}
-                            whileInView={{ opacity: 1, y: 0 }}
-                            viewport={{ once: true }}
-                            transition={{ duration: 0.6, delay: 0.2 }}
-                            className="relative overflow-hidden h-[330px] flex-1 group rounded-[2rem]"
-                        >
-                            <div className="absolute inset-0 bg-[#050505]/50 group-hover:bg-[#050505]/30 transition-colors duration-700" />
-
-                            <div className="absolute inset-0 z-0 flex items-center justify-center">
-                                <div className="relative w-full h-full grayscale group-hover:grayscale-0 transition-all duration-700 ease-in-out opacity-40 group-hover:opacity-80">
-                                    <div className="absolute inset-8 rounded-xl border border-white/5 bg-[#0A0F1C]/50 flex flex-col p-6 gap-3 backdrop-blur-sm">
-                                        <div className="h-3 w-1/3 bg-white/10 rounded-full" />
-                                        <div className="h-full w-full bg-white/5 rounded-lg border border-white/5 mt-2 relative overflow-hidden">
-                                            <div className="absolute top-4 right-4 w-24 h-8 bg-[#a1ccff] rounded shadow-lg shadow-[#a1ccff]/20 animate-pulse" />
-                                        </div>
+                            <div className="flex flex-col gap-4">
+                                <div className="flex gap-4 items-center p-4 rounded-xl bg-white/5 border border-white/10">
+                                    <BarChart3 className="text-emerald-400" size={24} />
+                                    <div>
+                                        <h4 className="text-white font-medium">Link Tracking</h4>
+                                        <p className="text-slate-400 text-sm">See who clicks your resume link and when.</p>
+                                    </div>
+                                </div>
+                                <div className="flex gap-4 items-center p-4 rounded-xl bg-white/5 border border-white/10">
+                                    <img src="https://flagcdn.com/w20/us.png" alt="US" className="w-6 h-4 object-cover rounded shadow-sm" />
+                                    <div>
+                                        <h4 className="text-white font-medium">Geo-Location Data</h4>
+                                        <p className="text-slate-400 text-sm">Track where your profile is being viewed from.</p>
                                     </div>
                                 </div>
                             </div>
-                            <div className="absolute bottom-10 left-10 z-10 pointer-events-none">
-                                <h3 className="text-2xl font-medium text-white mb-2">Chrome Extension</h3>
-                                <p className="text-slate-400 text-sm leading-relaxed group-hover:text-white transition-colors duration-500 pr-4">
-                                    Seamlessly apply jobs by using our auto filling features.
-                                </p>
-                            </div>
-                        </motion.div>
-
-                        {/* Analytics */}
-                        <motion.div
-                            initial={{ opacity: 0, y: 20 }}
-                            whileInView={{ opacity: 1, y: 0 }}
-                            viewport={{ once: true }}
-                            transition={{ duration: 0.6, delay: 0.3 }}
-                            className="relative overflow-hidden h-[330px] flex-1 group rounded-[2rem]"
-                        >
-                            <div className="absolute inset-0 bg-[#050505]/50 group-hover:bg-[#050505]/30 transition-colors duration-700" />
-
-                            <div className="absolute inset-0 z-0">
-                                <div className="w-full h-full opacity-60 grayscale group-hover:grayscale-0 group-hover:opacity-100 transition-all duration-700 ease-in-out scale-110">
-                                    <SonarIllustration />
-                                </div>
-                            </div>
-                            <div className="absolute bottom-10 left-10 z-10 pointer-events-none">
-                                <h3 className="text-2xl font-medium text-white mb-2">Real-time Analytics</h3>
-                                <p className="text-slate-400 text-sm leading-relaxed group-hover:text-white transition-colors duration-500 pr-4">
-                                    Observe and track interactions on your resume and portfolio in real-time.
-                                </p>
-                            </div>
                         </motion.div>
                     </div>
-
                 </div>
+
             </div>
         </section>
     );
 };
 
+// Simple icons for the unique ones
+const StarsIcon = ({ size, className }: { size?: number, className?: string }) => (
+    <svg
+        xmlns="http://www.w3.org/2000/svg"
+        width={size || 24}
+        height={size || 24}
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke="currentColor"
+        strokeWidth="2"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+        className={className}
+    >
+        <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27f6.91 1 3.09-6.26L12 2z" />
+    </svg>
+);
 
+const AppWindowIcon = ({ size, className }: { size?: number, className?: string }) => (
+    <svg
+        xmlns="http://www.w3.org/2000/svg"
+        width={size || 24}
+        height={size || 24}
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke="currentColor"
+        strokeWidth="2"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+        className={className}
+    >
+        <rect x="2" y="4" width="20" height="16" rx="2" />
+        <path d="M10 4v4" />
+        <path d="M2 8h20" />
+        <path d="M6 4v4" />
+    </svg>
+);
