@@ -15,9 +15,10 @@ const templates = [
 export const TemplatesSection = () => {
     const [filter, setFilter] = useState("all");
 
-    const filteredTemplates = filter === "all"
-        ? templates
-        : templates.filter(t => t.category === filter);
+    const filteredTemplates =
+        filter === "all"
+            ? templates
+            : templates.filter((t) => t.category === filter);
 
     return (
         <section className="py-32 relative z-10 border-t border-white/5">
@@ -32,7 +33,9 @@ export const TemplatesSection = () => {
                             className="text-3xl md:text-5xl font-medium tracking-tight font-host text-white mb-6"
                         >
                             Curated for <br />
-                            <span className="text-[#a1ccff] font-serif italic">Impact.</span>
+                            <span className="text-[#a1ccff] font-serif italic">
+                                Impact.
+                            </span>
                         </motion.h2>
                         <motion.p
                             initial={{ opacity: 0, y: 20 }}
@@ -41,7 +44,8 @@ export const TemplatesSection = () => {
                             transition={{ duration: 0.6, delay: 0.1 }}
                             className="text-[#A1A1AA] text-lg max-w-lg leading-loose"
                         >
-                            Select from designs that balance modern aesthetics with professional standards. Stand out quietly.
+                            Select from designs that balance modern aesthetics
+                            with professional standards. Stand out quietly.
                         </motion.p>
                     </div>
 
@@ -56,12 +60,15 @@ export const TemplatesSection = () => {
                             <button
                                 key={category}
                                 onClick={() => setFilter(category)}
-                                className={`px-4 py-2 rounded-full text-sm font-medium transition-colors ${filter === category
-                                    ? "bg-white text-black"
-                                    : "text-slate-400 hover:text-white"
-                                    } capitalization`}
+                                className={`px-4 py-2 rounded-full text-sm font-medium transition-colors ${
+                                    filter === category
+                                        ? "bg-white text-black"
+                                        : "text-slate-400 hover:text-white"
+                                } capitalization`}
                             >
-                                {category === "all" ? "All Templates" : category}
+                                {category === "all"
+                                    ? "All Templates"
+                                    : category}
                             </button>
                         ))}
                     </motion.div>
@@ -77,9 +84,9 @@ export const TemplatesSection = () => {
                             transition={{ duration: 0.6, delay: index * 0.1 }}
                             className="flex-shrink-0 w-[300px] group relative aspect-[3/4] rounded-2xl overflow-hidden border border-white/10 bg-white/5 backdrop-blur-sm cursor-pointer"
                         >
-
-                            <div className={`absolute inset-4 rounded-lg ${template.color} opacity-10 group-hover:opacity-20 transition-opacity`} />
-
+                            <div
+                                className={`absolute inset-4 rounded-lg ${template.color} opacity-10 group-hover:opacity-20 transition-opacity`}
+                            />
 
                             <div className="absolute inset-x-8 top-12 bottom-20 bg-white/5 border border-white/5 rounded-md" />
                             <div className="absolute inset-x-12 top-16 h-2 bg-white/10 rounded-sm" />
@@ -92,7 +99,9 @@ export const TemplatesSection = () => {
                             </div>
                             <div className="absolute bottom-4 left-0 right-0 text-center text-white font-medium">
                                 {template.name}
-                                <span className="block text-xs text-slate-500 font-normal uppercase tracking-wider mt-1">{template.category}</span>
+                                <span className="block text-xs text-slate-500 font-normal uppercase tracking-wider mt-1">
+                                    {template.category}
+                                </span>
                             </div>
                         </motion.div>
                     ))}

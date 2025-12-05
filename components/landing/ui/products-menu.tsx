@@ -88,7 +88,10 @@ export const ProductsMenu = ({ triggerClassname }: ProductsMenuProps) => {
                 />
             )}
             {activeItem.title === product.title && (
-                <motion.div layoutId="active-product-arrow" className="z-20 relative">
+                <motion.div
+                    layoutId="active-product-arrow"
+                    className="z-20 relative"
+                >
                     <ArrowRight className="w-4 h-4 text-white" />
                 </motion.div>
             )}
@@ -117,7 +120,11 @@ export const ProductsMenu = ({ triggerClassname }: ProductsMenuProps) => {
                             initial={{ opacity: 0, x: "-20%" }}
                             animate={{ opacity: 1, x: 0 }}
                             exit={{ opacity: 0, x: "-20%" }}
-                            transition={{ type: "spring", stiffness: 200, damping: 25 }}
+                            transition={{
+                                type: "spring",
+                                stiffness: 200,
+                                damping: 25,
+                            }}
                             {...getFloatingProps()}
                             className="isolate px-3 py-3 rounded-2xl overflow-hidden w-[600px] h-[300px] backdrop-blur-xl z-60"
                         >

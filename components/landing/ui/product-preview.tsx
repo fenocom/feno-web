@@ -12,7 +12,11 @@ export const ProductPreview = () => {
         >
             <div className="absolute -inset-4 bg-blue-500/10 blur-2xl rounded-[2rem] -z-10 bg-[url('/noise.png')] bg-repeat bg-size-[60px]" />
 
-            <img src="/temp-product-demo.png" alt="Dashboard Preview" className="w-full h-full object-cover rounded-2xl" />
+            <img
+                src="/temp-product-demo.png"
+                alt="Dashboard Preview"
+                className="w-full h-full object-cover rounded-2xl"
+            />
         </motion.div>
     );
 };

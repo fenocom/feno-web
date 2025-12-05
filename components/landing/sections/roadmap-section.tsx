@@ -1,37 +1,48 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { FileText, Globe, Rocket, TrendingUp, CheckCircle2 } from "lucide-react";
+import {
+    CheckCircle2,
+    FileText,
+    Globe,
+    Rocket,
+    TrendingUp,
+} from "lucide-react";
 
 const steps = [
     {
         id: "01",
         title: "Craft",
-        description: "Build your resume with our composition-focused editor. Intelligent suggestions guide your writing.",
+        description:
+            "Build your resume with our composition-focused editor. Intelligent suggestions guide your writing.",
         icon: FileText,
     },
     {
         id: "02",
         title: "Publish",
-        description: "Generate a stunning, SEO-friendly portfolio from your resume in a single click.",
+        description:
+            "Generate a stunning, SEO-friendly portfolio from your resume in a single click.",
         icon: Globe,
     },
     {
         id: "03",
         title: "Automate",
-        description: "Use our Chrome extension to auto-fill applications on any job board effortlessly.",
+        description:
+            "Use our Chrome extension to auto-fill applications on any job board effortlessly.",
         icon: Rocket,
     },
     {
         id: "04",
         title: "Track",
-        description: "Get real-time analytics on who views your profile and how your applications are performing.",
+        description:
+            "Get real-time analytics on who views your profile and how your applications are performing.",
         icon: TrendingUp,
     },
     {
         id: "05",
         title: "Succeed",
-        description: "Land your dream job with data-backed confidence and a professional digital presence.",
+        description:
+            "Land your dream job with data-backed confidence and a professional digital presence.",
         icon: CheckCircle2,
     },
 ];
@@ -41,7 +52,6 @@ export const RoadmapSection = () => {
         <section className="py-32 relative z-10 border-t border-white/5 bg-gradient-to-b from-[#000510] to-black">
             <div className="container mx-auto px-4">
                 <div className="flex flex-col lg:flex-row gap-20">
-
                     <div className="lg:w-1/3">
                         <div className="sticky top-32">
                             <motion.div
@@ -60,7 +70,9 @@ export const RoadmapSection = () => {
                                 className="text-4xl md:text-6xl font-medium tracking-tight font-host text-white mb-6"
                             >
                                 Your Path to <br />
-                                <span className="text-[#a1ccff] font-serif italic">Clarity</span>
+                                <span className="text-[#a1ccff] font-serif italic">
+                                    Clarity
+                                </span>
                             </motion.h2>
                             <motion.p
                                 initial={{ opacity: 0, y: 20 }}
@@ -69,11 +81,12 @@ export const RoadmapSection = () => {
                                 transition={{ duration: 0.6, delay: 0.2 }}
                                 className="text-[#A1A1AA] text-lg leading-loose max-w-sm"
                             >
-                                From your first draft to your signed offer letter, Feno powers every step of your career growth.
+                                From your first draft to your signed offer
+                                letter, Feno powers every step of your career
+                                growth.
                             </motion.p>
                         </div>
                     </div>
-
 
                     <div className="lg:w-2/3">
                         <div className="space-y-12">
@@ -81,27 +94,32 @@ export const RoadmapSection = () => {
                                 {
                                     id: "01",
                                     title: "Initialize",
-                                    description: "Securely access your private workspace.",
+                                    description:
+                                        "Securely access your private workspace.",
                                 },
                                 {
                                     id: "02",
                                     title: "Centralize",
-                                    description: "Import your history and skills into one source of truth.",
+                                    description:
+                                        "Import your history and skills into one source of truth.",
                                 },
                                 {
                                     id: "03",
                                     title: "Refine",
-                                    description: "Let the system optimize your data for impact.",
+                                    description:
+                                        "Let the system optimize your data for impact.",
                                 },
                                 {
                                     id: "04",
                                     title: "Create",
-                                    description: "Generate tailored resumes and portfolios instantly.",
+                                    description:
+                                        "Generate tailored resumes and portfolios instantly.",
                                 },
                                 {
                                     id: "05",
                                     title: "Deploy",
-                                    description: "Share your profile and track your success.",
+                                    description:
+                                        "Share your profile and track your success.",
                                 },
                             ].map((step, index) => (
                                 <motion.div
@@ -109,7 +127,10 @@ export const RoadmapSection = () => {
                                     initial={{ opacity: 0, x: 20 }}
                                     whileInView={{ opacity: 1, x: 0 }}
                                     viewport={{ once: true, margin: "-100px" }}
-                                    transition={{ duration: 0.6, delay: index * 0.1 }}
+                                    transition={{
+                                        duration: 0.6,
+                                        delay: index * 0.1,
+                                    }}
                                     className="group flex gap-8 items-start border-b border-white/5 pb-12 last:border-0"
                                 >
                                     <div className="text-5xl md:text-7xl font-mono font-light text-white/10 group-hover:text-[#a1ccff]/20 transition-colors">

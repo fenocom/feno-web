@@ -1,7 +1,7 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { Sparkles, Bot, Search, FileCheck } from "lucide-react";
+import { Bot, FileCheck, Search, Sparkles } from "lucide-react";
 
 export const AIHelpSection = () => {
     return (
@@ -25,7 +25,9 @@ export const AIHelpSection = () => {
                             className="text-3xl md:text-5xl font-medium tracking-tight font-host text-white mb-6"
                         >
                             A Partner, <br />
-                            <span className="text-[#a1ccff] font-serif italic">Not Just a Tool.</span>
+                            <span className="text-[#a1ccff] font-serif italic">
+                                Not Just a Tool.
+                            </span>
                         </motion.h2>
                         <motion.p
                             initial={{ opacity: 0, y: 20 }}
@@ -34,7 +36,9 @@ export const AIHelpSection = () => {
                             transition={{ duration: 0.6, delay: 0.2 }}
                             className="text-[#A1A1AA] text-lg leading-loose mb-8"
                         >
-                            Meet your AI career strategist. From drafting cover letters to simulating interview questions, get real-time guidance that feels personal and precise.
+                            Meet your AI career strategist. From drafting cover
+                            letters to simulating interview questions, get
+                            real-time guidance that feels personal and precise.
                         </motion.p>
 
                         <div className="space-y-6">
@@ -60,15 +64,19 @@ export const AIHelpSection = () => {
                                     initial={{ opacity: 0, x: -20 }}
                                     whileInView={{ opacity: 1, x: 0 }}
                                     viewport={{ once: true }}
-                                    transition={{ duration: 0.6, delay: 0.3 + i * 0.1 }}
+                                    transition={{
+                                        duration: 0.6,
+                                        delay: 0.3 + i * 0.1,
+                                    }}
                                     className="flex gap-4"
                                 >
                                     <div className="w-12 h-12 rounded-xl bg-white/5 flex items-center justify-center shrink-0 border border-white/10">
                                         <item.icon className="w-5 h-5 text-[#a1ccff]" />
                                     </div>
                                     <div>
-                                        <h3 className="text-white font-medium mb-1">{item.title}</h3>
-
+                                        <h3 className="text-white font-medium mb-1">
+                                            {item.title}
+                                        </h3>
                                     </div>
                                 </motion.div>
                             ))}
@@ -83,19 +91,17 @@ export const AIHelpSection = () => {
                             transition={{ duration: 0.8 }}
                             className="relative rounded-2xl border border-white/10 bg-[#0A0F1C] overflow-hidden aspect-square md:aspect-video lg:aspect-square"
                         >
-
                             <div className="absolute inset-0 bg-gradient-to-br from-[#0A0F1C] to-[#000d2e]" />
 
-
                             <div className="absolute inset-4 md:inset-8 bg-[#050505] rounded-xl border border-white/5 flex flex-col overflow-hidden">
-
                                 <div className="h-12 border-b border-white/5 flex items-center px-4 gap-3 bg-white/[0.02]">
                                     <div className="w-2 h-2 rounded-full bg-red-500/50" />
                                     <div className="w-2 h-2 rounded-full bg-yellow-500/50" />
                                     <div className="w-2 h-2 rounded-full bg-green-500/50" />
-                                    <div className="ml-auto text-xs text-slate-600 font-mono">Feno AI 2.0</div>
+                                    <div className="ml-auto text-xs text-slate-600 font-mono">
+                                        Feno AI 2.0
+                                    </div>
                                 </div>
-
 
                                 <div className="flex-1 p-6 space-y-4 overflow-hidden relative">
                                     <div className="flex gap-3">
@@ -104,7 +110,11 @@ export const AIHelpSection = () => {
                                         </div>
                                         <div className="flex-1 space-y-2">
                                             <div className="bg-white/5 rounded-lg rounded-tl-none p-3 text-sm text-slate-300 w-3/4">
-                                                I noticed your experience section could be stronger. Want me to rewrite the "Project Lead" role to emphasize impact metrics?
+                                                I noticed your experience
+                                                section could be stronger. Want
+                                                me to rewrite the "Project Lead"
+                                                role to emphasize impact
+                                                metrics?
                                             </div>
                                         </div>
                                     </div>
@@ -115,7 +125,8 @@ export const AIHelpSection = () => {
                                         </div>
                                         <div className="flex-1 space-y-2 flex justify-end">
                                             <div className="bg-[#a1ccff]/10 border border-[#a1ccff]/20 rounded-lg rounded-tr-none p-3 text-sm text-[#a1ccff] w-2/3">
-                                                Yes, focus on the 30% revenue increase and team scaling.
+                                                Yes, focus on the 30% revenue
+                                                increase and team scaling.
                                             </div>
                                         </div>
                                     </div>
@@ -131,20 +142,33 @@ export const AIHelpSection = () => {
                                                 <span className="w-1.5 h-1.5 bg-[#a1ccff] rounded-full animate-pulse delay-150" />
                                             </div>
                                             <div className="bg-white/5 rounded-lg rounded-tl-none p-3 text-sm text-slate-300 w-full animate-in fade-in slide-in-from-bottom-2 duration-700">
-                                                <span className="text-emerald-400 font-mono text-xs mb-2 block">// Suggestion</span>
-                                                "Spearheaded a strategic overhaul that drove a <span className="bg-emerald-500/20 text-emerald-300 px-1 rounded">30% revenue surge</span> year-over-year. Scaled the engineering team from <span className="bg-emerald-500/20 text-emerald-300 px-1 rounded">5 to 20 members</span>, establishing core agile workflows."
+                                                <span className="text-emerald-400 font-mono text-xs mb-2 block">
+                                                    // Suggestion
+                                                </span>
+                                                "Spearheaded a strategic
+                                                overhaul that drove a{" "}
+                                                <span className="bg-emerald-500/20 text-emerald-300 px-1 rounded">
+                                                    30% revenue surge
+                                                </span>{" "}
+                                                year-over-year. Scaled the
+                                                engineering team from{" "}
+                                                <span className="bg-emerald-500/20 text-emerald-300 px-1 rounded">
+                                                    5 to 20 members
+                                                </span>
+                                                , establishing core agile
+                                                workflows."
                                             </div>
                                         </div>
                                     </div>
 
-
                                     <div className="absolute bottom-0 left-0 right-0 h-24 bg-gradient-to-t from-[#050505] to-transparent pointer-events-none" />
                                 </div>
 
-
                                 <div className="h-14 border-t border-white/5 p-3 flex gap-2 items-center">
                                     <div className="w-6 h-6 rounded-full bg-white/5 flex items-center justify-center">
-                                        <div className="w-3 h-3 text-slate-600">+</div>
+                                        <div className="w-3 h-3 text-slate-600">
+                                            +
+                                        </div>
                                     </div>
                                     <div className="h-2 w-32 bg-white/5 rounded-full" />
                                     <div className="ml-auto w-8 h-8 rounded-md bg-[#a1ccff]/20 flex items-center justify-center">

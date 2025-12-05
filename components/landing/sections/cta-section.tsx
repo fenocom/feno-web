@@ -6,7 +6,6 @@ import { ArrowRight } from "lucide-react";
 export const CTASection = () => {
     return (
         <section className="py-32 relative z-10 overflow-hidden">
-
             <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[500px] h-[500px] bg-[#a1ccff]/10 rounded-full blur-[100px] pointer-events-none" />
 
             <div className="container mx-auto px-4 relative">
@@ -19,7 +18,9 @@ export const CTASection = () => {
                         className="text-4xl md:text-6xl font-medium mb-8 tracking-tight font-host"
                     >
                         Ready to define your <br />
-                        <span className="text-[#a1ccff] font-serif italic">next chapter?</span>
+                        <span className="text-[#a1ccff] font-serif italic">
+                            next chapter?
+                        </span>
                     </motion.h2>
                     <motion.p
                         initial={{ opacity: 0, y: 20 }}
@@ -28,7 +29,8 @@ export const CTASection = () => {
                         transition={{ duration: 0.6, delay: 0.1 }}
                         className="text-[#A1A1AA] text-xl mb-10 max-w-2xl mx-auto leading-loose"
                     >
-                        Join the professionals who have stopped searching and started building.
+                        Join the professionals who have stopped searching and
+                        started building.
                     </motion.p>
                     <motion.div
                         initial={{ opacity: 0, y: 20 }}
