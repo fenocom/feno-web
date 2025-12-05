@@ -12,8 +12,11 @@ export const ResumePage = () => {
 
   return (
     <div className="w-full h-full flex items-center justify-center px-10 py-20">
-      <div className="rounded-lg overflow-hidden">
-        <ResumeEditor />
+      <div className="p-1 border border-black/5 relative bg-black/5 rounded-xl" >
+        <div className="overflow-hidden rounded-lg border border-black/5">
+          <ResumeEditor />
+        </div>
+        <div className="top-0 left-0 absolute pointer-events-none w-full h-full bg-[url('/noise.png')] bg-repeat bg-size-[50px]" />
       </div>
       <Toolbar />
     </div>
