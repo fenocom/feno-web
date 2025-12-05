@@ -54,7 +54,7 @@ export const Footer = () => {
                         © {new Date().getFullYear()} Feno. All rights reserved.
                     </p>
                     <div className="flex items-center gap-6">
-                        {/* Social Icons Placeholder */}
+
                         <a href="#" className="text-slate-500 hover:text-white transition-colors">Twitter</a>
                         <a href="#" className="text-slate-500 hover:text-white transition-colors">GitHub</a>
                         <a href="#" className="text-slate-500 hover:text-white transition-colors">LinkedIn</a>

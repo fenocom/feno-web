@@ -3,7 +3,7 @@
 import { motion } from "framer-motion";
 import { clsx } from "clsx";
 import Image from "next/image";
-import { ArrowRight, Sparkles, FileText, Zap, Chrome, BarChart3, Layout } from "lucide-react";
+import { Sparkles, FileText, Zap, Chrome, BarChart3, Layout } from "lucide-react";
 
 const FeatureBlock = ({
     title,
@@ -37,7 +37,7 @@ const FeatureBlock = ({
                 "flex flex-col gap-12 items-center py-20 lg:py-24",
                 align === "left" ? "lg:flex-row" : "lg:flex-row-reverse"
             )}>
-                {/* Image Side */}
+
                 <motion.div
                     initial={{ opacity: 0, scale: 0.95 }}
                     whileInView={{ opacity: 1, scale: 1 }}
@@ -47,7 +47,7 @@ const FeatureBlock = ({
                 >
                     <div className="relative rounded-2xl overflow-hidden h-[400px] lg:h-[500px] group">
                         <div className="absolute inset-0 bg-gradient-to-br from-blue-500/10 to-purple-500/10 opacity-20 group-hover:opacity-40 transition-opacity" />
-                        {/* Placeholder for the actual image */}
+
                         <div className="absolute inset-0 flex items-center justify-center">
                             {imageSrc ? (
                                 <img src={imageSrc} alt={imageAlt} className="w-full h-full object-contain" />
@@ -58,7 +58,7 @@ const FeatureBlock = ({
                     </div>
                 </motion.div>
 
-                {/* Text Side */}
+
                 <motion.div
                     initial={{ opacity: 0, x: align === "left" ? 20 : -20 }}
                     whileInView={{ opacity: 1, x: 0 }}
@@ -124,7 +124,7 @@ export const FeaturesSection = () => {
                     </p>
                 </div>
 
-// Feature 1: Resume/Editor
+
                 <FeatureBlock
                     align="left"
                     title="Precision-Crafted Documents"
@@ -152,7 +152,7 @@ export const FeaturesSection = () => {
                     ]}
                 />
 
-                {/* Feature 2: Smart/Auto-fill */}
+
                 <FeatureBlock
                     align="right"
                     title="Intelligent Automation"
@@ -176,7 +176,7 @@ export const FeaturesSection = () => {
                     ]}
                 />
 
-                {/* Feature 3: Outreach/Networking */}
+
                 <FeatureBlock
                     align="left"
                     title="Connection, Simplified"
@@ -200,7 +200,7 @@ export const FeaturesSection = () => {
                     ]}
                 />
 
-                {/* Feature 4: Analytics */}
+
                 <div className="relative">
                     <div className="absolute top-0 left-4 right-4 lg:left-0 lg:right-0 h-px bg-gradient-to-r from-transparent via-white/10 to-transparent" />
                     <div className="flex flex-col lg:flex-row-reverse gap-12 items-center py-20 lg:py-24">

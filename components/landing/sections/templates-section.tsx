@@ -80,7 +80,7 @@ export const TemplatesSection = () => {
 
                             <div className={`absolute inset-4 rounded-lg ${template.color} opacity-10 group-hover:opacity-20 transition-opacity`} />
 
-                            {/* Visual Placeholder */}
+
                             <div className="absolute inset-x-8 top-12 bottom-20 bg-white/5 border border-white/5 rounded-md" />
                             <div className="absolute inset-x-12 top-16 h-2 bg-white/10 rounded-sm" />
                             <div className="absolute inset-x-12 top-24 h-2 w-1/2 bg-white/10 rounded-sm" />

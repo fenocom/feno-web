@@ -68,8 +68,7 @@ export const AIHelpSection = () => {
                                     </div>
                                     <div>
                                         <h3 className="text-white font-medium mb-1">{item.title}</h3>
-                                        {/* <p className="text-slate-400 text-sm">{item.desc}</p> */}
-                                        {/* User didn't provide specific desc for bullets, so hiding or using simplified */}
+
                                     </div>
                                 </motion.div>
                             ))}
@@ -84,12 +83,12 @@ export const AIHelpSection = () => {
                             transition={{ duration: 0.8 }}
                             className="relative rounded-2xl border border-white/10 bg-[#0A0F1C] overflow-hidden aspect-square md:aspect-video lg:aspect-square"
                         >
-                            {/* Abstract UI Representation of AI */}
+
                             <div className="absolute inset-0 bg-gradient-to-br from-[#0A0F1C] to-[#000d2e]" />
 
-                            {/* Chat Interface Mockup */}
+
                             <div className="absolute inset-4 md:inset-8 bg-[#050505] rounded-xl border border-white/5 flex flex-col overflow-hidden">
-                                {/* Header */}
+
                                 <div className="h-12 border-b border-white/5 flex items-center px-4 gap-3 bg-white/[0.02]">
                                     <div className="w-2 h-2 rounded-full bg-red-500/50" />
                                     <div className="w-2 h-2 rounded-full bg-yellow-500/50" />
@@ -97,7 +96,7 @@ export const AIHelpSection = () => {
                                     <div className="ml-auto text-xs text-slate-600 font-mono">Feno AI 2.0</div>
                                 </div>
 
-                                {/* Chat Area */}
+
                                 <div className="flex-1 p-6 space-y-4 overflow-hidden relative">
                                     <div className="flex gap-3">
                                         <div className="w-8 h-8 rounded-full bg-[#a1ccff]/10 flex items-center justify-center border border-[#a1ccff]/20">
@@ -138,11 +137,11 @@ export const AIHelpSection = () => {
                                         </div>
                                     </div>
 
-                                    {/* Fade effect at bottom */}
+
                                     <div className="absolute bottom-0 left-0 right-0 h-24 bg-gradient-to-t from-[#050505] to-transparent pointer-events-none" />
                                 </div>
 
-                                {/* Input Area */}
+
                                 <div className="h-14 border-t border-white/5 p-3 flex gap-2 items-center">
                                     <div className="w-6 h-6 rounded-full bg-white/5 flex items-center justify-center">
                                         <div className="w-3 h-3 text-slate-600">+</div>
