@@ -48,26 +48,26 @@ export const AiIcon = ({ size = 24, className = "" }) => {
                     fx="0.25"
                     fy="0.25"
                 >
-                    <stop offset="0%" stopColor="#487be0" />
+                    <stop offset="0%" stopColor="#87b0ff" />
                     <stop offset="40%" stopColor="#1148b8" />
-                    <stop offset="85%" stopColor="#061a45" />
-                    <stop offset="100%" stopColor="#020815" />
+                    <stop offset="85%" stopColor="#0a2a70" />
+                    <stop offset="100%" stopColor="#05153a" />
                 </radialGradient>
                 <radialGradient id="outer-glass" cx="0.5" cy="0.5" r="0.5">
                     <stop
                         offset="50%"
-                        stopColor="#000000"
+                        stopColor="#eef2ff"
                         stopOpacity="0.2"
                     />
                     <stop
                         offset="90%"
-                        stopColor="#000000"
-                        stopOpacity="0.8"
+                        stopColor="#dbeafe"
+                        stopOpacity="0.6"
                     />
                     <stop
                         offset="100%"
-                        stopColor="#000000"
-                        stopOpacity="0.95"
+                        stopColor="#bfdbfe"
+                        stopOpacity="0.8"
                     />
                 </radialGradient>
                 <filter
@@ -139,9 +139,9 @@ export const AiIcon = ({ size = 24, className = "" }) => {
                     cx="0"
                     cy="0"
                     r="50"
-                    stroke="#000000"
+                    stroke="#1148b8"
                     strokeWidth="2"
-                    strokeOpacity="0.8"
+                    strokeOpacity="0.1"
                 />
                 <g>
                     <circle

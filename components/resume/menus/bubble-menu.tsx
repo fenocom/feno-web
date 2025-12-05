@@ -1,15 +1,15 @@
 "use client";
 
-import { Button } from "@radix-ui/themes";
-import { useEditorState } from "@tiptap/react";
+import { Button } from "@heroui/react";
+import { Editor, useEditorState } from "@tiptap/react";
 import { BubbleMenu } from "@tiptap/react/menus";
-import { Bold, Italic, Link2Off, Link as LinkIcon } from "lucide-react";
+import { IconBold, IconItalic, IconLink, IconLinkOff } from "@tabler/icons-react";
 import { useEffect, useState } from "react";
 import { ColorPicker } from "../../atoms/color-picker";
 import { FontSlider } from "../../common/slider";
 import TypographyDropdown from "../../common/typography-dropdown";
 
-export default function BubbleMenuGlobal({ editor }) {
+export default function BubbleMenuGlobal({ editor }: { editor: Editor }) {
     if (!editor) return null;
 
     const editorState = useEditorState({
@@ -32,9 +32,9 @@ export default function BubbleMenuGlobal({ editor }) {
     const [fontSize, setFontSize] = useState(16);
     useEffect(() => setFontSize(editorState.fontSize), [editorState.fontSize]);
 
-    const shouldShow = ({ editor }) => !editor.state.selection.empty;
+    const shouldShow = ({ editor }: { editor: Editor }) => !editor.state.selection.empty;
 
-    const applyFontSize = (size) => {
+    const applyFontSize = (size: number) => {
         setFontSize(size);
         editor
             .chain()
@@ -43,11 +43,11 @@ export default function BubbleMenuGlobal({ editor }) {
             .run();
     };
 
-    const applyColor = (color) => {
+    const applyColor = (color: string) => {
         editor.chain().focus().setColor(color).run();
     };
 
-    const stopBubble = (e) => e.stopPropagation();
+    const stopBubble = (e: React.MouseEvent) => e.stopPropagation();
 
     const setLink = () => {
         const prev = editor.getAttributes("link").href;
@@ -64,7 +64,7 @@ export default function BubbleMenuGlobal({ editor }) {
                 .extendMarkRange("link")
                 .setLink({ href: url })
                 .run();
-        } catch {}
+        } catch { }
     };
 
     const unsetLink = () => {
@@ -76,7 +76,8 @@ export default function BubbleMenuGlobal({ editor }) {
             editor={editor}
             shouldShow={shouldShow}
             className="z-9999"
-            tippyoptions={{
+            // @ts-ignore
+            tippyOptions={{
                 interactive: true,
                 duration: 0,
                 hideOnClick: false,
@@ -110,46 +111,47 @@ export default function BubbleMenuGlobal({ editor }) {
                 />
 
                 <Button
-                    size="1"
+                    isIconOnly
+                    size="sm"
                     onMouseDown={stopBubble}
-                    onClick={() => editor.chain().focus().toggleBold().run()}
-                    className={`p-1 rounded-md ${
-                        editorState.isBold ? "bg-white/20" : "bg-transparent"
-                    } text-white`}
+                    onPress={() => editor.chain().focus().toggleBold().run()}
+                    className={`p-1 rounded-md ${editorState.isBold ? "bg-white/20" : "bg-transparent"
+                        } text-white min-w-0 h-auto`}
                 >
-                    <Bold size={16} />
+                    <IconBold size={16} />
                 </Button>
 
                 <Button
-                    size="1"
+                    isIconOnly
+                    size="sm"
                     onMouseDown={stopBubble}
-                    onClick={() => editor.chain().focus().toggleItalic().run()}
-                    className={`p-1 rounded-md ${
-                        editorState.isItalic ? "bg-white/20" : "bg-transparent"
-                    } text-white`}
+                    onPress={() => editor.chain().focus().toggleItalic().run()}
+                    className={`p-1 rounded-md ${editorState.isItalic ? "bg-white/20" : "bg-transparent"
+                        } text-white min-w-0 h-auto`}
                 >
-                    <Italic size={16} />
+                    <IconItalic size={16} />
                 </Button>
 
                 <Button
-                    size="1"
+                    isIconOnly
+                    size="sm"
                     onMouseDown={stopBubble}
-                    onClick={setLink}
-                    className={`p-1 rounded-md ${
-                        editorState.isLink ? "bg-white/20" : "bg-transparent"
-                    } text-white`}
+                    onPress={setLink}
+                    className={`p-1 rounded-md ${editorState.isLink ? "bg-white/20" : "bg-transparent"
+                        } text-white min-w-0 h-auto`}
                 >
-                    <LinkIcon size={16} />
+                    <IconLink size={16} />
                 </Button>
 
                 <Button
-                    size="1"
+                    isIconOnly
+                    size="sm"
                     onMouseDown={stopBubble}
-                    disabled={!editorState.isLink}
-                    onClick={unsetLink}
-                    className="p-1 rounded-md text-white disabled:opacity-30"
+                    isDisabled={!editorState.isLink}
+                    onPress={unsetLink}
+                    className="p-1 rounded-md text-white disabled:opacity-30 bg-transparent min-w-0 h-auto"
                 >
-                    <Link2Off size={16} />
+                    <IconLinkOff size={16} />
                 </Button>
 
                 <div className="absolute w-[140px] -top-6 left-1/2 -translate-x-1/2">
