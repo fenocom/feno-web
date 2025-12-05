@@ -121,7 +121,7 @@ export const BuilderIllustration = () => {
         </linearGradient>
       </defs>
 
-      <rect width="450" height="800" fill="#050505" />
+
 
       <g transform="translate(225, 350) scale(0.8, 1)" opacity="0.3">
         <path

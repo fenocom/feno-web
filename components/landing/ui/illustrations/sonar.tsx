@@ -89,7 +89,7 @@ export const SonarIllustration = () => {
         </filter>
       </defs>
 
-      <rect width="800" height="400" fill="#050505" />
+
 
       <g transform="translate(400, 200)">
         <circle cx="0" cy="0" r="280" fill="url(#zone-outer)" />

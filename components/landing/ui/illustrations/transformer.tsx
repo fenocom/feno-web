@@ -71,7 +71,7 @@ export const TransformIllustration = () => {
         </linearGradient>
       </defs>
 
-      <rect width="800" height="400" fill="#050505" />
+
 
       <g stroke="url(#chaos-fade)" fill="none" strokeLinecap="round">
         <path
