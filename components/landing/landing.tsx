@@ -8,7 +8,7 @@ import { Footer } from "./layout/footer";
 import { RoadmapSection } from "./sections/roadmap-section";
 import { CTASection } from "./sections/cta-section";
 import { TemplatesSection } from "./sections/templates-section";
-import { MetricsSection } from "./sections/metrics-section";
+import { AIHelpSection } from "./sections/ai-help-section";
 
 export const LandingPage = () => {
   return (
@@ -42,9 +42,9 @@ export const LandingPage = () => {
         </div>
 
         <FeaturesSection />
-        <RoadmapSection />
-        <MetricsSection />
+        <AIHelpSection />
         <TemplatesSection />
+        <RoadmapSection />
         <CTASection />
         <Footer />
       </main>
