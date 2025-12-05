@@ -11,9 +11,11 @@ export const ResumePage = () => {
   const createPortfolio = () => { };
 
   return (
-    <div style={{ width: "100vw", height: "100vh" }}>
+    <div className="w-full h-full flex items-center justify-center px-10 py-20">
+      <div className="rounded-lg overflow-hidden">
+        <ResumeEditor />
+      </div>
       <Toolbar />
-      <ResumeEditor />
     </div>
   );
 };

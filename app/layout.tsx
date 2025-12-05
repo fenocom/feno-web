@@ -40,11 +40,10 @@ export default function RootLayout({
     return (
         <html
             lang="en"
-            className={`dark bg-black font-host ${hostGrotesk.variable} ${serif.variable} ${jetbrains.variable} antialiased`}
+            className={`light bg-background font-host ${hostGrotesk.variable} ${serif.variable} ${jetbrains.variable} antialiased`}
         >
             <body>
-                <main className="w-full h-screen">{children}</main>
-                <div id="print-root"></div>
+                <main className="w-full min-h-screen h-full">{children}</main>
             </body>
         </html>
     );
