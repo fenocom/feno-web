@@ -31,9 +31,18 @@ export const TemplatesSection = () => {
                             transition={{ duration: 0.6 }}
                             className="text-3xl md:text-5xl font-medium tracking-tight font-host text-white mb-6"
                         >
-                            Explore the carefully <br />
-                            <span className="text-[#a1ccff] font-serif italic">created templates</span>
+                            Curated for <br />
+                            <span className="text-[#a1ccff] font-serif italic">Impact.</span>
                         </motion.h2>
+                        <motion.p
+                            initial={{ opacity: 0, y: 20 }}
+                            whileInView={{ opacity: 1, y: 0 }}
+                            viewport={{ once: true }}
+                            transition={{ duration: 0.6, delay: 0.1 }}
+                            className="text-[#A1A1AA] text-lg max-w-lg leading-loose"
+                        >
+                            Select from designs that balance modern aesthetics with professional standards. Stand out quietly.
+                        </motion.p>
                     </div>
 
                     <motion.div
@@ -48,8 +57,8 @@ export const TemplatesSection = () => {
                                 key={category}
                                 onClick={() => setFilter(category)}
                                 className={`px-4 py-2 rounded-full text-sm font-medium transition-colors ${filter === category
-                                        ? "bg-white text-black"
-                                        : "text-slate-400 hover:text-white"
+                                    ? "bg-white text-black"
+                                    : "text-slate-400 hover:text-white"
                                     } capitalization`}
                             >
                                 {category === "all" ? "All Templates" : category}

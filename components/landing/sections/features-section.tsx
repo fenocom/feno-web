@@ -68,7 +68,7 @@ const FeatureBlock = ({
                 >
                     <div className="space-y-4">
                         {miniHeading && (
-                            <div className="flex items-center gap-2 text-slate-400 text-sm font-medium mb-2">
+                            <div className="flex items-center gap-2 text-[#A1A1AA] text-sm font-medium mb-2 tracking-wider uppercase">
                                 {miniIcon}
                                 <span>{miniHeading}</span>
                             </div>
@@ -76,7 +76,7 @@ const FeatureBlock = ({
                         <h3 className="text-3xl lg:text-4xl font-semibold text-white tracking-tight">
                             {title}
                         </h3>
-                        <p className="text-slate-400 text-lg leading-relaxed max-w-lg">
+                        <p className="text-[#A1A1AA] text-lg leading-loose max-w-lg">
                             {description}
                         </p>
                     </div>
@@ -90,7 +90,7 @@ const FeatureBlock = ({
                                     </div>
                                     <div>
                                         <h4 className="text-white font-medium text-lg">{feature.title}</h4>
-                                        <p className="text-slate-400 text-sm leading-relaxed">{feature.description}</p>
+                                        <p className="text-[#A1A1AA] text-sm leading-relaxed">{feature.description}</p>
                                     </div>
                                 </div>
                             ))}
@@ -99,8 +99,8 @@ const FeatureBlock = ({
 
                     {children}
                 </motion.div>
-            </div>
-        </div>
+            </div >
+        </div >
     );
 };
 
@@ -124,14 +124,14 @@ export const FeaturesSection = () => {
                     </p>
                 </div>
 
-                {/* Feature 1: Resume Builder */}
+// Feature 1: Resume/Editor
                 <FeatureBlock
                     align="left"
-                    title="Resume Builder"
-                    description="Craft a resume that stands out with our intelligent, block-based editor."
-                    imageSrc="/_next/static/media/feature_table_ui.png" // This will need to be fixed in real env
+                    title="Precision-Crafted Documents"
+                    description="Move beyond standard templates. Create resumes and portfolios that adapt to your evolving skills, ensuring you always present your best self with minimal effort."
+                    imageSrc="/_next/static/media/feature_table_ui.png"
                     imageAlt="Resume Builder interface showing block editor"
-                    miniHeading="Create without limits"
+                    miniHeading="CREATE WITHOUT LIMITS"
                     miniIcon={<FileText size={16} />}
                     subFeatures={[
                         {
@@ -152,14 +152,14 @@ export const FeaturesSection = () => {
                     ]}
                 />
 
-                {/* Feature 2: Portfolio Builder */}
+                {/* Feature 2: Smart/Auto-fill */}
                 <FeatureBlock
                     align="right"
-                    title="Portfolio Builder"
-                    description="Transform your resume into a stunning visual portfolio in seconds."
+                    title="Intelligent Automation"
+                    description="Let our system handle the repetitive formatting and data entry. Reclaim your time and focus on what matters: preparing for your next big opportunity."
                     imageSrc="/feature_portfolio.png"
-                    imageAlt="Portfolio Builder interface"
-                    miniHeading="Publish your work"
+                    imageAlt="Automation Interface"
+                    miniHeading="INTELLIGENT AUTOMATION"
                     miniIcon={<Sparkles size={16} />}
                     withSeparator
                     subFeatures={[
@@ -176,14 +176,14 @@ export const FeaturesSection = () => {
                     ]}
                 />
 
-                {/* Feature 3: Chrome Extension */}
+                {/* Feature 3: Outreach/Networking */}
                 <FeatureBlock
                     align="left"
-                    title="Chrome Extension"
-                    description="Bring Feno with you to every job board. Apply faster and smarter."
+                    title="Connection, Simplified"
+                    description="Manage your applications and networking outreach from a single dashboard. Keep track of conversations without the mental load of remembering follow-ups."
                     imageSrc="/feature_extension.png"
-                    imageAlt="Feno Chrome Extension overlay on a job board"
-                    miniHeading="Apply smarter"
+                    imageAlt="Networking Dashboard"
+                    miniHeading="APPLY SMARTER"
                     miniIcon={<Chrome size={16} />}
                     withSeparator
                     subFeatures={[
@@ -214,8 +214,6 @@ export const FeaturesSection = () => {
                             <div className="relative rounded-2xl overflow-hidden h-[400px] lg:h-[500px] group">
                                 <div className="absolute inset-0 bg-gradient-to-br from-green-500/10 to-emerald-500/10 opacity-20 group-hover:opacity-40 transition-opacity" />
                                 <div className="absolute inset-0 flex items-center justify-center">
-                                    {/* Placeholder for Analytics */}
-                                    {/* <img src="..." className="object-contain" /> */}
                                     <span className="text-xl font-mono text-emerald-400">Analytics Dashboard</span>
                                 </div>
                             </div>
@@ -229,15 +227,15 @@ export const FeaturesSection = () => {
                             className="flex-1 space-y-8 px-4 lg:px-0"
                         >
                             <div className="space-y-4">
-                                <div className="flex items-center gap-2 text-slate-400 text-sm font-medium mb-2">
+                                <div className="flex items-center gap-2 text-[#A1A1AA] text-sm font-medium mb-2 tracking-wider">
                                     <BarChart3 size={16} />
-                                    <span>Measure your impact</span>
+                                    <span className="uppercase">Insight-Driven Growth</span>
                                 </div>
                                 <h3 className="text-3xl lg:text-4xl font-semibold text-white tracking-tight">
-                                    Real-time Analytics
+                                    Insight-Driven Growth
                                 </h3>
-                                <p className="text-slate-400 text-lg leading-relaxed max-w-lg">
-                                    Stop guessing. Know exactly when recruiters view your resume and portfolio.
+                                <p className="text-[#A1A1AA] text-lg leading-loose max-w-lg">
+                                    Description clarity on your performance. Understand which applications resonate and gain data-backed confidence in your job search strategy.
                                 </p>
                             </div>
                             <div className="flex flex-col gap-4">
@@ -245,14 +243,14 @@ export const FeaturesSection = () => {
                                     <BarChart3 className="text-emerald-400" size={24} />
                                     <div>
                                         <h4 className="text-white font-medium">Link Tracking</h4>
-                                        <p className="text-slate-400 text-sm">See who clicks your resume link and when.</p>
+                                        <p className="text-[#A1A1AA] text-sm">See who clicks your resume link and when.</p>
                                     </div>
                                 </div>
                                 <div className="flex gap-4 items-center p-4 rounded-xl bg-white/5 border border-white/10">
                                     <img src="https://flagcdn.com/w20/us.png" alt="US" className="w-6 h-4 object-cover rounded shadow-sm" />
                                     <div>
                                         <h4 className="text-white font-medium">Geo-Location Data</h4>
-                                        <p className="text-slate-400 text-sm">Track where your profile is being viewed from.</p>
+                                        <p className="text-[#A1A1AA] text-sm">Track where your profile is being viewed from.</p>
                                     </div>
                                 </div>
                             </div>

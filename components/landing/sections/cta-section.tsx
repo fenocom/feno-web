@@ -18,17 +18,17 @@ export const CTASection = () => {
                         transition={{ duration: 0.6 }}
                         className="text-4xl md:text-6xl font-medium mb-8 tracking-tight font-host"
                     >
-                        Ready to build your <br />
-                        <span className="text-[#a1ccff] font-serif italic">future?</span>
+                        Ready to define your <br />
+                        <span className="text-[#a1ccff] font-serif italic">next chapter?</span>
                     </motion.h2>
                     <motion.p
                         initial={{ opacity: 0, y: 20 }}
                         whileInView={{ opacity: 1, y: 0 }}
                         viewport={{ once: true }}
                         transition={{ duration: 0.6, delay: 0.1 }}
-                        className="text-slate-400 text-xl mb-10 max-w-2xl mx-auto"
+                        className="text-[#A1A1AA] text-xl mb-10 max-w-2xl mx-auto leading-loose"
                     >
-                        Join thousands of professionals who are taking control of their career narrative with Feno.
+                        Join the professionals who have stopped searching and started building.
                     </motion.p>
                     <motion.div
                         initial={{ opacity: 0, y: 20 }}

@@ -59,15 +59,15 @@ export const RoadmapSection = () => {
                                 transition={{ duration: 0.6, delay: 0.1 }}
                                 className="text-4xl md:text-6xl font-medium tracking-tight font-host text-white mb-6"
                             >
-                                Roadmap to <br />
-                                <span className="text-[#a1ccff] font-serif italic">success</span>
+                                Your Path to <br />
+                                <span className="text-[#a1ccff] font-serif italic">Clarity</span>
                             </motion.h2>
                             <motion.p
                                 initial={{ opacity: 0, y: 20 }}
                                 whileInView={{ opacity: 1, y: 0 }}
                                 viewport={{ once: true }}
                                 transition={{ duration: 0.6, delay: 0.2 }}
-                                className="text-slate-400 text-lg leading-relaxed max-w-sm"
+                                className="text-[#A1A1AA] text-lg leading-loose max-w-sm"
                             >
                                 From your first draft to your signed offer letter, Feno powers every step of your career growth.
                             </motion.p>
@@ -77,7 +77,33 @@ export const RoadmapSection = () => {
 
                     <div className="lg:w-2/3">
                         <div className="space-y-12">
-                            {steps.map((step, index) => (
+                            {[
+                                {
+                                    id: "01",
+                                    title: "Initialize",
+                                    description: "Securely access your private workspace.",
+                                },
+                                {
+                                    id: "02",
+                                    title: "Centralize",
+                                    description: "Import your history and skills into one source of truth.",
+                                },
+                                {
+                                    id: "03",
+                                    title: "Refine",
+                                    description: "Let the system optimize your data for impact.",
+                                },
+                                {
+                                    id: "04",
+                                    title: "Create",
+                                    description: "Generate tailored resumes and portfolios instantly.",
+                                },
+                                {
+                                    id: "05",
+                                    title: "Deploy",
+                                    description: "Share your profile and track your success.",
+                                },
+                            ].map((step, index) => (
                                 <motion.div
                                     key={step.id}
                                     initial={{ opacity: 0, x: 20 }}
@@ -93,7 +119,7 @@ export const RoadmapSection = () => {
                                         <h3 className="text-2xl md:text-3xl font-medium text-white mb-3 group-hover:text-[#a1ccff] transition-colors">
                                             {step.title}
                                         </h3>
-                                        <p className="text-slate-400 text-lg leading-relaxed max-w-md">
+                                        <p className="text-[#A1A1AA] text-lg leading-loose max-w-md">
                                             {step.description}
                                         </p>
                                     </div>

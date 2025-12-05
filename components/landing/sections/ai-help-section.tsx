@@ -24,35 +24,35 @@ export const AIHelpSection = () => {
                             transition={{ duration: 0.6, delay: 0.1 }}
                             className="text-3xl md:text-5xl font-medium tracking-tight font-host text-white mb-6"
                         >
-                            AI is there to help you with <br />
-                            <span className="text-[#a1ccff] font-serif italic">every task</span>
+                            A Partner, <br />
+                            <span className="text-[#a1ccff] font-serif italic">Not Just a Tool.</span>
                         </motion.h2>
                         <motion.p
                             initial={{ opacity: 0, y: 20 }}
                             whileInView={{ opacity: 1, y: 0 }}
                             viewport={{ once: true }}
                             transition={{ duration: 0.6, delay: 0.2 }}
-                            className="text-slate-400 text-lg leading-relaxed mb-8"
+                            className="text-[#A1A1AA] text-lg leading-loose mb-8"
                         >
-                            From crafting the perfect bullet point to optimizing your portfolio for search engines. Feno's AI is your silent partner in career growth.
+                            Meet your AI career strategist. From drafting cover letters to simulating interview questions, get real-time guidance that feels personal and precise.
                         </motion.p>
 
                         <div className="space-y-6">
                             {[
                                 {
                                     icon: FileCheck,
-                                    title: "ATS Friendly Resumes",
-                                    desc: "Our AI ensures your resume passes the bot filters with 99% accuracy.",
+                                    title: "Context-aware writing assistance.",
+                                    desc: "Craft content that resonates.",
                                 },
                                 {
                                     icon: Search,
-                                    title: "SEO Optimized Portfolios",
-                                    desc: "Get discovered by recruiters with portfolios built for search visibility.",
+                                    title: "Instant feedback on your portfolio.",
+                                    desc: "Optimize for impact immediately.",
                                 },
                                 {
                                     icon: Bot,
-                                    title: "Smart Content Generation",
-                                    desc: "Writer's block? Let our AI suggest impactful action verbs and summaries.",
+                                    title: "Strategic advice tailored to your industry.",
+                                    desc: "Navigate your career path with expert insights.",
                                 },
                             ].map((item, i) => (
                                 <motion.div
@@ -68,7 +68,8 @@ export const AIHelpSection = () => {
                                     </div>
                                     <div>
                                         <h3 className="text-white font-medium mb-1">{item.title}</h3>
-                                        <p className="text-slate-400 text-sm">{item.desc}</p>
+                                        {/* <p className="text-slate-400 text-sm">{item.desc}</p> */}
+                                        {/* User didn't provide specific desc for bullets, so hiding or using simplified */}
                                     </div>
                                 </motion.div>
                             ))}
