@@ -69,8 +69,8 @@ export const PricingSection = () => {
                             viewport={{ once: true }}
                             transition={{ duration: 0.6, delay: index * 0.1 }}
                             className={`relative p-8 rounded-3xl border ${plan.highlight
-                                    ? "bg-white/10 border-[#a1ccff]/50 shadow-[0_0_50px_-12px_rgba(161,204,255,0.3)]"
-                                    : "bg-white/5 border-white/10"
+                                ? "bg-white/10 border-[#a1ccff]/50 shadow-[0_0_50px_-12px_rgba(161,204,255,0.3)]"
+                                : "bg-white/5 border-white/10"
                                 } backdrop-blur-md flex flex-col`}
                         >
                             {plan.highlight && (
@@ -105,8 +105,8 @@ export const PricingSection = () => {
 
                             <Button
                                 className={`w-full py-6! text-base! font-medium! cursor-pointer! ${plan.highlight
-                                        ? "bg-[#a1ccff]! text-black! hover:bg-[#8bb8ef]!"
-                                        : "bg-white/10! text-white! hover:bg-white/20!"
+                                    ? "bg-[#a1ccff]! text-black! hover:bg-[#8bb8ef]!"
+                                    : "bg-white/10! text-white! hover:bg-white/20!"
                                     }`}
                                 variant="solid"
                             >

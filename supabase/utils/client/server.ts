@@ -23,7 +23,7 @@ export const createSupabaseServerClient = async ({
                     for (const { name, value, options } of cookiesToSet) {
                         cookieStore.set(name, value, options);
                     }
-                } catch {}
+                } catch { }
             },
         },
     });

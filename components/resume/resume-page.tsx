@@ -34,7 +34,7 @@ const initialNodes: Node[] = [
 export const ResumePage = () => {
   const [nodes, setNodes] = useState<Node[]>(initialNodes);
   const [edges, setEdges] = useState<Edge[]>([]);
-  const {printResume} = usePrintResume();
+  const { printResume } = usePrintResume();
 
   const onNodesChange = useCallback(
     (changes: NodeChange<Node>[]) =>
@@ -52,9 +52,9 @@ export const ResumePage = () => {
     []
   );
 
-  const switchTemplate = () => {};
+  const switchTemplate = () => { };
 
-  const createPortfolio = () => {};
+  const createPortfolio = () => { };
 
   const toolbarConfig = [
     {
