@@ -5,7 +5,7 @@ import {
     JetBrains_Mono,
 } from "next/font/google";
 
-import "./globals.css";
+import "../globals.css";
 
 const hostGrotesk = Host_Grotesk({
     variable: "--font-host",
