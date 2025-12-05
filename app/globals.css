@@ -1,16 +1,7 @@
 @import "tailwindcss";
+@import "@heroui/styles";
 
 @theme {
-  --color-layer-01: #fffbf7;
-  --color-layer-accent-01: #fae5f8;
-  --color-layer-accent-02: #cbeab7;
-
-  --color-edge-00: #dcd4cd;
-  --color-edge-01: #c8c4c0;
-
-  --shadow-elevation-01: 0 0 50px 1px #c8c4c0;
-  --shadow-elevation-02: 0 0 100px 0px #c8c4c0;
-
   --font-host: var(--font-host);
   --font-serif: var(--font-serif);
 }
