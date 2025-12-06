@@ -40,9 +40,10 @@ const styleAttribute = {
 
 export const extensionsConfig = [
     StarterKit.configure({
-        strike: false, // disabling strike
-        heading: false, // Because you're overriding Heading manually
-        paragraph: false, // Overridden below
+        strike: false,
+        heading: false,
+        paragraph: false,
+        link: false,
         bulletList: {
             keepMarks: true,
             keepAttributes: false,
