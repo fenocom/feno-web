@@ -3,9 +3,5 @@
     "git": {
         "deploymentEnabled": false
     },
-    "bunVersion": "1.x",
-    "scripts": {
-        "dev": "bun run --bun next dev",
-        "build": "bun run --bun next build"
-    }
+    "bunVersion": "1.x"
 }
