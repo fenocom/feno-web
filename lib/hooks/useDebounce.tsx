@@ -18,7 +18,6 @@ export function useDebounce<T>(
     }, delay);
   }
 
-  // Cleanup on unmount
   useEffect(() => {
     return () => {
       if (timeoutRef.current) clearTimeout(timeoutRef.current);
