@@ -1,6 +1,6 @@
 import { Popover } from "@heroui/react";
 import { IconCheck } from "@tabler/icons-react";
-import { Editor } from "@tiptap/react";
+import type { Editor } from "@tiptap/react";
 
 const FONT_OPTIONS = [
     { label: "Inter", value: "Inter, sans-serif" },

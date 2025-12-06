@@ -1,4 +1,4 @@
-import { Popover } from "@heroui/react";
+import { Button, Popover } from "@heroui/react";
 import { HexColorPicker } from "react-colorful";
 
 interface ColorPickerProps {
@@ -10,7 +10,7 @@ export function ColorPicker({ color, onChange }: ColorPickerProps) {
     return (
         <Popover>
             <Popover.Trigger>
-                <button
+                <Button
                     className="w-7 h-7 rounded-md border border-white/20 cursor-pointer"
                     style={{ backgroundColor: color }}
                 />

@@ -1,7 +1,7 @@
 "use client";
 
 import { Button } from "@heroui/react";
-import { Editor, useEditorState } from "@tiptap/react";
+import { type Editor, useEditorState } from "@tiptap/react";
 import { BubbleMenu } from "@tiptap/react/menus";
 import { IconBold, IconItalic, IconLink, IconLinkOff } from "@tabler/icons-react";
 import { useEffect, useState } from "react";

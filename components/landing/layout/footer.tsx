@@ -28,7 +28,7 @@ export const Footer = () => {
                         <ul className="space-y-4 text-sm text-slate-400">
                             <li>
                                 <a
-                                    href="#"
+                                    href="/resume"
                                     className="hover:text-white transition-colors"
                                 >
                                     Resume Builder
@@ -36,7 +36,7 @@ export const Footer = () => {
                             </li>
                             <li>
                                 <a
-                                    href="#"
+                                    href="/portfolio"
                                     className="hover:text-white transition-colors"
                                 >
                                     Portfolio
@@ -44,7 +44,7 @@ export const Footer = () => {
                             </li>
                             <li>
                                 <a
-                                    href="#"
+                                    href="/analytics"
                                     className="hover:text-white transition-colors"
                                 >
                                     Analytics
@@ -52,7 +52,7 @@ export const Footer = () => {
                             </li>
                             <li>
                                 <a
-                                    href="#"
+                                    href="/pricing"
                                     className="hover:text-white transition-colors"
                                 >
                                     Pricing
@@ -66,7 +66,7 @@ export const Footer = () => {
                         <ul className="space-y-4 text-sm text-slate-400">
                             <li>
                                 <a
-                                    href="#"
+                                    href="/blog"
                                     className="hover:text-white transition-colors"
                                 >
                                     Blog
@@ -74,23 +74,15 @@ export const Footer = () => {
                             </li>
                             <li>
                                 <a
-                                    href="#"
+                                    href="/showcase"
                                     className="hover:text-white transition-colors"
                                 >
-                                    Community
+                                    Showcase
                                 </a>
                             </li>
                             <li>
                                 <a
-                                    href="#"
-                                    className="hover:text-white transition-colors"
-                                >
-                                    Help Center
-                                </a>
-                            </li>
-                            <li>
-                                <a
-                                    href="#"
+                                    href="/templates"
                                     className="hover:text-white transition-colors"
                                 >
                                     Templates
@@ -104,7 +96,7 @@ export const Footer = () => {
                         <ul className="space-y-4 text-sm text-slate-400">
                             <li>
                                 <a
-                                    href="#"
+                                    href="/privacy-policy"
                                     className="hover:text-white transition-colors"
                                 >
                                     Privacy Policy
@@ -112,7 +104,7 @@ export const Footer = () => {
                             </li>
                             <li>
                                 <a
-                                    href="#"
+                                    href="/terms-of-service"
                                     className="hover:text-white transition-colors"
                                 >
                                     Terms of Service
@@ -120,7 +112,7 @@ export const Footer = () => {
                             </li>
                             <li>
                                 <a
-                                    href="#"
+                                    href="/cookie-policy"
                                     className="hover:text-white transition-colors"
                                 >
                                     Cookie Policy
@@ -136,22 +128,10 @@ export const Footer = () => {
                     </p>
                     <div className="flex items-center gap-6">
                         <a
-                            href="#"
-                            className="text-slate-500 hover:text-white transition-colors"
-                        >
-                            Twitter
-                        </a>
-                        <a
-                            href="#"
+                            href="https://github.com/feno"
                             className="text-slate-500 hover:text-white transition-colors"
                         >
                             GitHub
-                        </a>
-                        <a
-                            href="#"
-                            className="text-slate-500 hover:text-white transition-colors"
-                        >
-                            LinkedIn
                         </a>
                     </div>
                 </div>

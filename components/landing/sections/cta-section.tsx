@@ -1,7 +1,8 @@
 "use client";
 
+import { Button } from "@heroui/react";
+import { IconArrowRight } from "@tabler/icons-react";
 import { motion } from "framer-motion";
-import { ArrowRight } from "lucide-react";
 
 export const CTASection = () => {
     return (
@@ -38,10 +39,10 @@ export const CTASection = () => {
                         viewport={{ once: true }}
                         transition={{ duration: 0.6, delay: 0.2 }}
                     >
-                        <button className="bg-white text-black px-8 py-4 rounded-full font-medium text-lg hover:bg-blue-50 transition-colors inline-flex items-center gap-2 group">
+                        <Button className="bg-white text-black px-8 py-4 rounded-full font-medium text-lg hover:bg-blue-50 transition-colors inline-flex items-center gap-2 group">
                             Get Started for Free
-                            <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
-                        </button>
+                            <IconArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
+                        </Button>
                     </motion.div>
                 </div>
             </div>
