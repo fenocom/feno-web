@@ -1,5 +1,11 @@
 {
+    "$schema": "https://openapi.vercel.sh/vercel.json",
     "git": {
-        "ignoreCommand": "exit 0"
+        "deploymentEnabled": false
+    },
+    "bunVersion": "1.x",
+    "scripts": {
+        "dev": "bun run --bun next dev",
+        "build": "bun run --bun next build"
     }
 }
