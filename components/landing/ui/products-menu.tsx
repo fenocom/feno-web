@@ -12,6 +12,7 @@ import {
 } from "@floating-ui/react";
 import { IconArrowRight } from "@tabler/icons-react";
 import { AnimatePresence, motion } from "framer-motion";
+import Link from "next/link";
 import { useState } from "react";
 
 const menuTriggerClassname =
@@ -20,20 +21,24 @@ const menuTriggerClassname =
 const PRODUCTS = [
     {
         title: "Resume Builder",
+        route: "/resume",
         description:
             "Craft professional resumes effortlessly with our advanced WYSIWYT editor.",
     },
     {
         title: "Portfolio Builder",
+        route: "/portfolio",
         description:
             "Showcase your work with a professional and personal portfolio in one click.",
     },
     {
         title: "Analytics",
+        route: "/analytics",
         description: "Track views and engagement on your resume and portfolio.",
     },
     {
         title: "Extension",
+        route: "/extension",
         description:
             "Save jobs and autofill applications with our browser extension.",
     },
@@ -78,7 +83,7 @@ export const ProductsMenu = ({ triggerClassname }: ProductsMenuProps) => {
     });
 
     const renderProductItem = (product: (typeof PRODUCTS)[0]) => (
-        <div {...getItemProps(product)}>
+        <Link href={product.route} {...getItemProps(product)}>
             <span className="z-20 relative">{product.title}</span>
             {activeItem.title === product.title && (
                 <motion.div
@@ -95,7 +100,7 @@ export const ProductsMenu = ({ triggerClassname }: ProductsMenuProps) => {
                     <IconArrowRight className="w-4 h-4 text-white" />
                 </motion.div>
             )}
-        </div>
+        </Link>
     );
 
     return (
