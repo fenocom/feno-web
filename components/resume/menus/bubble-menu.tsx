@@ -76,13 +76,7 @@ export default function BubbleMenuGlobal({ editor }: { editor: Editor }) {
             editor={editor}
             shouldShow={shouldShow}
             className="z-9999"
-            // @ts-ignore
-            tippyOptions={{
-                interactive: true,
-                duration: 0,
-                hideOnClick: false,
-                placement: "top",
-            }}
+
         >
             <div
                 className="relative flex items-center gap-2 bg-neutral-800 px-4 py-2 rounded-xl"
