@@ -1,5 +1,6 @@
 "use client";
 
+import { Button } from "@heroui/react";
 import { motion } from "framer-motion";
 import { useState } from "react";
 
@@ -57,7 +58,7 @@ export const TemplatesSection = () => {
                         className="flex gap-2 p-1 bg-white/5 rounded-full border border-white/10 backdrop-blur-sm mt-4 md:mt-0"
                     >
                         {["all", "resume", "portfolio"].map((category) => (
-                            <button
+                            <Button
                                 key={category}
                                 onClick={() => setFilter(category)}
                                 className={`px-4 py-2 rounded-full text-sm font-medium transition-colors ${
@@ -69,7 +70,7 @@ export const TemplatesSection = () => {
                                 {category === "all"
                                     ? "All Templates"
                                     : category}
-                            </button>
+                            </Button>
                         ))}
                     </motion.div>
                 </div>
@@ -77,7 +78,7 @@ export const TemplatesSection = () => {
                 <div className="flex overflow-x-auto pb-8 gap-6 -mx-4 px-4 scrollbar-hide">
                     {filteredTemplates.map((template, index) => (
                         <motion.div
-                            key={index}
+                            key={template.name}
                             initial={{ opacity: 0, x: 20 }}
                             whileInView={{ opacity: 1, x: 0 }}
                             viewport={{ once: true }}
@@ -93,9 +94,9 @@ export const TemplatesSection = () => {
                             <div className="absolute inset-x-12 top-24 h-2 w-1/2 bg-white/10 rounded-sm" />
 
                             <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300 z-10">
-                                <button className="bg-white text-black px-6 py-2 rounded-full font-medium text-sm">
+                                <Button className="bg-white text-black px-6 py-2 rounded-full font-medium text-sm">
                                     Use Template
-                                </button>
+                                </Button>
                             </div>
                             <div className="absolute bottom-4 left-0 right-0 text-center text-white font-medium">
                                 {template.name}

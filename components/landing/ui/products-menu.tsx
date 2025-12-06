@@ -10,8 +10,8 @@ import {
     useHover,
     useInteractions,
 } from "@floating-ui/react";
+import { IconArrowRight } from "@tabler/icons-react";
 import { AnimatePresence, motion } from "framer-motion";
-import { ArrowRight } from "lucide-react";
 import { useState } from "react";
 
 const menuTriggerClassname =
@@ -92,7 +92,7 @@ export const ProductsMenu = ({ triggerClassname }: ProductsMenuProps) => {
                     layoutId="active-product-arrow"
                     className="z-20 relative"
                 >
-                    <ArrowRight className="w-4 h-4 text-white" />
+                    <IconArrowRight className="w-4 h-4 text-white" />
                 </motion.div>
             )}
         </div>

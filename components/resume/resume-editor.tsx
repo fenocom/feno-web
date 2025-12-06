@@ -2,6 +2,7 @@
 
 import "./styles/resume-editor.css";
 
+import type { Extensions } from "@tiptap/core";
 import { EditorContent, useEditor } from "@tiptap/react";
 import { extensionsConfig } from "./extensions/config";
 import BubbleMenuGlobal from "./menus/bubble-menu";
@@ -11,7 +12,7 @@ export const ResumeEditor = () => {
     const editor = useEditor({
         content: classicTemplate,
         immediatelyRender: false,
-        extensions: extensionsConfig as any, // Temporary fix for Tiptap extension type incompatibility
+        extensions: extensionsConfig as Extensions, // Type assertion for proper typing
     });
 
     return (

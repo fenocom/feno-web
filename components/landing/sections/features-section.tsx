@@ -1,15 +1,15 @@
 "use client";
 
+import {
+    IconBolt,
+    IconBrandChrome,
+    IconChartBar,
+    IconFileText,
+    IconLayout,
+    IconSparkles,
+} from "@tabler/icons-react";
 import { clsx } from "clsx";
 import { motion } from "framer-motion";
-import {
-    BarChart3,
-    Chrome,
-    FileText,
-    Layout,
-    Sparkles,
-    Zap,
-} from "lucide-react";
 
 const FeatureBlock = ({
     title,
@@ -99,8 +99,8 @@ const FeatureBlock = ({
 
                     {subFeatures && (
                         <div className="space-y-6">
-                            {subFeatures.map((feature, idx) => (
-                                <div key={idx} className="flex gap-4">
+                            {subFeatures.map((feature) => (
+                                <div key={feature.title} className="flex gap-4">
                                     <div className="mt-1 flex-shrink-0 w-10 h-10 rounded-lg bg-white/5 border border-white/10 flex items-center justify-center text-[#a1ccff]">
                                         {feature.icon}
                                     </div>
@@ -155,25 +155,25 @@ export const FeaturesSection = () => {
                     imageSrc="/_next/static/media/feature_table_ui.png"
                     imageAlt="Resume Builder interface showing block editor"
                     miniHeading="CREATE WITHOUT LIMITS"
-                    miniIcon={<FileText size={16} />}
+                    miniIcon={<IconFileText size={16} />}
                     subFeatures={[
                         {
                             title: "Composition Focus",
                             description:
                                 "Feno handles the formatting so you can focus purely on composing your narrative.",
-                            icon: <FileText size={20} />,
+                            icon: <IconFileText size={20} />,
                         },
                         {
                             title: "Notion-like Experience",
                             description:
                                 "A familiar slash-command interface makes writing your experience intuitive and fast.",
-                            icon: <Layout size={20} />,
+                            icon: <IconLayout size={20} />,
                         },
                         {
                             title: "One-Click Build",
                             description:
                                 "Instantly compile your blocks into a perfectly formatted, ATS-friendly PDF.",
-                            icon: <Zap size={20} />,
+                            icon: <IconBolt size={20} />,
                         },
                     ]}
                 />
@@ -185,14 +185,14 @@ export const FeaturesSection = () => {
                     imageSrc="/feature_portfolio.png"
                     imageAlt="Automation Interface"
                     miniHeading="INTELLIGENT AUTOMATION"
-                    miniIcon={<Sparkles size={16} />}
+                    miniIcon={<IconSparkles size={16} />}
                     withSeparator
                     subFeatures={[
                         {
                             title: "Instant Transformation",
                             description:
                                 "Turn your text-based resume into an interactive website with a single click.",
-                            icon: <Sparkles size={20} />,
+                            icon: <IconSparkles size={20} />,
                         },
                         {
                             title: "AI Customization",
@@ -210,7 +210,7 @@ export const FeaturesSection = () => {
                     imageSrc="/feature_extension.png"
                     imageAlt="Networking Dashboard"
                     miniHeading="APPLY SMARTER"
-                    miniIcon={<Chrome size={16} />}
+                    miniIcon={<IconBrandChrome size={16} />}
                     withSeparator
                     subFeatures={[
                         {
@@ -223,7 +223,7 @@ export const FeaturesSection = () => {
                             title: "Job Tracking",
                             description:
                                 "Save jobs to your dashboard with one click to track your application status.",
-                            icon: <Chrome size={20} />,
+                            icon: <IconBrandChrome size={20} />,
                         },
                     ]}
                 />
@@ -257,7 +257,7 @@ export const FeaturesSection = () => {
                         >
                             <div className="space-y-4">
                                 <div className="flex items-center gap-2 text-[#A1A1AA] text-sm font-medium mb-2 tracking-wider">
-                                    <BarChart3 size={16} />
+                                    <IconChartBar size={16} />
                                     <span className="uppercase">
                                         Insight-Driven Growth
                                     </span>
@@ -274,7 +274,7 @@ export const FeaturesSection = () => {
                             </div>
                             <div className="flex flex-col gap-4">
                                 <div className="flex gap-4 items-center p-4 rounded-xl bg-white/5 border border-white/10">
-                                    <BarChart3
+                                    <IconChartBar
                                         className="text-emerald-400"
                                         size={24}
                                     />

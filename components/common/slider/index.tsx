@@ -7,7 +7,12 @@ interface FontSliderProps {
     max?: number;
 }
 
-export function FontSlider({ value, onChange, min = 8, max = 64 }: FontSliderProps) {
+export function FontSlider({
+    value,
+    onChange,
+    min = 8,
+    max = 64,
+}: FontSliderProps) {
     return (
         <Slider
             minValue={min}

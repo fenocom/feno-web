@@ -28,7 +28,10 @@ export const DottedBackground = () => {
             className="absolute inset-0 overflow-hidden pointer-events-none"
         >
             <div className="absolute inset-0 pointer-events-none select-none">
-                <svg className="w-full h-full" xmlns="http://www.w3.org/2000/svg">
+                <svg
+                    className="w-full h-full"
+                    xmlns="http://www.w3.org/2000/svg"
+                >
                     <defs>
                         <pattern
                             id="dot-pattern-grey"
@@ -38,10 +41,20 @@ export const DottedBackground = () => {
                             height="15"
                             patternUnits="userSpaceOnUse"
                         >
-                            <circle cx="1" cy="1" r="1" fill="#000000" fillOpacity="0.07" />
+                            <circle
+                                cx="1"
+                                cy="1"
+                                r="1"
+                                fill="#000000"
+                                fillOpacity="0.07"
+                            />
                         </pattern>
                     </defs>
-                    <rect width="100%" height="100%" fill="url(#dot-pattern-grey)" />
+                    <rect
+                        width="100%"
+                        height="100%"
+                        fill="url(#dot-pattern-grey)"
+                    />
                 </svg>
             </div>
 
@@ -52,7 +65,10 @@ export const DottedBackground = () => {
                     WebkitMaskImage: maskImage,
                 }}
             >
-                <svg className="w-full h-full" xmlns="http://www.w3.org/2000/svg">
+                <svg
+                    className="w-full h-full"
+                    xmlns="http://www.w3.org/2000/svg"
+                >
                     <defs>
                         <pattern
                             id="dot-pattern-blue"
@@ -62,10 +78,20 @@ export const DottedBackground = () => {
                             height="15"
                             patternUnits="userSpaceOnUse"
                         >
-                            <circle cx="1" cy="1" r="1" fill="#1148b8" fillOpacity="0.3" />
+                            <circle
+                                cx="1"
+                                cy="1"
+                                r="1"
+                                fill="#1148b8"
+                                fillOpacity="0.3"
+                            />
                         </pattern>
                     </defs>
-                    <rect width="100%" height="100%" fill="url(#dot-pattern-blue)" />
+                    <rect
+                        width="100%"
+                        height="100%"
+                        fill="url(#dot-pattern-blue)"
+                    />
                 </svg>
             </motion.div>
         </div>

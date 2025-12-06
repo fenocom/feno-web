@@ -1,7 +1,7 @@
 import { AiIcon } from "@/components/common/ai-icon";
 import { Separator } from "@heroui/react";
-import { motion } from "framer-motion";
 import { IconDownload, IconPalette, IconSettings } from "@tabler/icons-react";
+import { motion } from "framer-motion";
 
 export default function Toolbar() {
     return (

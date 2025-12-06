@@ -21,8 +21,10 @@ const styleAttribute = {
         const data = element.getAttribute("data-styles");
         return data ? JSON.parse(data) : {};
     },
-    renderHTML: (attributes: any) => {
-        const styles = attributes.styles;
+    renderHTML: (attributes: Record<string, unknown>) => {
+        const styles = attributes.styles as
+            | Record<string, string | number>
+            | undefined;
         if (!styles || Object.keys(styles).length === 0) return {};
 
         const styleString = Object.entries(styles)

@@ -1,49 +1,49 @@
 "use client";
 
-import { motion } from "framer-motion";
 import {
-    CheckCircle2,
-    FileText,
-    Globe,
-    Rocket,
-    TrendingUp,
-} from "lucide-react";
+    IconCircleCheck,
+    IconFileText,
+    IconRocket,
+    IconTrendingUp,
+    IconWorld,
+} from "@tabler/icons-react";
+import { motion } from "framer-motion";
 
-const steps = [
+const _steps = [
     {
         id: "01",
         title: "Craft",
         description:
             "Build your resume with our composition-focused editor. Intelligent suggestions guide your writing.",
-        icon: FileText,
+        icon: IconFileText,
     },
     {
         id: "02",
         title: "Publish",
         description:
             "Generate a stunning, SEO-friendly portfolio from your resume in a single click.",
-        icon: Globe,
+        icon: IconWorld,
     },
     {
         id: "03",
         title: "Automate",
         description:
             "Use our Chrome extension to auto-fill applications on any job board effortlessly.",
-        icon: Rocket,
+        icon: IconRocket,
     },
     {
         id: "04",
         title: "Track",
         description:
             "Get real-time analytics on who views your profile and how your applications are performing.",
-        icon: TrendingUp,
+        icon: IconTrendingUp,
     },
     {
         id: "05",
         title: "Succeed",
         description:
             "Land your dream job with data-backed confidence and a professional digital presence.",
-        icon: CheckCircle2,
+        icon: IconCircleCheck,
     },
 ];
 

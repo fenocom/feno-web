@@ -1,9 +1,14 @@
 "use client";
 
 import { Button } from "@heroui/react";
+import {
+    IconBold,
+    IconItalic,
+    IconLink,
+    IconLinkOff,
+} from "@tabler/icons-react";
 import { type Editor, useEditorState } from "@tiptap/react";
 import { BubbleMenu } from "@tiptap/react/menus";
-import { IconBold, IconItalic, IconLink, IconLinkOff } from "@tabler/icons-react";
 import { useEffect, useState } from "react";
 import { ColorPicker } from "../../atoms/color-picker";
 import { FontSlider } from "../../common/slider";
@@ -32,15 +37,12 @@ export default function BubbleMenuGlobal({ editor }: { editor: Editor }) {
     const [fontSize, setFontSize] = useState(16);
     useEffect(() => setFontSize(editorState.fontSize), [editorState.fontSize]);
 
-    const shouldShow = ({ editor }: { editor: Editor }) => !editor.state.selection.empty;
+    const shouldShow = ({ editor }: { editor: Editor }) =>
+        !editor.state.selection.empty;
 
     const applyFontSize = (size: number) => {
         setFontSize(size);
-        editor
-            .chain()
-            .focus()
-            .setFontSize(size + "px")
-            .run();
+        editor.chain().focus().setFontSize(`${size}px`).run();
     };
 
     const applyColor = (color: string) => {
@@ -64,7 +66,7 @@ export default function BubbleMenuGlobal({ editor }: { editor: Editor }) {
                 .extendMarkRange("link")
                 .setLink({ href: url })
                 .run();
-        } catch { }
+        } catch {}
     };
 
     const unsetLink = () => {
@@ -72,12 +74,7 @@ export default function BubbleMenuGlobal({ editor }: { editor: Editor }) {
     };
 
     return (
-        <BubbleMenu
-            editor={editor}
-            shouldShow={shouldShow}
-            className="z-9999"
-
-        >
+        <BubbleMenu editor={editor} shouldShow={shouldShow} className="z-9999">
             <div
                 className="relative flex items-center gap-2 bg-neutral-800 px-4 py-2 rounded-xl"
                 onMouseDown={stopBubble}
@@ -109,8 +106,9 @@ export default function BubbleMenuGlobal({ editor }: { editor: Editor }) {
                     size="sm"
                     onMouseDown={stopBubble}
                     onPress={() => editor.chain().focus().toggleBold().run()}
-                    className={`p-1 rounded-md ${editorState.isBold ? "bg-white/20" : "bg-transparent"
-                        } text-white min-w-0 h-auto`}
+                    className={`p-1 rounded-md ${
+                        editorState.isBold ? "bg-white/20" : "bg-transparent"
+                    } text-white min-w-0 h-auto`}
                 >
                     <IconBold size={16} />
                 </Button>
@@ -120,8 +118,9 @@ export default function BubbleMenuGlobal({ editor }: { editor: Editor }) {
                     size="sm"
                     onMouseDown={stopBubble}
                     onPress={() => editor.chain().focus().toggleItalic().run()}
-                    className={`p-1 rounded-md ${editorState.isItalic ? "bg-white/20" : "bg-transparent"
-                        } text-white min-w-0 h-auto`}
+                    className={`p-1 rounded-md ${
+                        editorState.isItalic ? "bg-white/20" : "bg-transparent"
+                    } text-white min-w-0 h-auto`}
                 >
                     <IconItalic size={16} />
                 </Button>
@@ -131,8 +130,9 @@ export default function BubbleMenuGlobal({ editor }: { editor: Editor }) {
                     size="sm"
                     onMouseDown={stopBubble}
                     onPress={setLink}
-                    className={`p-1 rounded-md ${editorState.isLink ? "bg-white/20" : "bg-transparent"
-                        } text-white min-w-0 h-auto`}
+                    className={`p-1 rounded-md ${
+                        editorState.isLink ? "bg-white/20" : "bg-transparent"
+                    } text-white min-w-0 h-auto`}
                 >
                     <IconLink size={16} />
                 </Button>

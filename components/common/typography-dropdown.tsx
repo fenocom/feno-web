@@ -1,4 +1,4 @@
-import { Popover } from "@heroui/react";
+import { Button, Popover } from "@heroui/react";
 import { IconCheck } from "@tabler/icons-react";
 import type { Editor } from "@tiptap/react";
 
@@ -14,16 +14,19 @@ interface TypographyDropdownProps {
     currentFont: string;
 }
 
-export default function TypographyDropdown({ editor, currentFont }: TypographyDropdownProps) {
+export default function TypographyDropdown({
+    editor,
+    currentFont,
+}: TypographyDropdownProps) {
     return (
         <Popover>
             <Popover.Trigger>
-                <button
+                <Button
                     className="bm-btn text-white"
                     onMouseDown={(e) => e.preventDefault()}
                 >
                     Aa
-                </button>
+                </Button>
             </Popover.Trigger>
             <Popover.Content
                 placement="bottom"
@@ -31,7 +34,7 @@ export default function TypographyDropdown({ editor, currentFont }: TypographyDr
             >
                 <div className="flex flex-col gap-1">
                     {FONT_OPTIONS.map((f) => (
-                        <button
+                        <Button
                             key={f.value}
                             style={{ fontFamily: f.value }}
                             className="flex items-center justify-between px-3 py-1.5 rounded hover:bg-gray-100 text-sm cursor-pointer"
@@ -48,7 +51,7 @@ export default function TypographyDropdown({ editor, currentFont }: TypographyDr
                         >
                             {f.label}
                             {currentFont === f.value && <IconCheck size={16} />}
-                        </button>
+                        </Button>
                     ))}
                 </div>
             </Popover.Content>

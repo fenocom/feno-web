@@ -54,21 +54,9 @@ export const AiIcon = ({ size = 24, className = "" }) => {
                     <stop offset="100%" stopColor="#05153a" />
                 </radialGradient>
                 <radialGradient id="outer-glass" cx="0.5" cy="0.5" r="0.5">
-                    <stop
-                        offset="50%"
-                        stopColor="#eef2ff"
-                        stopOpacity="0.2"
-                    />
-                    <stop
-                        offset="90%"
-                        stopColor="#dbeafe"
-                        stopOpacity="0.6"
-                    />
-                    <stop
-                        offset="100%"
-                        stopColor="#bfdbfe"
-                        stopOpacity="0.8"
-                    />
+                    <stop offset="50%" stopColor="#eef2ff" stopOpacity="0.2" />
+                    <stop offset="90%" stopColor="#dbeafe" stopOpacity="0.6" />
+                    <stop offset="100%" stopColor="#bfdbfe" stopOpacity="0.8" />
                 </radialGradient>
                 <filter
                     id="glow-rope"
@@ -77,10 +65,7 @@ export const AiIcon = ({ size = 24, className = "" }) => {
                     width="200%"
                     height="200%"
                 >
-                    <feGaussianBlur
-                        stdDeviation="4"
-                        result="coloredBlur"
-                    />
+                    <feGaussianBlur stdDeviation="4" result="coloredBlur" />
                     <feMerge>
                         <feMergeNode in="coloredBlur" />
                         <feMergeNode in="SourceGraphic" />
@@ -93,21 +78,9 @@ export const AiIcon = ({ size = 24, className = "" }) => {
                     x2="100%"
                     y2="0%"
                 >
-                    <stop
-                        offset="0%"
-                        stopColor="#FFFFFF"
-                        stopOpacity="0"
-                    />
-                    <stop
-                        offset="40%"
-                        stopColor="#FFFFFF"
-                        stopOpacity="0.3"
-                    />
-                    <stop
-                        offset="100%"
-                        stopColor="#FFFFFF"
-                        stopOpacity="0.7"
-                    />
+                    <stop offset="0%" stopColor="#FFFFFF" stopOpacity="0" />
+                    <stop offset="40%" stopColor="#FFFFFF" stopOpacity="0.3" />
+                    <stop offset="100%" stopColor="#FFFFFF" stopOpacity="0.7" />
                 </linearGradient>
                 <linearGradient
                     id="rope-fade"
@@ -116,21 +89,9 @@ export const AiIcon = ({ size = 24, className = "" }) => {
                     x2="100%"
                     y2="0%"
                 >
-                    <stop
-                        offset="0%"
-                        stopColor="#FFFFFF"
-                        stopOpacity="1"
-                    />
-                    <stop
-                        offset="85%"
-                        stopColor="#FFFFFF"
-                        stopOpacity="1"
-                    />
-                    <stop
-                        offset="100%"
-                        stopColor="#FFFFFF"
-                        stopOpacity="0"
-                    />
+                    <stop offset="0%" stopColor="#FFFFFF" stopOpacity="1" />
+                    <stop offset="85%" stopColor="#FFFFFF" stopOpacity="1" />
+                    <stop offset="100%" stopColor="#FFFFFF" stopOpacity="0" />
                 </linearGradient>
             </defs>
             <g transform="translate(400, 200)">
@@ -144,12 +105,7 @@ export const AiIcon = ({ size = 24, className = "" }) => {
                     strokeOpacity="0.1"
                 />
                 <g>
-                    <circle
-                        cx="0"
-                        cy="0"
-                        r="38"
-                        fill="url(#sphere-surface)"
-                    />
+                    <circle cx="0" cy="0" r="38" fill="url(#sphere-surface)" />
                     <circle
                         cx="0"
                         cy="0"

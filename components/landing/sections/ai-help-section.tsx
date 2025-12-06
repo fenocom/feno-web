@@ -1,7 +1,12 @@
 "use client";
 
+import {
+    IconFileCheck,
+    IconRobot,
+    IconSearch,
+    IconSparkles,
+} from "@tabler/icons-react";
 import { motion } from "framer-motion";
-import { Bot, FileCheck, Search, Sparkles } from "lucide-react";
 
 export const AIHelpSection = () => {
     return (
@@ -44,23 +49,23 @@ export const AIHelpSection = () => {
                         <div className="space-y-6">
                             {[
                                 {
-                                    icon: FileCheck,
+                                    icon: IconFileCheck,
                                     title: "Context-aware writing assistance.",
                                     desc: "Craft content that resonates.",
                                 },
                                 {
-                                    icon: Search,
+                                    icon: IconSearch,
                                     title: "Instant feedback on your portfolio.",
                                     desc: "Optimize for impact immediately.",
                                 },
                                 {
-                                    icon: Bot,
+                                    icon: IconRobot,
                                     title: "Strategic advice tailored to your industry.",
                                     desc: "Navigate your career path with expert insights.",
                                 },
                             ].map((item, i) => (
                                 <motion.div
-                                    key={i}
+                                    key={item.title}
                                     initial={{ opacity: 0, x: -20 }}
                                     whileInView={{ opacity: 1, x: 0 }}
                                     viewport={{ once: true }}
@@ -106,7 +111,7 @@ export const AIHelpSection = () => {
                                 <div className="flex-1 p-6 space-y-4 overflow-hidden relative">
                                     <div className="flex gap-3">
                                         <div className="w-8 h-8 rounded-full bg-[#a1ccff]/10 flex items-center justify-center border border-[#a1ccff]/20">
-                                            <Sparkles className="w-4 h-4 text-[#a1ccff]" />
+                                            <IconSparkles className="w-4 h-4 text-[#a1ccff]" />
                                         </div>
                                         <div className="flex-1 space-y-2">
                                             <div className="bg-white/5 rounded-lg rounded-tl-none p-3 text-sm text-slate-300 w-3/4">
@@ -133,7 +138,7 @@ export const AIHelpSection = () => {
 
                                     <div className="flex gap-3">
                                         <div className="w-8 h-8 rounded-full bg-[#a1ccff]/10 flex items-center justify-center border border-[#a1ccff]/20">
-                                            <Sparkles className="w-4 h-4 text-[#a1ccff]" />
+                                            <IconSparkles className="w-4 h-4 text-[#a1ccff]" />
                                         </div>
                                         <div className="flex-1 space-y-2">
                                             <div className="flex gap-1 mb-1">
@@ -143,7 +148,7 @@ export const AIHelpSection = () => {
                                             </div>
                                             <div className="bg-white/5 rounded-lg rounded-tl-none p-3 text-sm text-slate-300 w-full animate-in fade-in slide-in-from-bottom-2 duration-700">
                                                 <span className="text-emerald-400 font-mono text-xs mb-2 block">
-                                                    // Suggestion
+                                                    Suggestion
                                                 </span>
                                                 "Spearheaded a strategic
                                                 overhaul that drove a{" "}
