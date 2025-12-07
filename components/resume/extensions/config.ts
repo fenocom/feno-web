@@ -11,6 +11,7 @@ import TaskList from "@tiptap/extension-task-list";
 import { FontSize } from "@tiptap/extension-text-style/font-size";
 import Typography from "@tiptap/extension-typography";
 import StarterKit from "@tiptap/starter-kit";
+import { SaveExtension } from "./save-extension";
 
 import { FontFamily } from "./font-family";
 import { Grid, GridColumn } from "./grid";
@@ -144,5 +145,10 @@ export const extensionsConfig = [
 
     Placeholder.configure({
         placeholder: "Type something...",
+    }),
+
+    SaveExtension.configure({
+        templateName: "classic-template",
+        delay: 5000,
     }),
 ];
