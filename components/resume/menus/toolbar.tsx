@@ -20,12 +20,12 @@ export default function Toolbar({ onExport, onAddPage }: ToolbarProps) {
             <div className="flex gap-4 items-center backdrop-blur-sm px-4 py-3">
                 <AiIcon size={32} />
                 <Separator orientation="vertical" className="min-h-8" />
-                <div className="flex gap-2 items-center">
+                <div className="flex gap-4 items-center">
                     <IconPalette size={20} className="cursor-pointer hover:opacity-70 transition-opacity text-gray-700" />
-                    <IconDownload 
-                        size={20} 
+                    <IconDownload
+                        size={20}
                         className="cursor-pointer hover:opacity-70 transition-opacity text-gray-700"
-                        onClick={onExport} 
+                        onClick={onExport}
                         title="Export PDF"
                     />
                     <IconSettings size={20} className="cursor-pointer hover:opacity-70 transition-opacity text-gray-700" />
