@@ -1,6 +1,6 @@
 'use client';
 import { Colors, Liquid } from '@/components/common/liquid-gradient';
-import { IconArrowLeft, IconArrowRight } from '@tabler/icons-react';
+import { IconArrowRight } from '@tabler/icons-react';
 import React, { useState } from 'react';
 
 

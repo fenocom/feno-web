@@ -1,5 +1,5 @@
 :root {
-    --page-gap: 20px;
+    --page-gap: 2px;
 }
 
 [data-node-view-content-react] {

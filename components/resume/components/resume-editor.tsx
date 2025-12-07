@@ -35,13 +35,12 @@ export const ResumeEditor = forwardRef<ResumeEditorRef, unknown>(
             },
             addPage: () => {
                 if (!editor) return;
-                // Insert a new page at the end of the document
                 const endPos = editor.state.doc.content.size;
                 editor
                     .chain()
                     .insertContentAt(endPos, {
                         type: "page",
-                        attrs: { format: "a4", backgroundColor: "#E0F7FA" },
+                        attrs: { format: "a4", backgroundColor: "#ffffff" },
                         content: [{ type: "paragraph" }],
                     })
                     .run();

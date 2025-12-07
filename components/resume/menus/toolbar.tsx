@@ -21,12 +21,6 @@ export default function Toolbar({ onExport, onAddPage }: ToolbarProps) {
                 <AiIcon size={32} />
                 <Separator orientation="vertical" className="min-h-8" />
                 <div className="flex gap-2 items-center">
-                    <IconFilePlus 
-                        size={20} 
-                        className="cursor-pointer hover:opacity-70 transition-opacity text-gray-700" 
-                        onClick={onAddPage}
-                        title="Add Page"
-                    />
                     <IconPalette size={20} className="cursor-pointer hover:opacity-70 transition-opacity text-gray-700" />
                     <IconDownload 
                         size={20} 
