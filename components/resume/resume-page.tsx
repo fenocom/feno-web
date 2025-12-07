@@ -17,6 +17,7 @@ export const ResumePage = () => {
         const { scrollLeft, scrollWidth, clientWidth } = scrollContainerRef.current;
         
         setShowLeftShadow(scrollLeft > 0);
+        // Using a small threshold (1px) to account for potential rounding issues
         setShowRightShadow(scrollLeft < scrollWidth - clientWidth - 1);
     };
 
@@ -35,10 +36,13 @@ export const ResumePage = () => {
     };
 
     return (
-        <div className="relative w-full min-h-screen flex justify-center px-2 sm:px-10 py-12 pb-32">
-            <DottedBackground />
-            <div className="p-1 border border-black/5 relative bg-black/5 rounded-xl z-10 backdrop-blur-sm transition-colors duration-300 focus-within:bg-blue-500/5 focus-within:border-blue-500/20 h-fit max-w-full">
-                <div className="relative rounded-lg border border-black/5 overflow-hidden">
+        <div className="resume-page-wrapper relative w-full min-h-screen flex justify-center px-2 sm:px-10 py-12 pb-32">
+            <div className="no-print">
+                <DottedBackground />
+            </div>
+            
+            <div className="resume-inner-container p-1 border border-black/5 relative bg-black/5 rounded-xl z-10 backdrop-blur-sm transition-colors duration-300 focus-within:bg-blue-500/5 focus-within:border-blue-500/20 h-fit max-w-full">
+                <div className="resume-scroll-container relative rounded-lg border border-black/5 overflow-hidden">
                     <div 
                         ref={scrollContainerRef}
                         className="overflow-x-auto"
@@ -50,15 +54,16 @@ export const ResumePage = () => {
                     </div>
                     {/* Scroll shadows */}
                     <div 
-                        className={`pointer-events-none absolute top-0 left-0 bottom-0 w-8 bg-linear-to-r from-black/5 to-transparent z-10 transition-opacity duration-300 ${showLeftShadow ? "opacity-100" : "opacity-0"}`} 
+                        className={`no-print pointer-events-none absolute top-0 left-0 bottom-0 w-8 bg-linear-to-r from-black/5 to-transparent z-10 transition-opacity duration-300 ${showLeftShadow ? "opacity-100" : "opacity-0"}`} 
                     />
                     <div 
-                        className={`pointer-events-none absolute top-0 right-0 bottom-0 w-8 bg-linear-to-l from-black/5 to-transparent z-10 transition-opacity duration-300 ${showRightShadow ? "opacity-100" : "opacity-0"}`} 
+                        className={`no-print pointer-events-none absolute top-0 right-0 bottom-0 w-8 bg-linear-to-l from-black/5 to-transparent z-10 transition-opacity duration-300 ${showRightShadow ? "opacity-100" : "opacity-0"}`} 
                     />
                 </div>
-                <div className="top-0 left-0 absolute pointer-events-none w-full h-full bg-[url('/noise.png')] bg-repeat bg-size-[50px] rounded-xl z-[-1]" />
+                <div className="no-print top-0 left-0 absolute pointer-events-none w-full h-full bg-[url('/noise.png')] bg-repeat bg-size-[50px] rounded-xl z-[-1]" />
             </div>
-            <div className="relative z-10">
+            
+            <div className="no-print relative z-10">
                 <Toolbar onExport={handleExport} onAddPage={handleAddPage} />
             </div>
         </div>

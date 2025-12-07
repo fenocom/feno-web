@@ -52,35 +52,52 @@
     }
 
     body {
-        background: none;
+        background: white;
+        margin: 0;
+        padding: 0;
+        -webkit-print-color-adjust: exact;
+        print-color-adjust: exact;
     }
 
-    /* Hide everything that is not the resume page */
-    body > *:not(#resume-print-root) {
+    /* Hide UI elements marked as no-print */
+    .no-print {
         display: none !important;
     }
 
-    /* Hide UI elements inside resume-print-root if any */
-    #resume-print-root * {
-        visibility: hidden;
+    /* Reset container styles to allow content to flow for print */
+    .resume-page-wrapper, 
+    .resume-inner-container, 
+    .resume-scroll-container,
+    .resume-scroll-container > div, /* The overflow-x-auto div */
+    .resume-scroll-container > div > div /* The min-w-fit div */
+    {
+        display: block !important;
+        position: static !important;
+        overflow: visible !important;
+        margin: 0 !important;
+        padding: 0 !important;
+        border: none !important;
+        background: none !important;
+        box-shadow: none !important;
+        width: 100% !important;
+        max-width: none !important;
+        height: auto !important;
+        min-height: 0 !important;
+        transform: none !important;
     }
 
-    /* Show the pages and their content */
-    #resume-print-root, 
-    #resume-print-root .ProseMirror, 
-    #resume-print-root .resume-page, 
-    #resume-print-root .resume-page * {
-        visibility: visible;
-    }
-
-    /* Reset layout for print */
+    /* Ensure the print root is visible */
     #resume-print-root {
-        position: absolute;
-        left: 0;
-        top: 0;
-        width: 100%;
-        margin: 0;
-        padding: 0;
+        display: block !important;
+        width: 100% !important;
+        margin: 0 !important;
+        padding: 0 !important;
+    }
+    
+    /* Ensure styles inside the editor are visible */
+    #resume-print-root .ProseMirror,
+    #resume-print-root .resume-page {
+        visibility: visible !important;
     }
 
     .resume-page {
@@ -88,9 +105,9 @@
         box-shadow: none !important;
         page-break-after: always;
         break-after: page;
-        /* Ensure background colors print */
-        -webkit-print-color-adjust: exact;
-        print-color-adjust: exact;
+        width: 100% !important; /* Ensure it fits the paper width if scaled, or maintains mm width */
+        /* Note: maintaining mm width is better for accurate print */
+        width: 210mm !important; /* Assuming A4 default, or auto if handled by page size */
     }
     
     /* Hide the last page break */
