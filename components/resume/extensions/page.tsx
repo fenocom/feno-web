@@ -37,7 +37,7 @@ export const Page = Node.create({
                 },
             },
             backgroundColor: {
-                default: "#E0F7FA", // Light blue default as requested
+                default: "#fff", 
                 parseHTML: (element) => element.getAttribute("data-background-color"),
                 renderHTML: (attributes) => {
                     return {
