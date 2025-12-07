@@ -5,3 +5,86 @@
 .ProseMirror:focus {
     outline: none;
 }
+
+/* Page Styles */
+.resume-page {
+    margin: 40px auto;
+    overflow: hidden;
+    position: relative;
+    box-sizing: border-box;
+}
+
+/* Page Formats */
+.page-format-a4 {
+    width: 210mm;
+    min-height: 297mm;
+    padding: 20mm;
+}
+
+.page-format-a3 {
+    width: 297mm;
+    min-height: 420mm;
+    padding: 20mm;
+}
+
+.page-format-a5 {
+    width: 148mm;
+    min-height: 210mm;
+    padding: 15mm;
+}
+
+/* Print Styles */
+@media print {
+    @page {
+        margin: 0;
+        size: auto;
+    }
+
+    body {
+        background: none;
+    }
+
+    /* Hide everything that is not the resume page */
+    body > *:not(#resume-print-root) {
+        display: none !important;
+    }
+
+    /* Hide UI elements inside resume-print-root if any */
+    #resume-print-root * {
+        visibility: hidden;
+    }
+
+    /* Show the pages and their content */
+    #resume-print-root, 
+    #resume-print-root .ProseMirror, 
+    #resume-print-root .resume-page, 
+    #resume-print-root .resume-page * {
+        visibility: visible;
+    }
+
+    /* Reset layout for print */
+    #resume-print-root {
+        position: absolute;
+        left: 0;
+        top: 0;
+        width: 100%;
+        margin: 0;
+        padding: 0;
+    }
+
+    .resume-page {
+        margin: 0 !important;
+        box-shadow: none !important;
+        page-break-after: always;
+        break-after: page;
+        /* Ensure background colors print */
+        -webkit-print-color-adjust: exact;
+        print-color-adjust: exact;
+    }
+    
+    /* Hide the last page break */
+    .resume-page:last-child {
+        page-break-after: auto;
+        break-after: auto;
+    }
+}

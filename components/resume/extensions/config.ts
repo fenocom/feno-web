@@ -14,6 +14,8 @@ import StarterKit from "@tiptap/starter-kit";
 
 import { FontFamily } from "./font-family";
 import { Grid, GridColumn } from "./grid";
+import { Page } from "./page";
+import { Pagination } from "./auto-pagination";
 
 const styleAttribute = {
     default: {},
@@ -128,6 +130,8 @@ export const extensionsConfig = [
 
     Grid,
     GridColumn,
+    Page,
+    Pagination,
 
     Image.configure({
         inline: true,

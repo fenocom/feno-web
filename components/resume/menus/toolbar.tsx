@@ -1,10 +1,15 @@
 import { AiIcon } from "@/components/common/ai-icon";
 import { Separator } from "@heroui/react";
-import { IconDownload, IconPalette, IconSettings } from "@tabler/icons-react";
+import { IconDownload, IconPalette, IconSettings, IconFilePlus } from "@tabler/icons-react";
 import { motion } from "framer-motion";
 import { PortfolioButton } from "../components/portfolio-button";
 
-export default function Toolbar() {
+interface ToolbarProps {
+    onExport?: () => void;
+    onAddPage?: () => void;
+}
+
+export default function Toolbar({ onExport, onAddPage }: ToolbarProps) {
     return (
         <motion.div
             initial={{ y: 40, opacity: 0 }}
@@ -15,9 +20,22 @@ export default function Toolbar() {
             <div className="flex gap-4 items-center backdrop-blur-sm px-4 py-3">
                 <AiIcon size={32} />
                 <Separator orientation="vertical" className="min-h-8" />
-                <IconPalette size={20} />
-                <IconDownload size={20} />
-                <IconSettings size={20} />
+                <div className="flex gap-2 items-center">
+                    <IconFilePlus 
+                        size={20} 
+                        className="cursor-pointer hover:opacity-70 transition-opacity text-gray-700" 
+                        onClick={onAddPage}
+                        title="Add Page"
+                    />
+                    <IconPalette size={20} className="cursor-pointer hover:opacity-70 transition-opacity text-gray-700" />
+                    <IconDownload 
+                        size={20} 
+                        className="cursor-pointer hover:opacity-70 transition-opacity text-gray-700"
+                        onClick={onExport} 
+                        title="Export PDF"
+                    />
+                    <IconSettings size={20} className="cursor-pointer hover:opacity-70 transition-opacity text-gray-700" />
+                </div>
                 <Separator orientation="vertical" className="min-h-8" />
                 <PortfolioButton />
             </div>

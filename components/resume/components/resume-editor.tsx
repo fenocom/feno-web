@@ -11,6 +11,8 @@ import { template as classicTemplate } from "../templates/classic/template";
 
 export type ResumeEditorRef = {
     editor: Editor | null;
+    exportPdf: () => void;
+    addPage: () => void;
 };
 
 export const ResumeEditor = forwardRef<ResumeEditorRef, unknown>(
@@ -19,10 +21,31 @@ export const ResumeEditor = forwardRef<ResumeEditorRef, unknown>(
             content: classicTemplate,
             immediatelyRender: false,
             extensions: extensionsConfig as Extensions,
+            editorProps: {
+                attributes: {
+                    class: "outline-none p-0",
+                },
+            },
         });
 
         useImperativeHandle(ref, () => ({
             editor: editor,
+            exportPdf: () => {
+                window.print();
+            },
+            addPage: () => {
+                if (!editor) return;
+                // Insert a new page at the end of the document
+                const endPos = editor.state.doc.content.size;
+                editor
+                    .chain()
+                    .insertContentAt(endPos, {
+                        type: "page",
+                        attrs: { format: "a4", backgroundColor: "#E0F7FA" },
+                        content: [{ type: "paragraph" }],
+                    })
+                    .run();
+            },
         }));
 
         return (
@@ -31,7 +54,7 @@ export const ResumeEditor = forwardRef<ResumeEditorRef, unknown>(
                 <div className="resume-page-export" id="resume-print-root">
                     <EditorContent
                         id="resume-container"
-                        className="w-[210mm] p-0 min-h-[297mm] bg-white outline-none! border-0! box-border nodrag"
+                        className="outline-none"
                         editor={editor}
                     />
                 </div>
