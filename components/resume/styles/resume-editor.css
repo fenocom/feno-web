@@ -1,3 +1,7 @@
+:root {
+    --page-gap: 20px;
+}
+
 [data-node-view-content-react] {
     display: contents;
 }
@@ -8,7 +12,7 @@
 
 /* Page Styles */
 .resume-page {
-    margin: 40px auto;
+    margin: var(--page-gap) auto;
     overflow: hidden;
     position: relative;
     box-sizing: border-box;
