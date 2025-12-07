@@ -3,7 +3,7 @@
 import { useRef } from "react";
 import { DottedBackground } from "./dotted-bg";
 import Toolbar from "./menus/toolbar";
-import { ResumeEditor, type ResumeEditorRef } from "./resume-editor";
+import { ResumeEditor, type ResumeEditorRef } from "./components/resume-editor";
 
 export const ResumePage = () => {
     const editorRef = useRef<ResumeEditorRef>(null);
