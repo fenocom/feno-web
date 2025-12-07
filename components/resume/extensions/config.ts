@@ -1,5 +1,6 @@
 import { mergeAttributes } from "@tiptap/core";
 import { Color } from "@tiptap/extension-color";
+import Document from "@tiptap/extension-document";
 import Heading from "@tiptap/extension-heading";
 import Highlight from "@tiptap/extension-highlight";
 import Image from "@tiptap/extension-image";
@@ -40,8 +41,13 @@ const styleAttribute = {
     },
 };
 
+const CustomDocument = Document.extend({
+    content: "page+",
+});
+
 export const extensionsConfig = [
     StarterKit.configure({
+        document: false,
         strike: false,
         heading: false,
         paragraph: false,
@@ -67,6 +73,7 @@ export const extensionsConfig = [
         },
     }),
 
+    CustomDocument,
     Highlight,
     FontFamily,
     FontSize,
