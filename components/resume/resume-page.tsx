@@ -17,9 +17,9 @@ export const ResumePage = () => {
     };
 
     return (
-        <div className="relative w-full min-h-screen flex items-center justify-center px-10 py-4">
+        <div className="relative w-full min-h-screen flex justify-center px-10 py-12 pb-32">
             <DottedBackground />
-            <div className="p-1 border border-black/5 relative bg-black/5 rounded-xl z-10 backdrop-blur-sm transition-colors duration-300 focus-within:bg-blue-500/5 focus-within:border-blue-500/20 max-h-[90vh] overflow-y-auto overflow-x-hidden">
+            <div className="p-1 border border-black/5 relative bg-black/5 rounded-xl z-10 backdrop-blur-sm transition-colors duration-300 focus-within:bg-blue-500/5 focus-within:border-blue-500/20 h-fit">
                 <div className="rounded-lg border border-black/5">
                     <ResumeEditor ref={editorRef} />
                 </div>

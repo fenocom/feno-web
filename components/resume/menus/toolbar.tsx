@@ -15,7 +15,7 @@ export default function Toolbar({ onExport, onAddPage }: ToolbarProps) {
             initial={{ y: 40, opacity: 0 }}
             animate={{ y: 0, opacity: 1 }}
             transition={{ duration: 0.25 }}
-            className="fixed bottom-6 left-1/2 -translate-x-1/2 rounded-4xl border border-white flex items-center gap-4 shadow-xl z-999 overflow-hidden"
+            className="fixed bottom-6 left-1/2 -translate-x-1/2 rounded-4xl border border-white flex items-center gap-4 shadow-xl z-[999] overflow-hidden"
         >
             <div className="flex gap-4 items-center backdrop-blur-sm px-4 py-3">
                 <AiIcon size={32} />

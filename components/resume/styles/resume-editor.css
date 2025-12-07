@@ -10,12 +10,19 @@
     outline: none;
 }
 
-/* Page Styles */
 .resume-page {
     margin: var(--page-gap) auto;
     overflow: hidden;
     position: relative;
     box-sizing: border-box;
+}
+
+.resume-page:first-child {
+    margin-top: 0;
+}
+
+.resume-page:last-child {
+    margin-bottom: 0;
 }
 
 /* Page Formats */

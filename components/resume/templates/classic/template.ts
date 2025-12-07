@@ -5,7 +5,7 @@ export const template = {
             type: "page",
             attrs: {
                 format: "a4",
-                backgroundColor: "#E0F7FA",
+                backgroundColor: "#ffffff",
             },
             content: [
                 /* ===========================================================
