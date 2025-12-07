@@ -62,7 +62,7 @@ export const Page = Node.create({
             "div",
             mergeAttributes(HTMLAttributes, {
                 "data-type": "page",
-                class: "resume-page shadow-lg transition-all duration-300",
+                class: "resume-page transition-all duration-300",
             }),
             0,
         ];
