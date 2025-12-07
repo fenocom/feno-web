@@ -17,7 +17,6 @@ export const ResumePage = () => {
         const { scrollLeft, scrollWidth, clientWidth } = scrollContainerRef.current;
         
         setShowLeftShadow(scrollLeft > 0);
-        // Using a small threshold (1px) to account for potential rounding issues
         setShowRightShadow(scrollLeft < scrollWidth - clientWidth - 1);
     };
 
@@ -51,10 +50,10 @@ export const ResumePage = () => {
                     </div>
                     {/* Scroll shadows */}
                     <div 
-                        className={`pointer-events-none absolute top-0 left-0 bottom-0 w-8 bg-linear-to-r from-black/10 to-transparent z-10 transition-opacity duration-300 ${showLeftShadow ? "opacity-100" : "opacity-0"}`} 
+                        className={`pointer-events-none absolute top-0 left-0 bottom-0 w-8 bg-linear-to-r from-black/5 to-transparent z-10 transition-opacity duration-300 ${showLeftShadow ? "opacity-100" : "opacity-0"}`} 
                     />
                     <div 
-                        className={`pointer-events-none absolute top-0 right-0 bottom-0 w-8 bg-linear-to-l from-black/10 to-transparent z-10 transition-opacity duration-300 ${showRightShadow ? "opacity-100" : "opacity-0"}`} 
+                        className={`pointer-events-none absolute top-0 right-0 bottom-0 w-8 bg-linear-to-l from-black/5 to-transparent z-10 transition-opacity duration-300 ${showRightShadow ? "opacity-100" : "opacity-0"}`} 
                     />
                 </div>
                 <div className="top-0 left-0 absolute pointer-events-none w-full h-full bg-[url('/noise.png')] bg-repeat bg-size-[50px] rounded-xl z-[-1]" />
