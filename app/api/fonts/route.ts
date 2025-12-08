@@ -29,7 +29,7 @@ export async function GET(request: Request) {
 
         const data = await response.json();
         return NextResponse.json(data);
-    } catch (error) {
+    } catch (_error) {
         return NextResponse.json(
             { error: "Failed to fetch fonts" },
             { status: 500 },

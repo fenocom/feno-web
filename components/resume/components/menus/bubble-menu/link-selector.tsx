@@ -1,7 +1,7 @@
 import { Button, Input, Popover } from "@heroui/react";
 import { IconLink, IconLinkOff } from "@tabler/icons-react";
 import type { Editor } from "@tiptap/react";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 interface LinkSelectorProps {
     editor: Editor;
@@ -10,6 +10,12 @@ interface LinkSelectorProps {
 export const LinkSelector = ({ editor }: LinkSelectorProps) => {
     const [url, setUrl] = useState("");
     const [isOpen, setIsOpen] = useState(false);
+
+    useEffect(() => {
+        if (editor.state.selection.empty) {
+            setIsOpen(false);
+        }
+    }, [editor.state.selection]);
 
     const setLink = () => {
         if (url === "") {

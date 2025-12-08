@@ -8,7 +8,7 @@ interface FontSliderProps {
 }
 import { Button, Popover } from "@heroui/react";
 import type { Editor } from "@tiptap/react";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 interface FontSizeSelectorProps {
     editor: Editor;
@@ -24,7 +24,11 @@ export const FontSizeSelector = ({ editor }: FontSizeSelectorProps) => {
     const handleSizeChange = (size: number) => {
         editor.chain().focus().setFontSize(`${size}px`).run();
     };
-
+    useEffect(() => {
+        if (editor.state.selection.empty) {
+            setIsOpen(false);
+        }
+    }, [editor.state.selection]);
     return (
         <Popover isOpen={isOpen} onOpenChange={setIsOpen}>
             <Popover.Trigger>

@@ -1,6 +1,7 @@
 import { Button, Popover } from "@heroui/react";
 import { IconColorPicker, IconHighlight } from "@tabler/icons-react";
 import type { Editor } from "@tiptap/react";
+import { useEffect, useState } from "react";
 import { HexColorPicker } from "react-colorful";
 
 interface ColorSelectorProps {
@@ -9,13 +10,11 @@ interface ColorSelectorProps {
 }
 
 export const ColorSelector = ({ editor, type }: ColorSelectorProps) => {
-    const attribute = type === "text" ? "textStyle" : "highlight";
     const currentColor =
         type === "text"
             ? editor.getAttributes("textStyle")?.color || "#000000"
             : editor.getAttributes("highlight")?.color || "transparent";
 
-    const label = type === "text" ? "Text Color" : "Highlight Color";
     const Icon = type === "text" ? IconColorPicker : IconHighlight;
 
     const handleChange = (color: string) => {
@@ -26,27 +25,57 @@ export const ColorSelector = ({ editor, type }: ColorSelectorProps) => {
         }
     };
 
+    const [isOpen, setIsOpen] = useState(false);
+
+    useEffect(() => {
+        if (editor.state.selection.empty) {
+            setIsOpen(false);
+        }
+    }, [editor.state.selection]);
+
     return (
-        <Popover>
+        <Popover isOpen={isOpen} onOpenChange={setIsOpen}>
             <Popover.Trigger>
                 <Button
                     isIconOnly
                     size="sm"
                     variant="ghost"
-                    className="p-1 min-w-8 h-8 rounded-md text-neutral-400 hover:text-white"
+                    className={`p-1 min-w-8 h-8 rounded-md ${
+                        type === "highlight" && currentColor !== "transparent"
+                            ? "text-white" // ensure contrast, might need calculation but white is usually safe for dark UI or bright highlights
+                            : "text-neutral-400 hover:text-white"
+                    }`}
+                    style={{
+                        backgroundColor:
+                            type === "highlight" &&
+                            currentColor !== "transparent"
+                                ? currentColor
+                                : undefined,
+                    }}
                 >
                     <Icon
                         size={18}
                         style={{
-                            color: type === "text" ? currentColor : undefined,
+                            color:
+                                type === "text"
+                                    ? currentColor
+                                    : type === "highlight" &&
+                                        currentColor !== "transparent"
+                                      ? "#fff" // Icon white on colored background? Or inherit?
+                                      : undefined,
+                            filter:
+                                type === "highlight" &&
+                                currentColor !== "transparent"
+                                    ? "invert(1) grayscale(1) contrast(9)"
+                                    : undefined, // Simple way to make icon visible? No, let's keep it simple.
                         }}
+                        className={
+                            type === "highlight" &&
+                            currentColor !== "transparent"
+                                ? "text-black/50 mix-blend-overlay"
+                                : ""
+                        } // Try to make icon visible against any color
                     />
-                    {type === "highlight" && currentColor !== "transparent" && (
-                        <div
-                            className="absolute bottom-1 right-1 w-2 h-2 rounded-full border border-neutral-800"
-                            style={{ backgroundColor: currentColor }}
-                        />
-                    )}
                 </Button>
             </Popover.Trigger>
             <Popover.Content
@@ -74,6 +103,7 @@ export const ColorSelector = ({ editor, type }: ColorSelectorProps) => {
                             "#a855f7",
                         ].map((c) => (
                             <button
+                                type="button"
                                 key={c}
                                 className="w-5 h-5 rounded-full border border-white/20"
                                 style={{ backgroundColor: c }}
@@ -82,6 +112,7 @@ export const ColorSelector = ({ editor, type }: ColorSelectorProps) => {
                         ))}
                         {type === "highlight" && (
                             <button
+                                type="button"
                                 className="w-5 h-5 rounded-full border border-white/20 bg-transparent flex items-center justify-center relative overflow-hidden"
                                 onClick={() =>
                                     editor

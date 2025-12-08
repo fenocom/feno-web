@@ -38,6 +38,12 @@ export const FontFamilySelector = ({ editor }: FontFamilySelectorProps) => {
     const displayFont = currentFont.split(",")[0].replace(/['"]/g, "");
 
     useEffect(() => {
+        if (editor.state.selection.empty) {
+            setIsOpen(false);
+        }
+    }, [editor.state.selection]);
+
+    useEffect(() => {
         const fetchFonts = async () => {
             if (fonts.length > 0) return;
             setLoading(true);
@@ -57,7 +63,7 @@ export const FontFamilySelector = ({ editor }: FontFamilySelectorProps) => {
         if (isOpen) {
             fetchFonts();
         }
-    }, [isOpen]);
+    }, [isOpen, fonts.length]);
 
     const filteredFonts = useMemo(() => {
         if (!search) return fonts;
@@ -86,20 +92,20 @@ export const FontFamilySelector = ({ editor }: FontFamilySelectorProps) => {
         }
 
         return () => observer.disconnect();
-    }, [filteredFonts, isOpen]);
+    }, []);
 
-    // Load selected font or visible fonts (simplified for performance)
     useEffect(() => {
         // Dynamically load the current font if it's not a standard web font
         const isStandard = POPULAR_FONTS.includes(displayFont);
         if (!isStandard && displayFont) {
-            const link = document.createElement("link");
-            link.href = `https://fonts.googleapis.com/css2?family=${displayFont.replace(/ /g, "+")}&display=swap`;
-            link.rel = "stylesheet";
-            document.head.appendChild(link);
-            return () => {
-                document.head.removeChild(link);
-            };
+            const fontId = `font-${displayFont.replace(/\s+/g, "-").toLowerCase()}`;
+            if (!document.getElementById(fontId)) {
+                const link = document.createElement("link");
+                link.id = fontId;
+                link.href = `https://fonts.googleapis.com/css2?family=${displayFont.replace(/ /g, "+")}&display=swap`;
+                link.rel = "stylesheet";
+                document.head.appendChild(link);
+            }
         }
     }, [displayFont]);
 
@@ -131,7 +137,10 @@ export const FontFamilySelector = ({ editor }: FontFamilySelectorProps) => {
                         placeholder="Search fonts..."
                         // startContent={<IconSearch size={14} className="text-neutral-500" />}
                         value={search}
-                        onChange={(e) => setSearch(e.target.value)}
+                        onChange={(e) => {
+                            setSearch(e.target.value);
+                            setPage(1);
+                        }}
                     />
                 </div>
                 <div className="h-[280px] w-full p-1 overflow-y-auto">
@@ -143,6 +152,7 @@ export const FontFamilySelector = ({ editor }: FontFamilySelectorProps) => {
                             </div>
                             {POPULAR_FONTS.map((font) => (
                                 <button
+                                    type="button"
                                     key={font}
                                     onClick={() => handleFontSelect(font)}
                                     className={`w-full text-left px-2 py-1.5 rounded-md text-sm transition-colors flex items-center justify-between group ${
@@ -168,6 +178,7 @@ export const FontFamilySelector = ({ editor }: FontFamilySelectorProps) => {
                             )}
                             {paginatedFonts.map((font) => (
                                 <button
+                                    type="button"
                                     key={font.family}
                                     onClick={() =>
                                         handleFontSelect(font.family)

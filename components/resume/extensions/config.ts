@@ -74,7 +74,9 @@ export const extensionsConfig = [
     }),
 
     CustomDocument,
-    Highlight,
+    Highlight.configure({
+        multicolor: true,
+    }),
     FontFamily,
     FontSize,
 
