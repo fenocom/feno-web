@@ -13,10 +13,10 @@ import { FontSize } from "@tiptap/extension-text-style/font-size";
 import Typography from "@tiptap/extension-typography";
 import StarterKit from "@tiptap/starter-kit";
 
+import { Pagination } from "./auto-pagination";
 import { FontFamily } from "./font-family";
 import { Grid, GridColumn } from "./grid";
 import { Page } from "./page";
-import { Pagination } from "./auto-pagination";
 
 const styleAttribute = {
     default: {},

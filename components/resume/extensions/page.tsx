@@ -1,4 +1,4 @@
-import { mergeAttributes, Node } from "@tiptap/core";
+import { Node, mergeAttributes } from "@tiptap/core";
 
 export interface PageOptions {
     types: string[];
@@ -38,7 +38,8 @@ export const Page = Node.create({
             },
             backgroundColor: {
                 default: "#ffffff", // Changed default to white
-                parseHTML: (element) => element.getAttribute("data-background-color"),
+                parseHTML: (element) =>
+                    element.getAttribute("data-background-color"),
                 renderHTML: (attributes) => {
                     return {
                         "data-background-color": attributes.backgroundColor,
@@ -78,7 +79,9 @@ export const Page = Node.create({
             setPageBackground:
                 (backgroundColor) =>
                 ({ commands }) => {
-                    return commands.updateAttributes("page", { backgroundColor });
+                    return commands.updateAttributes("page", {
+                        backgroundColor,
+                    });
                 },
         };
     },

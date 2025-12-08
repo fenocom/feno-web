@@ -23,9 +23,7 @@ export const template = {
                             "font-family": "Georgia, serif",
                         },
                     },
-                    content: [
-                        { type: "text", text: "ALEXANDER MORGAN" },
-                    ],
+                    content: [{ type: "text", text: "ALEXANDER MORGAN" }],
                 },
 
                 {
@@ -82,9 +80,7 @@ export const template = {
                             "font-family": "Georgia, serif",
                         },
                     },
-                    content: [
-                        { type: "text", text: "PROFESSIONAL SUMMARY" },
-                    ],
+                    content: [{ type: "text", text: "PROFESSIONAL SUMMARY" }],
                 },
 
                 {
@@ -148,9 +144,7 @@ export const template = {
                             "font-family": "Georgia, serif",
                         },
                     },
-                    content: [
-                        { type: "text", text: "Jul 2022 – Present" },
-                    ],
+                    content: [{ type: "text", text: "Jul 2022 – Present" }],
                 },
 
                 {
@@ -235,9 +229,7 @@ export const template = {
                             "font-family": "Georgia, serif",
                         },
                     },
-                    content: [
-                        { type: "text", text: "Jan 2022 – Jun 2022" },
-                    ],
+                    content: [{ type: "text", text: "Jan 2022 – Jun 2022" }],
                 },
 
                 {

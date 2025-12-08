@@ -1,6 +1,6 @@
 import { AiIcon } from "@/components/common/ai-icon";
 import { Separator } from "@heroui/react";
-import { IconDownload, IconPalette, IconSettings, IconFilePlus } from "@tabler/icons-react";
+import { IconDownload, IconPalette, IconSettings } from "@tabler/icons-react";
 import { motion } from "framer-motion";
 import { PortfolioButton } from "../components/portfolio-button";
 
@@ -21,14 +21,20 @@ export default function Toolbar({ onExport, onAddPage }: ToolbarProps) {
                 <AiIcon size={32} />
                 <Separator orientation="vertical" className="min-h-8" />
                 <div className="flex gap-4 items-center">
-                    <IconPalette size={20} className="cursor-pointer hover:opacity-70 transition-opacity text-gray-700" />
+                    <IconPalette
+                        size={20}
+                        className="cursor-pointer hover:opacity-70 transition-opacity text-gray-700"
+                    />
                     <IconDownload
                         size={20}
                         className="cursor-pointer hover:opacity-70 transition-opacity text-gray-700"
                         onClick={onExport}
                         title="Export PDF"
                     />
-                    <IconSettings size={20} className="cursor-pointer hover:opacity-70 transition-opacity text-gray-700" />
+                    <IconSettings
+                        size={20}
+                        className="cursor-pointer hover:opacity-70 transition-opacity text-gray-700"
+                    />
                 </div>
                 <Separator orientation="vertical" className="min-h-8" />
                 <PortfolioButton />

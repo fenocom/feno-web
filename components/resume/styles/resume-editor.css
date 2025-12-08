@@ -65,12 +65,11 @@
     }
 
     /* Reset container styles to allow content to flow for print */
-    .resume-page-wrapper, 
-    .resume-inner-container, 
+    .resume-page-wrapper,
+    .resume-inner-container,
     .resume-scroll-container,
-    .resume-scroll-container > div, /* The overflow-x-auto div */
-    .resume-scroll-container > div > div /* The min-w-fit div */
-    {
+    .resume-scroll-container > div /* The overflow-x-auto div */,
+    .resume-scroll-container > div > div /* The min-w-fit div */ {
         display: block !important;
         position: static !important;
         overflow: visible !important;
@@ -93,7 +92,7 @@
         margin: 0 !important;
         padding: 0 !important;
     }
-    
+
     /* Ensure styles inside the editor are visible */
     #resume-print-root .ProseMirror,
     #resume-print-root .resume-page {
@@ -109,7 +108,7 @@
         /* Note: maintaining mm width is better for accurate print */
         width: 210mm !important; /* Assuming A4 default, or auto if handled by page size */
     }
-    
+
     /* Hide the last page break */
     .resume-page:last-child {
         page-break-after: auto;

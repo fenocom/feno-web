@@ -42,44 +42,46 @@ function checkPagination(view: any) {
 
     for (let i = 0; i < pages.length; i++) {
         const page = pages[i];
-        
+
         const format = page.node.attrs.format;
         let maxHeightMm = 297;
         if (format === "a3") maxHeightMm = 420;
         if (format === "a5") maxHeightMm = 210;
-        
+
         const PIXELS_PER_MM = 3.7795275591;
         const targetHeightPx = maxHeightMm * PIXELS_PER_MM;
-        
+
         const currentHeight = page.dom.offsetHeight;
-        
+
         if (currentHeight > targetHeightPx + 10) {
-            
             const lastChild = page.node.lastChild;
             if (!lastChild) continue;
-            
+
             const lastChildSize = lastChild.nodeSize;
-            const lastChildPos = page.pos + 1 + page.node.content.size - lastChildSize;
-            
+            const lastChildPos =
+                page.pos + 1 + page.node.content.size - lastChildSize;
+
             const tr = view.state.tr;
-            
+
             tr.delete(lastChildPos, lastChildPos + lastChildSize);
-            
+
             if (i < pages.length - 1) {
                 const nextPage = pages[i + 1];
                 const nextPagePos = tr.mapping.map(nextPage.pos);
                 tr.insert(nextPagePos + 1, lastChild);
             } else {
-                const pageEndPos = tr.mapping.map(page.pos + page.node.nodeSize);
-                
+                const pageEndPos = tr.mapping.map(
+                    page.pos + page.node.nodeSize,
+                );
+
                 const newPage = view.state.schema.nodes.page.create(
                     page.node.attrs,
-                    lastChild
+                    lastChild,
                 );
-                
+
                 tr.insert(pageEndPos, newPage);
             }
-            
+
             view.dispatch(tr);
             return;
         }

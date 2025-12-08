@@ -1,9 +1,9 @@
 "use client";
 
-import { useRef, useState, useEffect } from "react";
+import { useEffect, useRef, useState } from "react";
+import { ResumeEditor, type ResumeEditorRef } from "./components/resume-editor";
 import { DottedBackground } from "./dotted-bg";
 import Toolbar from "./menus/toolbar";
-import { ResumeEditor, type ResumeEditorRef } from "./components/resume-editor";
 
 export const ResumePage = () => {
     const editorRef = useRef<ResumeEditorRef>(null);
@@ -13,9 +13,10 @@ export const ResumePage = () => {
 
     const checkScroll = () => {
         if (!scrollContainerRef.current) return;
-        
-        const { scrollLeft, scrollWidth, clientWidth } = scrollContainerRef.current;
-        
+
+        const { scrollLeft, scrollWidth, clientWidth } =
+            scrollContainerRef.current;
+
         setShowLeftShadow(scrollLeft > 0);
         // Using a small threshold (1px) to account for potential rounding issues
         setShowRightShadow(scrollLeft < scrollWidth - clientWidth - 1);
@@ -40,10 +41,10 @@ export const ResumePage = () => {
             <div className="no-print">
                 <DottedBackground />
             </div>
-            
+
             <div className="resume-inner-container p-1 border border-black/5 relative bg-black/5 rounded-xl z-10 backdrop-blur-sm transition-colors duration-300 focus-within:bg-blue-500/5 focus-within:border-blue-500/20 h-fit max-w-full">
                 <div className="resume-scroll-container relative rounded-lg border border-black/5 overflow-hidden">
-                    <div 
+                    <div
                         ref={scrollContainerRef}
                         className="overflow-x-auto"
                         onScroll={checkScroll}
@@ -53,16 +54,16 @@ export const ResumePage = () => {
                         </div>
                     </div>
                     {/* Scroll shadows */}
-                    <div 
-                        className={`no-print pointer-events-none absolute top-0 left-0 bottom-0 w-8 bg-linear-to-r from-black/5 to-transparent z-10 transition-opacity duration-300 ${showLeftShadow ? "opacity-100" : "opacity-0"}`} 
+                    <div
+                        className={`no-print pointer-events-none absolute top-0 left-0 bottom-0 w-8 bg-linear-to-r from-black/5 to-transparent z-10 transition-opacity duration-300 ${showLeftShadow ? "opacity-100" : "opacity-0"}`}
                     />
-                    <div 
-                        className={`no-print pointer-events-none absolute top-0 right-0 bottom-0 w-8 bg-linear-to-l from-black/5 to-transparent z-10 transition-opacity duration-300 ${showRightShadow ? "opacity-100" : "opacity-0"}`} 
+                    <div
+                        className={`no-print pointer-events-none absolute top-0 right-0 bottom-0 w-8 bg-linear-to-l from-black/5 to-transparent z-10 transition-opacity duration-300 ${showRightShadow ? "opacity-100" : "opacity-0"}`}
                     />
                 </div>
                 <div className="no-print top-0 left-0 absolute pointer-events-none w-full h-full bg-[url('/noise.png')] bg-repeat bg-size-[50px] rounded-xl z-[-1]" />
             </div>
-            
+
             <div className="no-print relative z-10">
                 <Toolbar onExport={handleExport} onAddPage={handleAddPage} />
             </div>
