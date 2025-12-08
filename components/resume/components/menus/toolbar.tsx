@@ -2,7 +2,7 @@ import { AiIcon } from "@/components/common/ai-icon";
 import { Separator } from "@heroui/react";
 import { IconDownload, IconPalette, IconSettings } from "@tabler/icons-react";
 import { motion } from "framer-motion";
-import { PortfolioButton } from "../components/portfolio-button";
+import { PortfolioButton } from "../../components/portfolio-button";
 
 interface ToolbarProps {
     onExport?: () => void;

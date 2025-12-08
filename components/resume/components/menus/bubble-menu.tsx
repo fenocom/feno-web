@@ -10,9 +10,9 @@ import {
 import { type Editor, useEditorState } from "@tiptap/react";
 import { BubbleMenu } from "@tiptap/react/menus";
 import { useEffect, useState } from "react";
-import { ColorPicker } from "../../atoms/color-picker";
-import { FontSlider } from "../../common/slider";
-import TypographyDropdown from "../../common/typography-dropdown";
+import { ColorPicker } from "@/components/atoms/color-picker";
+import { FontSlider } from "@/components/common/slider";
+import TypographyDropdown from "@/components/common/typography-dropdown";
 
 export default function BubbleMenuGlobal({ editor }: { editor: Editor }) {
     if (!editor) return null;
@@ -66,7 +66,7 @@ export default function BubbleMenuGlobal({ editor }: { editor: Editor }) {
                 .extendMarkRange("link")
                 .setLink({ href: url })
                 .run();
-        } catch {}
+        } catch { }
     };
 
     const unsetLink = () => {
@@ -106,9 +106,8 @@ export default function BubbleMenuGlobal({ editor }: { editor: Editor }) {
                     size="sm"
                     onMouseDown={stopBubble}
                     onPress={() => editor.chain().focus().toggleBold().run()}
-                    className={`p-1 rounded-md ${
-                        editorState.isBold ? "bg-white/20" : "bg-transparent"
-                    } text-white min-w-0 h-auto`}
+                    className={`p-1 rounded-md ${editorState.isBold ? "bg-white/20" : "bg-transparent"
+                        } text-white min-w-0 h-auto`}
                 >
                     <IconBold size={16} />
                 </Button>
@@ -118,9 +117,8 @@ export default function BubbleMenuGlobal({ editor }: { editor: Editor }) {
                     size="sm"
                     onMouseDown={stopBubble}
                     onPress={() => editor.chain().focus().toggleItalic().run()}
-                    className={`p-1 rounded-md ${
-                        editorState.isItalic ? "bg-white/20" : "bg-transparent"
-                    } text-white min-w-0 h-auto`}
+                    className={`p-1 rounded-md ${editorState.isItalic ? "bg-white/20" : "bg-transparent"
+                        } text-white min-w-0 h-auto`}
                 >
                     <IconItalic size={16} />
                 </Button>
@@ -130,9 +128,8 @@ export default function BubbleMenuGlobal({ editor }: { editor: Editor }) {
                     size="sm"
                     onMouseDown={stopBubble}
                     onPress={setLink}
-                    className={`p-1 rounded-md ${
-                        editorState.isLink ? "bg-white/20" : "bg-transparent"
-                    } text-white min-w-0 h-auto`}
+                    className={`p-1 rounded-md ${editorState.isLink ? "bg-white/20" : "bg-transparent"
+                        } text-white min-w-0 h-auto`}
                 >
                     <IconLink size={16} />
                 </Button>

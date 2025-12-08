@@ -6,7 +6,7 @@ import type { Editor, Extensions } from "@tiptap/core";
 import { EditorContent, useEditor } from "@tiptap/react";
 import { forwardRef, useImperativeHandle } from "react";
 import { extensionsConfig } from "../extensions/config";
-import BubbleMenuGlobal from "../menus/bubble-menu";
+import BubbleMenuGlobal from "../components/menus/bubble-menu";
 import { template as classicTemplate } from "../templates/classic/template";
 
 export type ResumeEditorRef = {
