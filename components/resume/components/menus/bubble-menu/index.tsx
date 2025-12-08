@@ -36,16 +36,28 @@ export default function BubbleMenuGlobal({ editor }: BubbleMenuProps) {
             >
                 <div className="flex gap-2 items-center px-3 py-2 relative z-10">
                     <FontFamilySelector editor={editor} />
-                    <Separator orientation="vertical" className="h-6 bg-white/20" />
+                    <Separator
+                        orientation="vertical"
+                        className="h-6 bg-white/20"
+                    />
                     <FontSizeSelector editor={editor} />
-                    <Separator orientation="vertical" className="h-6 bg-white/20" />
+                    <Separator
+                        orientation="vertical"
+                        className="h-6 bg-white/20"
+                    />
                     <NodeOptions editor={editor} />
-                    <Separator orientation="vertical" className="h-6 bg-white/20" />
+                    <Separator
+                        orientation="vertical"
+                        className="h-6 bg-white/20"
+                    />
                     <div className="flex gap-1">
                         <ColorSelector editor={editor} type="text" />
                         <ColorSelector editor={editor} type="highlight" />
                     </div>
-                    <Separator orientation="vertical" className="h-6 bg-white/20" />
+                    <Separator
+                        orientation="vertical"
+                        className="h-6 bg-white/20"
+                    />
                     <LinkSelector editor={editor} />
                 </div>
                 {/* Noise and Overlay effects to match Toolbar */}

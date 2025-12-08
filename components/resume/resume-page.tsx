@@ -1,9 +1,9 @@
 "use client";
 
 import { useCallback, useEffect, useRef, useState } from "react";
+import Toolbar from "./components/menus/toolbar";
 import { ResumeEditor, type ResumeEditorRef } from "./components/resume-editor";
 import { DottedBackground } from "./dotted-bg";
-import Toolbar from "./components/menus/toolbar";
 
 export const ResumePage = () => {
     const editorRef = useRef<ResumeEditorRef>(null);
