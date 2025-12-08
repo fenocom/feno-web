@@ -1,5 +1,7 @@
 import { Extension } from "@tiptap/core";
+import type { Node } from "@tiptap/pm/model";
 import { Plugin, PluginKey } from "@tiptap/pm/state";
+import type { EditorView } from "@tiptap/pm/view";
 
 export const Pagination = Extension.create({
     name: "pagination",
@@ -26,11 +28,11 @@ export const Pagination = Extension.create({
     },
 });
 
-function checkPagination(view: any) {
-    if (!view || !view.docView) return;
+function checkPagination(view: EditorView) {
+    if (!view) return;
 
-    const pages: { node: any; pos: number; dom: HTMLElement }[] = [];
-    view.state.doc.descendants((node: any, pos: number) => {
+    const pages: { node: Node; pos: number; dom: HTMLElement }[] = [];
+    view.state.doc.descendants((node: Node, pos: number) => {
         if (node.type.name === "page") {
             const dom = view.nodeDOM(pos) as HTMLElement;
             if (dom) {

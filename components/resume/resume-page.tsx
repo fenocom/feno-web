@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import { ResumeEditor, type ResumeEditorRef } from "./components/resume-editor";
 import { DottedBackground } from "./dotted-bg";
 import Toolbar from "./menus/toolbar";
@@ -11,7 +11,7 @@ export const ResumePage = () => {
     const [showLeftShadow, setShowLeftShadow] = useState(false);
     const [showRightShadow, setShowRightShadow] = useState(false);
 
-    const checkScroll = () => {
+    const checkScroll = useCallback(() => {
         if (!scrollContainerRef.current) return;
 
         const { scrollLeft, scrollWidth, clientWidth } =
@@ -20,20 +20,17 @@ export const ResumePage = () => {
         setShowLeftShadow(scrollLeft > 0);
         // Using a small threshold (1px) to account for potential rounding issues
         setShowRightShadow(scrollLeft < scrollWidth - clientWidth - 1);
-    };
+    }, []);
 
     useEffect(() => {
         checkScroll();
         window.addEventListener("resize", checkScroll);
         return () => window.removeEventListener("resize", checkScroll);
-    }, []);
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [checkScroll]);
 
     const handleExport = () => {
         editorRef.current?.exportPdf();
-    };
-
-    const handleAddPage = () => {
-        editorRef.current?.addPage();
     };
 
     return (
@@ -65,7 +62,7 @@ export const ResumePage = () => {
             </div>
 
             <div className="no-print relative z-10">
-                <Toolbar onExport={handleExport} onAddPage={handleAddPage} />
+                <Toolbar onExport={handleExport} />
             </div>
         </div>
     );

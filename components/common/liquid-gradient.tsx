@@ -198,10 +198,10 @@ const GradientSvg: React.FC<GradientSvgProps> = ({
                     cy="0"
                     r="1"
                     gradientUnits="userSpaceOnUse"
-                    // @ts-ignore
                     animate={isHovered ? variants.hovered : variants.notHovered}
                 >
                     {stopsAnimationArray.map((stopConfigs, index) => (
+                        // biome-ignore lint/suspicious/noArrayIndexKey: <explanation>
                         <AnimatePresence key={index}>
                             <motion.stop
                                 initial={{
@@ -233,36 +233,34 @@ const GradientSvg: React.FC<GradientSvgProps> = ({
 type LiquidProps = {
     isHovered: boolean;
     colors: Colors;
-    buttonType?: boolean;
 };
 
-export const Liquid: React.FC<LiquidProps> = ({
-    isHovered,
-    colors,
-    buttonType,
-}) => {
+export const Liquid: React.FC<LiquidProps> = ({ isHovered, colors }) => {
     return (
         <>
             {Array.from({ length: 7 }).map((_, index) => (
                 <div
+                    // biome-ignore lint/suspicious/noArrayIndexKey: <explanation>
                     key={index}
-                    className={`absolute ${index < 3
+                    className={`absolute ${
+                        index < 3
                             ? "w-[443px] h-[121px]"
                             : "w-[756px] h-[207px]"
-                        } ${index === 0
+                    } ${
+                        index === 0
                             ? "top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 mix-blend-difference"
                             : index === 1
-                                ? "top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 rotate-[164.971deg] mix-blend-difference"
-                                : index === 2
-                                    ? "top-1/2 left-1/2 -translate-x-[53%] -translate-y-[53%] rotate-[-11.61deg] mix-blend-difference"
-                                    : index === 3
-                                        ? "top-1/2 left-1/2 -translate-x-1/2 -translate-y-[57%] rotate-[-179.012deg] mix-blend-difference"
-                                        : index === 4
-                                            ? "top-1/2 left-1/2 -translate-x-[57%] -translate-y-1/2 rotate-[-29.722deg] mix-blend-difference"
-                                            : index === 5
-                                                ? "top-1/2 left-1/2 -translate-x-[62%] -translate-y-[24%] rotate-[160.227deg] mix-blend-difference"
-                                                : "top-1/2 left-1/2 -translate-x-[67%] -translate-y-[29%] rotate-180 mix-blend-hard-light"
-                        }`}
+                              ? "top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 rotate-[164.971deg] mix-blend-difference"
+                              : index === 2
+                                ? "top-1/2 left-1/2 -translate-x-[53%] -translate-y-[53%] rotate-[-11.61deg] mix-blend-difference"
+                                : index === 3
+                                  ? "top-1/2 left-1/2 -translate-x-1/2 -translate-y-[57%] rotate-[-179.012deg] mix-blend-difference"
+                                  : index === 4
+                                    ? "top-1/2 left-1/2 -translate-x-[57%] -translate-y-1/2 rotate-[-29.722deg] mix-blend-difference"
+                                    : index === 5
+                                      ? "top-1/2 left-1/2 -translate-x-[62%] -translate-y-[24%] rotate-[160.227deg] mix-blend-difference"
+                                      : "top-1/2 left-1/2 -translate-x-[67%] -translate-y-[29%] rotate-180 mix-blend-hard-light"
+                    }`}
                 >
                     <GradientSvg
                         className="w-full h-full"

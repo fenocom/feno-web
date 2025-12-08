@@ -6,10 +6,9 @@ import { PortfolioButton } from "../components/portfolio-button";
 
 interface ToolbarProps {
     onExport?: () => void;
-    onAddPage?: () => void;
 }
 
-export default function Toolbar({ onExport, onAddPage }: ToolbarProps) {
+export default function Toolbar({ onExport }: ToolbarProps) {
     return (
         <motion.div
             initial={{ y: 40, opacity: 0 }}
