@@ -1,3 +1,4 @@
+import { SpeedInsights } from "@vercel/speed-insights/next";
 import type { Metadata, Viewport } from "next";
 import {
     Cormorant_Garamond,
@@ -48,6 +49,7 @@ export default function RootLayout({
             <body>
                 <main className="w-full min-h-screen h-full">{children}</main>
             </body>
+            <SpeedInsights />
         </html>
     );
 }

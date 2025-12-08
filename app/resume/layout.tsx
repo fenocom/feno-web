@@ -6,6 +6,7 @@ import {
 } from "next/font/google";
 
 import "../globals.css";
+import { SpeedInsights } from "@vercel/speed-insights/next";
 
 const hostGrotesk = Host_Grotesk({
     variable: "--font-host",
@@ -48,6 +49,7 @@ export default function RootLayout({
             <body>
                 <main className="w-full min-h-screen h-full">{children}</main>
             </body>
+            <SpeedInsights />
         </html>
     );
 }
