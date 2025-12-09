@@ -16,7 +16,7 @@ export const NodeOptions = ({ editor }: NodeOptionsProps) => {
                 onPress={() => editor.chain().focus().toggleBold().run()}
                 className={`p-1 min-w-8 h-8 rounded-md hover:bg-white/10 ${editor.isActive("bold")
                     ? "text-inverted-blue hover:bg-white/10"
-                    : "text-white hover:text-white"
+                    : "text-white/70 hover:text-white"
                     }`}
             >
                 <IconBold size={18} />

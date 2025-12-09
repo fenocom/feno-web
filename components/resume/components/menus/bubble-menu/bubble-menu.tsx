@@ -34,32 +34,34 @@ export const BubbleMenuGlobal = ({ editor }: BubbleMenuProps) => {
                 transition={{ duration: 0.2 }}
                 className="flex items-center shadow-xl z-[999] rounded-4xl"
             >
-                <div className="absolute inset-0 w-full h-full rounded-4xl border border-white overflow-hidden backdrop-blur-sm backdrop-invert-10 backdrop-grayscale" />
-                <div className="flex gap-2 items-center px-3 py-2 relative z-10 mix-blend-difference text-white">
-                    <FontFamilySelector editor={editor} />
-                    <Separator
-                        orientation="vertical"
-                        className="h-6 bg-white/20"
-                    />
-                    <FontSizeSelector editor={editor} />
-                    <Separator
-                        orientation="vertical"
-                        className="h-6 bg-white/20"
-                    />
-                    <NodeOptions editor={editor} />
-                    <Separator
-                        orientation="vertical"
-                        className="h-6 bg-white/20"
-                    />
-                    <div className="flex gap-1">
-                        <ColorSelector editor={editor} type="text" />
-                        <ColorSelector editor={editor} type="highlight" />
+                <div className="absolute inset-0 w-full h-full rounded-4xl overflow-hidden backdrop-blur-sm backdrop-invert-10 backdrop-grayscale" />
+                <div className="relative z-10 mix-blend-difference text-white">
+                    <div className="flex gap-2 items-center px-3 py-2 border border-white/10 rounded-4xl">
+                        <FontFamilySelector editor={editor} />
+                        <Separator
+                            orientation="vertical"
+                            className="h-6 bg-white/20"
+                        />
+                        <FontSizeSelector editor={editor} />
+                        <Separator
+                            orientation="vertical"
+                            className="h-6 bg-white/20"
+                        />
+                        <NodeOptions editor={editor} />
+                        <Separator
+                            orientation="vertical"
+                            className="h-6 bg-white/20"
+                        />
+                        <div className="flex gap-1">
+                            <ColorSelector editor={editor} type="text" />
+                            <ColorSelector editor={editor} type="highlight" />
+                        </div>
+                        <Separator
+                            orientation="vertical"
+                            className="h-6 bg-white/20"
+                        />
+                        <LinkSelector editor={editor} />
                     </div>
-                    <Separator
-                        orientation="vertical"
-                        className="h-6 bg-white/20"
-                    />
-                    <LinkSelector editor={editor} />
                 </div>
                 <div className="top-0 left-0 absolute pointer-events-none w-full h-full bg-[url('/noise.png')] bg-repeat bg-size-[50px] rounded-4xl opacity-50" />
             </motion.div>
