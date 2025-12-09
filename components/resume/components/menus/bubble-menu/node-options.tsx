@@ -14,11 +14,10 @@ export const NodeOptions = ({ editor }: NodeOptionsProps) => {
                 size="sm"
                 variant="ghost"
                 onPress={() => editor.chain().focus().toggleBold().run()}
-                className={`p-1 min-w-8 h-8 rounded-md ${
-                    editor.isActive("bold")
-                        ? "bg-white/20 text-white"
-                        : "text-neutral-400 hover:text-white"
-                }`}
+                className={`p-1 min-w-8 h-8 rounded-md hover:bg-white/10 ${editor.isActive("bold")
+                    ? "text-inverted-blue hover:bg-white/10"
+                    : "text-white hover:text-white"
+                    }`}
             >
                 <IconBold size={18} />
             </Button>
@@ -27,11 +26,10 @@ export const NodeOptions = ({ editor }: NodeOptionsProps) => {
                 size="sm"
                 variant="ghost"
                 onPress={() => editor.chain().focus().toggleItalic().run()}
-                className={`p-1 min-w-8 h-8 rounded-md ${
-                    editor.isActive("italic")
-                        ? "bg-white/20 text-white"
-                        : "text-neutral-400 hover:text-white"
-                }`}
+                className={`p-1 min-w-8 h-8 rounded-md hover:bg-white/10 ${editor.isActive("italic")
+                    ? "text-inverted-blue hover:bg-white/10"
+                    : "text-white/70 hover:text-white"
+                    }`}
             >
                 <IconItalic size={18} />
             </Button>
@@ -40,11 +38,10 @@ export const NodeOptions = ({ editor }: NodeOptionsProps) => {
                 size="sm"
                 variant="ghost"
                 onPress={() => editor.chain().focus().toggleUnderline().run()}
-                className={`p-1 min-w-8 h-8 rounded-md ${
-                    editor.isActive("underline")
-                        ? "bg-white/20 text-white"
-                        : "text-neutral-400 hover:text-white"
-                }`}
+                className={`p-1 min-w-8 h-8 rounded-md hover:bg-white/10 ${editor.isActive("underline")
+                    ? "text-inverted-blue hover:bg-white/10"
+                    : "text-white/70 hover:text-white"
+                    }`}
             >
                 <IconUnderline size={18} />
             </Button>

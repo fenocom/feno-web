@@ -102,7 +102,7 @@ export const FontFamilySelector = ({ editor }: FontFamilySelectorProps) => {
                 <Button
                     size="sm"
                     variant="ghost"
-                    className="h-8 min-w-[120px] justify-between text-neutral-400 hover:text-white px-2 font-normal"
+                    className="h-8 min-w-[120px] justify-between text-white hover:text-white hover:bg-white/10 px-2 font-normal"
                 >
                     <span className="truncate max-w-[100px]">
                         {displayFont}
@@ -150,7 +150,7 @@ export const FontFamilySelector = ({ editor }: FontFamilySelectorProps) => {
                                     onClick={() => handleFontSelect(font)}
                                     className={`w-full text-left px-2 py-1.5 rounded-md text-sm transition-colors flex items-center justify-between group ${currentFont.includes(font)
                                         ? "bg-white/10 text-white"
-                                        : "text-neutral-400 hover:bg-white/5 hover:text-white"
+                                        : "text-white/70 hover:bg-white/5 hover:text-white"
                                         }`}
                                     style={{ fontFamily: font }}
                                 >
@@ -176,8 +176,8 @@ export const FontFamilySelector = ({ editor }: FontFamilySelectorProps) => {
                                         handleFontSelect(font.family)
                                     }
                                     className={`w-full text-left px-2 py-1.5 rounded-md text-sm transition-colors flex items-center justify-between group ${currentFont.includes(font.family)
-                                        ? "bg-white/10 text-white"
-                                        : "text-neutral-400 hover:bg-white/5 hover:text-white"
+                                        ? "bg-white text-black"
+                                        : "text-white hover:bg-white/5 hover:text-white"
                                         }`}
                                 >
                                     {font.family}

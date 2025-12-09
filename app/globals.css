@@ -5,6 +5,8 @@
     --font-host: var(--font-host);
     --font-serif: var(--font-serif);
     --font-mono: var(--font-jetbrains);
+
+    --color-inverted-blue: #a96300;
 }
 
 body {

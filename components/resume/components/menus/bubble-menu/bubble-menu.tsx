@@ -32,9 +32,10 @@ export const BubbleMenuGlobal = ({ editor }: BubbleMenuProps) => {
                 animate={{ opacity: 1, scale: 1 }}
                 exit={{ opacity: 0, scale: 0.95 }}
                 transition={{ duration: 0.2 }}
-                className="rounded-xl border border-white/20 flex items-center shadow-xl z-[999] overflow-hidden bg-neutral-900/80 backdrop-blur-md"
+                className="flex items-center shadow-xl z-[999] rounded-4xl"
             >
-                <div className="flex gap-2 items-center px-3 py-2 relative z-10">
+                <div className="absolute inset-0 w-full h-full rounded-4xl border border-white overflow-hidden backdrop-blur-sm backdrop-invert-10 backdrop-grayscale" />
+                <div className="flex gap-2 items-center px-3 py-2 relative z-10 mix-blend-difference text-white">
                     <FontFamilySelector editor={editor} />
                     <Separator
                         orientation="vertical"
@@ -60,8 +61,7 @@ export const BubbleMenuGlobal = ({ editor }: BubbleMenuProps) => {
                     />
                     <LinkSelector editor={editor} />
                 </div>
-                {/* Noise and Overlay effects to match Toolbar */}
-                <div className="absolute inset-0 pointer-events-none opacity-20 bg-[url('/noise.png')] bg-repeat bg-[length:50px_50px]" />
+                <div className="top-0 left-0 absolute pointer-events-none w-full h-full bg-[url('/noise.png')] bg-repeat bg-size-[50px] rounded-4xl opacity-50" />
             </motion.div>
         </BubbleMenu>
     );

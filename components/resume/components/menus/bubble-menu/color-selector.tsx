@@ -40,41 +40,29 @@ export const ColorSelector = ({ editor, type }: ColorSelectorProps) => {
                     isIconOnly
                     size="sm"
                     variant="ghost"
-                    className={`p-1 min-w-8 h-8 rounded-md ${
-                        type === "highlight" && currentColor !== "transparent"
-                            ? "text-white" // ensure contrast, might need calculation but white is usually safe for dark UI or bright highlights
-                            : "text-neutral-400 hover:text-white"
-                    }`}
-                    style={{
-                        backgroundColor:
-                            type === "highlight" &&
-                            currentColor !== "transparent"
-                                ? currentColor
-                                : undefined,
-                    }}
+                    className="p-1 min-w-8 h-8 text-white rounded-md hover:bg-white/10"
+
                 >
                     <Icon
                         size={18}
                         style={{
                             color:
-                                type === "text"
-                                    ? currentColor
-                                    : type === "highlight" &&
-                                        currentColor !== "transparent"
-                                      ? "#fff" // Icon white on colored background? Or inherit?
-                                      : undefined,
+                                type === "highlight" &&
+                                    currentColor !== "transparent"
+                                    ? "#ffffff"
+                                    : undefined,
                             filter:
                                 type === "highlight" &&
-                                currentColor !== "transparent"
+                                    currentColor !== "transparent"
                                     ? "invert(1) grayscale(1) contrast(9)"
-                                    : undefined, // Simple way to make icon visible? No, let's keep it simple.
+                                    : undefined,
                         }}
                         className={
                             type === "highlight" &&
-                            currentColor !== "transparent"
+                                currentColor !== "transparent"
                                 ? "text-black/50 mix-blend-overlay"
                                 : ""
-                        } // Try to make icon visible against any color
+                        }
                     />
                 </Button>
             </Popover.Trigger>
