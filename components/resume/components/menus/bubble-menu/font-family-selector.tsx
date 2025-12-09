@@ -1,7 +1,7 @@
 import { Button, Input, Popover, Spinner } from "@heroui/react";
 import { IconChevronDown } from "@tabler/icons-react";
 import type { Editor } from "@tiptap/react";
-import { useEffect, useMemo, useRef, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 
 interface FontFamilySelectorProps {
     editor: Editor;
@@ -30,7 +30,6 @@ export const FontFamilySelector = ({ editor }: FontFamilySelectorProps) => {
     const [fonts, setFonts] = useState<WebFont[]>([]);
     const [loading, setLoading] = useState(false);
     const [page, setPage] = useState(1);
-    const observerTarget = useRef<HTMLDivElement>(null);
 
     const currentFont =
         editor.getAttributes("textStyle")?.fontFamily || "Inter";
@@ -78,23 +77,6 @@ export const FontFamilySelector = ({ editor }: FontFamilySelectorProps) => {
     }, [filteredFonts, page]);
 
     useEffect(() => {
-        const observer = new IntersectionObserver(
-            (entries) => {
-                if (entries[0].isIntersecting) {
-                    setPage((prev) => prev + 1);
-                }
-            },
-            { threshold: 1.0 },
-        );
-
-        if (observerTarget.current) {
-            observer.observe(observerTarget.current);
-        }
-
-        return () => observer.disconnect();
-    }, []);
-
-    useEffect(() => {
         // Dynamically load the current font if it's not a standard web font
         const isStandard = POPULAR_FONTS.includes(displayFont);
         if (!isStandard && displayFont) {
@@ -135,7 +117,6 @@ export const FontFamilySelector = ({ editor }: FontFamilySelectorProps) => {
                 <div className="p-2 border-b border-neutral-800">
                     <Input
                         placeholder="Search fonts..."
-                        // startContent={<IconSearch size={14} className="text-neutral-500" />}
                         value={search}
                         onChange={(e) => {
                             setSearch(e.target.value);
@@ -143,7 +124,19 @@ export const FontFamilySelector = ({ editor }: FontFamilySelectorProps) => {
                         }}
                     />
                 </div>
-                <div className="h-[280px] w-full p-1 overflow-y-auto">
+                <div
+                    className="h-[280px] w-full p-1 overflow-y-auto"
+                    onScroll={(e) => {
+                        const { scrollTop, scrollHeight, clientHeight } =
+                            e.currentTarget;
+                        if (
+                            scrollHeight - scrollTop <= clientHeight + 50 &&
+                            !loading
+                        ) {
+                            setPage((prev) => prev + 1);
+                        }
+                    }}
+                >
                     {/* Standard/Popular Fonts Section */}
                     {!search && (
                         <div className="mb-2">
@@ -155,11 +148,10 @@ export const FontFamilySelector = ({ editor }: FontFamilySelectorProps) => {
                                     type="button"
                                     key={font}
                                     onClick={() => handleFontSelect(font)}
-                                    className={`w-full text-left px-2 py-1.5 rounded-md text-sm transition-colors flex items-center justify-between group ${
-                                        currentFont.includes(font)
-                                            ? "bg-white/10 text-white"
-                                            : "text-neutral-400 hover:bg-white/5 hover:text-white"
-                                    }`}
+                                    className={`w-full text-left px-2 py-1.5 rounded-md text-sm transition-colors flex items-center justify-between group ${currentFont.includes(font)
+                                        ? "bg-white/10 text-white"
+                                        : "text-neutral-400 hover:bg-white/5 hover:text-white"
+                                        }`}
                                     style={{ fontFamily: font }}
                                 >
                                     {font}
@@ -183,19 +175,15 @@ export const FontFamilySelector = ({ editor }: FontFamilySelectorProps) => {
                                     onClick={() =>
                                         handleFontSelect(font.family)
                                     }
-                                    className={`w-full text-left px-2 py-1.5 rounded-md text-sm transition-colors flex items-center justify-between group ${
-                                        currentFont.includes(font.family)
-                                            ? "bg-white/10 text-white"
-                                            : "text-neutral-400 hover:bg-white/5 hover:text-white"
-                                    }`}
+                                    className={`w-full text-left px-2 py-1.5 rounded-md text-sm transition-colors flex items-center justify-between group ${currentFont.includes(font.family)
+                                        ? "bg-white/10 text-white"
+                                        : "text-neutral-400 hover:bg-white/5 hover:text-white"
+                                        }`}
                                 >
                                     {font.family}
                                 </button>
                             ))}
-                            <div
-                                ref={observerTarget}
-                                className="h-4 w-full flex justify-center items-center"
-                            >
+                            <div className="h-4 w-full flex justify-center items-center">
                                 {loading && (
                                     <Spinner size="sm" color="current" />
                                 )}
