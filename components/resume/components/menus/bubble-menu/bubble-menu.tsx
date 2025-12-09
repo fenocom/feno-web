@@ -12,7 +12,7 @@ interface BubbleMenuProps {
     editor: Editor;
 }
 
-export default function BubbleMenuGlobal({ editor }: BubbleMenuProps) {
+export const BubbleMenuGlobal = ({ editor }: BubbleMenuProps) => {
     const shouldShow = ({ editor }: { editor: Editor }) => {
         return !editor.state.selection.empty;
     };
