@@ -45,24 +45,7 @@ export const ColorSelector = ({ editor, type }: ColorSelectorProps) => {
                 >
                     <Icon
                         size={18}
-                        style={{
-                            color:
-                                type === "highlight" &&
-                                    currentColor !== "transparent"
-                                    ? "#ffffff"
-                                    : undefined,
-                            filter:
-                                type === "highlight" &&
-                                    currentColor !== "transparent"
-                                    ? "invert(1) grayscale(1) contrast(9)"
-                                    : undefined,
-                        }}
-                        className={
-                            type === "highlight" &&
-                                currentColor !== "transparent"
-                                ? "text-black/50 mix-blend-overlay"
-                                : ""
-                        }
+                        className="text-white"
                     />
                 </Button>
             </Popover.Trigger>
