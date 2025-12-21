@@ -102,16 +102,16 @@ export const FontFamilySelector = ({ editor }: FontFamilySelectorProps) => {
                 <Button
                     size="sm"
                     variant="ghost"
-                    className="h-8 min-w-[120px] justify-between text-white hover:text-white hover:bg-white/10 px-2 font-normal"
+                    className="h-8 min-w-[120px] justify-between text-fg-resting hover:text-fg-hovering hover:bg-black/20 px-2 font-normal"
                 >
                     <span className="truncate max-w-[100px]">
                         {displayFont}
                     </span>
-                    <IconChevronDown size={14} className="text-neutral-500" />
+                    <IconChevronDown size={14} />
                 </Button>
             </Popover.Trigger>
             <Popover.Content
-                className="p-0 bg-neutral-900 border border-neutral-800 w-[240px] overflow-hidden"
+                className="p-0 bg-neutral-900 border border-neutral-800 w-60 overflow-hidden"
                 placement="bottom"
             >
                 <div className="p-2 border-b border-neutral-800">
@@ -148,10 +148,11 @@ export const FontFamilySelector = ({ editor }: FontFamilySelectorProps) => {
                                     type="button"
                                     key={font}
                                     onClick={() => handleFontSelect(font)}
-                                    className={`w-full text-left px-2 py-1.5 rounded-md text-sm transition-colors flex items-center justify-between group ${currentFont.includes(font)
-                                        ? "bg-white/10 text-white"
-                                        : "text-white/70 hover:bg-white/5 hover:text-white"
-                                        }`}
+                                    className={`w-full text-left px-2 py-1.5 rounded-md text-sm transition-colors flex items-center justify-between group ${
+                                        currentFont.includes(font)
+                                            ? "bg-white/10 text-white"
+                                            : "text-white/70 hover:bg-white/5 hover:text-white"
+                                    }`}
                                     style={{ fontFamily: font }}
                                 >
                                     {font}
@@ -175,10 +176,11 @@ export const FontFamilySelector = ({ editor }: FontFamilySelectorProps) => {
                                     onClick={() =>
                                         handleFontSelect(font.family)
                                     }
-                                    className={`w-full text-left px-2 py-1.5 rounded-md text-sm transition-colors flex items-center justify-between group ${currentFont.includes(font.family)
-                                        ? "bg-white text-black"
-                                        : "text-white hover:bg-white/5 hover:text-white"
-                                        }`}
+                                    className={`w-full text-left px-2 py-1.5 rounded-md text-sm transition-colors flex items-center justify-between group ${
+                                        currentFont.includes(font.family)
+                                            ? "bg-white text-black"
+                                            : "text-white hover:bg-white/5 hover:text-white"
+                                    }`}
                                 >
                                     {font.family}
                                 </button>

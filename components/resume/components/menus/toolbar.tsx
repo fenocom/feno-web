@@ -19,7 +19,10 @@ export default function Toolbar({ onExport }: ToolbarProps) {
             <div className="relative z-10 mix-blend-difference text-white">
                 <div className="flex gap-2 items-center px-3 py-2 border border-white/10 rounded-4xl">
                     <AiIcon size={28} />
-                    <Separator orientation="vertical" className="h-6 bg-white/20" />
+                    <Separator
+                        orientation="vertical"
+                        className="h-6 bg-white/20"
+                    />
                     <div className="flex gap-1 items-center">
                         <Button
                             isIconOnly
@@ -47,7 +50,10 @@ export default function Toolbar({ onExport }: ToolbarProps) {
                             <IconSettings size={18} />
                         </Button>
                     </div>
-                    <Separator orientation="vertical" className="h-6 bg-white/20" />
+                    <Separator
+                        orientation="vertical"
+                        className="h-6 bg-white/20"
+                    />
                     <PortfolioButton />
                 </div>
             </div>

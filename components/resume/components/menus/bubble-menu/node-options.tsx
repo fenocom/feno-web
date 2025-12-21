@@ -14,10 +14,11 @@ export const NodeOptions = ({ editor }: NodeOptionsProps) => {
                 size="sm"
                 variant="ghost"
                 onPress={() => editor.chain().focus().toggleBold().run()}
-                className={`p-1 min-w-8 h-8 rounded-md hover:bg-white/10 ${editor.isActive("bold")
-                    ? "text-inverted-blue hover:bg-white/10"
-                    : "text-white/70 hover:text-white"
-                    }`}
+                className={`p-1 min-w-8 h-8 rounded-md hover:bg-black/10 ${
+                    editor.isActive("bold")
+                        ? "text-blue"
+                        : "text-fg-resting hover:text-fg-hovering"
+                }`}
             >
                 <IconBold size={18} />
             </Button>
@@ -26,10 +27,11 @@ export const NodeOptions = ({ editor }: NodeOptionsProps) => {
                 size="sm"
                 variant="ghost"
                 onPress={() => editor.chain().focus().toggleItalic().run()}
-                className={`p-1 min-w-8 h-8 rounded-md hover:bg-white/10 ${editor.isActive("italic")
-                    ? "text-inverted-blue hover:bg-white/10"
-                    : "text-white/70 hover:text-white"
-                    }`}
+                className={`p-1 min-w-8 h-8 rounded-md hover:bg-black/10 ${
+                    editor.isActive("italic")
+                        ? "text-blue"
+                        : "text-fg-resting hover:text-fg-hovering"
+                }`}
             >
                 <IconItalic size={18} />
             </Button>
@@ -38,10 +40,11 @@ export const NodeOptions = ({ editor }: NodeOptionsProps) => {
                 size="sm"
                 variant="ghost"
                 onPress={() => editor.chain().focus().toggleUnderline().run()}
-                className={`p-1 min-w-8 h-8 rounded-md hover:bg-white/10 ${editor.isActive("underline")
-                    ? "text-inverted-blue hover:bg-white/10"
-                    : "text-white/70 hover:text-white"
-                    }`}
+                className={`p-1 min-w-8 h-8 rounded-md hover:bg-black/10 ${
+                    editor.isActive("underline")
+                        ? "text-blue"
+                        : "text-fg-resting hover:text-fg-hovering"
+                }`}
             >
                 <IconUnderline size={18} />
             </Button>

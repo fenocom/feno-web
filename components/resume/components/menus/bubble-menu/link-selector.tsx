@@ -51,10 +51,11 @@ export const LinkSelector = ({ editor }: LinkSelectorProps) => {
                     size="sm"
                     variant="ghost"
                     onPress={openPopover}
-                    className={`p-1 min-w-8 h-8 rounded-md hover:bg-white/10 ${editor.isActive("link")
-                        ? "text-inverted-blue hover:bg-white/10"
-                        : "text-white"
-                        }`}
+                    className={`p-1 min-w-8 h-8 rounded-md hover:bg-black/10 ${
+                        editor.isActive("link")
+                            ? "text-blue"
+                            : "text-fg-resting hover:text-fg-hovering"
+                    }`}
                 >
                     <IconLink size={18} />
                 </Button>

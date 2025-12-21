@@ -9,7 +9,6 @@ import { extensionsConfig } from "../extensions/config";
 import { template as classicTemplate } from "../templates/classic/template";
 import { BubbleMenuGlobal } from "./menus/bubble-menu";
 
-
 export type ResumeEditorRef = {
     editor: Editor | null;
     exportPdf: () => void;

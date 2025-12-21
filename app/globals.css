@@ -6,7 +6,10 @@
     --font-serif: var(--font-serif);
     --font-mono: var(--font-jetbrains);
 
-    --color-inverted-blue: #a96300;
+    --color-fg-resting: #141414;
+    --color-fg-hovering: #000000;
+
+    --color-blue: #0f3e9d;
 }
 
 body {

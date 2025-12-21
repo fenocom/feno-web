@@ -32,15 +32,14 @@ export const BubbleMenuGlobal = ({ editor }: BubbleMenuProps) => {
                 animate={{ opacity: 1, scale: 1 }}
                 exit={{ opacity: 0, scale: 0.95 }}
                 transition={{ duration: 0.2 }}
-                className="flex items-center shadow-xl z-[999] rounded-4xl"
+                className="flex items-center shadow-xl z-999 rounded-4xl bg-black/10 p-0.5 backdrop-blur-2xl"
             >
-                <div className="absolute inset-0 w-full h-full rounded-4xl overflow-hidden backdrop-blur-sm backdrop-invert-10 backdrop-grayscale" />
-                <div className="relative z-10 mix-blend-difference text-white">
-                    <div className="flex gap-2 items-center px-3 py-2 border border-white/10 rounded-4xl">
+                <div className="relative z-10 bg-white rounded-4xl">
+                    <div className="flex gap-2 items-center px-3 py-2 rounded-4xl">
                         <FontFamilySelector editor={editor} />
                         <Separator
                             orientation="vertical"
-                            className="h-6 bg-white/20"
+                            className="h-6 bg-black/20"
                         />
                         <FontSizeSelector editor={editor} />
                         <Separator
@@ -63,8 +62,7 @@ export const BubbleMenuGlobal = ({ editor }: BubbleMenuProps) => {
                         <LinkSelector editor={editor} />
                     </div>
                 </div>
-                <div className="top-0 left-0 absolute pointer-events-none w-full h-full bg-[url('/noise.png')] bg-repeat bg-size-[50px] rounded-4xl opacity-50" />
             </motion.div>
         </BubbleMenu>
     );
-}
+};

@@ -40,13 +40,9 @@ export const ColorSelector = ({ editor, type }: ColorSelectorProps) => {
                     isIconOnly
                     size="sm"
                     variant="ghost"
-                    className="p-1 min-w-8 h-8 text-white rounded-md hover:bg-white/10"
-
+                    className="p-1 min-w-8 h-8 text-fg-resting hover:text-fg-hovering rounded-md hover:bg-black/10"
                 >
-                    <Icon
-                        size={18}
-                        className="text-white"
-                    />
+                    <Icon size={18} />
                 </Button>
             </Popover.Trigger>
             <Popover.Content

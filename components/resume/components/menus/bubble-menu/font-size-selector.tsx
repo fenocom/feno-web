@@ -36,7 +36,7 @@ export const FontSizeSelector = ({ editor }: FontSizeSelectorProps) => {
                     size="sm"
                     variant="ghost"
                     onPress={() => setIsOpen(true)}
-                    className="h-8 min-w-[40px] px-2 text-white hover:text-white font-medium hover:bg-white/10"
+                    className="h-8 min-w-[40px] px-2 text-fg-resting hover:text-fg-hovering font-medium hover:bg-black/10"
                 >
                     {currentSize}
                 </Button>
