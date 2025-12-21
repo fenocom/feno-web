@@ -36,7 +36,7 @@ export function SettingsPanel({ onClose }: SettingsPanelProps) {
         };
 
         return (
-                <div className="overflow-hidden w-full">
+                <div className="overflow-hidden w-full border-b border-black/10">
                         <div className="px-4 py-4">
                                 <div className="flex items-center justify-between gap-4">
                                         <div className="flex items-center gap-3">
@@ -86,10 +86,6 @@ export function SettingsPanel({ onClose }: SettingsPanelProps) {
                                         </div>
                                 </div>
                         </div>
-
-                        <div className="px-3">
-                                <Separator className="w-full" />
-                        </div>
-        </div>
+                </div>
         );
 }

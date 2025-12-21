@@ -4,7 +4,6 @@ import { useAuth } from "@/lib/auth/context";
 import { Avatar, Button, Input, Tooltip } from "@heroui/react";
 import { IconX } from "@tabler/icons-react";
 import type { JSONContent } from "@tiptap/core";
-import { motion } from "framer-motion";
 import { useEffect, useState } from "react";
 import { TemplatePreview } from "../../template-preview";
 
@@ -73,7 +72,7 @@ export function SaveTemplatePanel({
         };
 
         return (
-                <div className="p-6 overflow-hidden w-full h-full">
+                <div className="p-6 overflow-hidden w-full h-full border-b border-black/10">
                         <div className="flex items-center justify-between mb-6">
                                 <h3 className="text-lg font-semibold text-black">
                                         Save as Template
@@ -195,6 +194,6 @@ export function SaveTemplatePanel({
                                         </div>
                                 </div>
                         </div>
-        </div>
+                </div>
         );
 }
