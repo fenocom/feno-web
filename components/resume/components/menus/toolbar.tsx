@@ -8,7 +8,6 @@ import {
     IconDownload,
     IconLayoutDashboard,
     IconPalette,
-    IconSettings,
 } from "@tabler/icons-react";
 import { AnimatePresence, motion } from "framer-motion";
 import { useEffect, useRef, useState } from "react";
@@ -120,14 +119,6 @@ export default function Toolbar({ onExport, getEditorContent }: ToolbarProps) {
                                             isIconOnly
                                             size="sm"
                                             variant="ghost"
-                                            className="p-1 min-w-8 h-8 rounded-md text-black hover:bg-black/10"
-                                        >
-                                            <IconPalette size={18} />
-                                        </Button>
-                                        <Button
-                                            isIconOnly
-                                            size="sm"
-                                            variant="ghost"
                                             onPress={onExport}
                                             className="p-1 min-w-8 h-8 rounded-md text-black hover:bg-black/10"
                                         >
@@ -148,7 +139,7 @@ export default function Toolbar({ onExport, getEditorContent }: ToolbarProps) {
                                                     : ""
                                             } text-black`}
                                         >
-                                            <IconSettings size={18} />
+                                            <IconPalette size={18} />
                                         </Button>
                                         {isAdmin && getEditorContent && (
                                             <Button
