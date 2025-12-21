@@ -9,11 +9,13 @@ import {
         IconPalette,
         IconSettings,
 } from "@tabler/icons-react";
+import { motion } from "framer-motion";
 import { useEffect, useRef, useState } from "react";
 import { PortfolioButton } from "../../../components/portfolio-button";
 import { SaveTemplatePanel } from "./save-template-panel";
 import { SettingsPanel } from "./settings-panel";
 import { TemplatesPanel } from "./templates-panel";
+import clsx from "clsx";
 
 interface ToolbarProps {
         onExport?: () => void;
@@ -59,17 +61,40 @@ export function Toolbar({ onExport, getEditorContent }: ToolbarProps) {
                 }
         };
 
+        const getDimensions = () => {
+                if (activePanel === "templates") {
+                        return {
+                                width: "90vw",
+                                height: isTemplatesExpanded ? "90vh" : "400px",
+                        };
+                }
+                if (activePanel === "save") {
+                        return { width: "700px", height: "552px" };
+                }
+                if (activePanel === "settings") {
+                        return { width: "400px", height: "124px" };
+                }
+                return { width: "338px", height: "52px" };
+        };
+
+        const { width, height } = getDimensions();
+
         return (
-                <div
+                <motion.div
                         ref={toolbarRef}
                         className="fixed bottom-6 left-1/2 -translate-x-1/2 shadow-xl z-50 rounded-3xl border border-black/10 bg-white overflow-hidden flex flex-col"
-                        style={{
-                                width: activePanel === "templates" ? "90vw" : activePanel === "save" ? "700px" : activePanel === "settings" ? "400px" : "338px",
-                                height: activePanel === "templates" ? isTemplatesExpanded ? "90vh" : "400px" : activePanel === "save" ? "552px" : activePanel === "settings" ? "125px" : "52px"
+                        animate={{
+                                width,
+                                height,
+                        }}
+                        transition={{
+                                type: "spring",
+                                bounce: 0.15,
+                                duration: 0.5,
                         }}
                 >
 
-                        <div className="w-full relative">
+                        <div className="w-full relative flex-1 overflow-hidden">
                                 {activePanel === "save" && isAdmin && getEditorContent && (
                                         <SaveTemplatePanel
                                                 onClose={() => setActivePanel(null)}
@@ -93,7 +118,7 @@ export function Toolbar({ onExport, getEditorContent }: ToolbarProps) {
                                         <SettingsPanel onClose={() => setActivePanel(null)} />
                                 )}
                         </div>
-                        <div className="relative z-10 text-black w-full">
+                        <div className={clsx("relative z-10 text-black w-full", activePanel && "border-t border-black/10")}>
                                 <div className="flex justify-center w-full">
                                         <div className="flex gap-2 items-center px-3 py-2 whitespace-nowrap">
                                                 <AiIcon size={28} />
@@ -151,6 +176,6 @@ export function Toolbar({ onExport, getEditorContent }: ToolbarProps) {
 
 
                         <div className="top-0 left-0 absolute pointer-events-none w-full h-full bg-[url('/noise.png')] bg-repeat bg-size-[50px] opacity-50 z-0" />
-                </div>
+                </motion.div>
         );
 }
