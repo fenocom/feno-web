@@ -1,7 +1,7 @@
 "use client";
 
 import { useCallback, useEffect, useRef, useState } from "react";
-import Toolbar from "./components/menus/toolbar";
+import Toolbar from "./components/menus/toolbar/toolbar";
 import { ResumeEditor, type ResumeEditorRef } from "./components/resume-editor";
 import { DottedBackground } from "./dotted-bg";
 

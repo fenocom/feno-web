@@ -12,7 +12,7 @@ import {
 } from "@tabler/icons-react";
 import { AnimatePresence, motion } from "framer-motion";
 import { useEffect, useRef, useState } from "react";
-import { PortfolioButton } from "../../components/portfolio-button";
+import { PortfolioButton } from "../../../components/portfolio-button";
 import { SaveTemplatePanel } from "./save-template-panel";
 import { SettingsPanel } from "./settings-panel";
 import { TemplatesPanel } from "./templates-panel";

@@ -12,7 +12,7 @@ import {
 import type { JSONContent } from "@tiptap/core";
 import { AnimatePresence, motion } from "framer-motion";
 import { useEffect, useState } from "react";
-import { TemplatePreview } from "../template-preview";
+import { TemplatePreview } from "../../template-preview";
 
 interface Template {
     id: string;

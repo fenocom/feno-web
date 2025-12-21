@@ -6,7 +6,7 @@ import { IconX } from "@tabler/icons-react";
 import type { JSONContent } from "@tiptap/core";
 import { motion } from "framer-motion";
 import { useEffect, useState } from "react";
-import { TemplatePreview } from "../template-preview";
+import { TemplatePreview } from "../../template-preview";
 
 interface SaveTemplatePanelProps {
         onClose: () => void;
