@@ -26,12 +26,13 @@ interface Template {
 interface TemplatesPanelProps {
     onClose: () => void;
     onSelect?: (template: Template) => void;
+    isExpanded: boolean;
+    onToggleExpand: () => void;
 }
 
-export function TemplatesPanel({ onClose, onSelect }: TemplatesPanelProps) {
+export function TemplatesPanel({ onClose, onSelect, isExpanded, onToggleExpand }: TemplatesPanelProps) {
     const [templates, setTemplates] = useState<Template[]>([]);
     const [isLoading, setIsLoading] = useState(true);
-    const [isExpanded, setIsExpanded] = useState(false);
     const [page, setPage] = useState(1);
     const [totalPages, setTotalPages] = useState(1);
     const [filterAuthor, setFilterAuthor] = useState("");
@@ -77,18 +78,7 @@ export function TemplatesPanel({ onClose, onSelect }: TemplatesPanelProps) {
     }, [page, debouncedAuthor, isExpanded]);
 
     return (
-        <motion.div
-            layout
-            initial={{ width: 320, opacity: 0 }}
-            animate={{
-                width: "90vw",
-                height: isExpanded ? "85vh" : "340px",
-                opacity: 1,
-            }}
-            exit={{ opacity: 0, scale: 0.9 }}
-            transition={{ type: "spring", bounce: 0.2, duration: 0.5 }}
-            className="bg-white rounded-3xl shadow-2xl border border-black/10 overflow-hidden flex flex-col"
-        >
+        <div className="w-full h-full flex flex-col overflow-hidden">
             <div className="flex items-center justify-between gap-4 p-4 border-b border-black/5">
                 <div className="flex items-center gap-4 flex-1">
                     <h3 className="text-lg font-semibold whitespace-nowrap">
@@ -122,7 +112,7 @@ export function TemplatesPanel({ onClose, onSelect }: TemplatesPanelProps) {
                             <Button
                                 isIconOnly
                                 size="sm"
-                                onPress={() => setIsExpanded(!isExpanded)}
+                                onPress={onToggleExpand}
                             >
                                 {isExpanded ? (
                                     <IconArrowsMinimize size={20} />
@@ -172,6 +162,7 @@ export function TemplatesPanel({ onClose, onSelect }: TemplatesPanelProps) {
                                 }`}
                                 onClick={() => onSelect?.(template)}
                             >
+
                                 <div className="absolute inset-0 pointer-events-none">
                                     <TemplatePreview
                                         content={template.resume_data}
@@ -236,6 +227,6 @@ export function TemplatesPanel({ onClose, onSelect }: TemplatesPanelProps) {
                     </Button>
                 </div>
             </div>
-        </motion.div>
+        </div>
     );
 }

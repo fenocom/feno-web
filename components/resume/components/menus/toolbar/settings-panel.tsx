@@ -36,13 +36,7 @@ export function SettingsPanel({ onClose }: SettingsPanelProps) {
         };
 
         return (
-                <motion.div
-                        initial={{ height: 0, opacity: 0 }}
-                        animate={{ height: "auto", opacity: 1 }}
-                        exit={{ height: 0, opacity: 0 }}
-                        transition={{ duration: 0.15, ease: [0.4, 0, 0.2, 1] }}
-                        className="overflow-hidden"
-                >
+                <div className="overflow-hidden w-full">
                         <div className="px-4 py-4">
                                 <div className="flex items-center justify-between gap-4">
                                         <div className="flex items-center gap-3">
@@ -96,6 +90,6 @@ export function SettingsPanel({ onClose }: SettingsPanelProps) {
                         <div className="px-3">
                                 <Separator className="w-full" />
                         </div>
-                </motion.div>
+        </div>
         );
 }

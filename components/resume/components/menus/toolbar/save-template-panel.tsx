@@ -73,13 +73,7 @@ export function SaveTemplatePanel({
         };
 
         return (
-                <motion.div
-                        initial={{ opacity: 0, width: 320 }}
-                        animate={{ opacity: 1, width: 700 }}
-                        exit={{ opacity: 0, width: 320 }}
-                        transition={{ duration: 0.4, type: "spring", bounce: 0.2 }}
-                        className="p-6 overflow-hidden"
-                >
+                <div className="p-6 overflow-hidden w-full h-full">
                         <div className="flex items-center justify-between mb-6">
                                 <h3 className="text-lg font-semibold text-black">
                                         Save as Template
@@ -201,6 +195,6 @@ export function SaveTemplatePanel({
                                         </div>
                                 </div>
                         </div>
-                </motion.div>
+        </div>
         );
 }
