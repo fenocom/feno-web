@@ -54,7 +54,6 @@ export function Toolbar({ onExport, getEditorContent }: ToolbarProps) {
                         setIsTemplatesExpanded(false);
                 } else {
                         setActivePanel(panel);
-                        // Reset expansion when switching to templates (or keeping it false)
                         if (panel !== "templates") {
                                 setIsTemplatesExpanded(false);
                         }
@@ -65,7 +64,7 @@ export function Toolbar({ onExport, getEditorContent }: ToolbarProps) {
                 if (activePanel === "templates") {
                         return {
                                 width: "90vw",
-                                height: isTemplatesExpanded ? "90vh" : "460px",
+                                height: isTemplatesExpanded ? "90vh" : "480px",
                         };
                 }
                 if (activePanel === "save") {
@@ -95,13 +94,15 @@ export function Toolbar({ onExport, getEditorContent }: ToolbarProps) {
                 >
 
                         <div className="w-full relative flex-1 overflow-hidden">
-                                {activePanel === "save" && isAdmin && getEditorContent && (
-                                        <SaveTemplatePanel
-                                                onClose={() => setActivePanel(null)}
-                                                getEditorContent={getEditorContent}
-                                        />
-                                )}
-                                {activePanel === "templates" && (
+                                <div className={clsx("w-full h-full transition-opacity duration-300", activePanel === "save" ? "relative z-10 opacity-100" : "absolute inset-0 invisible opacity-0 pointer-events-none")}>
+                                        {isAdmin && getEditorContent && (
+                                                <SaveTemplatePanel
+                                                        onClose={() => setActivePanel(null)}
+                                                        getEditorContent={getEditorContent}
+                                                />
+                                        )}
+                                </div>
+                                <div className={clsx("w-full h-full transition-opacity duration-300", activePanel === "templates" ? "relative z-10 opacity-100" : "absolute inset-0 invisible opacity-0 pointer-events-none")}>
                                         <TemplatesPanel
                                                 onClose={() => {
                                                         setActivePanel(null);
@@ -113,10 +114,12 @@ export function Toolbar({ onExport, getEditorContent }: ToolbarProps) {
                                                         setIsTemplatesExpanded(!isTemplatesExpanded)
                                                 }
                                         />
-                                )}
-                                {activePanel === "settings" && user && (
-                                        <SettingsPanel onClose={() => setActivePanel(null)} />
-                                )}
+                                </div>
+                                <div className={clsx("w-full h-full transition-opacity duration-300", activePanel === "settings" ? "relative z-10 opacity-100" : "absolute inset-0 invisible opacity-0 pointer-events-none")}>
+                                        {user && (
+                                                <SettingsPanel onClose={() => setActivePanel(null)} />
+                                        )}
+                                </div>
                         </div>
                         <div className={clsx("relative z-10 text-black w-full", activePanel && "border-t border-black/10")}>
                                 <div className="flex justify-center w-full">
