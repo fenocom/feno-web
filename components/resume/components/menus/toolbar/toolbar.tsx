@@ -22,7 +22,7 @@ interface ToolbarProps {
         getEditorContent?: () => unknown;
 }
 
-export default function Toolbar({ onExport, getEditorContent }: ToolbarProps) {
+export function Toolbar({ onExport, getEditorContent }: ToolbarProps) {
         const { user, isAdmin } = useAuth();
         const [isSettingsOpen, setIsSettingsOpen] = useState(false);
         const [isSaveMode, setIsSaveMode] = useState(false);

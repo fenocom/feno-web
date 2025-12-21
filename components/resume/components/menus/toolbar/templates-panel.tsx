@@ -89,7 +89,6 @@ export function TemplatesPanel({ onClose, onSelect }: TemplatesPanelProps) {
             transition={{ type: "spring", bounce: 0.2, duration: 0.5 }}
             className="bg-white rounded-3xl shadow-2xl border border-black/10 overflow-hidden flex flex-col"
         >
-            {/* Header */}
             <div className="flex items-center justify-between gap-4 p-4 border-b border-black/5">
                 <div className="flex items-center gap-4 flex-1">
                     <h3 className="text-lg font-semibold whitespace-nowrap">
@@ -104,8 +103,6 @@ export function TemplatesPanel({ onClose, onSelect }: TemplatesPanelProps) {
                             value={filterAuthor}
                             onChange={(e) => setFilterAuthor(e.target.value)}
                             className="max-w-xs [&_input]:pl-8 [&_input]:pr-8"
-                            size="sm"
-                            variant="bordered"
                         />
                         {filterAuthor && (
                             <button
@@ -125,7 +122,6 @@ export function TemplatesPanel({ onClose, onSelect }: TemplatesPanelProps) {
                             <Button
                                 isIconOnly
                                 size="sm"
-                                variant="light"
                                 onPress={() => setIsExpanded(!isExpanded)}
                             >
                                 {isExpanded ? (
@@ -142,7 +138,6 @@ export function TemplatesPanel({ onClose, onSelect }: TemplatesPanelProps) {
                     <Button
                         isIconOnly
                         size="sm"
-                        variant="light"
                         onPress={onClose}
                     >
                         <IconX size={20} />
@@ -150,7 +145,6 @@ export function TemplatesPanel({ onClose, onSelect }: TemplatesPanelProps) {
                 </div>
             </div>
 
-            {/* Content */}
             <div
                 className={`flex-1 relative ${
                     isExpanded
@@ -160,7 +154,7 @@ export function TemplatesPanel({ onClose, onSelect }: TemplatesPanelProps) {
             >
                 {isLoading && templates.length === 0 ? (
                     <div className="absolute inset-0 flex items-center justify-center">
-                        <Spinner label="Loading templates..." />
+                        <Spinner />
                     </div>
                 ) : (
                     <AnimatePresence mode="popLayout">
@@ -186,10 +180,8 @@ export function TemplatesPanel({ onClose, onSelect }: TemplatesPanelProps) {
                                     />
                                 </div>
 
-                                {/* Hover Overlay */}
                                 <div className="absolute inset-0 bg-black/0 group-hover:bg-black/5 transition-colors" />
 
-                                {/* Info Overlay */}
                                 <div className="absolute bottom-0 left-0 right-0 p-4 bg-gradient-to-t from-black/80 via-black/40 to-transparent translate-y-full group-hover:translate-y-0 transition-transform duration-300 flex items-end justify-between">
                                     <div className="text-white">
                                         <p className="font-semibold text-sm truncate max-w-[150px]">
@@ -219,7 +211,6 @@ export function TemplatesPanel({ onClose, onSelect }: TemplatesPanelProps) {
                 )}
             </div>
 
-            {/* Pagination Footer */}
             <div className="p-4 border-t border-black/5 flex items-center justify-between bg-white z-10">
                 <div className="text-xs text-neutral-500">
                     Page {page} of {totalPages || 1}
@@ -228,8 +219,7 @@ export function TemplatesPanel({ onClose, onSelect }: TemplatesPanelProps) {
                     <Button
                         isIconOnly
                         size="sm"
-                        variant="flat"
-                        disabled={page <= 1}
+                        isDisabled={page <= 1}
                         onPress={() => setPage((p) => Math.max(1, p - 1))}
                     >
                         <IconChevronLeft size={16} />
@@ -237,8 +227,7 @@ export function TemplatesPanel({ onClose, onSelect }: TemplatesPanelProps) {
                     <Button
                         isIconOnly
                         size="sm"
-                        variant="flat"
-                        disabled={page >= totalPages}
+                        isDisabled={page >= totalPages}
                         onPress={() =>
                             setPage((p) => Math.min(totalPages, p + 1))
                         }
