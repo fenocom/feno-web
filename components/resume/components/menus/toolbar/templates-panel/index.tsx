@@ -1,7 +1,7 @@
 "use client";
 
 import { Spinner } from "@heroui/react";
-import { useCallback, useEffect, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import { Virtuoso, VirtuosoGrid } from "react-virtuoso";
 import { GridItem, HorizontalList } from "./grid-components";
 import { Header } from "./header";
@@ -24,6 +24,24 @@ export function TemplatesPanel({
     const [isLoading, setIsLoading] = useState(false);
     const [hasMore, setHasMore] = useState(true);
     const [page, setPage] = useState(1);
+    const scrollerRef = useRef<HTMLDivElement>(null);
+
+    useEffect(() => {
+        const scroller = scrollerRef.current;
+        if (!scroller || isExpanded) return;
+
+        const handleWheel = (e: WheelEvent) => {
+            if (e.deltaY === 0) return;
+            e.preventDefault();
+            scroller.scrollBy({
+                left: e.deltaY,
+                behavior: "auto",
+            });
+        };
+
+        scroller.addEventListener("wheel", handleWheel, { passive: false });
+        return () => scroller.removeEventListener("wheel", handleWheel);
+    }, [isExpanded]);
 
     const loadTemplates = useCallback(async () => {
         if (isLoading || !hasMore) return;
@@ -96,6 +114,11 @@ export function TemplatesPanel({
                 ) : (
                     <Virtuoso
                         horizontalDirection
+                        scrollerRef={(ref) => {
+                            if (ref instanceof HTMLDivElement) {
+                                (scrollerRef as any).current = ref;
+                            }
+                        }}
                         style={{
                             height: "100%",
                             width: "100%",
