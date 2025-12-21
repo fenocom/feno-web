@@ -18,6 +18,9 @@ interface Template {
         id: string;
         name: string;
         author: string;
+        creator?: {
+                avatar_url: string;
+        };
         category: string;
         resume_data: JSONContent;
         created_at: string;
@@ -117,9 +120,9 @@ export function TemplatesPanel({ onClose, onSelect, isExpanded, onToggleExpand }
                         </div>
 
                         <div
-                                className={`flex-1 relative ${isExpanded
-                                        ? "overflow-y-auto p-8 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8"
-                                        : "overflow-x-auto flex gap-6 p-4 scrollbar-hide items-center min-h-[300px]"
+                                className={`flex flex-1 relative ${isExpanded
+                                        ? "overflow-y-auto flex-row flex-wrap p-4 gap-6"
+                                        : "overflow-x-auto flex gap-6 p-4 scrollbar-hide items-center justify-center min-h-[300px]"
                                         }`}
                         >
                                 {isLoading && templates.length === 0 ? (
@@ -129,47 +132,46 @@ export function TemplatesPanel({ onClose, onSelect, isExpanded, onToggleExpand }
                                 ) : (
                                         <AnimatePresence mode="popLayout">
                                                 {templates.map((template) => (
-                                                        <motion.div
+                                                        <div
+                                                                className="p-1 border w-fit h-fit border-black/10 rounded-xl cursor-pointer group relative transition-all overflow-hidden shrink-0"
                                                                 key={template.id}
-                                                                layout
-                                                                initial={{ opacity: 0, scale: 0.9 }}
-                                                                animate={{ opacity: 1, scale: 1 }}
-                                                                exit={{ opacity: 0, scale: 0.9 }}
-                                                                className={`group relative shrink-0 bg-neutral-50 rounded-xl border border-black/5 hover:border-black/20 transition-all cursor-pointer overflow-hidden ${isExpanded
-                                                                        ? "w-full aspect-210/297"
-                                                                        : "w-60 aspect-210/297"
-                                                                        }`}
                                                                 onClick={() => onSelect?.(template)}
                                                         >
 
-                                                                <div className="absolute inset-0 pointer-events-none">
-                                                                        <TemplatePreview
-                                                                                content={template.resume_data}
-                                                                                scale={isExpanded ? 0.45 : 0.28}
-                                                                                className="w-full h-full origin-top-left"
-                                                                        />
-                                                                </div>
+                                                                <TemplatePreview
+                                                                        content={template.resume_data}
+                                                                        scale={0.28}
+                                                                        className="pointer-events-none"
+                                                                />
 
                                                                 <div className="absolute inset-0 bg-black/0 group-hover:bg-black/5 transition-colors" />
 
-                                                                <div className="absolute bottom-0 left-0 right-0 p-4 bg-gradient-to-t from-black/80 via-black/40 to-transparent translate-y-full group-hover:translate-y-0 transition-transform duration-300 flex items-end justify-between">
-                                                                        <div className="text-white">
-                                                                                <p className="font-semibold text-sm truncate max-w-[150px]">
-                                                                                        {template.name}
-                                                                                </p>
-                                                                                <p className="text-xs text-white/70">
-                                                                                        {template.author}
-                                                                                </p>
+                                                                <div className="absolute bottom-0 left-0 right-0 z-20 h-32 flex flex-col justify-end p-4 bg-gradient-to-t from-black/90 via-black/40 to-transparent translate-y-full group-hover:translate-y-0 transition-transform duration-300">
+                                                                        <div className="flex items-end justify-between">
+                                                                                <div className="flex-1 min-w-0">
+                                                                                        <p className="text-white font-semibold text-sm shadow-black/50 drop-shadow-sm truncate">
+                                                                                                {template.name || "Untitled Template"}
+                                                                                        </p>
+                                                                                        <p className="text-white/70 text-xs">
+                                                                                                Resume
+                                                                                        </p>
+                                                                                </div>
+                                                                                {template.author && (
+                                                                                        <div className="cursor-pointer ring-2 ring-white/20 rounded-full ml-2 shrink-0">
+                                                                                                <Avatar className="size-6 text-[10px]" size="sm">
+                                                                                                        <Avatar.Image
+                                                                                                                src={template.creator?.avatar_url}
+                                                                                                                alt={template.author}
+                                                                                                        />
+                                                                                                        <Avatar.Fallback>
+                                                                                                                {template.author.slice(0, 2).toUpperCase()}
+                                                                                                        </Avatar.Fallback>
+                                                                                                </Avatar>
+                                                                                        </div>
+                                                                                )}
                                                                         </div>
-                                                                        {template.author && (
-                                                                                <Avatar className="size-6 text-[10px]" size="sm">
-                                                                                        <Avatar.Fallback>
-                                                                                                {template.author.slice(0, 2).toUpperCase()}
-                                                                                        </Avatar.Fallback>
-                                                                                </Avatar>
-                                                                        )}
                                                                 </div>
-                                                        </motion.div>
+                                                        </div>
                                                 ))}
                                         </AnimatePresence>
                                 )}
@@ -181,31 +183,6 @@ export function TemplatesPanel({ onClose, onSelect, isExpanded, onToggleExpand }
                                 )}
                         </div>
 
-                        <div className="p-4 border-t border-black/5 flex items-center justify-between bg-white z-10">
-                                <div className="text-xs text-neutral-500">
-                                        Page {page} of {totalPages || 1}
-                                </div>
-                                <div className="flex gap-2">
-                                        <Button
-                                                isIconOnly
-                                                size="sm"
-                                                isDisabled={page <= 1}
-                                                onPress={() => setPage((p) => Math.max(1, p - 1))}
-                                        >
-                                                <IconChevronLeft size={16} />
-                                        </Button>
-                                        <Button
-                                                isIconOnly
-                                                size="sm"
-                                                isDisabled={page >= totalPages}
-                                                onPress={() =>
-                                                        setPage((p) => Math.min(totalPages, p + 1))
-                                                }
-                                        >
-                                                <IconChevronRight size={16} />
-                                        </Button>
-                                </div>
-                        </div>
                 </div>
         );
 }

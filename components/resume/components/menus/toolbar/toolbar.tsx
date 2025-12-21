@@ -65,7 +65,7 @@ export function Toolbar({ onExport, getEditorContent }: ToolbarProps) {
                 if (activePanel === "templates") {
                         return {
                                 width: "90vw",
-                                height: isTemplatesExpanded ? "90vh" : "400px",
+                                height: isTemplatesExpanded ? "90vh" : "460px",
                         };
                 }
                 if (activePanel === "save") {
