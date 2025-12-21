@@ -2,7 +2,7 @@
 
 import { useAuth } from "@/lib/auth/context";
 import { Avatar, Button, Input, Tooltip } from "@heroui/react";
-import { IconCheck, IconDeviceFloppy, IconX } from "@tabler/icons-react";
+import { IconX } from "@tabler/icons-react";
 import type { JSONContent } from "@tiptap/core";
 import { motion } from "framer-motion";
 import { useEffect, useState } from "react";
@@ -152,7 +152,6 @@ export function SaveTemplatePanel({
                                         </div>
                                 </div>
 
-                                {/* Right: Form */}
                                 <div className="flex-1 flex flex-col gap-5">
                                         <div className="space-y-4 flex-1">
                                                 <div className="space-y-1.5">
@@ -191,19 +190,9 @@ export function SaveTemplatePanel({
 
                                         <div className="pt-4 mt-auto">
                                                 <Button
-                                                        fullWidth
                                                         size="lg"
                                                         className={`font-semibold rounded-xl text-white ${saveStatus === "success" ? "bg-green-600" : "bg-black"}`}
-                                                        isLoading={isSaving}
                                                         onPress={handleSave}
-                                                        startContent={
-                                                                !isSaving &&
-                                                                (saveStatus === "success" ? (
-                                                                        <IconCheck />
-                                                                ) : (
-                                                                        <IconDeviceFloppy />
-                                                                ))
-                                                        }
                                                 >
                                                         {saveStatus === "success"
                                                                 ? "Saved Successfully"
