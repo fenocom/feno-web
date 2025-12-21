@@ -75,8 +75,9 @@ export function Toolbar({ onExport, getEditorContent }: ToolbarProps) {
                 : "auto",
             transition: {
                 type: "spring",
-                bounce: 0.2,
-                duration: 0.5,
+                stiffness: 300,
+                damping: 30,
+                mass: 1,
             },
         },
     };
@@ -158,6 +159,7 @@ export function Toolbar({ onExport, getEditorContent }: ToolbarProps) {
                             initial={{ opacity: 0 }}
                             animate={{ opacity: 1 }}
                             exit={{ opacity: 0 }}
+                            className="min-w-[700px]"
                         >
                             <SaveTemplatePanel
                                 onClose={() => setActivePanel(null)}
@@ -171,7 +173,7 @@ export function Toolbar({ onExport, getEditorContent }: ToolbarProps) {
                             initial={{ opacity: 0 }}
                             animate={{ opacity: 1 }}
                             exit={{ opacity: 0 }}
-                            className="w-full h-full flex flex-col"
+                            className="w-[90vw] h-full flex flex-col"
                          >
                             <TemplatesPanel
                                 onClose={() => {
