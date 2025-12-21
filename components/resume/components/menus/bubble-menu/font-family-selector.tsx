@@ -111,10 +111,10 @@ export const FontFamilySelector = ({ editor }: FontFamilySelectorProps) => {
                 </Button>
             </Popover.Trigger>
             <Popover.Content
-                className="p-0 bg-neutral-900 border border-neutral-800 w-60 overflow-hidden"
+                className="p-0 bg-white border border-black/10 w-[200px] overflow-hidden rounded-xl shadow-lg"
                 placement="bottom"
             >
-                <div className="p-2 border-b border-neutral-800">
+                <div className="p-2 border-b border-black/10">
                     <Input
                         placeholder="Search fonts..."
                         value={search}
@@ -122,10 +122,15 @@ export const FontFamilySelector = ({ editor }: FontFamilySelectorProps) => {
                             setSearch(e.target.value);
                             setPage(1);
                         }}
+                        size="sm"
+                        classNames={{
+                            inputWrapper: "bg-black/5 border-none shadow-none",
+                            input: "text-sm",
+                        }}
                     />
                 </div>
                 <div
-                    className="h-[280px] w-full p-1 overflow-y-auto"
+                    className="h-[324px] w-full p-1.5 overflow-y-auto"
                     onScroll={(e) => {
                         const { scrollTop, scrollHeight, clientHeight } =
                             e.currentTarget;
@@ -139,8 +144,8 @@ export const FontFamilySelector = ({ editor }: FontFamilySelectorProps) => {
                 >
                     {/* Standard/Popular Fonts Section */}
                     {!search && (
-                        <div className="mb-2">
-                            <div className="px-2 py-1 text-[10px] uppercase text-neutral-500 font-semibold tracking-wider">
+                        <div className="mb-1">
+                            <div className="px-2 py-1 text-[10px] uppercase text-black/40 font-semibold tracking-wider">
                                 Popular
                             </div>
                             {POPULAR_FONTS.map((font) => (
@@ -148,10 +153,10 @@ export const FontFamilySelector = ({ editor }: FontFamilySelectorProps) => {
                                     type="button"
                                     key={font}
                                     onClick={() => handleFontSelect(font)}
-                                    className={`w-full text-left px-2 py-1.5 rounded-md text-sm transition-colors flex items-center justify-between group ${
+                                    className={`w-full text-left px-2 py-1.5 rounded-lg text-sm transition-colors ${
                                         currentFont.includes(font)
-                                            ? "bg-white/10 text-white"
-                                            : "text-white/70 hover:bg-white/5 hover:text-white"
+                                            ? "bg-blue text-white"
+                                            : "text-fg-resting hover:bg-black/5 hover:text-fg-hovering"
                                     }`}
                                     style={{ fontFamily: font }}
                                 >
@@ -165,7 +170,7 @@ export const FontFamilySelector = ({ editor }: FontFamilySelectorProps) => {
                     {fonts.length > 0 && (
                         <div>
                             {!search && (
-                                <div className="px-2 py-1 text-[10px] uppercase text-neutral-500 font-semibold tracking-wider">
+                                <div className="px-2 py-1 text-[10px] uppercase text-black/40 font-semibold tracking-wider">
                                     Google Fonts
                                 </div>
                             )}
@@ -176,25 +181,25 @@ export const FontFamilySelector = ({ editor }: FontFamilySelectorProps) => {
                                     onClick={() =>
                                         handleFontSelect(font.family)
                                     }
-                                    className={`w-full text-left px-2 py-1.5 rounded-md text-sm transition-colors flex items-center justify-between group ${
+                                    className={`w-full text-left px-2 py-1.5 rounded-lg text-sm transition-colors ${
                                         currentFont.includes(font.family)
-                                            ? "bg-white text-black"
-                                            : "text-white hover:bg-white/5 hover:text-white"
+                                            ? "bg-blue text-white"
+                                            : "text-fg-resting hover:bg-black/5 hover:text-fg-hovering"
                                     }`}
                                 >
                                     {font.family}
                                 </button>
                             ))}
-                            <div className="h-4 w-full flex justify-center items-center">
+                            <div className="h-5 w-full flex justify-center items-center">
                                 {loading && (
-                                    <Spinner size="sm" color="current" />
+                                    <Spinner size="sm" color="primary" />
                                 )}
                             </div>
                         </div>
                     )}
 
                     {!loading && fonts.length === 0 && (
-                        <div className="p-4 text-center text-neutral-500 text-xs">
+                        <div className="p-4 text-center text-black/40 text-xs">
                             Loading fonts...
                         </div>
                     )}

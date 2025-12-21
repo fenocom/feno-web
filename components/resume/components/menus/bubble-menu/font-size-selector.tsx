@@ -42,10 +42,15 @@ export const FontSizeSelector = ({ editor }: FontSizeSelectorProps) => {
                 </Button>
             </Popover.Trigger>
             <Popover.Content
-                className="p-4 bg-neutral-900 border border-neutral-800 w-48"
+                className="p-4 bg-white border border-black/10 w-[162px] rounded-xl shadow-lg"
                 placement="top"
             >
-                <FontSlider value={currentSize} onChange={handleSizeChange} />
+                <div className="flex flex-col gap-3">
+                    <div className="text-center text-lg font-medium text-fg-hovering">
+                        {currentSize}px
+                    </div>
+                    <FontSlider value={currentSize} onChange={handleSizeChange} />
+                </div>
             </Popover.Content>
         </Popover>
     );
@@ -67,9 +72,9 @@ export function FontSlider({
             aria-label="Font Size"
             className="w-full"
         >
-            <Slider.Track className="h-1 bg-black rounded-full border border-transparent">
-                <Slider.Fill className="bg-white rounded-full" />
-                <Slider.Thumb className="w-3.5 h-3.5 bg-white border border-black rounded-full shadow-sm" />
+            <Slider.Track className="h-1.5 bg-black/10 rounded-full">
+                <Slider.Fill className="bg-blue rounded-full" />
+                <Slider.Thumb className="w-4 h-4 bg-white border-2 border-blue rounded-full shadow-md" />
             </Slider.Track>
         </Slider>
     );
