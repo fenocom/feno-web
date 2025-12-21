@@ -97,11 +97,7 @@ export function TemplatesPanel({ onClose, onSelect }: TemplatesPanelProps) {
 							placeholder="Filter by creator..."
 							value={filterAuthor}
 							onChange={(e) => setFilterAuthor(e.target.value)}
-							className="max-w-xs"
-							classNames={{
-								input: "pl-8 pr-8",
-								inputWrapper: "pl-8 pr-8"
-							}}
+							className="max-w-xs [&_input]:pl-8 [&_input]:pr-8"
 							size="sm"
 							variant="bordered"
 						/>
