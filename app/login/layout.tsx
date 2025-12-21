@@ -1,3 +1,5 @@
+import { AuthProvider } from "@/lib/auth/context";
+import { SpeedInsights } from "@vercel/speed-insights/next";
 import type { Metadata, Viewport } from "next";
 import {
 	Cormorant_Garamond,
@@ -6,8 +8,6 @@ import {
 } from "next/font/google";
 
 import "../globals.css";
-import { AuthProvider } from "@/lib/auth/context";
-import { SpeedInsights } from "@vercel/speed-insights/next";
 
 const hostGrotesk = Host_Grotesk({
 	variable: "--font-host",
@@ -28,20 +28,19 @@ const serif = Cormorant_Garamond({
 });
 
 export const metadata: Metadata = {
-	title: "Feno — Your Story, Beautifully Told",
-	description:
-		"Transform your resume into a stunning digital portfolio in minutes. Share your professional journey with style and impact.",
+	title: "Login — Feno",
+	description: "Sign in to access your resume builder",
 };
 
 export const viewport: Viewport = {
 	themeColor: "#ffffff",
 };
 
-export default function RootLayout({
+export default function LoginLayout({
 	children,
-}: Readonly<{
+}: {
 	children: React.ReactNode;
-}>) {
+}) {
 	return (
 		<html
 			lang="en"
