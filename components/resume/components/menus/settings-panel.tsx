@@ -1,7 +1,7 @@
 "use client";
 
 import { useAuth } from "@/lib/auth/context";
-import { Button, Separator } from "@heroui/react";
+import { Avatar, Button, Separator } from "@heroui/react";
 import { IconLogout, IconX } from "@tabler/icons-react";
 import { motion } from "framer-motion";
 
@@ -47,17 +47,13 @@ export function SettingsPanel({ onClose }: SettingsPanelProps) {
                 <div className="flex items-center justify-between gap-4">
                     {/* User Profile */}
                     <div className="flex items-center gap-3">
-                        {user.user_metadata?.avatar_url ? (
-                            <img
-                                src={user.user_metadata.avatar_url}
-                                alt="Avatar"
-                                className="w-10 h-10 rounded-full object-cover"
+                        <Avatar>
+                            <Avatar.Image
+                                src={user.user_metadata?.avatar_url}
+                                alt={getUserName()}
                             />
-                        ) : (
-                            <div className="w-10 h-10 rounded-full bg-neutral-900 text-white flex items-center justify-center text-sm font-medium">
-                                {getUserInitials()}
-                            </div>
-                        )}
+                            <Avatar.Fallback>{getUserInitials()}</Avatar.Fallback>
+                        </Avatar>
                         <div className="flex flex-col">
                             <div className="flex items-center gap-2">
                                 <span className="text-sm font-medium text-neutral-900">

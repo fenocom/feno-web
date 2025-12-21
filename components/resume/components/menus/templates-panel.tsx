@@ -120,19 +120,24 @@ export function TemplatesPanel({ onClose, onSelect }: TemplatesPanelProps) {
                 </div>
 
                 <div className="flex items-center gap-2">
-                    <Tooltip content={isExpanded ? "Collapse" : "Expand view"}>
-                        <Button
-                            isIconOnly
-                            size="sm"
-                            variant="light"
-                            onPress={() => setIsExpanded(!isExpanded)}
-                        >
-                            {isExpanded ? (
-                                <IconArrowsMinimize size={20} />
-                            ) : (
-                                <IconArrowsMaximize size={20} />
-                            )}
-                        </Button>
+                    <Tooltip>
+                        <Tooltip.Trigger>
+                            <Button
+                                isIconOnly
+                                size="sm"
+                                variant="light"
+                                onPress={() => setIsExpanded(!isExpanded)}
+                            >
+                                {isExpanded ? (
+                                    <IconArrowsMinimize size={20} />
+                                ) : (
+                                    <IconArrowsMaximize size={20} />
+                                )}
+                            </Button>
+                        </Tooltip.Trigger>
+                        <Tooltip.Content>
+                            <p>{isExpanded ? "Collapse" : "Expand view"}</p>
+                        </Tooltip.Content>
                     </Tooltip>
                     <Button
                         isIconOnly
@@ -195,11 +200,11 @@ export function TemplatesPanel({ onClose, onSelect }: TemplatesPanelProps) {
                                         </p>
                                     </div>
                                     {template.author && (
-                                        <Avatar
-                                            name={template.author}
-                                            size="sm"
-                                            className="w-6 h-6 text-[10px]"
-                                        />
+                                        <Avatar className="size-6 text-[10px]" size="sm">
+                                            <Avatar.Fallback>
+                                                {template.author.slice(0, 2).toUpperCase()}
+                                            </Avatar.Fallback>
+                                        </Avatar>
                                     )}
                                 </div>
                             </motion.div>
