@@ -28,7 +28,7 @@ export async function POST(request: Request) {
 		}
 
 		const body = await request.json();
-		const { resume_data } = body;
+		const { name, author, category, resume_data } = body;
 
 		if (!resume_data) {
 			return NextResponse.json(
@@ -42,6 +42,9 @@ export async function POST(request: Request) {
 			.from("resume_templates")
 			.insert({
 				creator_id: user.id,
+				name,
+				author,
+				category,
 				resume_data,
 			})
 			.select()
