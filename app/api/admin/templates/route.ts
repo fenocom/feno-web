@@ -68,14 +68,29 @@ export async function POST(request: Request) {
 	}
 }
 
-export async function GET() {
+export async function GET(request: Request) {
 	try {
+		const { searchParams } = new URL(request.url);
+		const page = Number.parseInt(searchParams.get("page") || "1");
+		const limit = Number.parseInt(searchParams.get("limit") || "10");
+		const author = searchParams.get("author");
+
 		const supabase = await createClient();
 
-		const { data, error } = await supabase
+		let query = supabase
 			.from("resume_templates")
-			.select("*")
-			.order("created_at", { ascending: false });
+			.select("*", { count: "exact" });
+
+		if (author) {
+			query = query.ilike("author", `%${author}%`);
+		}
+
+		const from = (page - 1) * limit;
+		const to = from + limit - 1;
+
+		const { data, error, count } = await query
+			.order("created_at", { ascending: false })
+			.range(from, to);
 
 		if (error) {
 			console.error("Error fetching templates:", error);
@@ -85,7 +100,14 @@ export async function GET() {
 			);
 		}
 
-		return NextResponse.json({ data });
+		return NextResponse.json({
+			data,
+			metadata: {
+				total: count,
+				page,
+				limit,
+			},
+		});
 	} catch (error) {
 		console.error("Error in GET /api/admin/templates:", error);
 		return NextResponse.json(
