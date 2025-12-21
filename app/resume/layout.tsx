@@ -1,8 +1,8 @@
 import type { Metadata, Viewport } from "next";
 import {
-	Cormorant_Garamond,
-	Host_Grotesk,
-	JetBrains_Mono,
+    Cormorant_Garamond,
+    Host_Grotesk,
+    JetBrains_Mono,
 } from "next/font/google";
 
 import "../globals.css";
@@ -10,50 +10,52 @@ import { AuthProvider } from "@/lib/auth/context";
 import { SpeedInsights } from "@vercel/speed-insights/next";
 
 const hostGrotesk = Host_Grotesk({
-	variable: "--font-host",
-	subsets: ["latin"],
-	weight: ["400", "500", "600", "700", "800"],
+    variable: "--font-host",
+    subsets: ["latin"],
+    weight: ["400", "500", "600", "700", "800"],
 });
 
 const jetbrains = JetBrains_Mono({
-	variable: "--font-jetbrains",
-	subsets: ["latin"],
-	weight: ["400", "500", "600", "700"],
+    variable: "--font-jetbrains",
+    subsets: ["latin"],
+    weight: ["400", "500", "600", "700"],
 });
 
 const serif = Cormorant_Garamond({
-	variable: "--font-serif",
-	subsets: ["latin"],
-	weight: "400",
+    variable: "--font-serif",
+    subsets: ["latin"],
+    weight: "400",
 });
 
 export const metadata: Metadata = {
-	title: "Feno — Your Story, Beautifully Told",
-	description:
-		"Transform your resume into a stunning digital portfolio in minutes. Share your professional journey with style and impact.",
+    title: "Feno — Your Story, Beautifully Told",
+    description:
+        "Transform your resume into a stunning digital portfolio in minutes. Share your professional journey with style and impact.",
 };
 
 export const viewport: Viewport = {
-	themeColor: "#ffffff",
+    themeColor: "#ffffff",
 };
 
 export default function RootLayout({
-	children,
+    children,
 }: Readonly<{
-	children: React.ReactNode;
+    children: React.ReactNode;
 }>) {
-	return (
-		<html
-			lang="en"
-			data-theme="light"
-			className={`light bg-background font-host ${hostGrotesk.variable} ${serif.variable} ${jetbrains.variable} antialiased`}
-		>
-			<body>
-				<AuthProvider>
-					<main className="w-full min-h-screen h-full">{children}</main>
-				</AuthProvider>
-			</body>
-			<SpeedInsights />
-		</html>
-	);
+    return (
+        <html
+            lang="en"
+            data-theme="light"
+            className={`light bg-background font-host ${hostGrotesk.variable} ${serif.variable} ${jetbrains.variable} antialiased`}
+        >
+            <body>
+                <AuthProvider>
+                    <main className="w-full min-h-screen h-full">
+                        {children}
+                    </main>
+                </AuthProvider>
+            </body>
+            <SpeedInsights />
+        </html>
+    );
 }

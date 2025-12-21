@@ -10,67 +10,67 @@ import { template as classicTemplate } from "../templates/classic/template";
 import { BubbleMenuGlobal } from "./menus/bubble-menu";
 
 export type ResumeEditorRef = {
-	editor: Editor | null;
-	exportPdf: () => void;
-	addPage: () => void;
+    editor: Editor | null;
+    exportPdf: () => void;
+    addPage: () => void;
 };
 
 interface ResumeEditorProps {
-	initialContent?: JSONContent;
-	readOnly?: boolean;
+    initialContent?: JSONContent;
+    readOnly?: boolean;
 }
 
 export const ResumeEditor = forwardRef<ResumeEditorRef, ResumeEditorProps>(
-	({ initialContent, readOnly = false }, ref) => {
-		const editor = useEditor({
-			content: initialContent || classicTemplate,
-			immediatelyRender: false,
-			editable: !readOnly,
-			extensions: extensionsConfig as Extensions,
-			editorProps: {
-				attributes: {
-					class: "outline-none p-0",
-				},
-			},
-		});
+    ({ initialContent, readOnly = false }, ref) => {
+        const editor = useEditor({
+            content: initialContent || classicTemplate,
+            immediatelyRender: false,
+            editable: !readOnly,
+            extensions: extensionsConfig as Extensions,
+            editorProps: {
+                attributes: {
+                    class: "outline-none p-0",
+                },
+            },
+        });
 
-		// Update editable state if readOnly prop changes
-		useEffect(() => {
-			if (editor) {
-				editor.setEditable(!readOnly);
-			}
-		}, [editor, readOnly]);
+        // Update editable state if readOnly prop changes
+        useEffect(() => {
+            if (editor) {
+                editor.setEditable(!readOnly);
+            }
+        }, [editor, readOnly]);
 
-		useImperativeHandle(ref, () => ({
-			editor: editor,
-			exportPdf: () => {
-				window.print();
-			},
-			addPage: () => {
-				if (!editor) return;
-				const endPos = editor.state.doc.content.size;
-				editor
-					.chain()
-					.insertContentAt(endPos, {
-						type: "page",
-						attrs: { format: "a4", backgroundColor: "#ffffff" },
-						content: [{ type: "paragraph" }],
-					})
-					.run();
-			},
-		}));
+        useImperativeHandle(ref, () => ({
+            editor: editor,
+            exportPdf: () => {
+                window.print();
+            },
+            addPage: () => {
+                if (!editor) return;
+                const endPos = editor.state.doc.content.size;
+                editor
+                    .chain()
+                    .insertContentAt(endPos, {
+                        type: "page",
+                        attrs: { format: "a4", backgroundColor: "#ffffff" },
+                        content: [{ type: "paragraph" }],
+                    })
+                    .run();
+            },
+        }));
 
-		return (
-			<>
-				{editor && !readOnly && <BubbleMenuGlobal editor={editor} />}
-				<div className="resume-page-export" id="resume-print-root">
-					<EditorContent
-						id="resume-container"
-						className="outline-none"
-						editor={editor}
-					/>
-				</div>
-			</>
-		);
-	},
+        return (
+            <>
+                {editor && !readOnly && <BubbleMenuGlobal editor={editor} />}
+                <div className="resume-page-export" id="resume-print-root">
+                    <EditorContent
+                        id="resume-container"
+                        className="outline-none"
+                        editor={editor}
+                    />
+                </div>
+            </>
+        );
+    },
 );
