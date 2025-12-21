@@ -78,7 +78,7 @@ export async function GET(request: Request) {
 
         let query = supabase
             .from("resume_templates")
-            .select("*", { count: "exact" });
+            .select("*, creator:profiles(avatar_url)", { count: "exact" });
 
         if (author) {
             query = query.ilike("author", `%${author}%`);
