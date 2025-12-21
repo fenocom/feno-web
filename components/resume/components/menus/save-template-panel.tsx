@@ -1,8 +1,13 @@
 "use client";
 
 import { useAuth } from "@/lib/auth/context";
-import { Button, Input } from "@heroui/react";
-import { IconCheck, IconDeviceFloppy, IconX } from "@tabler/icons-react";
+import { Avatar, Button, Input, Tooltip } from "@heroui/react";
+import {
+	IconArrowRight,
+	IconCheck,
+	IconDeviceFloppy,
+	IconX,
+} from "@tabler/icons-react";
 import type { JSONContent } from "@tiptap/core";
 import { motion } from "framer-motion";
 import { useEffect, useState } from "react";
@@ -84,20 +89,65 @@ export function SaveTemplatePanel({
 				<h3 className="text-lg font-semibold text-black">Save as Template</h3>
 				<Button
 					isIconOnly
-					variant="ghost"
 					size="sm"
+					variant="light"
 					onPress={onClose}
-					className="rounded-full"
+					className="min-w-8 w-8 h-8 text-neutral-500 hover:text-black rounded-full"
 				>
 					<IconX size={18} />
 				</Button>
 			</div>
 
 			<div className="flex flex-col md:flex-row gap-8">
-				<div className="shrink-0">
-					<TemplatePreview content={content} scale={0.35} />
+				{/* Left: Preview */}
+				<div className="flex-shrink-0">
+					<div className="relative rounded-xl overflow-hidden shadow-lg border border-neutral-200 bg-neutral-100 group">
+						<TemplatePreview content={content} scale={0.35} />
+
+						{/* Overlay - Bottom only */}
+						<div className="absolute bottom-0 left-0 right-0 z-20 h-40 flex flex-col justify-end p-4 bg-gradient-to-t from-black/90 via-black/40 to-transparent opacity-100 transition-opacity">
+							<div className="flex items-end justify-between">
+								<div>
+									<p className="text-white font-semibold text-sm shadow-black/50 drop-shadow-sm">
+										{name || "Untitled Template"}
+									</p>
+									<p className="text-white/70 text-xs">Resume</p>
+								</div>
+								<Tooltip
+									placement="top"
+									content={
+										<div className="px-1 py-2 min-w-[160px]">
+											<div className="flex items-center gap-2">
+												<Avatar
+													src={user?.user_metadata?.avatar_url}
+													name={author}
+													size="sm"
+												/>
+												<div>
+													<div className="text-small font-bold">{author}</div>
+													<div className="text-tiny text-neutral-500">
+														Creator
+													</div>
+												</div>
+											</div>
+										</div>
+									}
+								>
+									<div className="cursor-pointer ring-2 ring-white/20 rounded-full">
+										<Avatar
+											src={user?.user_metadata?.avatar_url}
+											name={author}
+											size="sm"
+											isBordered
+										/>
+									</div>
+								</Tooltip>
+							</div>
+						</div>
+					</div>
 				</div>
 
+				{/* Right: Form */}
 				<div className="flex-1 flex flex-col gap-5">
 					<div className="space-y-4 flex-1">
 						<div className="space-y-1.5">
@@ -116,20 +166,39 @@ export function SaveTemplatePanel({
 							<label className="text-xs font-semibold uppercase tracking-wider text-neutral-500 ml-1">
 								Author
 							</label>
-							<Input
-								placeholder="e.g., Jane Doe"
-								value={author}
-								onChange={(e) => setAuthor(e.target.value)}
-								className="w-full bg-neutral-50 hover:bg-neutral-100 focus-within:bg-white border-none shadow-none rounded-xl px-4 py-3 text-sm"
-							/>
+							<div className="flex items-center gap-3 p-3 bg-neutral-50 rounded-xl border border-neutral-100/50">
+								<Avatar
+									src={user?.user_metadata?.avatar_url}
+									name={author}
+									size="sm"
+								/>
+								<div className="flex flex-col">
+									<span className="text-sm font-medium text-neutral-900">
+										{author || "Unknown"}
+									</span>
+									<span className="text-xs text-neutral-500">
+										Template Creator
+									</span>
+								</div>
+							</div>
 						</div>
 					</div>
 
 					<div className="pt-4 mt-auto">
 						<Button
+							fullWidth
 							size="lg"
-							className={`font-semibold rounded-xl w-full text-white ${saveStatus === "success" ? "bg-green-600" : "bg-black"}`}
+							className={`font-semibold rounded-xl text-white ${saveStatus === "success" ? "bg-green-600" : "bg-black"}`}
+							isLoading={isSaving}
 							onPress={handleSave}
+							startContent={
+								!isSaving &&
+								(saveStatus === "success" ? (
+									<IconCheck />
+								) : (
+									<IconDeviceFloppy />
+								))
+							}
 						>
 							{saveStatus === "success"
 								? "Saved Successfully"
