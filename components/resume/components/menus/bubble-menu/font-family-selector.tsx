@@ -1,4 +1,4 @@
-import { Button, Input, Popover, Spinner } from "@heroui/react";
+import { Button, Input, Popover, } from "@heroui/react";
 import { IconChevronDown } from "@tabler/icons-react";
 import type { Editor } from "@tiptap/react";
 import { useEffect, useMemo, useState } from "react";
@@ -140,26 +140,45 @@ export const FontFamilySelector = ({ editor }: FontFamilySelectorProps) => {
                                 >
                                         {/* Standard/Popular Fonts Section */}
                                         {!search && (
-                                                <div className="mb-1">
-                                                        {POPULAR_FONTS.map((font) => (
-                                                                <button
-                                                                        type="button"
-                                                                        key={font}
-                                                                        onClick={() => handleFontSelect(font)}
-                                                                        className={`w-full text-left px-2 py-1.5 rounded-lg text-sm transition-colors ${currentFont.includes(font)
-                                                                                ? "bg-blue text-white"
-                                                                                : "text-fg-resting hover:bg-black/5 hover:text-fg-hovering"
-                                                                                }`}
-                                                                        style={{ fontFamily: font }}
-                                                                >
-                                                                        {font}
-                                                                </button>
-                                                        ))}
-                                                </div>
-                                        )}
-
-                                </div>
-                        </Popover.Content>
+                                                					<div className="mb-1">
+                                                							{POPULAR_FONTS.map((font) => (
+                                                								<button
+                                                									type="button"
+                                                									key={font}
+                                                									onClick={() => handleFontSelect(font)}
+                                                									className={`w-full text-left px-2 py-1.5 rounded-lg text-sm transition-colors ${
+                                                										currentFont.includes(font)
+                                                											? "bg-blue text-white"
+                                                											: "text-fg-resting hover:bg-black/5 hover:text-fg-hovering"
+                                                									}`}
+                                                									style={{ fontFamily: font }}
+                                                								>
+                                                									{font}
+                                                								</button>
+                                                							))}
+                                                						</div>
+                                                					)}
+                                                
+                                                					{/* Google Fonts Section */}
+                                                					<div className="pt-1 border-t border-black/5">
+                                                						{paginatedFonts.map((font) => (
+                                                							<button
+                                                								type="button"
+                                                								key={font.family}
+                                                								onClick={() => handleFontSelect(font.family)}
+                                                								className={`w-full text-left px-2 py-1.5 rounded-lg text-sm transition-colors ${
+                                                									currentFont.includes(font.family)
+                                                										? "bg-blue text-white"
+                                                										: "text-fg-resting hover:bg-black/5 hover:text-fg-hovering"
+                                                								}`}
+                                                								style={{ fontFamily: font.family }}
+                                                							>
+                                                								{font.family}
+                                                							</button>
+                                                						))}
+                                                					</div>
+                                                				</div>
+                                                			</Popover.Content>
                 </Popover>
         );
 };

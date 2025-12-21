@@ -9,6 +9,7 @@ import {
 	IconSearch,
 	IconX,
 } from "@tabler/icons-react";
+import type { JSONContent } from "@tiptap/core";
 import { AnimatePresence, motion } from "framer-motion";
 import { useEffect, useState } from "react";
 import { TemplatePreview } from "../template-preview";
@@ -18,7 +19,7 @@ interface Template {
 	name: string;
 	author: string;
 	category: string;
-	resume_data: any;
+	resume_data: JSONContent;
 	created_at: string;
 }
 

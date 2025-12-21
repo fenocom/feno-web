@@ -3,7 +3,6 @@
 import { useAuth } from "@/lib/auth/context";
 import { Avatar, Button, Input, Tooltip } from "@heroui/react";
 import {
-	IconArrowRight,
 	IconCheck,
 	IconDeviceFloppy,
 	IconX,
@@ -151,10 +150,11 @@ export function SaveTemplatePanel({
 				<div className="flex-1 flex flex-col gap-5">
 					<div className="space-y-4 flex-1">
 						<div className="space-y-1.5">
-							<label className="text-xs font-semibold uppercase tracking-wider text-neutral-500 ml-1">
+							<span className="block text-xs font-semibold uppercase tracking-wider text-neutral-500 ml-1">
 								Template Name
-							</label>
+							</span>
 							<Input
+								aria-label="Template Name"
 								placeholder="e.g., Professional Modern"
 								value={name}
 								onChange={(e) => setName(e.target.value)}
@@ -163,9 +163,9 @@ export function SaveTemplatePanel({
 						</div>
 
 						<div className="space-y-1.5">
-							<label className="text-xs font-semibold uppercase tracking-wider text-neutral-500 ml-1">
+							<span className="block text-xs font-semibold uppercase tracking-wider text-neutral-500 ml-1">
 								Author
-							</label>
+							</span>
 							<div className="flex items-center gap-3 p-3 bg-neutral-50 rounded-xl border border-neutral-100/50">
 								<Avatar
 									src={user?.user_metadata?.avatar_url}

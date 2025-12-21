@@ -1,6 +1,6 @@
 "use client";
 
-import { JSONContent } from "@tiptap/core";
+import type { JSONContent } from "@tiptap/core";
 import { ResumeEditor } from "./resume-editor";
 
 interface TemplatePreviewProps {
