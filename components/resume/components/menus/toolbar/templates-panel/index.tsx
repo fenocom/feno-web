@@ -31,12 +31,9 @@ export function TemplatesPanel({
         if (!scroller || isExpanded) return;
 
         const handleWheel = (e: WheelEvent) => {
-            if (e.deltaY === 0) return;
+            if (Math.abs(e.deltaY) < Math.abs(e.deltaX)) return;
             e.preventDefault();
-            scroller.scrollBy({
-                left: e.deltaY,
-                behavior: "auto",
-            });
+            scroller.scrollLeft += e.deltaY;
         };
 
         scroller.addEventListener("wheel", handleWheel, { passive: false });
