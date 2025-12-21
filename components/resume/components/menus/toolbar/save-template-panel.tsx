@@ -72,16 +72,16 @@ export function SaveTemplatePanel({
         };
 
         return (
-                <div className="p-6 overflow-hidden w-full h-full border-b border-black/10">
+                <div className="p-6 overflow-hidden w-full h-full">
                         <div className="flex items-center justify-between mb-6">
                                 <h3 className="text-lg font-semibold text-black">
                                         Save as Template
                                 </h3>
                                 <Button
                                         isIconOnly
+                                        variant="ghost"
                                         size="sm"
                                         onPress={onClose}
-                                        className="min-w-8 w-8 h-8 text-neutral-500 hover:text-black rounded-full"
                                 >
                                         <IconX size={18} />
                                 </Button>

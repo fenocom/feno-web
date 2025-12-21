@@ -1,9 +1,8 @@
 "use client";
 
 import { useAuth } from "@/lib/auth/context";
-import { Avatar, Button, Separator } from "@heroui/react";
+import { Avatar, Button } from "@heroui/react";
 import { IconLogout, IconX } from "@tabler/icons-react";
-import { motion } from "framer-motion";
 
 interface SettingsPanelProps {
         onClose: () => void;
@@ -36,7 +35,7 @@ export function SettingsPanel({ onClose }: SettingsPanelProps) {
         };
 
         return (
-                <div className="overflow-hidden w-full border-b border-black/10">
+                <div className="overflow-hidden w-full">
                         <div className="px-4 py-4">
                                 <div className="flex items-center justify-between gap-4">
                                         <div className="flex items-center gap-3">
