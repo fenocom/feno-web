@@ -89,17 +89,32 @@ export function TemplatesPanel({ onClose, onSelect }: TemplatesPanelProps) {
 			<div className="flex items-center justify-between gap-4 p-4 border-b border-black/5">
 				<div className="flex items-center gap-4 flex-1">
 					<h3 className="text-lg font-semibold whitespace-nowrap">Templates</h3>
-					<Input
-						placeholder="Filter by creator..."
-						startContent={<IconSearch size={16} className="text-neutral-400" />}
-						value={filterAuthor}
-						onChange={(e) => setFilterAuthor(e.target.value)}
-						className="max-w-xs"
-						size="sm"
-						variant="bordered"
-						isClearable
-						onClear={() => setFilterAuthor("")}
-					/>
+					<div className="relative group w-full max-w-xs">
+						<div className="absolute left-2.5 top-1/2 -translate-y-1/2 text-neutral-400 pointer-events-none z-10">
+							<IconSearch size={16} />
+						</div>
+						<Input
+							placeholder="Filter by creator..."
+							value={filterAuthor}
+							onChange={(e) => setFilterAuthor(e.target.value)}
+							className="max-w-xs"
+							classNames={{
+								input: "pl-8 pr-8",
+								inputWrapper: "pl-8 pr-8"
+							}}
+							size="sm"
+							variant="bordered"
+						/>
+						{filterAuthor && (
+							<button
+								type="button"
+								onClick={() => setFilterAuthor("")}
+								className="absolute right-2.5 top-1/2 -translate-y-1/2 text-neutral-400 hover:text-neutral-600 z-10 p-0.5 rounded-full hover:bg-neutral-100 transition-colors"
+							>
+								<IconX size={14} />
+							</button>
+						)}
+					</div>
 				</div>
 
 				<div className="flex items-center gap-2">
