@@ -1,0 +1,103 @@
+"use client";
+
+import { useAuth } from "@/lib/auth/context";
+import { Button, Separator } from "@heroui/react";
+import { IconLogout, IconX } from "@tabler/icons-react";
+import { motion } from "framer-motion";
+
+interface SettingsPanelProps {
+	onClose: () => void;
+}
+
+export function SettingsPanel({ onClose }: SettingsPanelProps) {
+	const { user, isAdmin, signOut } = useAuth();
+
+	if (!user) return null;
+
+	const handleSignOut = async () => {
+		await signOut();
+		onClose();
+	};
+
+	const getUserInitials = () => {
+		const name = user.user_metadata?.full_name || user.email || "";
+		return name
+			.split(" ")
+			.map((n: string) => n[0])
+			.join("")
+			.toUpperCase()
+			.slice(0, 2) || "?";
+	};
+
+	const getUserName = () => {
+		return user.user_metadata?.full_name || user.email?.split("@")[0] || "";
+	};
+
+	return (
+		<motion.div
+			initial={{ height: 0, opacity: 0 }}
+			animate={{ height: "auto", opacity: 1 }}
+			exit={{ height: 0, opacity: 0 }}
+			transition={{ duration: 0.15, ease: [0.4, 0, 0.2, 1] }}
+			className="overflow-hidden"
+		>
+			<div className="px-4 py-4">
+				<div className="flex items-center justify-between gap-4">
+					{/* User Profile */}
+					<div className="flex items-center gap-3">
+						{user.user_metadata?.avatar_url ? (
+							<img
+								src={user.user_metadata.avatar_url}
+								alt="Avatar"
+								className="w-10 h-10 rounded-full object-cover"
+							/>
+						) : (
+							<div className="w-10 h-10 rounded-full bg-neutral-900 text-white flex items-center justify-center text-sm font-medium">
+								{getUserInitials()}
+							</div>
+						)}
+						<div className="flex flex-col">
+							<div className="flex items-center gap-2">
+								<span className="text-sm font-medium text-neutral-900">
+									{getUserName()}
+								</span>
+								{isAdmin && (
+									<span className="px-2 py-0.5 text-[10px] font-semibold uppercase tracking-wide bg-neutral-900 text-white rounded-full">
+										Admin
+									</span>
+								)}
+							</div>
+							<span className="text-xs text-neutral-500">{user.email}</span>
+						</div>
+					</div>
+
+					{/* Actions */}
+					<div className="flex items-center gap-2">
+						<Button
+							size="sm"
+							variant="ghost"
+							onPress={handleSignOut}
+							className="h-8 px-3 rounded-lg text-red-600 hover:bg-red-50 font-medium flex items-center gap-1.5"
+						>
+							<IconLogout size={16} />
+							Sign out
+						</Button>
+						<Button
+							isIconOnly
+							size="sm"
+							variant="ghost"
+							onPress={onClose}
+							className="p-1 min-w-8 h-8 rounded-full text-black hover:bg-black/10"
+						>
+							<IconX size={18} />
+						</Button>
+					</div>
+				</div>
+			</div>
+
+			<div className="px-3">
+				<Separator className="w-full" />
+			</div>
+		</motion.div>
+	);
+}
