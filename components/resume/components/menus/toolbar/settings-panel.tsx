@@ -3,6 +3,7 @@
 import { useAuth } from "@/lib/auth/context";
 import { Avatar, Button } from "@heroui/react";
 import { IconLogout, IconX } from "@tabler/icons-react";
+import { GuestPanel } from "./guest-panel";
 
 interface SettingsPanelProps {
     onClose: () => void;
@@ -11,7 +12,9 @@ interface SettingsPanelProps {
 export function SettingsPanel({ onClose }: SettingsPanelProps) {
     const { user, isAdmin, signOut } = useAuth();
 
-    if (!user) return null;
+    if (!user) {
+        return <GuestPanel onClose={onClose} />;
+    }
 
     const handleSignOut = async () => {
         await signOut();
