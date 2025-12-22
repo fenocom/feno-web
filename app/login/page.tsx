@@ -1,8 +1,13 @@
 "use client";
 
 import { useAuth } from "@/lib/auth/context";
-import { Button } from "@heroui/react";
-import { IconBrandGoogle, IconMail } from "@tabler/icons-react";
+import { Button, InputGroup, Label, TextField } from "@heroui/react";
+import {
+    IconBrandGoogle,
+    IconLock,
+    IconMail,
+    IconUser,
+} from "@tabler/icons-react";
 import { motion } from "framer-motion";
 import { useRouter, useSearchParams } from "next/navigation";
 import { Suspense, useEffect, useState } from "react";
@@ -21,6 +26,7 @@ function LoginContent() {
 
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
+    const [fullName, setFullName] = useState("");
     const [isSignUp, setIsSignUp] = useState(false);
     const [formError, setFormError] = useState<string | null>(null);
     const [isSubmitting, setIsSubmitting] = useState(false);
@@ -40,7 +46,7 @@ function LoginContent() {
 
         try {
             if (isSignUp) {
-                const { error } = await signUpWithEmail(email, password);
+                const { error } = await signUpWithEmail(email, password, fullName);
                 if (error) {
                     setFormError(error);
                 } else {
@@ -100,42 +106,63 @@ function LoginContent() {
                         </div>
                     )}
 
-                    <form onSubmit={handleEmailAuth} className="space-y-4 mb-6">
-                        <div>
-                            <label
-                                htmlFor="email"
-                                className="block text-sm font-medium text-neutral-700 mb-1"
+                    <form onSubmit={handleEmailAuth} className="flex flex-col gap-4 mb-6">
+                        {isSignUp && (
+                            <motion.div
+                                initial={{ opacity: 0, height: 0 }}
+                                animate={{ opacity: 1, height: "auto" }}
+                                exit={{ opacity: 0, height: 0 }}
+                                className="overflow-hidden p-0.5 -m-0.5"
                             >
-                                Email
-                            </label>
-                            <input
-                                id="email"
-                                type="email"
-                                placeholder="you@example.com"
-                                value={email}
-                                onChange={(e) => setEmail(e.target.value)}
-                                required
-                                className="w-full px-4 py-3 border border-neutral-300 rounded-xl bg-white text-neutral-900 placeholder-neutral-400 focus:outline-none focus:ring-2 focus:ring-neutral-900 focus:border-transparent"
-                            />
-                        </div>
-                        <div>
-                            <label
-                                htmlFor="password"
-                                className="block text-sm font-medium text-neutral-700 mb-1"
-                            >
-                                Password
-                            </label>
-                            <input
-                                id="password"
-                                type="password"
-                                placeholder="Enter your password"
-                                value={password}
-                                onChange={(e) => setPassword(e.target.value)}
-                                required
-                                minLength={6}
-                                className="w-full px-4 py-3 border border-neutral-300 rounded-xl bg-white text-neutral-900 placeholder-neutral-400 focus:outline-none focus:ring-2 focus:ring-neutral-900 focus:border-transparent"
-                            />
-                        </div>
+                                <TextField
+                                    name="fullName"
+                                    value={fullName}
+                                    onChange={setFullName}
+                                    isRequired
+                                >
+                                    <Label>Full Name</Label>
+                                    <InputGroup>
+                                        <InputGroup.Prefix>
+                                            <IconUser className="size-4 text-neutral-400" />
+                                        </InputGroup.Prefix>
+                                        <InputGroup.Input placeholder="John Doe" />
+                                    </InputGroup>
+                                </TextField>
+                            </motion.div>
+                        )}
+
+                        <TextField
+                            name="email"
+                            type="email"
+                            value={email}
+                            onChange={setEmail}
+                            isRequired
+                        >
+                            <Label>Email</Label>
+                            <InputGroup>
+                                <InputGroup.Prefix>
+                                    <IconMail className="size-4 text-neutral-400" />
+                                </InputGroup.Prefix>
+                                <InputGroup.Input placeholder="you@example.com" />
+                            </InputGroup>
+                        </TextField>
+
+                        <TextField
+                            name="password"
+                            type="password"
+                            value={password}
+                            onChange={setPassword}
+                            isRequired
+                        >
+                            <Label>Password</Label>
+                            <InputGroup>
+                                <InputGroup.Prefix>
+                                    <IconLock className="size-4 text-neutral-400" />
+                                </InputGroup.Prefix>
+                                <InputGroup.Input placeholder="Enter your password" />
+                            </InputGroup>
+                        </TextField>
+
                         <Button
                             type="submit"
                             isDisabled={isSubmitting}
