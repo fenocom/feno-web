@@ -5,7 +5,7 @@ import { useCallback, useEffect, useRef, useState } from "react";
 import { Virtuoso, VirtuosoGrid } from "react-virtuoso";
 import { GridItem, HorizontalList } from "./grid-components";
 import { Header } from "./header";
-import { TemplateCard, type Template } from "./template-card";
+import { type Template, TemplateCard } from "./template-card";
 
 interface TemplatesPanelProps {
     onClose: () => void;
@@ -24,7 +24,7 @@ export function TemplatesPanel({
     const [isLoading, setIsLoading] = useState(false);
     const [hasMore, setHasMore] = useState(true);
     const [page, setPage] = useState(1);
-    const scrollerRef = useRef<HTMLDivElement>(null);
+    const scrollerRef = useRef<HTMLDivElement | null>(null);
 
     useEffect(() => {
         const scroller = scrollerRef.current;
@@ -113,7 +113,7 @@ export function TemplatesPanel({
                         horizontalDirection
                         scrollerRef={(ref) => {
                             if (ref instanceof HTMLDivElement) {
-                                (scrollerRef as any).current = ref;
+                                scrollerRef.current = ref;
                             }
                         }}
                         style={{

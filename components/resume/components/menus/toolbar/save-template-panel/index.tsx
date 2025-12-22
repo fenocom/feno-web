@@ -20,8 +20,9 @@ export function SaveTemplatePanel({
     const [name, setName] = useState("");
     const [author, setAuthor] = useState("");
     const [content, setContent] = useState<JSONContent | undefined>(undefined);
-    const [isSaving, setIsSaving] = useState(false);
-    const [saveStatus, setSaveStatus] = useState<"idle" | "success" | "error">("idle");
+    const [saveStatus, setSaveStatus] = useState<"idle" | "success" | "error">(
+        "idle",
+    );
 
     useEffect(() => {
         if (user?.user_metadata?.full_name) {
@@ -39,7 +40,6 @@ export function SaveTemplatePanel({
     const handleSave = async () => {
         if (!name.trim()) return;
 
-        setIsSaving(true);
         setSaveStatus("idle");
 
         try {
@@ -64,8 +64,6 @@ export function SaveTemplatePanel({
         } catch (error) {
             console.error("Error saving template:", error);
             setSaveStatus("error");
-        } finally {
-            setIsSaving(false);
         }
     };
 

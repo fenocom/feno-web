@@ -13,10 +13,16 @@ interface HeaderProps {
     onToggleExpand: () => void;
 }
 
-export const Header = ({ onClose, isExpanded, onToggleExpand }: HeaderProps) => (
+export const Header = ({
+    onClose,
+    isExpanded,
+    onToggleExpand,
+}: HeaderProps) => (
     <div className="flex items-center justify-between gap-4 px-4 py-2 border-b border-black/5 shrink-0 h-[52px]">
         <div className="flex items-center gap-4 flex-1">
-            <h3 className="text-lg font-semibold whitespace-nowrap">Templates</h3>
+            <h3 className="text-lg font-semibold whitespace-nowrap">
+                Templates
+            </h3>
         </div>
         <div className="flex items-center gap-2">
             <Tooltip>

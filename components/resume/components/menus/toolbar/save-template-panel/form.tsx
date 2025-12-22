@@ -40,13 +40,17 @@ export const Form = ({
                 <div className="flex items-center gap-3 p-3 bg-neutral-50 rounded-xl border border-neutral-100/50">
                     <Avatar size="sm">
                         <Avatar.Image src={avatarUrl} alt={author} />
-                        <Avatar.Fallback>{author.slice(0, 2).toUpperCase()}</Avatar.Fallback>
+                        <Avatar.Fallback>
+                            {author.slice(0, 2).toUpperCase()}
+                        </Avatar.Fallback>
                     </Avatar>
                     <div className="flex flex-col">
                         <span className="text-sm font-medium text-neutral-900">
                             {author || "Unknown"}
                         </span>
-                        <span className="text-xs text-neutral-500">Template Creator</span>
+                        <span className="text-xs text-neutral-500">
+                            Template Creator
+                        </span>
                     </div>
                 </div>
             </div>
@@ -57,7 +61,9 @@ export const Form = ({
                 className={`font-semibold rounded-xl text-white ${saveStatus === "success" ? "bg-green-600" : "bg-black"}`}
                 onPress={onSave}
             >
-                {saveStatus === "success" ? "Saved Successfully" : "Save Template"}
+                {saveStatus === "success"
+                    ? "Saved Successfully"
+                    : "Save Template"}
             </Button>
         </div>
     </div>

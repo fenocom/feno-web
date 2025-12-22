@@ -46,7 +46,11 @@ function LoginContent() {
 
         try {
             if (isSignUp) {
-                const { error } = await signUpWithEmail(email, password, fullName);
+                const { error } = await signUpWithEmail(
+                    email,
+                    password,
+                    fullName,
+                );
                 if (error) {
                     setFormError(error);
                 } else {
@@ -106,7 +110,10 @@ function LoginContent() {
                         </div>
                     )}
 
-                    <form onSubmit={handleEmailAuth} className="flex flex-col gap-4 mb-6">
+                    <form
+                        onSubmit={handleEmailAuth}
+                        className="flex flex-col gap-4 mb-6"
+                    >
                         {isSignUp && (
                             <motion.div
                                 initial={{ opacity: 0, height: 0 }}
