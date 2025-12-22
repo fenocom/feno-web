@@ -16,6 +16,7 @@ import { PortfolioButton } from "../../../components/portfolio-button";
 import { SaveTemplatePanel } from "./save-template-panel";
 import { SettingsPanel } from "./settings-panel";
 import { TemplatesPanel } from "./templates-panel";
+import { isAscii } from "buffer";
 
 interface ToolbarProps {
         onExport?: () => void;
@@ -73,7 +74,7 @@ export function Toolbar({ onExport, getEditorContent }: ToolbarProps) {
                 if (activePanel === "settings") {
                         return { width: "500px", height: "124px" };
                 }
-                return { width: "338px", height: "52px" };
+                return { width: isAdmin ? "338px" : "302px", height: "52px" };
         };
 
         const { width, height } = getDimensions();
