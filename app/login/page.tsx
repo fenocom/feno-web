@@ -121,52 +121,51 @@ function LoginContent() {
                                 exit={{ opacity: 0, height: 0 }}
                                 className="overflow-hidden p-0.5 -m-0.5"
                             >
-                                <TextField
-                                    name="fullName"
-                                    value={fullName}
-                                    onChange={setFullName}
-                                    isRequired
-                                >
+                                <TextField name="fullName" isRequired>
                                     <Label>Full Name</Label>
                                     <InputGroup>
                                         <InputGroup.Prefix>
                                             <IconUser className="size-4 text-neutral-400" />
                                         </InputGroup.Prefix>
-                                        <InputGroup.Input placeholder="John Doe" />
+                                        <InputGroup.Input
+                                            placeholder="John Doe"
+                                            value={fullName}
+                                            onChange={(e) =>
+                                                setFullName(e.target.value)
+                                            }
+                                        />
                                     </InputGroup>
                                 </TextField>
                             </motion.div>
                         )}
 
-                        <TextField
-                            name="email"
-                            type="email"
-                            value={email}
-                            onChange={setEmail}
-                            isRequired
-                        >
+                        <TextField name="email" type="email" isRequired>
                             <Label>Email</Label>
                             <InputGroup>
                                 <InputGroup.Prefix>
                                     <IconMail className="size-4 text-neutral-400" />
                                 </InputGroup.Prefix>
-                                <InputGroup.Input placeholder="you@example.com" />
+                                <InputGroup.Input
+                                    placeholder="you@example.com"
+                                    value={email}
+                                    onChange={(e) => setEmail(e.target.value)}
+                                />
                             </InputGroup>
                         </TextField>
 
-                        <TextField
-                            name="password"
-                            type="password"
-                            value={password}
-                            onChange={setPassword}
-                            isRequired
-                        >
+                        <TextField name="password" type="password" isRequired>
                             <Label>Password</Label>
                             <InputGroup>
                                 <InputGroup.Prefix>
                                     <IconLock className="size-4 text-neutral-400" />
                                 </InputGroup.Prefix>
-                                <InputGroup.Input placeholder="Enter your password" />
+                                <InputGroup.Input
+                                    placeholder="Enter your password"
+                                    value={password}
+                                    onChange={(e) =>
+                                        setPassword(e.target.value)
+                                    }
+                                />
                             </InputGroup>
                         </TextField>
 

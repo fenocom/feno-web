@@ -34,7 +34,6 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     const [isLoading, setIsLoading] = useState(true);
     const supabase = createClient();
 
-    // Admin is determined by app_metadata.role set via Supabase
     const isAdmin = user?.app_metadata?.role === "admin";
 
     useEffect(() => {
@@ -45,7 +44,6 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
             setIsLoading(false);
         });
 
-        // Initial session check
         supabase.auth.getSession().then(({ data: { session } }) => {
             setUser(session?.user ?? null);
             setIsLoading(false);
