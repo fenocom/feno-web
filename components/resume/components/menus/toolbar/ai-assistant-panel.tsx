@@ -1,7 +1,7 @@
 "use client";
 
 import { AiIcon } from "@/components/common/ai-icon";
-import { Button, TextArea } from "@heroui/react";
+import { Button, Dropdown, Label, TextArea } from "@heroui/react";
 import { IconEye, IconPaperclip, IconSend } from "@tabler/icons-react";
 import { useState } from "react";
 
@@ -9,16 +9,23 @@ interface AiAssistantPanelProps {
     onClose: () => void;
 }
 
+const MODELS = [
+    { id: "llama3", label: "Llama 3" },
+    { id: "deepseek", label: "DeepSeek" },
+    { id: "mistral", label: "Mistral" },
+];
+
 export const AiAssistantPanel = ({ onClose }: AiAssistantPanelProps) => {
     const [prompt, setPrompt] = useState("");
     const [selectedModel, setSelectedModel] = useState<string>("llama3");
 
     const handleSend = async () => {
         // Implement send logic here
-        console.log("Sending:", prompt, "Model:", selectedModel);
-        // Reset or close? "dont show chat history" implies one-off or just input.
         setPrompt("");
     };
+
+    const currentModelLabel =
+        MODELS.find((m) => m.id === selectedModel)?.label || selectedModel;
 
     return (
         <div className="w-full h-full flex flex-col p-4 gap-4">
@@ -29,35 +36,54 @@ export const AiAssistantPanel = ({ onClose }: AiAssistantPanelProps) => {
                 </div>
                 {/* Model Switcher */}
                 <div className="w-40">
-                    <div className="relative">
-                        <select
-                            aria-label="Select Model"
-                            className="w-full bg-black/5 border-none h-8 min-h-8 text-xs rounded-lg px-2 appearance-none outline-none cursor-pointer hover:bg-black/10 transition-colors"
-                            value={selectedModel}
-                            onChange={(e) => setSelectedModel(e.target.value)}
-                        >
-                            <option value="llama3">Llama 3</option>
-                            <option value="deepseek">DeepSeek</option>
-                            <option value="mistral">Mistral</option>
-                        </select>
-                        <div className="absolute right-2 top-1/2 -translate-y-1/2 pointer-events-none">
-                            <svg
-                                width="10"
-                                height="6"
-                                viewBox="0 0 10 6"
-                                fill="none"
-                                xmlns="http://www.w3.org/2000/svg"
+                    <Dropdown>
+                        <Dropdown.Trigger>
+                            <Button
+                                size="sm"
+                                variant="ghost"
+                                className="w-full bg-black/5 border-none h-8 min-h-8 text-xs rounded-lg px-3 justify-between font-normal"
                             >
-                                <path
-                                    d="M1 1L5 5L9 1"
-                                    stroke="currentColor"
-                                    strokeWidth="1.5"
-                                    strokeLinecap="round"
-                                    strokeLinejoin="round"
-                                />
-                            </svg>
-                        </div>
-                    </div>
+                                {currentModelLabel}
+                                <svg
+                                    width="10"
+                                    height="6"
+                                    viewBox="0 0 10 6"
+                                    fill="none"
+                                    xmlns="http://www.w3.org/2000/svg"
+                                    className="ml-2"
+                                >
+                                    <path
+                                        d="M1 1L5 5L9 1"
+                                        stroke="currentColor"
+                                        strokeWidth="1.5"
+                                        strokeLinecap="round"
+                                        strokeLinejoin="round"
+                                    />
+                                </svg>
+                            </Button>
+                        </Dropdown.Trigger>
+                        <Dropdown.Popover>
+                            <Dropdown.Menu
+                                onAction={(key) =>
+                                    setSelectedModel(key as string)
+                                }
+                                selectionMode="single"
+                                selectedKeys={[selectedModel]}
+                            >
+                                {MODELS.map((model) => (
+                                    <Dropdown.Item
+                                        id={model.id}
+                                        key={model.id}
+                                        textValue={model.label}
+                                    >
+                                        <Label className="text-xs cursor-pointer">
+                                            {model.label}
+                                        </Label>
+                                    </Dropdown.Item>
+                                ))}
+                            </Dropdown.Menu>
+                        </Dropdown.Popover>
+                    </Dropdown>
                 </div>
             </div>
 
