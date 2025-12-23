@@ -23,7 +23,7 @@ export function injectResumeData(
             return;
         }
 
-        let marks: any[] | undefined;
+        let marks: JSONContent["marks"];
         if (node.content && node.content.length > 0) {
             const textNode = node.content.find((n) => n.type === "text");
             if (textNode?.marks) {

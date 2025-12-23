@@ -1,6 +1,6 @@
+import { ratelimit } from "@/lib/ratelimit";
 import { createServerClient } from "@supabase/ssr";
 import { type NextRequest, NextResponse } from "next/server";
-import { ratelimit } from "@/lib/ratelimit";
 
 export async function proxy(request: NextRequest) {
     let response = NextResponse.next({
@@ -33,9 +33,12 @@ export async function proxy(request: NextRequest) {
     await supabase.auth.getUser();
 
     if (ratelimit && request.nextUrl.pathname.startsWith("/api")) {
-        const ip = request.headers.get("x-forwarded-for")?.split(",")[0]?.trim() ?? "127.0.0.1";
+        const ip =
+            request.headers.get("x-forwarded-for")?.split(",")[0]?.trim() ??
+            "localhost";
         try {
-            const { success, limit, reset, remaining } = await ratelimit.limit(ip);
+            const { success, limit, reset, remaining } =
+                await ratelimit.limit(ip);
 
             if (!success) {
                 return new NextResponse("Too Many Requests", {

@@ -1,16 +1,14 @@
 import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
-    /* config options here */
     images: {
         remotePatterns: [
             {
                 protocol: "http",
-                hostname: "127.0.0.1",
+                hostname: "localhost",
                 port: "54321",
             },
             {
-                // TODO: Replace with your production supabase url
                 protocol: "https",
                 hostname: "*.supabase.co",
             },
@@ -29,7 +27,6 @@ const nextConfig: NextConfig = {
         },
     },
     webpack: (config) => {
-        // Enable WebAssembly
         config.experiments = { ...config.experiments, asyncWebAssembly: true };
 
         // Handle PDF.js worker and related files
