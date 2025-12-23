@@ -52,7 +52,9 @@ export const PreviewCard = ({
                                                 alt={author}
                                             />
                                             <Avatar.Fallback>
-                                                {author.slice(0, 2).toUpperCase()}
+                                                {author
+                                                    .slice(0, 2)
+                                                    .toUpperCase()}
                                             </Avatar.Fallback>
                                         </Avatar>
                                         <div>

@@ -78,7 +78,11 @@ export function SaveTemplatePanel({
                     content={content}
                     name={name}
                     author={isAnonymous ? "Anonymous" : author}
-                    avatarUrl={isAnonymous ? undefined : (user?.user_metadata?.avatar_url || "")}
+                    avatarUrl={
+                        isAnonymous
+                            ? undefined
+                            : user?.user_metadata?.avatar_url || ""
+                    }
                 />
                 <Form
                     name={name}

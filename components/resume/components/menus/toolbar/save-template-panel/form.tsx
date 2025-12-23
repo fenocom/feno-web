@@ -1,6 +1,14 @@
 "use client";
 
-import { Avatar, Button, ComboBox, Input, Label, ListBox, Switch } from "@heroui/react";
+import {
+    Avatar,
+    Button,
+    ComboBox,
+    Input,
+    Label,
+    ListBox,
+    Switch,
+} from "@heroui/react";
 
 interface FormProps {
     name: string;
@@ -16,8 +24,16 @@ interface FormProps {
 }
 
 const TIER_OPTIONS = [
-    { key: 0, text: "Tier 0 - Public (Free)", description: "Free for everyone" },
-    { key: 1, text: "Tier 1 - Logged In (Free)", description: "Free for signed up users" },
+    {
+        key: 0,
+        text: "Tier 0 - Public (Free)",
+        description: "Free for everyone",
+    },
+    {
+        key: 1,
+        text: "Tier 1 - Logged In (Free)",
+        description: "Free for signed up users",
+    },
     { key: 2, text: "Tier 2 - Premium", description: "Paid subscribers only" },
 ];
 
@@ -48,15 +64,17 @@ export const Form = ({
                         className="w-full bg-neutral-50 hover:bg-neutral-100 focus-within:bg-white border-none shadow-none rounded-xl px-4 py-3 text-sm"
                     />
                 </div>
-                
+
                 <div className="space-y-1.5">
-                    <ComboBox 
-                        selectedKey={tier.toString()} 
+                    <ComboBox
+                        selectedKey={tier.toString()}
                         onSelectionChange={(key) => key && setTier(Number(key))}
                         defaultSelectedKey="0"
                         aria-label="Access Tier"
                     >
-                        <Label className="block text-xs font-semibold uppercase tracking-wider text-neutral-500 ml-1 mb-1.5">Access Tier</Label>
+                        <Label className="block text-xs font-semibold uppercase tracking-wider text-neutral-500 ml-1 mb-1.5">
+                            Access Tier
+                        </Label>
                         <ComboBox.InputGroup>
                             <Input className="w-full bg-neutral-50 hover:bg-neutral-100 focus-within:bg-white border-none shadow-none rounded-xl px-4 py-3 text-sm" />
                             <ComboBox.Trigger />
@@ -64,10 +82,18 @@ export const Form = ({
                         <ComboBox.Popover>
                             <ListBox>
                                 {TIER_OPTIONS.map((option) => (
-                                    <ListBox.Item id={option.key.toString()} key={option.key} textValue={option.text}>
+                                    <ListBox.Item
+                                        id={option.key.toString()}
+                                        key={option.key}
+                                        textValue={option.text}
+                                    >
                                         <div className="flex flex-col">
-                                            <span className="text-sm font-medium">{option.text}</span>
-                                            <span className="text-xs text-neutral-500">{option.description}</span>
+                                            <span className="text-sm font-medium">
+                                                {option.text}
+                                            </span>
+                                            <span className="text-xs text-neutral-500">
+                                                {option.description}
+                                            </span>
                                         </div>
                                         <ListBox.ItemIndicator />
                                     </ListBox.Item>
@@ -81,30 +107,44 @@ export const Form = ({
                     <span className="block text-xs font-semibold uppercase tracking-wider text-neutral-500 ml-1">
                         Author
                     </span>
-                    <div className={`flex flex-col gap-4 p-3 bg-neutral-50 rounded-xl border border-neutral-100/50 transition-opacity ${isAnonymous ? 'opacity-50' : 'opacity-100'}`}>
+                    <div
+                        className={`flex flex-col gap-4 p-3 bg-neutral-50 rounded-xl border border-neutral-100/50 transition-opacity ${isAnonymous ? "opacity-50" : "opacity-100"}`}
+                    >
                         <div className="flex items-center gap-3">
                             <Avatar size="sm">
-                                <Avatar.Image src={isAnonymous ? undefined : avatarUrl} alt={author} />
+                                <Avatar.Image
+                                    src={isAnonymous ? undefined : avatarUrl}
+                                    alt={author}
+                                />
                                 <Avatar.Fallback>
-                                    {isAnonymous ? "?" : author.slice(0, 2).toUpperCase()}
+                                    {isAnonymous
+                                        ? "?"
+                                        : author.slice(0, 2).toUpperCase()}
                                 </Avatar.Fallback>
                             </Avatar>
                             <div className="flex flex-col">
                                 <span className="text-sm font-medium text-neutral-900">
-                                    {isAnonymous ? "Anonymous" : (author || "Unknown")}
+                                    {isAnonymous
+                                        ? "Anonymous"
+                                        : author || "Unknown"}
                                 </span>
                                 <span className="text-xs text-neutral-500">
                                     Template Creator
                                 </span>
                             </div>
                         </div>
-                        
+
                         <div className="pt-2 border-t border-neutral-200/50">
-                            <Switch isSelected={isAnonymous} onChange={setIsAnonymous}>
+                            <Switch
+                                isSelected={isAnonymous}
+                                onChange={setIsAnonymous}
+                            >
                                 <Switch.Control>
                                     <Switch.Thumb />
                                 </Switch.Control>
-                                <Label className="text-sm font-medium text-neutral-700">Anonymous Author</Label>
+                                <Label className="text-sm font-medium text-neutral-700">
+                                    Anonymous Author
+                                </Label>
                             </Switch>
                         </div>
                     </div>
