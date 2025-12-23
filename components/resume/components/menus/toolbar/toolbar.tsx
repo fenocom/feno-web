@@ -13,6 +13,7 @@ import clsx from "clsx";
 import { motion } from "framer-motion";
 import { useEffect, useRef, useState } from "react";
 import { PortfolioButton } from "../../../components/portfolio-button";
+import { AiAssistantPanel } from "./ai-assistant-panel";
 import { SaveTemplatePanel } from "./save-template-panel";
 import { SettingsPanel } from "./settings-panel";
 import { TemplatesPanel } from "./templates-panel";
@@ -22,16 +23,14 @@ interface ToolbarProps {
     onExport?: () => void;
     getEditorContent?: () => unknown;
     onTemplateSelect?: (template: Template) => void;
-    onToggleAiMode?: () => void;
 }
 
-type ActivePanel = "templates" | "settings" | "save" | null;
+type ActivePanel = "templates" | "settings" | "save" | "ai" | null;
 
 export function Toolbar({
     onExport,
     getEditorContent,
     onTemplateSelect,
-    onToggleAiMode,
 }: ToolbarProps) {
     const { isAdmin } = useAuth();
     const [activePanel, setActivePanel] = useState<ActivePanel>(null);
@@ -80,6 +79,9 @@ export function Toolbar({
         }
         if (activePanel === "settings") {
             return { width: "500px", height: "124px" };
+        }
+        if (activePanel === "ai") {
+            return { width: "500px", height: "350px" };
         }
         return { width: isAdmin ? "338px" : "302px", height: "52px" };
     };
@@ -152,6 +154,16 @@ export function Toolbar({
                 >
                     <SettingsPanel onClose={() => setActivePanel(null)} />
                 </div>
+                <div
+                    className={clsx(
+                        "w-full h-full transition-opacity duration-300",
+                        activePanel === "ai"
+                            ? "relative z-10 opacity-100"
+                            : "absolute inset-0 invisible opacity-0 pointer-events-none",
+                    )}
+                >
+                    <AiAssistantPanel onClose={() => setActivePanel(null)} />
+                </div>
             </div>
             <div
                 className={clsx(
@@ -163,8 +175,10 @@ export function Toolbar({
                     <div className="flex gap-2 items-center px-3 py-2 whitespace-nowrap">
                         <Button
                             isIconOnly
-                            className="bg-transparent data-[hover=true]:bg-black/5 min-w-fit w-fit h-fit p-1 rounded-full"
-                            onPress={onToggleAiMode}
+                            className={`bg-transparent data-[hover=true]:bg-black/5 min-w-fit w-fit h-fit p-1 rounded-full ${
+                                activePanel === "ai" ? "bg-black/5" : ""
+                            }`}
+                            onPress={() => togglePanel("ai")}
                         >
                             <AiIcon size={28} />
                         </Button>
