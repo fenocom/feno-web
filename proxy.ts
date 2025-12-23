@@ -1,8 +1,9 @@
 import { createServerClient } from "@supabase/ssr";
 import { type NextRequest, NextResponse } from "next/server";
+import { ratelimit } from "@/lib/ratelimit";
 
 export async function proxy(request: NextRequest) {
-    let supabaseResponse = NextResponse.next({
+    let response = NextResponse.next({
         request,
     });
 
@@ -18,21 +19,44 @@ export async function proxy(request: NextRequest) {
                     for (const { name, value } of cookiesToSet) {
                         request.cookies.set(name, value);
                     }
-                    supabaseResponse = NextResponse.next({
+                    response = NextResponse.next({
                         request,
                     });
                     for (const { name, value, options } of cookiesToSet) {
-                        supabaseResponse.cookies.set(name, value, options);
+                        response.cookies.set(name, value, options);
                     }
                 },
             },
         },
     );
 
-    // Refresh session if expired
     await supabase.auth.getUser();
 
-    return supabaseResponse;
+    if (request.nextUrl.pathname.startsWith("/api")) {
+        const ip = request.headers.get("x-forwarded-for")?.split(",")[0]?.trim() ?? "127.0.0.1";
+        try {
+            const { success, limit, reset, remaining } = await ratelimit.limit(ip);
+
+            if (!success) {
+                return new NextResponse("Too Many Requests", {
+                    status: 429,
+                    headers: {
+                        "X-RateLimit-Limit": limit.toString(),
+                        "X-RateLimit-Remaining": remaining.toString(),
+                        "X-RateLimit-Reset": reset.toString(),
+                    },
+                });
+            }
+
+            response.headers.set("X-RateLimit-Limit", limit.toString());
+            response.headers.set("X-RateLimit-Remaining", remaining.toString());
+            response.headers.set("X-RateLimit-Reset", reset.toString());
+        } catch (error) {
+            console.error("Rate limit error:", error);
+        }
+    }
+
+    return response;
 }
 
 export const config = {
