@@ -1,6 +1,6 @@
 "use client";
 
-import { Avatar } from "@heroui/react";
+import { Avatar, Button } from "@heroui/react";
 import type { JSONContent } from "@tiptap/core";
 import { TemplatePreview } from "../../../template-preview";
 
@@ -27,10 +27,7 @@ export const TemplateCard = ({
     onSelect,
     scale = 0.28,
 }: TemplateCardProps) => (
-    <div
-        className="p-1 border w-fit backdrop-blur-lg bg-black/2 h-fit border-black/10 rounded-xl cursor-pointer group relative transition-all overflow-hidden hover:border-black/20"
-        onClick={() => onSelect?.(template)}
-    >
+    <div className="p-1 border w-fit backdrop-blur-lg bg-black/2 h-fit border-black/10 rounded-xl group relative transition-all overflow-hidden hover:border-black/20">
         <div className="w-fit h-fit pointer-events-none overflow-hidden">
             <TemplatePreview
                 content={template.resume_data}
@@ -39,6 +36,17 @@ export const TemplateCard = ({
             />
         </div>
         <div className="absolute inset-0 bg-black/0 group-hover:bg-black/2 transition-colors" />
+
+        <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300 z-30">
+            <Button
+                size="sm"
+                className="font-medium bg-white text-black shadow-lg"
+                onPress={() => onSelect?.(template)}
+            >
+                Select
+            </Button>
+        </div>
+
         <div className="absolute bottom-0 left-0 right-0 z-20 h-32 flex rounded-xl flex-col justify-end p-4 bg-gradient-to-t from-black/90 via-black/40 to-transparent translate-y-full group-hover:translate-y-0 transition-transform duration-300">
             <div className="flex items-end justify-between">
                 <div className="flex-1 min-w-0">

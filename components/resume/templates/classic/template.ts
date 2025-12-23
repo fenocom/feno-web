@@ -19,6 +19,7 @@ export const template = {
                             "margin-bottom": "4px",
                             "font-family": "Georgia, serif",
                         },
+                        "data-feno-field": "name",
                     },
                     content: [{ type: "text", text: "ALEXANDER MORGAN" }],
                 },
@@ -33,6 +34,7 @@ export const template = {
                             "margin-bottom": "2px",
                             "font-family": "Georgia, serif",
                         },
+                        "data-feno-field": "contact-combined",
                     },
                     content: [
                         {
@@ -52,6 +54,7 @@ export const template = {
                             "margin-bottom": "14px",
                             "font-family": "Georgia, serif",
                         },
+                        "data-feno-field": "website",
                     },
                     content: [
                         {
@@ -82,6 +85,7 @@ export const template = {
                         styles: {
                             "font-family": "Georgia, serif",
                         },
+                        "data-feno-field": "summary",
                     },
                     content: [
                         {
@@ -105,53 +109,106 @@ export const template = {
                 },
 
                 {
-                    type: "paragraph",
-                    attrs: {
-                        styles: {
-                            "font-weight": "700",
-                            "font-size": "14px",
-                            "margin-top": "8px",
-                            "font-family": "Georgia, serif",
-                        },
-                    },
-                    content: [
-                        {
-                            type: "text",
-                            text: "TechNova Solutions — Frontend Engineer",
-                        },
-                    ],
-                },
-
-                {
-                    type: "paragraph",
-                    attrs: {
-                        styles: {
-                            "font-size": "12px",
-                            color: "#555",
-                            "margin-bottom": "6px",
-                            "font-family": "Georgia, serif",
-                        },
-                    },
-                    content: [{ type: "text", text: "Jul 2022 – Present" }],
-                },
-
-                {
                     type: "bulletList",
                     attrs: {
+                        "data-feno-section": "experience",
                         styles: {
-                            "font-family": "Georgia, serif",
+                            "list-style-type": "none",
+                            "margin-left": "0",
+                            "padding-left": "0",
                         },
                     },
                     content: [
                         {
                             type: "listItem",
+                            attrs: { "data-feno-scope": "item", class: "pl-0" },
                             content: [
                                 {
                                     type: "paragraph",
+                                    attrs: {
+                                        styles: {
+                                            "font-weight": "700",
+                                            "font-size": "14px",
+                                            "margin-top": "8px",
+                                            "font-family": "Georgia, serif",
+                                        },
+                                        "data-feno-field": "exp-role",
+                                    },
                                     content: [
                                         {
                                             type: "text",
-                                            text: "Optimized React components serving 200k+ monthly users, improving speed by 32%.",
+                                            text: "TechNova Solutions — Frontend Engineer",
+                                        },
+                                    ],
+                                },
+                                {
+                                    type: "paragraph",
+                                    attrs: {
+                                        styles: {
+                                            "font-size": "12px",
+                                            color: "#555",
+                                            "margin-bottom": "6px",
+                                            "font-family": "Georgia, serif",
+                                        },
+                                        "data-feno-field": "exp-date",
+                                    },
+                                    content: [
+                                        {
+                                            type: "text",
+                                            text: "Jul 2022 – Present",
+                                        },
+                                    ],
+                                },
+                                {
+                                    type: "bulletList",
+                                    attrs: {
+                                        styles: {
+                                            "font-family": "Georgia, serif",
+                                        },
+                                        "data-feno-field": "exp-desc",
+                                    },
+                                    content: [
+                                        {
+                                            type: "listItem",
+                                            content: [
+                                                {
+                                                    type: "paragraph",
+                                                    content: [
+                                                        {
+                                                            type: "text",
+                                                            text: "Optimized React components serving 200k+ monthly users, improving speed by 32%.",
+                                                        },
+                                                    ],
+                                                },
+                                            ],
+                                        },
+                                        {
+                                            type: "listItem",
+                                            content: [
+                                                {
+                                                    type: "paragraph",
+                                                    content: [
+                                                        {
+                                                            type: "text",
+                                                            text: "Migrated 30+ modules from JS → TS reducing runtime bugs by 40%.",
+                                                        },
+                                                    ],
+                                                },
+                                            ],
+                                        },
+                                        {
+                                            type: "listItem",
+                                            content: [
+                                                {
+                                                    type: "paragraph",
+                                                    content: [
+                                                        {
+                                                            type: "text",
+                                                            text: "Designed reusable UI systems in Tailwind + Radix UI reducing dev time by 25%.",
+                                                        },
+                                                    ],
+                                                },
+                                            ],
                                         },
                                     ],
                                 },
@@ -159,83 +216,66 @@ export const template = {
                         },
                         {
                             type: "listItem",
+                            attrs: { "data-feno-scope": "item", class: "pl-0" },
                             content: [
                                 {
                                     type: "paragraph",
+                                    attrs: {
+                                        styles: {
+                                            "font-weight": "700",
+                                            "font-size": "14px",
+                                            "margin-top": "14px",
+                                            "font-family": "Georgia, serif",
+                                        },
+                                        "data-feno-field": "exp-role",
+                                    },
                                     content: [
                                         {
                                             type: "text",
-                                            text: "Migrated 30+ modules from JS → TS reducing runtime bugs by 40%.",
+                                            text: "BrightLabs — Software Engineer Intern",
                                         },
                                     ],
                                 },
-                            ],
-                        },
-                        {
-                            type: "listItem",
-                            content: [
                                 {
                                     type: "paragraph",
+                                    attrs: {
+                                        styles: {
+                                            "font-size": "12px",
+                                            color: "#555",
+                                            "margin-bottom": "6px",
+                                            "font-family": "Georgia, serif",
+                                        },
+                                        "data-feno-field": "exp-date",
+                                    },
                                     content: [
                                         {
                                             type: "text",
-                                            text: "Designed reusable UI systems in Tailwind + Radix UI reducing dev time by 25%.",
+                                            text: "Jan 2022 – Jun 2022",
                                         },
                                     ],
                                 },
-                            ],
-                        },
-                    ],
-                },
-
-                {
-                    type: "paragraph",
-                    attrs: {
-                        styles: {
-                            "font-weight": "700",
-                            "font-size": "14px",
-                            "margin-top": "14px",
-                            "font-family": "Georgia, serif",
-                        },
-                    },
-                    content: [
-                        {
-                            type: "text",
-                            text: "BrightLabs — Software Engineer Intern",
-                        },
-                    ],
-                },
-
-                {
-                    type: "paragraph",
-                    attrs: {
-                        styles: {
-                            "font-size": "12px",
-                            color: "#555",
-                            "margin-bottom": "6px",
-                            "font-family": "Georgia, serif",
-                        },
-                    },
-                    content: [{ type: "text", text: "Jan 2022 – Jun 2022" }],
-                },
-
-                {
-                    type: "bulletList",
-                    attrs: {
-                        styles: {
-                            "font-family": "Georgia, serif",
-                        },
-                    },
-                    content: [
-                        {
-                            type: "listItem",
-                            content: [
                                 {
-                                    type: "paragraph",
+                                    type: "bulletList",
+                                    attrs: {
+                                        styles: {
+                                            "font-family": "Georgia, serif",
+                                        },
+                                        "data-feno-field": "exp-desc",
+                                    },
                                     content: [
                                         {
-                                            type: "text",
-                                            text: "Built internal dashboards using React + Zustand, reducing reporting time by 70%.",
+                                            type: "listItem",
+                                            content: [
+                                                {
+                                                    type: "paragraph",
+                                                    content: [
+                                                        {
+                                                            type: "text",
+                                                            text: "Built internal dashboards using React + Zustand, reducing reporting time by 70%.",
+                                                        },
+                                                    ],
+                                                },
+                                            ],
                                         },
                                     ],
                                 },
@@ -259,33 +299,55 @@ export const template = {
                 },
 
                 {
-                    type: "paragraph",
+                    type: "bulletList",
                     attrs: {
+                        "data-feno-section": "education",
                         styles: {
-                            "font-weight": "700",
-                            "margin-top": "6px",
-                            "font-family": "Georgia, serif",
+                            "list-style-type": "none",
+                            "margin-left": "0",
+                            "padding-left": "0",
                         },
                     },
                     content: [
                         {
-                            type: "text",
-                            text: "California Institute of Technology — B.Sc. Software Engineering",
+                            type: "listItem",
+                            attrs: { "data-feno-scope": "item", class: "pl-0" },
+                            content: [
+                                {
+                                    type: "paragraph",
+                                    attrs: {
+                                        styles: {
+                                            "font-weight": "700",
+                                            "margin-top": "6px",
+                                            "font-family": "Georgia, serif",
+                                        },
+                                        "data-feno-field": "edu-degree",
+                                    },
+                                    content: [
+                                        {
+                                            type: "text",
+                                            text: "California Institute of Technology — B.Sc. Software Engineering",
+                                        },
+                                    ],
+                                },
+                                {
+                                    type: "paragraph",
+                                    attrs: {
+                                        styles: {
+                                            "font-size": "12px",
+                                            color: "#555",
+                                            "margin-bottom": "6px",
+                                            "font-family": "Georgia, serif",
+                                        },
+                                        "data-feno-field": "edu-date",
+                                    },
+                                    content: [
+                                        { type: "text", text: "2018 – 2022" },
+                                    ],
+                                },
+                            ],
                         },
                     ],
-                },
-
-                {
-                    type: "paragraph",
-                    attrs: {
-                        styles: {
-                            "font-size": "12px",
-                            color: "#555",
-                            "margin-bottom": "6px",
-                            "font-family": "Georgia, serif",
-                        },
-                    },
-                    content: [{ type: "text", text: "2018 – 2022" }],
                 },
 
                 {
@@ -308,6 +370,7 @@ export const template = {
                         styles: {
                             "font-family": "Georgia, serif",
                         },
+                        "data-feno-field": "skills-text",
                     },
                     content: [
                         {
@@ -332,41 +395,67 @@ export const template = {
                 },
 
                 {
-                    type: "paragraph",
+                    type: "bulletList",
                     attrs: {
+                        "data-feno-section": "projects",
                         styles: {
-                            "font-family": "Georgia, serif",
+                            "list-style-type": "none",
+                            "margin-left": "0",
+                            "padding-left": "0",
                         },
                     },
                     content: [
                         {
-                            type: "text",
-                            marks: [{ type: "bold" }],
-                            text: "TaskFlow — ",
+                            type: "listItem",
+                            attrs: { "data-feno-scope": "item", class: "pl-0" },
+                            content: [
+                                {
+                                    type: "paragraph",
+                                    attrs: {
+                                        styles: {
+                                            "font-family": "Georgia, serif",
+                                        },
+                                        "data-feno-field": "proj-name",
+                                    },
+                                    content: [
+                                        {
+                                            type: "text",
+                                            marks: [{ type: "bold" }],
+                                            text: "TaskFlow — ",
+                                        },
+                                        {
+                                            type: "text",
+                                            text: "Kanban task manager with real-time collaboration.",
+                                        },
+                                    ],
+                                },
+                            ],
                         },
                         {
-                            type: "text",
-                            text: "Kanban task manager with real-time collaboration.",
-                        },
-                    ],
-                },
-
-                {
-                    type: "paragraph",
-                    attrs: {
-                        styles: {
-                            "font-family": "Georgia, serif",
-                        },
-                    },
-                    content: [
-                        {
-                            type: "text",
-                            marks: [{ type: "bold" }],
-                            text: "ShopBase — ",
-                        },
-                        {
-                            type: "text",
-                            text: "E-commerce starter kit using Next.js + Stripe.",
+                            type: "listItem",
+                            attrs: { "data-feno-scope": "item", class: "pl-0" },
+                            content: [
+                                {
+                                    type: "paragraph",
+                                    attrs: {
+                                        styles: {
+                                            "font-family": "Georgia, serif",
+                                        },
+                                        "data-feno-field": "proj-name",
+                                    },
+                                    content: [
+                                        {
+                                            type: "text",
+                                            marks: [{ type: "bold" }],
+                                            text: "ShopBase — ",
+                                        },
+                                        {
+                                            type: "text",
+                                            text: "E-commerce starter kit using Next.js + Stripe.",
+                                        },
+                                    ],
+                                },
+                            ],
                         },
                     ],
                 },
