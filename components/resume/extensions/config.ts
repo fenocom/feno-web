@@ -1,4 +1,5 @@
 import { mergeAttributes } from "@tiptap/core";
+import BulletList from "@tiptap/extension-bullet-list";
 import { Color } from "@tiptap/extension-color";
 import Document from "@tiptap/extension-document";
 import Heading from "@tiptap/extension-heading";
@@ -14,6 +15,7 @@ import Typography from "@tiptap/extension-typography";
 import StarterKit from "@tiptap/starter-kit";
 
 import { Pagination } from "./auto-pagination";
+import { ResumeDataAttributes } from "./data-attributes";
 import { FontFamily } from "./font-family";
 import { Grid, GridColumn } from "./grid";
 import { Page } from "./page";
@@ -52,13 +54,7 @@ export const extensionsConfig = [
         heading: false,
         paragraph: false,
         link: false,
-        bulletList: {
-            keepMarks: true,
-            keepAttributes: false,
-            HTMLAttributes: {
-                class: "list-disc list-outside leading-normal ml-4 space-y-1",
-            },
-        },
+        bulletList: false, // Disable default to extend it below
         orderedList: {
             keepMarks: true,
             keepAttributes: false,
@@ -77,8 +73,27 @@ export const extensionsConfig = [
     Highlight.configure({
         multicolor: true,
     }),
+    ResumeDataAttributes,
     FontFamily,
     FontSize,
+
+    BulletList.extend({
+        addAttributes() {
+            return {
+                ...this.parent?.(),
+                styles: styleAttribute,
+            };
+        },
+        renderHTML({ HTMLAttributes }) {
+            return [
+                "ul",
+                mergeAttributes(HTMLAttributes, {
+                    class: "list-disc list-outside leading-normal ml-4 space-y-1",
+                }),
+                0,
+            ];
+        },
+    }),
 
     Heading.extend({
         addAttributes() {
