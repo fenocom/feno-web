@@ -13,12 +13,6 @@ interface TemplateRow {
     category: string;
 }
 
-interface Creator {
-    id: string;
-    full_name: string;
-    avatar_url: string;
-}
-
 export async function createTemplate(params: {
     creator_id: string;
     name: string;
@@ -39,10 +33,9 @@ export async function getTemplates(params: {
     page: number;
     limit: number;
     maxTier: number;
-    userId?: string;
 }) {
     const supabase = await createClient();
-    const { page, limit, maxTier, userId } = params;
+    const { page, limit, maxTier } = params;
 
     const from = (page - 1) * limit;
     const to = from + limit - 1;
@@ -62,42 +55,5 @@ export async function getTemplates(params: {
         throw error;
     }
 
-    let enrichedData: (TemplateRow & {
-        creator?: Creator | null;
-        author?: string;
-    })[] = templates as unknown as TemplateRow[];
-
-    if (userId && templates && templates.length > 0) {
-        const typedTemplates = templates as unknown as TemplateRow[];
-        const creatorIds = [
-            ...new Set(
-                typedTemplates
-                    .filter((t) => !t.is_anonymous && t.creator_id)
-                    .map((t) => t.creator_id),
-            ),
-        ];
-
-        if (creatorIds.length > 0) {
-            const { data: creators } = await supabase
-                .from("creators_view")
-                .select("id, full_name, avatar_url")
-                .in("id", creatorIds);
-
-            const creatorsMap = new Map(
-                (creators as unknown as Creator[])?.map((c) => [c.id, c]) || [],
-            );
-
-            enrichedData = typedTemplates.map((t) => {
-                if (t.is_anonymous) return t;
-                const creator = creatorsMap.get(t.creator_id);
-                return {
-                    ...t,
-                    creator: creator || null,
-                    author: creator?.full_name,
-                };
-            });
-        }
-    }
-
-    return { data: enrichedData, count };
+    return { data: templates as unknown as TemplateRow[], count };
 }

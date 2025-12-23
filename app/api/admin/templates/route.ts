@@ -94,7 +94,6 @@ export async function GET(request: Request) {
             page,
             limit,
             maxTier,
-            userId: user?.id,
         });
 
         return NextResponse.json({

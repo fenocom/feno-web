@@ -68,39 +68,11 @@ export type Database = {
           tier?: number
           updated_at?: string | null
         }
-        Relationships: [
-          {
-            foreignKeyName: "resume_templates_creator_id_fkey"
-            columns: ["creator_id"]
-            isOneToOne: false
-            referencedRelation: "creators_view"
-            referencedColumns: ["id"]
-          },
-        ]
+        Relationships: []
       }
     }
     Views: {
-      creators_view: {
-        Row: {
-          avatar_url: string | null
-          email: string | null
-          full_name: string | null
-          id: string | null
-        }
-        Insert: {
-          avatar_url?: never
-          email?: string | null
-          full_name?: never
-          id?: string | null
-        }
-        Update: {
-          avatar_url?: never
-          email?: string | null
-          full_name?: never
-          id?: string | null
-        }
-        Relationships: []
-      }
+      [_ in never]: never
     }
     Functions: {
       [_ in never]: never
@@ -239,3 +211,4 @@ export const Constants = {
     Enums: {},
   },
 } as const
+

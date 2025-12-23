@@ -1,15 +1,3 @@
--- Create a secure view to access creator details from auth.users
-create or replace view public.creators_view as
-select
-  id,
-  raw_user_meta_data->>'full_name' as full_name,
-  raw_user_meta_data->>'avatar_url' as avatar_url,
-  email
-from auth.users;
-
--- Grant access to the view
-grant select on public.creators_view to anon, authenticated, service_role;
-
 -- Create resume_templates table
 create table public.resume_templates (
   id uuid not null default gen_random_uuid(),
