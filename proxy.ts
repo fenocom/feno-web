@@ -32,7 +32,7 @@ export async function proxy(request: NextRequest) {
 
     await supabase.auth.getUser();
 
-    if (request.nextUrl.pathname.startsWith("/api")) {
+    if (ratelimit && request.nextUrl.pathname.startsWith("/api")) {
         const ip = request.headers.get("x-forwarded-for")?.split(",")[0]?.trim() ?? "127.0.0.1";
         try {
             const { success, limit, reset, remaining } = await ratelimit.limit(ip);
