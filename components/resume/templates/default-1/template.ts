@@ -2,316 +2,278 @@ export const template = {
     type: "doc",
     content: [
         {
-            type: "grid",
+            type: "page",
             attrs: {
-                columnWidth: [33, 67],
+                format: "a4",
+                backgroundColor: "#ffffff",
             },
             content: [
                 {
-                    type: "gridColumn",
+                    type: "heading",
+                    attrs: {
+                        level: 1,
+                        styles: {
+                            "text-align": "center",
+                            "font-size": "28px",
+                            "font-weight": "700",
+                            "margin-bottom": "4px",
+                            "font-family": "Georgia, serif",
+                        },
+                        "data-feno-field": "name",
+                    },
+                    content: [{ type: "text", text: "ALEXANDER MORGAN" }],
+                },
+
+                {
+                    type: "paragraph",
                     attrs: {
                         styles: {
-                            "background-color": "#2c3440",
-                            color: "#ffffff",
-                            padding: "2rem",
-                            "font-family": "Arial, sans-serif",
-                            "min-height": "100%",
+                            "text-align": "center",
+                            "font-size": "12px",
+                            color: "#444",
+                            "margin-bottom": "2px",
+                            "font-family": "Georgia, serif",
+                        },
+                        "data-feno-field": "contact-combined",
+                    },
+                    content: [
+                        {
+                            type: "text",
+                            text: "+1 555 908 3321 • alex.morgan@example.com • alexm.dev",
+                        },
+                    ],
+                },
+
+                {
+                    type: "paragraph",
+                    attrs: {
+                        styles: {
+                            "text-align": "center",
+                            "font-size": "12px",
+                            color: "#444",
+                            "margin-bottom": "14px",
+                            "font-family": "Georgia, serif",
+                        },
+                        "data-feno-field": "website",
+                    },
+                    content: [
+                        {
+                            type: "text",
+                            text: "GitHub: github.com/alexdev • LinkedIn: linkedin.com/in/alexmorgan",
+                        },
+                    ],
+                },
+
+                { type: "horizontalRule" },
+                {
+                    type: "heading",
+                    attrs: {
+                        level: 2,
+                        styles: {
+                            "font-size": "16px",
+                            "margin-top": "20px",
+                            "font-weight": "700",
+                            "font-family": "Georgia, serif",
+                        },
+                    },
+                    content: [{ type: "text", text: "PROFESSIONAL SUMMARY" }],
+                },
+
+                {
+                    type: "paragraph",
+                    attrs: {
+                        styles: {
+                            "font-family": "Georgia, serif",
+                        },
+                        "data-feno-field": "summary",
+                    },
+                    content: [
+                        {
+                            type: "text",
+                            text: "Frontend Engineer with 3+ years of experience building performant, scalable web applications using React, Next.js, TypeScript, and modern UI systems. Strong focus on clean architecture, reusable components, and cross-functional collaboration.",
+                        },
+                    ],
+                },
+                {
+                    type: "heading",
+                    attrs: {
+                        level: 2,
+                        styles: {
+                            "font-size": "16px",
+                            "margin-top": "22px",
+                            "font-weight": "700",
+                            "font-family": "Georgia, serif",
+                        },
+                    },
+                    content: [{ type: "text", text: "EXPERIENCE" }],
+                },
+
+                {
+                    type: "bulletList",
+                    attrs: {
+                        "data-feno-section": "experience",
+                        styles: {
+                            "list-style-type": "none",
+                            "margin-left": "0",
+                            "padding-left": "0",
                         },
                     },
                     content: [
                         {
-                            type: "image",
-                            attrs: {
-                                src: "https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?q=80&w=800&auto=format&fit=crop",
-                                alt: "Profile Photo",
-                                style: "width: 100%; height: auto; border-radius: 4px; display: block; margin-bottom: 20px;",
-                            },
-                        },
-                        {
-                            type: "heading",
-                            attrs: {
-                                level: 1,
-                                styles: {
-                                    "font-size": "2.2rem",
-                                    "line-height": "1.2",
-                                },
-                            },
-                            content: [{ type: "text", text: "Susan Williams" }],
-                        },
-                        { type: "paragraph" },
-                        {
-                            type: "heading",
-                            attrs: {
-                                level: 3,
-                                styles: {
-                                    "font-size": "1.3rem",
-                                    "font-weight": "bold",
-                                },
-                            },
-                            content: [{ type: "text", text: "Contact" }],
-                        },
-                        { type: "horizontalRule" },
-                        { type: "paragraph" },
-                        {
-                            type: "paragraph",
+                            type: "listItem",
+                            attrs: { "data-feno-scope": "item", class: "pl-0" },
                             content: [
                                 {
-                                    type: "text",
-                                    marks: [{ type: "bold" }],
-                                    text: "Address:",
+                                    type: "paragraph",
+                                    attrs: {
+                                        styles: {
+                                            "font-weight": "700",
+                                            "font-size": "14px",
+                                            "margin-top": "8px",
+                                            "font-family": "Georgia, serif",
+                                        },
+                                        "data-feno-field": "exp-role",
+                                    },
+                                    content: [
+                                        {
+                                            type: "text",
+                                            text: "TechNova Solutions — Frontend Engineer",
+                                        },
+                                    ],
                                 },
-                                { type: "hardBreak" },
                                 {
-                                    type: "text",
-                                    text: "177 Great Portland Street, London",
+                                    type: "paragraph",
+                                    attrs: {
+                                        styles: {
+                                            "font-size": "12px",
+                                            color: "#555",
+                                            "margin-bottom": "6px",
+                                            "font-family": "Georgia, serif",
+                                        },
+                                        "data-feno-field": "exp-date",
+                                    },
+                                    content: [
+                                        {
+                                            type: "text",
+                                            text: "Jul 2022 – Present",
+                                        },
+                                    ],
                                 },
-                                { type: "hardBreak" },
-                                { type: "text", text: "W5W 6PQ" },
-                            ],
-                        },
-                        { type: "paragraph" },
-                        {
-                            type: "paragraph",
-                            content: [
                                 {
-                                    type: "text",
-                                    marks: [{ type: "bold" }],
-                                    text: "Phone:",
-                                },
-                                { type: "hardBreak" },
-                                { type: "text", text: "+1 (970) 333-3833" },
-                            ],
-                        },
-                        { type: "paragraph" },
-                        {
-                            type: "paragraph",
-                            content: [
-                                {
-                                    type: "text",
-                                    marks: [{ type: "bold" }],
-                                    text: "E-mail:",
-                                },
-                                { type: "hardBreak" },
-                                {
-                                    type: "text",
-                                    text: "susan.williams@coolfreecv.com",
-                                },
-                            ],
-                        },
-                        { type: "paragraph" },
-                        {
-                            type: "paragraph",
-                            content: [
-                                {
-                                    type: "text",
-                                    marks: [{ type: "bold" }],
-                                    text: "LinkedIn:",
-                                },
-                                { type: "hardBreak" },
-                                {
-                                    type: "text",
-                                    text: "linkedin.com/susan.williams",
-                                },
-                            ],
-                        },
-                        { type: "paragraph" },
-                        {
-                            type: "paragraph",
-                            content: [
-                                {
-                                    type: "text",
-                                    marks: [{ type: "bold" }],
-                                    text: "WWW:",
-                                },
-                                { type: "hardBreak" },
-                                {
-                                    type: "text",
-                                    text: "https://www.coolfreecv.com",
+                                    type: "bulletList",
+                                    attrs: {
+                                        styles: {
+                                            "font-family": "Georgia, serif",
+                                        },
+                                        "data-feno-field": "exp-desc",
+                                    },
+                                    content: [
+                                        {
+                                            type: "listItem",
+                                            content: [
+                                                {
+                                                    type: "paragraph",
+                                                    content: [
+                                                        {
+                                                            type: "text",
+                                                            text: "Optimized React components serving 200k+ monthly users, improving speed by 32%.",
+                                                        },
+                                                    ],
+                                                },
+                                            ],
+                                        },
+                                        {
+                                            type: "listItem",
+                                            content: [
+                                                {
+                                                    type: "paragraph",
+                                                    content: [
+                                                        {
+                                                            type: "text",
+                                                            text: "Migrated 30+ modules from JS → TS reducing runtime bugs by 40%.",
+                                                        },
+                                                    ],
+                                                },
+                                            ],
+                                        },
+                                        {
+                                            type: "listItem",
+                                            content: [
+                                                {
+                                                    type: "paragraph",
+                                                    content: [
+                                                        {
+                                                            type: "text",
+                                                            text: "Designed reusable UI systems in Tailwind + Radix UI reducing dev time by 25%.",
+                                                        },
+                                                    ],
+                                                },
+                                            ],
+                                        },
+                                    ],
                                 },
                             ],
                         },
-                        { type: "paragraph" },
                         {
-                            type: "heading",
-                            attrs: {
-                                level: 3,
-                                styles: {
-                                    "font-size": "1.3rem",
-                                    "font-weight": "bold",
-                                },
-                            },
-                            content: [
-                                { type: "text", text: "Additional Skills" },
-                            ],
-                        },
-                        { type: "horizontalRule" },
-                        { type: "paragraph" },
-                        {
-                            type: "bulletList",
+                            type: "listItem",
+                            attrs: { "data-feno-scope": "item", class: "pl-0" },
                             content: [
                                 {
-                                    type: "listItem",
+                                    type: "paragraph",
+                                    attrs: {
+                                        styles: {
+                                            "font-weight": "700",
+                                            "font-size": "14px",
+                                            "margin-top": "14px",
+                                            "font-family": "Georgia, serif",
+                                        },
+                                        "data-feno-field": "exp-role",
+                                    },
                                     content: [
                                         {
-                                            type: "paragraph",
-                                            content: [
-                                                {
-                                                    type: "text",
-                                                    text: "Results-oriented",
-                                                },
-                                            ],
+                                            type: "text",
+                                            text: "BrightLabs — Software Engineer Intern",
                                         },
                                     ],
                                 },
                                 {
-                                    type: "listItem",
+                                    type: "paragraph",
+                                    attrs: {
+                                        styles: {
+                                            "font-size": "12px",
+                                            color: "#555",
+                                            "margin-bottom": "6px",
+                                            "font-family": "Georgia, serif",
+                                        },
+                                        "data-feno-field": "exp-date",
+                                    },
                                     content: [
                                         {
-                                            type: "paragraph",
-                                            content: [
-                                                {
-                                                    type: "text",
-                                                    text: "Organisational capacity",
-                                                },
-                                            ],
+                                            type: "text",
+                                            text: "Jan 2022 – Jun 2022",
                                         },
                                     ],
                                 },
                                 {
-                                    type: "listItem",
-                                    content: [
-                                        {
-                                            type: "paragraph",
-                                            content: [
-                                                {
-                                                    type: "text",
-                                                    text: "Revenue generation",
-                                                },
-                                            ],
+                                    type: "bulletList",
+                                    attrs: {
+                                        styles: {
+                                            "font-family": "Georgia, serif",
                                         },
-                                    ],
-                                },
-                                {
-                                    type: "listItem",
+                                        "data-feno-field": "exp-desc",
+                                    },
                                     content: [
                                         {
-                                            type: "paragraph",
+                                            type: "listItem",
                                             content: [
                                                 {
-                                                    type: "text",
-                                                    text: "Business development",
-                                                },
-                                            ],
-                                        },
-                                    ],
-                                },
-                                {
-                                    type: "listItem",
-                                    content: [
-                                        {
-                                            type: "paragraph",
-                                            content: [
-                                                {
-                                                    type: "text",
-                                                    text: "Effective marketing",
-                                                },
-                                            ],
-                                        },
-                                    ],
-                                },
-                                {
-                                    type: "listItem",
-                                    content: [
-                                        {
-                                            type: "paragraph",
-                                            content: [
-                                                {
-                                                    type: "text",
-                                                    text: "Organisational capacity",
-                                                },
-                                            ],
-                                        },
-                                    ],
-                                },
-                                {
-                                    type: "listItem",
-                                    content: [
-                                        {
-                                            type: "paragraph",
-                                            content: [
-                                                {
-                                                    type: "text",
-                                                    text: "Operability and commitment",
-                                                },
-                                            ],
-                                        },
-                                    ],
-                                },
-                                {
-                                    type: "listItem",
-                                    content: [
-                                        {
-                                            type: "paragraph",
-                                            content: [
-                                                {
-                                                    type: "text",
-                                                    text: "Ability to motivate staff",
-                                                },
-                                            ],
-                                        },
-                                    ],
-                                },
-                                {
-                                    type: "listItem",
-                                    content: [
-                                        {
-                                            type: "paragraph",
-                                            content: [
-                                                {
-                                                    type: "text",
-                                                    text: "Maintain good relations",
-                                                },
-                                            ],
-                                        },
-                                    ],
-                                },
-                                {
-                                    type: "listItem",
-                                    content: [
-                                        {
-                                            type: "paragraph",
-                                            content: [
-                                                {
-                                                    type: "text",
-                                                    text: "Organisational capacity",
-                                                },
-                                            ],
-                                        },
-                                    ],
-                                },
-                                {
-                                    type: "listItem",
-                                    content: [
-                                        {
-                                            type: "paragraph",
-                                            content: [
-                                                {
-                                                    type: "text",
-                                                    text: "Resistance to stress",
-                                                },
-                                            ],
-                                        },
-                                    ],
-                                },
-                                {
-                                    type: "listItem",
-                                    content: [
-                                        {
-                                            type: "paragraph",
-                                            content: [
-                                                {
-                                                    type: "text",
-                                                    text: "Good manners",
+                                                    type: "paragraph",
+                                                    content: [
+                                                        {
+                                                            type: "text",
+                                                            text: "Built internal dashboards using React + Zustand, reducing reporting time by 70%.",
+                                                        },
+                                                    ],
                                                 },
                                             ],
                                         },
@@ -321,435 +283,177 @@ export const template = {
                         },
                     ],
                 },
+
                 {
-                    type: "gridColumn",
+                    type: "heading",
                     attrs: {
+                        level: 2,
                         styles: {
-                            padding: "1rem 2rem",
-                            "background-color": "#ffffff",
-                            color: "#333333",
-                            "font-family": "Arial, sans-serif",
+                            "font-size": "16px",
+                            "margin-top": "22px",
+                            "font-weight": "700",
+                            "font-family": "Georgia, serif",
+                        },
+                    },
+                    content: [{ type: "text", text: "EDUCATION" }],
+                },
+
+                {
+                    type: "bulletList",
+                    attrs: {
+                        "data-feno-section": "education",
+                        styles: {
+                            "list-style-type": "none",
+                            "margin-left": "0",
+                            "padding-left": "0",
                         },
                     },
                     content: [
                         {
-                            type: "heading",
-                            attrs: {
-                                level: 2,
-                                styles: {
-                                    "font-size": "1.6rem",
-                                    "font-weight": "bold",
-                                },
-                            },
-                            content: [
-                                { type: "text", text: "Professional Summary" },
-                            ],
-                        },
-                        { type: "horizontalRule" },
-                        {
-                            type: "paragraph",
+                            type: "listItem",
+                            attrs: { "data-feno-scope": "item", class: "pl-0" },
                             content: [
                                 {
-                                    type: "text",
-                                    text: "Store Manager equipped with extensive experience in automotive sales management. Employs excellent leadership skills and multi-tasking strengths. Demonstrated ability to improve store operations, increase top line sales, and reduce costs.",
-                                },
-                            ],
-                        },
-                        { type: "paragraph" },
-                        {
-                            type: "heading",
-                            attrs: {
-                                level: 2,
-                                styles: {
-                                    "font-size": "1.6rem",
-                                    "font-weight": "bold",
-                                },
-                            },
-                            content: [
-                                { type: "text", text: "Work Experience" },
-                            ],
-                        },
-                        { type: "horizontalRule" },
-                        { type: "paragraph" },
-                        {
-                            type: "grid",
-                            attrs: { columnWidth: [75, 25] },
-                            content: [
-                                {
-                                    type: "gridColumn",
+                                    type: "paragraph",
                                     attrs: {
                                         styles: {
-                                            padding: "0",
-                                            "font-weight": "bold",
+                                            "font-weight": "700",
+                                            "margin-top": "6px",
+                                            "font-family": "Georgia, serif",
                                         },
+                                        "data-feno-field": "edu-degree",
                                     },
                                     content: [
                                         {
-                                            type: "paragraph",
-                                            content: [
-                                                {
-                                                    type: "text",
-                                                    text: "Store Manager LUXURY CAR CENTER, New York",
-                                                },
-                                            ],
+                                            type: "text",
+                                            text: "California Institute of Technology — B.Sc. Software Engineering",
                                         },
                                     ],
                                 },
                                 {
-                                    type: "gridColumn",
+                                    type: "paragraph",
                                     attrs: {
                                         styles: {
-                                            padding: "0",
-                                            "text-align": "right",
-                                            "white-space": "nowrap",
+                                            "font-size": "12px",
+                                            color: "#555",
+                                            "margin-bottom": "6px",
+                                            "font-family": "Georgia, serif",
                                         },
+                                        "data-feno-field": "edu-date",
+                                    },
+                                    content: [
+                                        { type: "text", text: "2018 – 2022" },
+                                    ],
+                                },
+                            ],
+                        },
+                    ],
+                },
+
+                {
+                    type: "heading",
+                    attrs: {
+                        level: 2,
+                        styles: {
+                            "font-size": "16px",
+                            "margin-top": "22px",
+                            "font-weight": "700",
+                            "font-family": "Georgia, serif",
+                        },
+                    },
+                    content: [{ type: "text", text: "SKILLS" }],
+                },
+
+                {
+                    type: "paragraph",
+                    attrs: {
+                        styles: {
+                            "font-family": "Georgia, serif",
+                        },
+                        "data-feno-field": "skills-text",
+                    },
+                    content: [
+                        {
+                            type: "text",
+                            text: "React, Next.js, TypeScript, Zustand, TailwindCSS, Radix UI, Node.js, Express.js, PostgreSQL, MongoDB, Docker, Redis",
+                        },
+                    ],
+                },
+
+                {
+                    type: "heading",
+                    attrs: {
+                        level: 2,
+                        styles: {
+                            "font-size": "16px",
+                            "margin-top": "22px",
+                            "font-weight": "700",
+                            "font-family": "Georgia, serif",
+                        },
+                    },
+                    content: [{ type: "text", text: "PROJECTS" }],
+                },
+
+                {
+                    type: "bulletList",
+                    attrs: {
+                        "data-feno-section": "projects",
+                        styles: {
+                            "list-style-type": "none",
+                            "margin-left": "0",
+                            "padding-left": "0",
+                        },
+                    },
+                    content: [
+                        {
+                            type: "listItem",
+                            attrs: { "data-feno-scope": "item", class: "pl-0" },
+                            content: [
+                                {
+                                    type: "paragraph",
+                                    attrs: {
+                                        styles: {
+                                            "font-family": "Georgia, serif",
+                                        },
+                                        "data-feno-field": "proj-name",
                                     },
                                     content: [
                                         {
-                                            type: "paragraph",
-                                            content: [
-                                                {
-                                                    type: "text",
-                                                    text: "09/2015 to 05/2019",
-                                                },
-                                            ],
+                                            type: "text",
+                                            marks: [{ type: "bold" }],
+                                            text: "TaskFlow — ",
+                                        },
+                                        {
+                                            type: "text",
+                                            text: "Kanban task manager with real-time collaboration.",
                                         },
                                     ],
                                 },
                             ],
                         },
                         {
-                            type: "bulletList",
+                            type: "listItem",
+                            attrs: { "data-feno-scope": "item", class: "pl-0" },
                             content: [
                                 {
-                                    type: "listItem",
-                                    content: [
-                                        {
-                                            type: "paragraph",
-                                            content: [
-                                                {
-                                                    type: "text",
-                                                    text: "Motivate and coach employees to meet service, sales, and repair goals.",
-                                                },
-                                            ],
-                                        },
-                                    ],
-                                },
-                                {
-                                    type: "listItem",
-                                    content: [
-                                        {
-                                            type: "paragraph",
-                                            content: [
-                                                {
-                                                    type: "text",
-                                                    text: "Create and modify employee schedules with service levels in mind.",
-                                                },
-                                            ],
-                                        },
-                                    ],
-                                },
-                                {
-                                    type: "listItem",
-                                    content: [
-                                        {
-                                            type: "paragraph",
-                                            content: [
-                                                {
-                                                    type: "text",
-                                                    text: "Recruit and hire top mechanics, service advisors, and sales people.",
-                                                },
-                                            ],
-                                        },
-                                    ],
-                                },
-                                {
-                                    type: "listItem",
-                                    content: [
-                                        {
-                                            type: "paragraph",
-                                            content: [
-                                                {
-                                                    type: "text",
-                                                    text: "Maintain detailed logs and reports of services performed, profit, and budget information.",
-                                                },
-                                            ],
-                                        },
-                                    ],
-                                },
-                            ],
-                        },
-                        { type: "paragraph" },
-                        {
-                            type: "grid",
-                            attrs: { columnWidth: [75, 25] },
-                            content: [
-                                {
-                                    type: "gridColumn",
+                                    type: "paragraph",
                                     attrs: {
                                         styles: {
-                                            padding: "0",
-                                            "font-weight": "bold",
+                                            "font-family": "Georgia, serif",
                                         },
+                                        "data-feno-field": "proj-name",
                                     },
                                     content: [
                                         {
-                                            type: "paragraph",
-                                            content: [
-                                                {
-                                                    type: "text",
-                                                    text: "Store Manager LUXURY CAR CENTER, New York",
-                                                },
-                                            ],
+                                            type: "text",
+                                            marks: [{ type: "bold" }],
+                                            text: "ShopBase — ",
+                                        },
+                                        {
+                                            type: "text",
+                                            text: "E-commerce starter kit using Next.js + Stripe.",
                                         },
                                     ],
-                                },
-                                {
-                                    type: "gridColumn",
-                                    attrs: {
-                                        styles: {
-                                            padding: "0",
-                                            "text-align": "right",
-                                            "white-space": "nowrap",
-                                        },
-                                    },
-                                    content: [
-                                        {
-                                            type: "paragraph",
-                                            content: [
-                                                {
-                                                    type: "text",
-                                                    text: "09/2015 to 05/2019",
-                                                },
-                                            ],
-                                        },
-                                    ],
-                                },
-                            ],
-                        },
-                        {
-                            type: "bulletList",
-                            content: [
-                                {
-                                    type: "listItem",
-                                    content: [
-                                        {
-                                            type: "paragraph",
-                                            content: [
-                                                {
-                                                    type: "text",
-                                                    text: "Motivate and coach employees to meet service, sales, and repair goals.",
-                                                },
-                                            ],
-                                        },
-                                    ],
-                                },
-                                {
-                                    type: "listItem",
-                                    content: [
-                                        {
-                                            type: "paragraph",
-                                            content: [
-                                                {
-                                                    type: "text",
-                                                    text: "Recruit and hire top mechanics, service advisors, and sales people.",
-                                                },
-                                            ],
-                                        },
-                                    ],
-                                },
-                                {
-                                    type: "listItem",
-                                    content: [
-                                        {
-                                            type: "paragraph",
-                                            content: [
-                                                {
-                                                    type: "text",
-                                                    text: "Maintain detailed logs and reports of services performed, profit, and budget information.",
-                                                },
-                                            ],
-                                        },
-                                    ],
-                                },
-                                {
-                                    type: "listItem",
-                                    content: [
-                                        {
-                                            type: "paragraph",
-                                            content: [
-                                                {
-                                                    type: "text",
-                                                    text: "Help out in sales and repair areas as needed and maintain comprehensive current knowledge of operations.",
-                                                },
-                                            ],
-                                        },
-                                    ],
-                                },
-                            ],
-                        },
-                        { type: "paragraph" },
-                        {
-                            type: "heading",
-                            attrs: {
-                                level: 2,
-                                styles: {
-                                    "font-size": "1.6rem",
-                                    "font-weight": "bold",
-                                },
-                            },
-                            content: [{ type: "text", text: "Education" }],
-                        },
-                        { type: "horizontalRule" },
-                        { type: "paragraph" },
-                        {
-                            type: "grid",
-                            attrs: { columnWidth: [75, 25] },
-                            content: [
-                                {
-                                    type: "gridColumn",
-                                    attrs: { styles: { padding: "0" } },
-                                    content: [
-                                        {
-                                            type: "paragraph",
-                                            content: [
-                                                {
-                                                    type: "text",
-                                                    marks: [{ type: "bold" }],
-                                                    text: "Bachelor of Science: Automotive Technology",
-                                                },
-                                            ],
-                                        },
-                                        {
-                                            type: "paragraph",
-                                            content: [
-                                                {
-                                                    type: "text",
-                                                    text: "Technical Institute, NY",
-                                                },
-                                            ],
-                                        },
-                                    ],
-                                },
-                                {
-                                    type: "gridColumn",
-                                    attrs: {
-                                        styles: {
-                                            padding: "0",
-                                            "text-align": "right",
-                                            "white-space": "nowrap",
-                                        },
-                                    },
-                                    content: [
-                                        {
-                                            type: "paragraph",
-                                            content: [
-                                                {
-                                                    type: "text",
-                                                    text: "2009-2015",
-                                                },
-                                            ],
-                                        },
-                                    ],
-                                },
-                            ],
-                        },
-                        { type: "paragraph" },
-                        {
-                            type: "grid",
-                            attrs: { columnWidth: [75, 25] },
-                            content: [
-                                {
-                                    type: "gridColumn",
-                                    attrs: { styles: { padding: "0" } },
-                                    content: [
-                                        {
-                                            type: "paragraph",
-                                            content: [
-                                                {
-                                                    type: "text",
-                                                    marks: [{ type: "bold" }],
-                                                    text: "Bachelor of Science: Automotive Technology",
-                                                },
-                                            ],
-                                        },
-                                        {
-                                            type: "paragraph",
-                                            content: [
-                                                {
-                                                    type: "text",
-                                                    text: "Technical Institute, NY",
-                                                },
-                                            ],
-                                        },
-                                    ],
-                                },
-                                {
-                                    type: "gridColumn",
-                                    attrs: {
-                                        styles: {
-                                            padding: "0",
-                                            "text-align": "right",
-                                            "white-space": "nowrap",
-                                        },
-                                    },
-                                    content: [
-                                        {
-                                            type: "paragraph",
-                                            content: [
-                                                {
-                                                    type: "text",
-                                                    text: "2015-2018",
-                                                },
-                                            ],
-                                        },
-                                    ],
-                                },
-                            ],
-                        },
-                        { type: "paragraph" },
-                        {
-                            type: "heading",
-                            attrs: {
-                                level: 2,
-                                styles: {
-                                    "font-size": "1.6rem",
-                                    "font-weight": "bold",
-                                },
-                            },
-                            content: [{ type: "text", text: "Languages" }],
-                        },
-                        { type: "horizontalRule" },
-                        { type: "paragraph" },
-                        {
-                            type: "paragraph",
-                            content: [
-                                {
-                                    type: "text",
-                                    text: "Spanish — Intermediate",
-                                },
-                            ],
-                        },
-                        { type: "paragraph" },
-                        {
-                            type: "heading",
-                            attrs: {
-                                level: 2,
-                                styles: {
-                                    "font-size": "1.6rem",
-                                    "font-weight": "bold",
-                                },
-                            },
-                            content: [{ type: "text", text: "Hobby" }],
-                        },
-                        { type: "horizontalRule" },
-                        { type: "paragraph" },
-                        {
-                            type: "paragraph",
-                            content: [
-                                {
-                                    type: "text",
-                                    text: "Playing chess - great way to unwind, destress, and keep the mind sharp.",
                                 },
                             ],
                         },
