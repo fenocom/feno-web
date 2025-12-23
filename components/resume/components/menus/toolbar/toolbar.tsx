@@ -16,15 +16,21 @@ import { PortfolioButton } from "../../../components/portfolio-button";
 import { SaveTemplatePanel } from "./save-template-panel";
 import { SettingsPanel } from "./settings-panel";
 import { TemplatesPanel } from "./templates-panel";
+import type { Template } from "./templates-panel/template-card";
 
 interface ToolbarProps {
     onExport?: () => void;
     getEditorContent?: () => unknown;
+    onTemplateSelect?: (template: Template) => void;
 }
 
 type ActivePanel = "templates" | "settings" | "save" | null;
 
-export function Toolbar({ onExport, getEditorContent }: ToolbarProps) {
+export function Toolbar({
+    onExport,
+    getEditorContent,
+    onTemplateSelect,
+}: ToolbarProps) {
     const { isAdmin } = useAuth();
     const [activePanel, setActivePanel] = useState<ActivePanel>(null);
     const [isTemplatesExpanded, setIsTemplatesExpanded] = useState(false);
@@ -121,7 +127,13 @@ export function Toolbar({ onExport, getEditorContent }: ToolbarProps) {
                             setActivePanel(null);
                             setIsTemplatesExpanded(false);
                         }}
-                        onSelect={(t) => console.log("Selected:", t)}
+                        onSelect={(t) => {
+                            onTemplateSelect?.(t);
+                            // Also close panel? Maybe keeping it open is better UX for previewing?
+                            // But usually selecting implies "I chose this".
+                            // I'll keep it open or let user close it.
+                            // Current logic for other panels closes them? No.
+                        }}
                         isExpanded={isTemplatesExpanded}
                         onToggleExpand={() =>
                             setIsTemplatesExpanded(!isTemplatesExpanded)

@@ -1,6 +1,9 @@
 "use client";
 
+import { extractResumeData } from "@/lib/resume-parser/extractor";
+import { injectResumeData } from "@/lib/resume-parser/injector";
 import { useCallback, useEffect, useRef, useState } from "react";
+import type { Template } from "./components/menus/toolbar/templates-panel/template-card";
 import { Toolbar } from "./components/menus/toolbar/toolbar";
 import { ResumeEditor, type ResumeEditorRef } from "./components/resume-editor";
 import { DottedBackground } from "./dotted-bg";
@@ -37,6 +40,20 @@ export const ResumePage = () => {
         return editorRef.current?.editor?.getJSON() ?? null;
     }, []);
 
+    const handleTemplateSelect = useCallback((template: Template) => {
+        if (!editorRef.current?.editor) return;
+
+        const currentContent = editorRef.current.editor.getJSON();
+        const extractedData = extractResumeData(currentContent);
+        // If template.resume_data is just the JSON structure, passing it directly is correct.
+        const newContent = injectResumeData(
+            template.resume_data,
+            extractedData,
+        );
+
+        editorRef.current.editor.commands.setContent(newContent);
+    }, []);
+
     return (
         <div className="resume-page-wrapper relative w-full min-h-screen flex justify-center px-2 sm:px-10 py-12 pb-32">
             <div className="no-print">
@@ -69,6 +86,7 @@ export const ResumePage = () => {
                 <Toolbar
                     onExport={handleExport}
                     getEditorContent={getEditorContent}
+                    onTemplateSelect={handleTemplateSelect}
                 />
             </div>
         </div>
