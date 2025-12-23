@@ -28,23 +28,10 @@ export const PreviewCard = ({
                         </p>
                         <p className="text-white/70 text-xs">Resume</p>
                     </div>
-                    <Tooltip>
-                        <Tooltip.Trigger>
-                            <div className="cursor-pointer ring-2 ring-white/20 rounded-full">
-                                <Avatar size="sm">
-                                    <Avatar.Image
-                                        src={avatarUrl}
-                                        alt={author}
-                                    />
-                                    <Avatar.Fallback>
-                                        {author.slice(0, 2).toUpperCase()}
-                                    </Avatar.Fallback>
-                                </Avatar>
-                            </div>
-                        </Tooltip.Trigger>
-                        <Tooltip.Content>
-                            <div className="px-1 py-2 min-w-40">
-                                <div className="flex items-center gap-2">
+                    {avatarUrl !== undefined && (
+                        <Tooltip>
+                            <Tooltip.Trigger>
+                                <div className="cursor-pointer ring-2 ring-white/20 rounded-full">
                                     <Avatar size="sm">
                                         <Avatar.Image
                                             src={avatarUrl}
@@ -54,18 +41,33 @@ export const PreviewCard = ({
                                             {author.slice(0, 2).toUpperCase()}
                                         </Avatar.Fallback>
                                     </Avatar>
-                                    <div>
-                                        <div className="text-small font-bold">
-                                            {author}
-                                        </div>
-                                        <div className="text-tiny text-neutral-500">
-                                            Creator
+                                </div>
+                            </Tooltip.Trigger>
+                            <Tooltip.Content>
+                                <div className="px-1 py-2 min-w-40">
+                                    <div className="flex items-center gap-2">
+                                        <Avatar size="sm">
+                                            <Avatar.Image
+                                                src={avatarUrl}
+                                                alt={author}
+                                            />
+                                            <Avatar.Fallback>
+                                                {author.slice(0, 2).toUpperCase()}
+                                            </Avatar.Fallback>
+                                        </Avatar>
+                                        <div>
+                                            <div className="text-small font-bold">
+                                                {author}
+                                            </div>
+                                            <div className="text-tiny text-neutral-500">
+                                                Creator
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
-                            </div>
-                        </Tooltip.Content>
-                    </Tooltip>
+                            </Tooltip.Content>
+                        </Tooltip>
+                    )}
                 </div>
             </div>
         </div>

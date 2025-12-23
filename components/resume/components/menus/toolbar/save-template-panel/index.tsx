@@ -20,6 +20,8 @@ export function SaveTemplatePanel({
     const [name, setName] = useState("");
     const [author, setAuthor] = useState("");
     const [content, setContent] = useState<JSONContent | undefined>(undefined);
+    const [tier, setTier] = useState(0);
+    const [isAnonymous, setIsAnonymous] = useState(false);
     const [saveStatus, setSaveStatus] = useState<"idle" | "success" | "error">(
         "idle",
     );
@@ -48,9 +50,10 @@ export function SaveTemplatePanel({
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify({
                     name,
-                    author,
                     category: "resume",
                     resume_data: content,
+                    tier,
+                    is_anonymous: isAnonymous,
                 }),
             });
 
@@ -74,8 +77,8 @@ export function SaveTemplatePanel({
                 <PreviewCard
                     content={content}
                     name={name}
-                    author={author}
-                    avatarUrl={user?.user_metadata?.avatar_url}
+                    author={isAnonymous ? "Anonymous" : author}
+                    avatarUrl={isAnonymous ? undefined : (user?.user_metadata?.avatar_url || "")}
                 />
                 <Form
                     name={name}
@@ -84,6 +87,10 @@ export function SaveTemplatePanel({
                     avatarUrl={user?.user_metadata?.avatar_url}
                     saveStatus={saveStatus}
                     onSave={handleSave}
+                    tier={tier}
+                    setTier={setTier}
+                    isAnonymous={isAnonymous}
+                    setIsAnonymous={setIsAnonymous}
                 />
             </div>
         </div>
