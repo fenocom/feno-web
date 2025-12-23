@@ -22,6 +22,7 @@ interface ToolbarProps {
     onExport?: () => void;
     getEditorContent?: () => unknown;
     onTemplateSelect?: (template: Template) => void;
+    onToggleAiMode?: () => void;
 }
 
 type ActivePanel = "templates" | "settings" | "save" | null;
@@ -30,6 +31,7 @@ export function Toolbar({
     onExport,
     getEditorContent,
     onTemplateSelect,
+    onToggleAiMode,
 }: ToolbarProps) {
     const { isAdmin } = useAuth();
     const [activePanel, setActivePanel] = useState<ActivePanel>(null);
@@ -159,7 +161,13 @@ export function Toolbar({
             >
                 <div className="flex justify-center w-full">
                     <div className="flex gap-2 items-center px-3 py-2 whitespace-nowrap">
-                        <AiIcon size={28} />
+                        <Button
+                            isIconOnly
+                            className="bg-transparent data-[hover=true]:bg-black/5 min-w-fit w-fit h-fit p-1 rounded-full"
+                            onPress={onToggleAiMode}
+                        >
+                            <AiIcon size={28} />
+                        </Button>
                         <Separator orientation="vertical" className="h-6" />
 
                         <div className="flex gap-1 items-center">
