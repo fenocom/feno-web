@@ -2,7 +2,12 @@
 
 import type { UserResume } from "@/lib/hooks/use-resumes";
 import { Button, Input, Spinner } from "@heroui/react";
-import { IconFile, IconPlus, IconTrash } from "@tabler/icons-react";
+import {
+    IconChevronRight,
+    IconFile,
+    IconPlus,
+    IconTrash,
+} from "@tabler/icons-react";
 import { useState } from "react";
 
 interface ResumeSelectorProps {
@@ -31,8 +36,7 @@ export function ResumeSelector({
         setIsCreating(false);
     };
 
-    const handleDelete = async (e: React.MouseEvent, resumeId: string) => {
-        e.stopPropagation();
+    const handleDelete = async (resumeId: string) => {
         setDeletingId(resumeId);
         await onDelete(resumeId);
         setDeletingId(null);
@@ -62,78 +66,90 @@ export function ResumeSelector({
 
     return (
         <div className="fixed inset-0 z-50 flex items-center justify-center bg-white/80 backdrop-blur-sm">
-            <div className="w-full max-w-xl p-8">
+            <div className="w-full max-w-md mx-4">
                 <div className="bg-white rounded-2xl shadow-xl border border-black/10 overflow-hidden">
-                    <div className="p-6 border-b border-black/5">
-                        <h2 className="text-xl font-semibold text-black">
-                            Your Resumes
-                        </h2>
-                        <p className="text-sm text-black/60 mt-1">
-                            Select a resume to continue editing or create a new
-                            one
-                        </p>
+                    <div className="px-4 py-3 border-b border-black/5">
+                        <div className="flex items-center gap-2">
+                            <IconFile size={20} />
+                            <span className="font-semibold text-sm">
+                                Your Resumes
+                            </span>
+                        </div>
                     </div>
 
-                    <div className="max-h-80 overflow-y-auto">
+                    <div className="max-h-80 overflow-y-auto p-4">
                         {resumes.length === 0 ? (
-                            <div className="p-8 text-center">
+                            <div className="py-8 text-center">
                                 <IconFile
                                     size={48}
                                     className="mx-auto text-black/20 mb-4"
                                     stroke={1.5}
                                 />
-                                <p className="text-black/60">
+                                <p className="text-sm text-black/60">
                                     No resumes yet. Create your first one!
                                 </p>
                             </div>
                         ) : (
-                            <div className="divide-y divide-black/5">
+                            <div className="space-y-1">
                                 {resumes.map((resume) => (
-                                    <button
+                                    <div
                                         key={resume.id}
-                                        type="button"
-                                        onClick={() => onSelect(resume)}
-                                        className="w-full px-6 py-4 flex items-center justify-between hover:bg-black/5 transition-colors text-left group"
+                                        className="flex items-center gap-2 group"
                                     >
-                                        <div className="flex-1 min-w-0">
-                                            <div className="flex items-center gap-2">
-                                                <span className="font-medium text-black truncate">
-                                                    {resume.name}
-                                                </span>
-                                                {resume.is_default && (
-                                                    <span className="text-xs px-2 py-0.5 bg-blue-100 text-blue-700 rounded">
-                                                        Default
-                                                    </span>
-                                                )}
-                                            </div>
-                                            <span className="text-xs text-black/50">
-                                                Last edited{" "}
-                                                {formatDate(resume.updated_at)}
-                                            </span>
-                                        </div>
                                         <button
                                             type="button"
-                                            onClick={(e) =>
-                                                handleDelete(e, resume.id)
+                                            onClick={() => onSelect(resume)}
+                                            className="flex-1 flex items-center gap-3 px-3 py-2.5 rounded-lg hover:bg-black/5 transition-colors text-left"
+                                        >
+                                            <IconFile
+                                                size={18}
+                                                className="text-black/40 shrink-0"
+                                            />
+                                            <div className="flex-1 min-w-0">
+                                                <div className="flex items-center gap-2">
+                                                    <span className="font-medium text-sm text-black truncate">
+                                                        {resume.name}
+                                                    </span>
+                                                    {resume.is_default && (
+                                                        <span className="text-xs px-1.5 py-0.5 bg-blue-100 text-blue-700 rounded">
+                                                            Default
+                                                        </span>
+                                                    )}
+                                                </div>
+                                                <span className="text-xs text-black/50">
+                                                    {formatDate(
+                                                        resume.updated_at,
+                                                    )}
+                                                </span>
+                                            </div>
+                                            <IconChevronRight
+                                                size={16}
+                                                className="text-black/30 shrink-0"
+                                            />
+                                        </button>
+                                        <button
+                                            type="button"
+                                            onClick={() =>
+                                                handleDelete(resume.id)
                                             }
                                             disabled={deletingId === resume.id}
-                                            className="p-2 text-black/30 hover:text-red-500 hover:bg-red-50 rounded-lg transition-colors opacity-0 group-hover:opacity-100"
+                                            className="p-2 text-black/30 hover:text-red-500 hover:bg-red-50 rounded-lg transition-colors opacity-0 group-hover:opacity-100 shrink-0"
                                         >
                                             {deletingId === resume.id ? (
                                                 <Spinner size="sm" />
                                             ) : (
-                                                <IconTrash size={18} />
+                                                <IconTrash size={16} />
                                             )}
                                         </button>
-                                    </button>
+                                    </div>
                                 ))}
                             </div>
                         )}
                     </div>
 
-                    <div className="p-4 border-t border-black/5 bg-black/[0.02]">
+                    <div className="p-4 border-t border-black/5">
                         {isCreating ? (
-                            <div className="flex gap-2">
+                            <div className="space-y-2">
                                 <Input
                                     autoFocus
                                     placeholder="Resume name..."
@@ -148,26 +164,26 @@ export function ResumeSelector({
                                             setNewResumeName("");
                                         }
                                     }}
-                                    className="flex-1"
+                                    className="w-full"
                                 />
-                                <Button
-                                    size="sm"
-                                    className="bg-black text-white"
-                                    onPress={handleCreate}
-                                    isDisabled={!newResumeName.trim()}
-                                >
-                                    Create
-                                </Button>
-                                <Button
-                                    size="sm"
-                                    variant="ghost"
-                                    onPress={() => {
-                                        setIsCreating(false);
-                                        setNewResumeName("");
-                                    }}
-                                >
-                                    Cancel
-                                </Button>
+                                <div className="flex gap-2">
+                                    <Button
+                                        className="flex-1 bg-black text-white"
+                                        onPress={handleCreate}
+                                        isDisabled={!newResumeName.trim()}
+                                    >
+                                        Create
+                                    </Button>
+                                    <Button
+                                        variant="ghost"
+                                        onPress={() => {
+                                            setIsCreating(false);
+                                            setNewResumeName("");
+                                        }}
+                                    >
+                                        Cancel
+                                    </Button>
+                                </div>
                             </div>
                         ) : (
                             <Button
