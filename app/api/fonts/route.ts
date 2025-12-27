@@ -1,8 +1,9 @@
-import { NextResponse } from "next/server";
+import { ratelimit } from "@/lib/ratelimit";
+import { type NextRequest, NextResponse } from "next/server";
 
 const GOOGLE_FONTS_API_KEY = process.env.GOOGLE_WEB_FONT_API_KEY;
 
-export async function GET(request: Request) {
+export async function GET(request: NextRequest) {
     if (!GOOGLE_FONTS_API_KEY) {
         return NextResponse.json(
             { error: "Google Fonts API key is missing" },
@@ -10,12 +11,20 @@ export async function GET(request: Request) {
         );
     }
 
+    if (ratelimit) {
+        const identifier = request.ip || "anonymous";
+        const { success } = await ratelimit.limit(identifier);
+        if (!success) {
+            return NextResponse.json(
+                { error: "Too many requests" },
+                { status: 429 },
+            );
+        }
+    }
+
     const { searchParams } = new URL(request.url);
     const sort = searchParams.get("sort") || "popularity";
 
-    // Google Fonts API doesn't support server-side pagination efficiently in the basic endpoint,
-    // it returns all fonts. We will fetch all and paginate manually or cache.
-    // However, for performance, we can just return the top N fonts sorted by popularity.
 
     try {
         const response = await fetch(

@@ -1,3 +1,4 @@
+import { ratelimit } from "@/lib/ratelimit";
 import {
     createResume,
     getDefaultResume,
@@ -18,6 +19,19 @@ export async function GET(req: NextRequest) {
             JSON.stringify({ error: "Authentication required" }),
             { status: 401, headers: { "Content-Type": "application/json" } },
         );
+    }
+
+    if (ratelimit) {
+        const { success } = await ratelimit.limit(user.id);
+        if (!success) {
+            return new Response(
+                JSON.stringify({ error: "Too many requests" }),
+                {
+                    status: 429,
+                    headers: { "Content-Type": "application/json" },
+                },
+            );
+        }
     }
 
     try {
@@ -58,6 +72,19 @@ export async function POST(req: NextRequest) {
             JSON.stringify({ error: "Authentication required" }),
             { status: 401, headers: { "Content-Type": "application/json" } },
         );
+    }
+
+    if (ratelimit) {
+        const { success } = await ratelimit.limit(user.id);
+        if (!success) {
+            return new Response(
+                JSON.stringify({ error: "Too many requests" }),
+                {
+                    status: 429,
+                    headers: { "Content-Type": "application/json" },
+                },
+            );
+        }
     }
 
     try {

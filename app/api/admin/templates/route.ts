@@ -1,8 +1,8 @@
 import { createTemplate, getTemplates } from "@/lib/services/templates";
 import { createClient } from "@/lib/supabase/server";
-import { NextResponse } from "next/server";
+import { type NextRequest, NextResponse } from "next/server";
 
-export async function POST(request: Request) {
+export async function POST(request: NextRequest) {
     try {
         const supabase = await createClient();
         const {
@@ -19,6 +19,16 @@ export async function POST(request: Request) {
 
         if (user.app_metadata?.role !== "admin") {
             return NextResponse.json({ error: "Forbidden" }, { status: 403 });
+        }
+
+        if (ratelimit) {
+            const { success } = await ratelimit.limit(user.id);
+            if (!success) {
+                return NextResponse.json(
+                    { error: "Too many requests" },
+                    { status: 429 },
+                );
+            }
         }
 
         const body = await request.json();
@@ -61,7 +71,7 @@ export async function POST(request: Request) {
     }
 }
 
-export async function GET(request: Request) {
+export async function GET(request: NextRequest) {
     try {
         const { searchParams } = new URL(request.url);
         const page = Number.parseInt(searchParams.get("page") || "1");
@@ -72,17 +82,25 @@ export async function GET(request: Request) {
             data: { user },
         } = await supabase.auth.getUser();
 
+        if (ratelimit) {
+            const identifier = user?.id || request.ip || "anonymous";
+            const { success } = await ratelimit.limit(identifier);
+            if (!success) {
+                return NextResponse.json(
+                    { error: "Too many requests" },
+                    { status: 429 },
+                );
+            }
+        }
+
         let maxTier = 0;
         if (user) {
-            // Default to 1 (Free Logged In)
             maxTier = 1;
 
-            // Use tier from app_metadata if present
             const metadataTier = user.app_metadata?.tier;
             if (typeof metadataTier === "number") {
                 maxTier = metadataTier;
             } else {
-                // Backward compatibility: Check for plan 'premium'
                 const isPremium =
                     user.app_metadata?.plan === "premium" ||
                     user.user_metadata?.plan === "premium";
