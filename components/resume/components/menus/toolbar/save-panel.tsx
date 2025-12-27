@@ -15,7 +15,6 @@ import { useState } from "react";
 
 interface SavePanelProps {
     currentResume: UserResume | null;
-    resumes: UserResume[];
     isSaving: boolean;
     hasUnsavedChanges: boolean;
     onSaveNow: () => void;
@@ -26,7 +25,6 @@ interface SavePanelProps {
 
 export function SavePanel({
     currentResume,
-    resumes,
     isSaving,
     hasUnsavedChanges,
     onSaveNow,
