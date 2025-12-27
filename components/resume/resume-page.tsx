@@ -29,6 +29,11 @@ export const ResumePage = ({ initialResumeId }: ResumePageProps) => {
     const [showSelector, setShowSelector] = useState(false);
     const [editorReady, setEditorReady] = useState(false);
     const [isInitialized, setIsInitialized] = useState(false);
+    const [isMounted, setIsMounted] = useState(false);
+
+    useEffect(() => {
+        setIsMounted(true);
+    }, []);
 
     const {
         resumes,
@@ -203,7 +208,7 @@ export const ResumePage = ({ initialResumeId }: ResumePageProps) => {
                 </div>
                 <div className="fixed inset-0 z-50 flex items-center justify-center bg-white/80 backdrop-blur-sm">
                     <div className="flex flex-col items-center gap-4">
-                        <Spinner size="lg" />
+                        {isMounted && <Spinner size="lg" />}
                         <span className="text-black/60">Loading...</span>
                     </div>
                 </div>
