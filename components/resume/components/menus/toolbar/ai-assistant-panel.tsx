@@ -24,9 +24,7 @@ interface AiAssistantPanelProps {
 }
 
 const MODELS = [
-    { id: "llama3.2-vision", label: "Llama 3.2 Vision" },
-    { id: "deepseek-r1", label: "DeepSeek R1" },
-    { id: "mistral", label: "Mistral" },
+    { id: "gemma3:12b", label: "Gemma 3 12B" },
 ];
 
 export const AiAssistantPanel = ({
@@ -35,7 +33,7 @@ export const AiAssistantPanel = ({
 }: AiAssistantPanelProps) => {
     const [prompt, setPrompt] = useState("");
     const [selectedModel, setSelectedModel] =
-        useState<string>("llama3.2-vision");
+        useState<string>("gemma3:12b");
     const [attachments, setAttachments] = useState<Attachment[]>([]);
     const [isGenerating, setIsGenerating] = useState(false);
     const [error, setError] = useState<string | null>(null);
