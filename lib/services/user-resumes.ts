@@ -26,7 +26,6 @@ export interface UpdateResumeInput {
 export async function getUserResumes(userId: string): Promise<UserResume[]> {
     const supabase = createAdminClient();
 
-    // biome-ignore lint/suspicious/noExplicitAny: user_resumes table not in generated types yet
     const { data, error } = await (supabase as any)
         .from("user_resumes")
         .select("*")
@@ -47,7 +46,6 @@ export async function getResumeById(
 ): Promise<UserResume | null> {
     const supabase = createAdminClient();
 
-    // biome-ignore lint/suspicious/noExplicitAny: user_resumes table not in generated types yet
     const { data, error } = await (supabase as any)
         .from("user_resumes")
         .select("*")
@@ -71,7 +69,6 @@ export async function getDefaultResume(
 ): Promise<UserResume | null> {
     const supabase = createAdminClient();
 
-    // biome-ignore lint/suspicious/noExplicitAny: user_resumes table not in generated types yet
     const { data, error } = await (supabase as any)
         .from("user_resumes")
         .select("*")
@@ -95,7 +92,6 @@ export async function createResume(
 ): Promise<UserResume> {
     const supabase = createAdminClient();
 
-    // biome-ignore lint/suspicious/noExplicitAny: user_resumes table not in generated types yet
     const { data, error } = await (supabase as any)
         .from("user_resumes")
         .insert({
@@ -128,7 +124,6 @@ export async function updateResume(
         updateData.resume_data = input.resumeData;
     if (input.isDefault !== undefined) updateData.is_default = input.isDefault;
 
-    // biome-ignore lint/suspicious/noExplicitAny: user_resumes table not in generated types yet
     const { data, error } = await (supabase as any)
         .from("user_resumes")
         .update(updateData)
@@ -151,7 +146,6 @@ export async function deleteResume(
 ): Promise<void> {
     const supabase = createAdminClient();
 
-    // biome-ignore lint/suspicious/noExplicitAny: user_resumes table not in generated types yet
     const { error } = await (supabase as any)
         .from("user_resumes")
         .delete()

@@ -67,7 +67,6 @@ export async function getAiUsage(
 
     const supabase = createAdminClient();
 
-    // biome-ignore lint/suspicious/noExplicitAny: ai_usage table not in generated types yet
     const { data, error } = await (supabase as any)
         .from("ai_usage")
         .select("calls_count")
@@ -97,7 +96,6 @@ export async function incrementAiUsage(
 
     const supabase = createAdminClient();
 
-    // biome-ignore lint/suspicious/noExplicitAny: increment_ai_usage function not in generated types yet
     const { data, error } = await (supabase as any).rpc("increment_ai_usage", {
         p_user_id: userId,
         p_period_type: tierLimits.periodType,

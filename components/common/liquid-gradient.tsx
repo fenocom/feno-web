@@ -202,7 +202,6 @@ const GradientSvg: React.FC<GradientSvgProps> = ({
                     animate={isHovered ? variants.hovered : variants.notHovered}
                 >
                     {stopsAnimationArray.map((stopConfigs, index) => (
-                        // biome-ignore lint/suspicious/noArrayIndexKey: <explanation>
                         <AnimatePresence key={index}>
                             <motion.stop
                                 initial={{
@@ -241,7 +240,6 @@ export const Liquid: React.FC<LiquidProps> = ({ isHovered, colors }) => {
         <>
             {Array.from({ length: 7 }).map((_, index) => (
                 <div
-                    // biome-ignore lint/suspicious/noArrayIndexKey: <explanation>
                     key={index}
                     className={`absolute ${
                         index < 3

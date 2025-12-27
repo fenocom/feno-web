@@ -33,7 +33,6 @@ export const FontFamilySelector = ({ editor }: FontFamilySelectorProps) => {
 
     const currentFont =
         editor.getAttributes("textStyle")?.fontFamily || "Inter";
-    // Strip quotes and fallback fonts for display
     const displayFont = currentFont.split(",")[0].replace(/['"]/g, "");
 
     useEffect(() => {
@@ -77,7 +76,6 @@ export const FontFamilySelector = ({ editor }: FontFamilySelectorProps) => {
     }, [filteredFonts, page]);
 
     useEffect(() => {
-        // Dynamically load the current font if it's not a standard web font
         const isStandard = POPULAR_FONTS.includes(displayFont);
         if (!isStandard && displayFont) {
             const fontId = `font-${displayFont.replace(/\s+/g, "-").toLowerCase()}`;

@@ -313,7 +313,6 @@ export const FeaturesSection = () => {
     );
 };
 
-// Simple icons for the unique ones
 const StarsIcon = ({
     size,
     className,

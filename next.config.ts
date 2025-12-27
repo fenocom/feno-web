@@ -29,7 +29,6 @@ const nextConfig: NextConfig = {
     webpack: (config) => {
         config.experiments = { ...config.experiments, asyncWebAssembly: true };
 
-        // Handle PDF.js worker and related files
         config.module.rules.push({
             test: /\.(wasm)$/i,
             type: "asset/resource",

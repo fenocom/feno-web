@@ -36,7 +36,6 @@ export function extractResumeData(content: JSONContent): ResumeData {
                     if (childAttrs[RESUME_ATTRS.SCOPE] === "item") {
                         const itemData: Record<string, string> = {};
 
-                        // eslint-disable-next-line no-inner-declarations
                         function traverseItem(itemNode: JSONContent) {
                             const iAttrs = itemNode.attrs || {};
                             if (iAttrs[RESUME_ATTRS.FIELD]) {

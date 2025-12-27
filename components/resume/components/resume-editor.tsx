@@ -42,7 +42,6 @@ export const ResumeEditor = forwardRef<ResumeEditorRef, ResumeEditorProps>(
             },
         });
 
-        // Update editable state if readOnly prop changes
         useEffect(() => {
             if (editor) {
                 editor.setEditable(!readOnly);

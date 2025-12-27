@@ -17,7 +17,6 @@ export const BubbleMenuGlobal = ({ editor }: BubbleMenuProps) => {
         return !editor.state.selection.empty;
     };
 
-    // Force re-render on selection update to ensure state consistency
     useEditorState({
         editor,
         selector: (ctx) => ({
