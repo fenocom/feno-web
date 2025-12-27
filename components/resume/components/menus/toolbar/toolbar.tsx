@@ -8,6 +8,7 @@ import {
     IconDownload,
     IconPalette,
     IconSettings,
+    IconTargetArrow,
 } from "@tabler/icons-react";
 import type { Editor } from "@tiptap/core";
 import clsx from "clsx";
@@ -15,6 +16,7 @@ import { motion } from "framer-motion";
 import { useEffect, useRef, useState } from "react";
 import { PortfolioButton } from "../../../components/portfolio-button";
 import { AiAssistantPanel } from "./ai-assistant-panel";
+import { AtsPanel } from "./ats-panel";
 import { SaveTemplatePanel } from "./save-template-panel";
 import { SettingsPanel } from "./settings-panel";
 import { TemplatesPanel } from "./templates-panel";
@@ -28,7 +30,7 @@ interface ToolbarProps {
     onAiGeneratingChange?: (isGenerating: boolean) => void;
 }
 
-type ActivePanel = "templates" | "settings" | "save" | "ai" | null;
+type ActivePanel = "templates" | "settings" | "save" | "ai" | "ats" | null;
 
 export function Toolbar({
     onExport,
@@ -98,7 +100,10 @@ export function Toolbar({
         if (activePanel === "ai") {
             return { width: "500px", height: "350px" };
         }
-        return { width: isAdmin ? "338px" : "302px", height: "52px" };
+        if (activePanel === "ats") {
+            return { width: "500px", height: "450px" };
+        }
+        return { width: isAdmin ? "374px" : "338px", height: "52px" };
     };
 
     const { width, height } = getDimensions();
@@ -178,6 +183,19 @@ export function Toolbar({
                         onGeneratingChange={handleAiGeneratingChange}
                     />
                 </div>
+                <div
+                    className={clsx(
+                        "w-full h-full transition-opacity duration-300",
+                        activePanel === "ats"
+                            ? "relative z-10 opacity-100"
+                            : "absolute inset-0 invisible opacity-0 pointer-events-none",
+                    )}
+                >
+                    <AtsPanel
+                        editor={getEditor?.() ?? null}
+                        onAnalyzingChange={handleAiGeneratingChange}
+                    />
+                </div>
             </div>
             <div
                 className={clsx(
@@ -196,6 +214,18 @@ export function Toolbar({
                             isDisabled={isAiGenerating && activePanel !== "ai"}
                         >
                             <AiIcon size={28} />
+                        </Button>
+                        <Button
+                            isIconOnly
+                            size="sm"
+                            variant="ghost"
+                            onPress={() => togglePanel("ats")}
+                            isDisabled={isAiGenerating && activePanel !== "ats"}
+                            className={`p-1 min-w-8 h-8 rounded-md hover:bg-black/10 ${
+                                activePanel === "ats" ? "bg-black/10" : ""
+                            } text-black`}
+                        >
+                            <IconTargetArrow size={18} />
                         </Button>
                         <Separator orientation="vertical" className="h-6" />
 
