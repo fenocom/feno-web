@@ -12,10 +12,10 @@ import {
     validateFile,
 } from "@/lib/ai";
 import type { Attachment } from "@/lib/ai/types";
-import { Button, Popover, TextArea } from "@heroui/react";
+import { Button, TextArea } from "@heroui/react";
 import { IconLoader2, IconPaperclip, IconSend } from "@tabler/icons-react";
 import type { Editor, JSONContent } from "@tiptap/core";
-import { useCallback, useRef, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import { FileAttachmentPreview } from "./file-attachment-preview";
 
 interface AiAssistantPanelProps {
@@ -23,22 +23,52 @@ interface AiAssistantPanelProps {
     onGeneratingChange?: (isGenerating: boolean) => void;
 }
 
-const MODELS = [
-    { id: "gemma3:12b", label: "Gemma 3 12B" },
-];
+interface UsageData {
+    limit: number;
+    used: number;
+    remaining: number;
+    periodType: "monthly" | "daily";
+    resetsAt: string;
+}
+
+interface UsageResponse {
+    tier: number;
+    hasAccess: boolean;
+    usage: UsageData | null;
+}
+
+const MODEL_ID = "gemini-2.0-flash";
 
 export const AiAssistantPanel = ({
     editor,
     onGeneratingChange,
 }: AiAssistantPanelProps) => {
     const [prompt, setPrompt] = useState("");
-    const [selectedModel, setSelectedModel] =
-        useState<string>("gemma3:12b");
     const [attachments, setAttachments] = useState<Attachment[]>([]);
     const [isGenerating, setIsGenerating] = useState(false);
     const [error, setError] = useState<string | null>(null);
+    const [usage, setUsage] = useState<UsageResponse | null>(null);
+    const [isLoadingUsage, setIsLoadingUsage] = useState(true);
     const fileInputRef = useRef<HTMLInputElement>(null);
     const abortControllerRef = useRef<AbortController | null>(null);
+
+    const fetchUsage = useCallback(async () => {
+        try {
+            const response = await fetch("/api/ai/usage");
+            if (response.ok) {
+                const data = await response.json();
+                setUsage(data);
+            }
+        } catch {
+            console.error("Failed to fetch usage");
+        } finally {
+            setIsLoadingUsage(false);
+        }
+    }, []);
+
+    useEffect(() => {
+        fetchUsage();
+    }, [fetchUsage]);
 
     const handleFileSelect = useCallback(
         async (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -105,7 +135,7 @@ export const AiAssistantPanel = ({
             let fullResponse = "";
 
             for await (const chunk of streamCompletion(
-                selectedModel,
+                MODEL_ID,
                 messages,
                 abortControllerRef.current.signal,
             )) {
@@ -123,6 +153,7 @@ export const AiAssistantPanel = ({
             setPrompt("");
             attachments.forEach(revokeAttachmentPreview);
             setAttachments([]);
+            fetchUsage();
         } catch (err) {
             if (err instanceof Error && err.name === "AbortError") {
                 return;
@@ -138,73 +169,53 @@ export const AiAssistantPanel = ({
             onGeneratingChange?.(false);
             abortControllerRef.current = null;
         }
-    }, [editor, prompt, attachments, selectedModel, onGeneratingChange]);
+    }, [editor, prompt, attachments, onGeneratingChange, fetchUsage]);
 
     const handleCancel = useCallback(() => {
         abortControllerRef.current?.abort();
     }, []);
 
-    const currentModelLabel =
-        MODELS.find((m) => m.id === selectedModel)?.label || selectedModel;
+    const hasAccess = usage?.hasAccess ?? false;
+    const remaining = usage?.usage?.remaining ?? 0;
+    const limit = usage?.usage?.limit ?? 0;
+    const periodType = usage?.usage?.periodType;
+    const isLimitReached = hasAccess && remaining === 0;
 
     return (
         <div className="w-full h-full flex flex-col">
-            <div className="flex justify-between items-center px-4 py-2 border-b border-black/5">
+            <div className="flex items-center justify-between px-4 py-2 border-b border-black/5">
                 <div className="flex items-center gap-2">
                     <AiIcon size={20} />
                     <span className="font-semibold text-sm">AI Assistant</span>
                 </div>
-                <Popover>
-                    <Popover.Trigger>
-                        <Button
-                            size="sm"
-                            variant="ghost"
-                            className="w-full bg-black/5 border-none h-8 min-h-8 text-xs px-3 justify-between font-normal"
-                            isDisabled={isGenerating}
-                        >
-                            {currentModelLabel}
-                            <svg
-                                width="10"
-                                height="6"
-                                viewBox="0 0 10 6"
-                                fill="none"
-                                xmlns="http://www.w3.org/2000/svg"
-                                className="ml-2"
-                            >
-                                <path
-                                    d="M1 1L5 5L9 1"
-                                    stroke="currentColor"
-                                    strokeWidth="1.5"
-                                    strokeLinecap="round"
-                                    strokeLinejoin="round"
-                                />
-                            </svg>
-                        </Button>
-                    </Popover.Trigger>
-                    <Popover.Content
-                        placement="bottom"
-                        className="z-50 bg-white shadow-lg border rounded-lg p-1 min-w-[160px]"
+                {!isLoadingUsage && hasAccess && usage?.usage && (
+                    <span
+                        className={`text-xs px-2 py-1 rounded ${
+                            remaining === 0
+                                ? "bg-red-100 text-red-600"
+                                : remaining <= 3
+                                  ? "bg-yellow-100 text-yellow-700"
+                                  : "bg-black/5 text-black/50"
+                        }`}
                     >
-                        <div className="flex flex-col">
-                            {MODELS.map((model) => (
-                                <Button
-                                    key={model.id}
-                                    size="sm"
-                                    variant="ghost"
-                                    className={`justify-start text-xs px-3 py-1.5 ${
-                                        selectedModel === model.id
-                                            ? "bg-black/5"
-                                            : ""
-                                    }`}
-                                    onPress={() => setSelectedModel(model.id)}
-                                >
-                                    {model.label}
-                                </Button>
-                            ))}
-                        </div>
-                    </Popover.Content>
-                </Popover>
+                        {remaining}/{limit}{" "}
+                        {periodType === "daily" ? "today" : "this month"}
+                    </span>
+                )}
             </div>
+
+            {!isLoadingUsage && !hasAccess && (
+                <div className="px-4 py-3 bg-gradient-to-r from-purple-50 to-pink-50 text-sm text-purple-700">
+                    Upgrade to Premium to use AI features
+                </div>
+            )}
+
+            {isLimitReached && (
+                <div className="px-4 py-2 bg-red-50 text-red-600 text-xs">
+                    You've reached your {periodType} limit. Resets{" "}
+                    {periodType === "daily" ? "tomorrow" : "next month"}.
+                </div>
+            )}
 
             <FileAttachmentPreview
                 attachments={attachments}
@@ -219,12 +230,18 @@ export const AiAssistantPanel = ({
 
             <div className="flex-1 relative">
                 <TextArea
-                    placeholder="Ask AI to help with your resume..."
+                    placeholder={
+                        !hasAccess
+                            ? "Premium subscription required..."
+                            : isLimitReached
+                              ? "Usage limit reached..."
+                              : "Ask AI to help with your resume..."
+                    }
                     value={prompt}
                     onChange={(e) => setPrompt(e.target.value)}
                     rows={6}
                     className="w-full h-full outline-none resize-none text-sm p-3 transition-colors"
-                    disabled={isGenerating}
+                    disabled={isGenerating || !hasAccess || isLimitReached}
                 />
 
                 <input
@@ -253,6 +270,7 @@ export const AiAssistantPanel = ({
                                 variant="ghost"
                                 onPress={() => fileInputRef.current?.click()}
                                 aria-label="Upload Attachment"
+                                isDisabled={!hasAccess || isLimitReached}
                             >
                                 <IconPaperclip size={18} /> Add files
                             </Button>
@@ -260,7 +278,12 @@ export const AiAssistantPanel = ({
                                 size="sm"
                                 className="bg-black text-white"
                                 onPress={handleBuild}
-                                isDisabled={!prompt.trim() || !editor}
+                                isDisabled={
+                                    !prompt.trim() ||
+                                    !editor ||
+                                    !hasAccess ||
+                                    isLimitReached
+                                }
                                 aria-label="Build"
                             >
                                 <IconSend size={16} /> Build
