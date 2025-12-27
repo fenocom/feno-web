@@ -3,9 +3,10 @@
 import { AiIcon } from "@/components/common/ai-icon";
 import { useAuth } from "@/lib/auth/context";
 import type { UserResume } from "@/lib/hooks/use-resumes";
-import { Button, Separator } from "@heroui/react";
+import { Button, Link, Separator } from "@heroui/react";
 import {
     IconDeviceFloppy,
+    IconLayoutDashboard,
     IconLayoutGrid,
     IconPalette,
     IconSettings,
@@ -36,7 +37,7 @@ interface ToolbarProps {
     hasUnsavedChanges?: boolean;
     onSaveNow?: () => void;
     onSaveNew?: (name: string) => void;
-    onSwitchResume?: (resume: UserResume) => void;
+    isDisabled?: boolean;
 }
 
 type ActivePanel =
@@ -60,7 +61,7 @@ export function Toolbar({
     hasUnsavedChanges = false,
     onSaveNow,
     onSaveNew,
-    onSwitchResume,
+    isDisabled = false,
 }: ToolbarProps) {
     const { isAdmin, user } = useAuth();
     const [activePanel, setActivePanel] = useState<ActivePanel>(null);
@@ -94,7 +95,7 @@ export function Toolbar({
     };
 
     const togglePanel = (panel: ActivePanel) => {
-        if (isAiGenerating) return;
+        if (isAiGenerating || isDisabled) return;
 
         if (activePanel === panel) {
             setActivePanel(null);
@@ -132,7 +133,10 @@ export function Toolbar({
                 height: currentResume ? "380px" : "280px",
             };
         }
-        const baseWidth = isAdmin ? 374 : 338;
+        // Base width calculation:
+        // Original: isAdmin ? 374 : 338
+        // Added Dashboard button (+40px)
+        const baseWidth = (isAdmin ? 374 : 338) + 40;
         return { width: `${baseWidth}px`, height: "52px" };
     };
 
@@ -233,9 +237,6 @@ export function Toolbar({
                             hasUnsavedChanges={hasUnsavedChanges}
                             onSaveNow={() => onSaveNow?.()}
                             onSaveNew={(name) => onSaveNew?.(name)}
-                            onSwitchResume={(resume) =>
-                                onSwitchResume?.(resume)
-                            }
                             onExport={() => onExport?.()}
                             onClose={() => setActivePanel(null)}
                         />
@@ -252,12 +253,27 @@ export function Toolbar({
                     <div className="flex gap-2 items-center px-3 py-2 whitespace-nowrap">
                         <Button
                             isIconOnly
+                            as={Link}
+                            href="/control-center"
+                            size="sm"
+                            variant="ghost"
+                            isDisabled={isAiGenerating || isDisabled}
+                            className="p-1 min-w-8 h-8 rounded-md hover:bg-black/10 text-black"
+                        >
+                            <IconLayoutDashboard size={18} />
+                        </Button>
+
+                        <Button
+                            isIconOnly
                             className={clsx(
                                 "bg-transparent data-[hover=true]:bg-black/5 min-w-fit w-fit h-fit p-1 rounded-full",
                                 activePanel === "ai" && "bg-black/5",
                             )}
                             onPress={() => togglePanel("ai")}
-                            isDisabled={isAiGenerating && activePanel !== "ai"}
+                            isDisabled={
+                                (isAiGenerating && activePanel !== "ai") ||
+                                isDisabled
+                            }
                         >
                             <AiIcon size={28} />
                         </Button>
@@ -266,7 +282,10 @@ export function Toolbar({
                             size="sm"
                             variant="ghost"
                             onPress={() => togglePanel("ats")}
-                            isDisabled={isAiGenerating && activePanel !== "ats"}
+                            isDisabled={
+                                (isAiGenerating && activePanel !== "ats") ||
+                                isDisabled
+                            }
                             className={clsx(
                                 "p-1 min-w-8 h-8 rounded-md hover:bg-black/10 text-black",
                                 activePanel === "ats" && "bg-black/10",
@@ -282,7 +301,7 @@ export function Toolbar({
                                 size="sm"
                                 variant="ghost"
                                 onPress={() => togglePanel("templates")}
-                                isDisabled={isAiGenerating}
+                                isDisabled={isAiGenerating || isDisabled}
                                 className={clsx(
                                     "p-1 min-w-8 h-8 rounded-md hover:bg-black/10 text-black",
                                     activePanel === "templates" &&
@@ -297,7 +316,7 @@ export function Toolbar({
                                     size="sm"
                                     variant="ghost"
                                     onPress={() => togglePanel("save")}
-                                    isDisabled={isAiGenerating}
+                                    isDisabled={isAiGenerating || isDisabled}
                                     className={clsx(
                                         "p-1 min-w-8 h-8 rounded-md hover:bg-black/10 text-black",
                                         activePanel === "save" && "bg-black/10",
@@ -311,7 +330,7 @@ export function Toolbar({
                                 size="sm"
                                 variant="ghost"
                                 onPress={() => togglePanel("settings")}
-                                isDisabled={isAiGenerating}
+                                isDisabled={isAiGenerating || isDisabled}
                                 className={clsx(
                                     "p-1 min-w-8 h-8 rounded-md hover:bg-black/10 text-black",
                                     activePanel === "settings" && "bg-black/10",
@@ -325,7 +344,7 @@ export function Toolbar({
                                     size="sm"
                                     variant="ghost"
                                     onPress={() => togglePanel("admin-save")}
-                                    isDisabled={isAiGenerating}
+                                    isDisabled={isAiGenerating || isDisabled}
                                     className={clsx(
                                         "p-1 min-w-8 h-8 rounded-md hover:bg-black/10 text-black",
                                         activePanel === "admin-save" &&

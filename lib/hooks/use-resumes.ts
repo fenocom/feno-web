@@ -14,14 +14,15 @@ export interface UserResume {
 
 interface UseResumesOptions {
     autoSaveDelay?: number;
+    enabled?: boolean;
 }
 
 export function useResumes(options: UseResumesOptions = {}) {
-    const { autoSaveDelay = 2000 } = options;
+    const { autoSaveDelay = 2000, enabled = true } = options;
 
     const [resumes, setResumes] = useState<UserResume[]>([]);
     const [currentResume, setCurrentResume] = useState<UserResume | null>(null);
-    const [isLoading, setIsLoading] = useState(true);
+    const [isLoading, setIsLoading] = useState(enabled);
     const [isSaving, setIsSaving] = useState(false);
     const [error, setError] = useState<string | null>(null);
     const [hasUnsavedChanges, setHasUnsavedChanges] = useState(false);
@@ -30,7 +31,9 @@ export function useResumes(options: UseResumesOptions = {}) {
     const pendingDataRef = useRef<Record<string, unknown> | null>(null);
 
     const fetchResumes = useCallback(async () => {
+        if (!enabled) return;
         try {
+            setIsLoading(true);
             const response = await fetch("/api/resumes");
             if (!response.ok) {
                 if (response.status === 401) {
@@ -49,7 +52,7 @@ export function useResumes(options: UseResumesOptions = {}) {
         } finally {
             setIsLoading(false);
         }
-    }, []);
+    }, [enabled]);
 
     const fetchDefaultResume = useCallback(async () => {
         try {
