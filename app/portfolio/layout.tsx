@@ -1,0 +1,82 @@
+import type { Metadata, Viewport } from "next";
+import {
+    Cormorant_Garamond,
+    Host_Grotesk,
+    JetBrains_Mono,
+} from "next/font/google";
+
+import "../globals.css";
+import { AuthProvider } from "@/lib/auth/context";
+import { SpeedInsights } from "@vercel/speed-insights/next";
+
+const hostGrotesk = Host_Grotesk({
+    variable: "--font-host",
+    subsets: ["latin"],
+    weight: ["400", "500", "600", "700", "800"],
+});
+
+const jetbrains = JetBrains_Mono({
+    variable: "--font-jetbrains",
+    subsets: ["latin"],
+    weight: ["400", "500", "600", "700"],
+});
+
+const serif = Cormorant_Garamond({
+    variable: "--font-serif",
+    subsets: ["latin"],
+    weight: "400",
+});
+
+export const metadata: Metadata = {
+    title: "Feno Portfolio - Create Your Professional Portfolio",
+    description: "Build a stunning portfolio from your resume in minutes.",
+    icons: {
+        icon: [
+            {
+                url: "/favicon/favicon-32x32.png",
+                sizes: "32x32",
+                type: "image/png",
+            },
+            {
+                url: "/favicon/favicon-16x16.png",
+                sizes: "16x16",
+                type: "image/png",
+            },
+        ],
+        apple: [
+            {
+                url: "/favicon/apple-touch-icon.png",
+                sizes: "180x180",
+                type: "image/png",
+            },
+        ],
+    },
+    manifest: "/favicon/site.webmanifest",
+};
+
+export const viewport: Viewport = {
+    themeColor: "#ffffff",
+};
+
+export default function PortfolioLayout({
+    children,
+}: Readonly<{
+    children: React.ReactNode;
+}>) {
+    return (
+        <html
+            lang="en"
+            data-theme="light"
+            className={`light bg-background font-host ${hostGrotesk.variable} ${serif.variable} ${jetbrains.variable} antialiased`}
+        >
+            <body>
+                <AuthProvider>
+                    <main className="w-full min-h-screen h-full">
+                        {children}
+                    </main>
+                </AuthProvider>
+            </body>
+            <SpeedInsights />
+        </html>
+    );
+}
