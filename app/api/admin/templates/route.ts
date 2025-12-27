@@ -1,3 +1,4 @@
+import { ratelimit } from "@/lib/ratelimit";
 import { createTemplate, getTemplates } from "@/lib/services/templates";
 import { createClient } from "@/lib/supabase/server";
 import { type NextRequest, NextResponse } from "next/server";
@@ -83,7 +84,8 @@ export async function GET(request: NextRequest) {
         } = await supabase.auth.getUser();
 
         if (ratelimit) {
-            const identifier = user?.id || request.ip || "anonymous";
+            const identifier =
+                user?.id || request.headers.get("x-forwarded-for") || "anonymous";
             const { success } = await ratelimit.limit(identifier);
             if (!success) {
                 return NextResponse.json(

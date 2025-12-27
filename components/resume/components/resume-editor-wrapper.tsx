@@ -1,7 +1,7 @@
 "use client";
 
 import { useCallback, useEffect, useRef, useState } from "react";
-import { AuroraBorder } from "../aurora-border";
+import { AuroraBorder } from "./aurora-border";
 
 interface ResumeEditorWrapperProps {
     children: React.ReactNode;

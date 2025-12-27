@@ -4,14 +4,12 @@ import type { UserResume } from "@/lib/hooks/use-resumes";
 import { Button, Input, Separator, Spinner } from "@heroui/react";
 import {
     IconCheck,
-    IconChevronRight,
     IconCloudUpload,
     IconDeviceFloppy,
     IconDownload,
     IconFile,
     IconLoader2,
     IconPlus,
-    IconSwitchHorizontal,
 } from "@tabler/icons-react";
 import { useState } from "react";
 
@@ -22,7 +20,6 @@ interface SavePanelProps {
     hasUnsavedChanges: boolean;
     onSaveNow: () => void;
     onSaveNew: (name: string) => void;
-    onSwitchResume: (resume: UserResume) => void;
     onExport: () => void;
     onClose: () => void;
 }
@@ -34,25 +31,17 @@ export function SavePanel({
     hasUnsavedChanges,
     onSaveNow,
     onSaveNew,
-    onSwitchResume,
     onExport,
     onClose,
 }: SavePanelProps) {
     const [showNewForm, setShowNewForm] = useState(false);
     const [newName, setNewName] = useState("");
-    const [showResumeList, setShowResumeList] = useState(false);
 
     const handleSaveNew = () => {
         if (!newName.trim()) return;
         onSaveNew(newName.trim());
         setNewName("");
         setShowNewForm(false);
-        onClose();
-    };
-
-    const handleSwitchResume = (resume: UserResume) => {
-        onSwitchResume(resume);
-        setShowResumeList(false);
         onClose();
     };
 
@@ -111,47 +100,6 @@ export function SavePanel({
                                 <IconCloudUpload size={18} />
                                 Save to Cloud
                             </Button>
-                            {resumes.length > 0 && (
-                                <Button
-                                    variant="secondary"
-                                    className="w-full flex items-center gap-2"
-                                    onPress={() => setShowResumeList(true)}
-                                >
-                                    <IconSwitchHorizontal size={18} />
-                                    Open Existing Resume
-                                </Button>
-                            )}
-                        </div>
-                    )}
-                    {showResumeList && (
-                        <div className="mt-4 border-t border-black/5 pt-4">
-                            <div className="text-xs font-medium text-black/50 uppercase tracking-wide mb-2">
-                                Your Resumes
-                            </div>
-                            <div className="space-y-1 max-h-40 overflow-y-auto">
-                                {resumes.map((resume) => (
-                                    <button
-                                        key={resume.id}
-                                        type="button"
-                                        onClick={() =>
-                                            handleSwitchResume(resume)
-                                        }
-                                        className="w-full flex items-center gap-2 px-3 py-2 rounded-lg hover:bg-black/5 transition-colors text-left"
-                                    >
-                                        <IconFile
-                                            size={16}
-                                            className="text-black/40"
-                                        />
-                                        <span className="flex-1 truncate text-sm">
-                                            {resume.name}
-                                        </span>
-                                        <IconChevronRight
-                                            size={16}
-                                            className="text-black/30"
-                                        />
-                                    </button>
-                                ))}
-                            </div>
                         </div>
                     )}
                     <Separator className="my-3" />
@@ -267,58 +215,6 @@ export function SavePanel({
                         Save as New Resume
                     </Button>
                 )}
-
-                {resumes.length > 1 &&
-                    (showResumeList ? (
-                        <div className="border-t border-black/5 pt-3">
-                            <div className="text-xs font-medium text-black/50 uppercase tracking-wide mb-2">
-                                Switch to
-                            </div>
-                            <div className="space-y-1 max-h-32 overflow-y-auto">
-                                {resumes
-                                    .filter((r) => r.id !== currentResume.id)
-                                    .map((resume) => (
-                                        <button
-                                            key={resume.id}
-                                            type="button"
-                                            onClick={() =>
-                                                handleSwitchResume(resume)
-                                            }
-                                            className="w-full flex items-center gap-2 px-3 py-2 rounded-lg hover:bg-black/5 transition-colors text-left"
-                                        >
-                                            <IconFile
-                                                size={16}
-                                                className="text-black/40"
-                                            />
-                                            <span className="flex-1 truncate text-sm">
-                                                {resume.name}
-                                            </span>
-                                            <IconChevronRight
-                                                size={16}
-                                                className="text-black/30"
-                                            />
-                                        </button>
-                                    ))}
-                            </div>
-                            <Button
-                                variant="ghost"
-                                size="sm"
-                                className="w-full mt-2"
-                                onPress={() => setShowResumeList(false)}
-                            >
-                                Cancel
-                            </Button>
-                        </div>
-                    ) : (
-                        <Button
-                            variant="secondary"
-                            className="w-full flex items-center gap-2"
-                            onPress={() => setShowResumeList(true)}
-                        >
-                            <IconSwitchHorizontal size={18} />
-                            Switch Resume
-                        </Button>
-                    ))}
 
                 <Separator className="my-3" />
                 <Button

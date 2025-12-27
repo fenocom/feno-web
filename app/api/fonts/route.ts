@@ -12,7 +12,7 @@ export async function GET(request: NextRequest) {
     }
 
     if (ratelimit) {
-        const identifier = request.ip || "anonymous";
+        const identifier = request.headers.get("x-forwarded-for") || "anonymous";
         const { success } = await ratelimit.limit(identifier);
         if (!success) {
             return NextResponse.json(

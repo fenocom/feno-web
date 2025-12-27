@@ -15,6 +15,7 @@ import {
 import type { Editor } from "@tiptap/core";
 import clsx from "clsx";
 import { motion } from "framer-motion";
+import NextLink from "next/link";
 import { useEffect, useRef, useState } from "react";
 import { PortfolioButton } from "../../../components/portfolio-button";
 import { AiAssistantPanel } from "./ai-assistant-panel";
@@ -133,9 +134,6 @@ export function Toolbar({
                 height: currentResume ? "380px" : "280px",
             };
         }
-        // Base width calculation:
-        // Original: isAdmin ? 374 : 338
-        // Added Dashboard button (+40px)
         const baseWidth = (isAdmin ? 374 : 338) + 40;
         return { width: `${baseWidth}px`, height: "52px" };
     };
@@ -251,17 +249,17 @@ export function Toolbar({
             >
                 <div className="flex justify-center w-full">
                     <div className="flex gap-2 items-center px-3 py-2 whitespace-nowrap">
-                        <Button
-                            isIconOnly
-                            as={Link}
-                            href="/control-center"
-                            size="sm"
-                            variant="ghost"
-                            isDisabled={isAiGenerating || isDisabled}
-                            className="p-1 min-w-8 h-8 rounded-md hover:bg-black/10 text-black"
-                        >
-                            <IconLayoutDashboard size={18} />
-                        </Button>
+                        <NextLink href="/control-center">
+                            <Button
+                                isIconOnly
+                                size="sm"
+                                variant="ghost"
+                                isDisabled={isAiGenerating || isDisabled}
+                                className="p-1 min-w-8 h-8 rounded-md hover:bg-black/10 text-black"
+                            >
+                                <IconLayoutDashboard size={18} />
+                            </Button>
+                        </NextLink>
 
                         <Button
                             isIconOnly
