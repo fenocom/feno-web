@@ -161,6 +161,8 @@ const GradientSvg: React.FC<GradientSvgProps> = ({
         (svgKey) => svgStates[svgKey].gradientTransform,
     );
 
+    const stopIds = Array.from({ length: maxStops }).map((_, i) => `stop-${i}`);
+
     const variants = {
         hovered: {
             gradientTransform: gradientTransform,
@@ -201,29 +203,32 @@ const GradientSvg: React.FC<GradientSvgProps> = ({
                     initial={{ gradientTransform: gradientTransform[0] }}
                     animate={isHovered ? variants.hovered : variants.notHovered}
                 >
-                    {stopsAnimationArray.map((stopConfigs, index) => (
-                        <AnimatePresence key={index}>
-                            <motion.stop
-                                initial={{
-                                    offset: stopConfigs[0].offset,
-                                    stopColor: stopConfigs[0].stopColor,
-                                }}
-                                animate={{
-                                    offset: stopConfigs.map(
-                                        (config) => config.offset,
-                                    ),
-                                    stopColor: stopConfigs.map(
-                                        (config) => config.stopColor,
-                                    ),
-                                }}
-                                transition={{
-                                    duration: 0,
-                                    ease: "linear",
-                                    repeat: Number.POSITIVE_INFINITY,
-                                }}
-                            />
-                        </AnimatePresence>
-                    ))}
+                    {stopIds.map((id, index) => {
+                        const stopConfigs = stopsAnimationArray[index];
+                        return (
+                            <AnimatePresence key={id}>
+                                <motion.stop
+                                    initial={{
+                                        offset: stopConfigs[0].offset,
+                                        stopColor: stopConfigs[0].stopColor,
+                                    }}
+                                    animate={{
+                                        offset: stopConfigs.map(
+                                            (config) => config.offset,
+                                        ),
+                                        stopColor: stopConfigs.map(
+                                            (config) => config.stopColor,
+                                        ),
+                                    }}
+                                    transition={{
+                                        duration: 0,
+                                        ease: "linear",
+                                        repeat: Number.POSITIVE_INFINITY,
+                                    }}
+                                />
+                            </AnimatePresence>
+                        );
+                    })}
                 </motion.radialGradient>
             </defs>
         </svg>
@@ -236,11 +241,20 @@ type LiquidProps = {
 };
 
 export const Liquid: React.FC<LiquidProps> = ({ isHovered, colors }) => {
+    const layerIds = [
+        "layer-0",
+        "layer-1",
+        "layer-2",
+        "layer-3",
+        "layer-4",
+        "layer-5",
+        "layer-6",
+    ];
     return (
         <>
-            {Array.from({ length: 7 }).map((_, index) => (
+            {layerIds.map((id, index) => (
                 <div
-                    key={index}
+                    key={id}
                     className={`absolute ${
                         index < 3
                             ? "w-[443px] h-[121px]"
