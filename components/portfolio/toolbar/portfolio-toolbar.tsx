@@ -13,7 +13,7 @@ import {
 import clsx from "clsx";
 import { motion } from "framer-motion";
 import NextLink from "next/link";
-import { PortfolioButton } from "@/components/portfolio-button";
+import { PortfolioButton } from "@/components/resume/components/portfolio-button";
 
 interface PortfolioToolbarProps {
     isDisabled?: boolean;

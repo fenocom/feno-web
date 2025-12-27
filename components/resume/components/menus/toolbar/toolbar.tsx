@@ -3,7 +3,7 @@
 import { AiIcon } from "@/components/common/ai-icon";
 import { useAuth } from "@/lib/auth/context";
 import type { UserResume } from "@/lib/hooks/use-resumes";
-import { Button, Link, Separator, Tooltip } from "@heroui/react";
+import { Button, Separator, Tooltip } from "@heroui/react";
 import {
     IconDeviceFloppy,
     IconLayoutDashboard,
@@ -230,7 +230,6 @@ export function Toolbar({
                     {user && (
                         <SavePanel
                             currentResume={currentResume ?? null}
-                            resumes={resumes}
                             isSaving={isSaving}
                             hasUnsavedChanges={hasUnsavedChanges}
                             onSaveNow={() => onSaveNow?.()}

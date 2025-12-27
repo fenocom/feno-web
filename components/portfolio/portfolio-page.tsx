@@ -1,3 +1,5 @@
+"use client";
+
 import { useAuth } from "@/lib/auth/context";
 import { DottedBackground } from "@/components/resume/dotted-bg";
 import { AuroraBorder } from "@/components/resume/components/aurora-border";

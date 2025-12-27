@@ -10,6 +10,7 @@ import {
 } from "@tabler/icons-react";
 import clsx from "clsx";
 import Image from "next/image";
+import NextLink from "next/link";
 import { useState } from "react";
 
 interface PortfolioWizardProps {
@@ -155,9 +156,11 @@ export function PortfolioWizard({
                                 <p className="mb-4 text-black/60">
                                     No resumes found.
                                 </p>
-                                <Button as="a" href="/resume" variant="flat">
-                                    Create Resume
-                                </Button>
+                                <NextLink href="/resume">
+                                    <Button variant="ghost">
+                                        Create Resume
+                                    </Button>
+                                </NextLink>
                             </div>
                         ) : (
                             <div className="grid gap-3">
@@ -202,7 +205,7 @@ export function PortfolioWizard({
 
             <div className="border-t border-black/5 p-4 flex justify-between items-center bg-white shrink-0">
                 {step === "resume" ? (
-                    <Button variant="light" onPress={() => setStep("template")}>
+                    <Button variant="ghost" onPress={() => setStep("template")}>
                         Back
                     </Button>
                 ) : (
