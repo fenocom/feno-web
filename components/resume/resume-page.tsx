@@ -70,14 +70,9 @@ export const ResumePage = ({ initialResumeId }: ResumePageProps) => {
                     setShowSelector(true);
                 }
             }
-        } else {
-            if (user && resumes.length > 0) {
-                setShowSelector(true);
-            }
         }
         setIsInitialized(true);
     }, [
-        user,
         resumes,
         isAuthLoading,
         isResumesLoading,
