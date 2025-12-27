@@ -151,7 +151,6 @@ export const ResumePage = ({ initialResumeId }: ResumePageProps) => {
                     onTemplateSelect={handleTemplateSelect}
                     onAiGeneratingChange={setIsAiGenerating}
                     currentResume={currentResume}
-                    resumes={resumes}
                     isSaving={isSaving}
                     hasUnsavedChanges={hasUnsavedChanges}
                     onSaveNow={handleSaveNow}

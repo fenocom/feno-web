@@ -52,16 +52,19 @@ export function PortfolioPage() {
     }
 
     return (
-        <div className="relative w-full min-h-screen flex justify-center px-2 sm:px-10 py-12 pb-32">
+        <div className="relative w-full min-h-screen flex justify-center px-2 sm:px-10 py-12 pb-32 overflow-x-hidden">
             <div className="no-print">
                 <DottedBackground />
             </div>
 
-            <AuroraBorder isActive={isGenerating} className="h-fit max-w-full z-10 w-full max-w-5xl">
-                <div className="p-1 border border-black/5 relative bg-black/5 rounded-xl backdrop-blur-sm transition-colors duration-300 h-fit w-full">
-                    <div className="relative rounded-lg border border-black/5 overflow-hidden bg-white min-h-[600px] flex flex-col">
-                        <PortfolioWizard 
-                            onGenerate={(html) => setGeneratedHtml(html)} 
+            <AuroraBorder
+                isActive={isGenerating}
+                className="z-10 w-full max-w-[90vw] h-[80vh]"
+            >
+                <div className="p-1 border border-black/5 relative bg-black/5 rounded-xl backdrop-blur-sm transition-colors duration-300 h-full w-full">
+                    <div className="relative rounded-lg border border-black/5 overflow-hidden bg-white h-full flex flex-col">
+                        <PortfolioWizard
+                            onGenerate={(html) => setGeneratedHtml(html)}
                             isGenerating={isGenerating}
                             setIsGenerating={setIsGenerating}
                         />

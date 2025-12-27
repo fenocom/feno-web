@@ -33,7 +33,6 @@ interface ToolbarProps {
     onTemplateSelect?: (template: Template) => void;
     onAiGeneratingChange?: (isGenerating: boolean) => void;
     currentResume?: UserResume | null;
-    resumes?: UserResume[];
     isSaving?: boolean;
     hasUnsavedChanges?: boolean;
     onSaveNow?: () => void;
@@ -57,7 +56,6 @@ export function Toolbar({
     onTemplateSelect,
     onAiGeneratingChange,
     currentResume,
-    resumes = [],
     isSaving = false,
     hasUnsavedChanges = false,
     onSaveNow,
