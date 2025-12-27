@@ -3,13 +3,13 @@
 import { AiIcon } from "@/components/common/ai-icon";
 import { useAuth } from "@/lib/auth/context";
 import type { UserResume } from "@/lib/hooks/use-resumes";
-import { Button, Link, Separator } from "@heroui/react";
+import { Button, Link, Separator, Tooltip } from "@heroui/react";
 import {
     IconDeviceFloppy,
     IconLayoutDashboard,
-    IconLayoutGrid,
     IconPalette,
     IconSettings,
+    IconSparkles,
     IconTargetArrow,
 } from "@tabler/icons-react";
 import type { Editor } from "@tiptap/core";
@@ -249,108 +249,156 @@ export function Toolbar({
             >
                 <div className="flex justify-center w-full">
                     <div className="flex gap-2 items-center px-3 py-2 whitespace-nowrap">
-                        <NextLink href="/control-center">
+                        <Tooltip delay={0}>
+                            <Button
+                                isIconOnly
+                                className={clsx(
+                                    "bg-transparent data-[hover=true]:bg-black/5 min-w-fit w-fit h-fit p-1 rounded-full",
+                                    activePanel === "ai" && "bg-black/5",
+                                )}
+                                onPress={() => togglePanel("ai")}
+                                isDisabled={
+                                    (isAiGenerating && activePanel !== "ai") ||
+                                    isDisabled
+                                }
+                            >
+                                <AiIcon size={28} />
+                            </Button>
+                            <Tooltip.Content>
+                                <p>AI Assistant</p>
+                            </Tooltip.Content>
+                        </Tooltip>
+
+                        <Tooltip delay={0}>
                             <Button
                                 isIconOnly
                                 size="sm"
                                 variant="ghost"
-                                isDisabled={isAiGenerating || isDisabled}
-                                className="p-1 min-w-8 h-8 rounded-md hover:bg-black/10 text-black"
+                                onPress={() => togglePanel("ats")}
+                                isDisabled={
+                                    (isAiGenerating && activePanel !== "ats") ||
+                                    isDisabled
+                                }
+                                className={clsx(
+                                    "p-1 min-w-8 h-8 rounded-md hover:bg-black/10 text-black",
+                                    activePanel === "ats" && "bg-black/10",
+                                )}
                             >
-                                <IconLayoutDashboard size={18} />
+                                <IconTargetArrow size={18} />
                             </Button>
-                        </NextLink>
+                            <Tooltip.Content>
+                                <p>ATS Analysis</p>
+                            </Tooltip.Content>
+                        </Tooltip>
 
-                        <Button
-                            isIconOnly
-                            className={clsx(
-                                "bg-transparent data-[hover=true]:bg-black/5 min-w-fit w-fit h-fit p-1 rounded-full",
-                                activePanel === "ai" && "bg-black/5",
-                            )}
-                            onPress={() => togglePanel("ai")}
-                            isDisabled={
-                                (isAiGenerating && activePanel !== "ai") ||
-                                isDisabled
-                            }
-                        >
-                            <AiIcon size={28} />
-                        </Button>
-                        <Button
-                            isIconOnly
-                            size="sm"
-                            variant="ghost"
-                            onPress={() => togglePanel("ats")}
-                            isDisabled={
-                                (isAiGenerating && activePanel !== "ats") ||
-                                isDisabled
-                            }
-                            className={clsx(
-                                "p-1 min-w-8 h-8 rounded-md hover:bg-black/10 text-black",
-                                activePanel === "ats" && "bg-black/10",
-                            )}
-                        >
-                            <IconTargetArrow size={18} />
-                        </Button>
+                        <Tooltip delay={0}>
+                            <NextLink href="/control-center">
+                                <Button
+                                    isIconOnly
+                                    size="sm"
+                                    variant="ghost"
+                                    isDisabled={isAiGenerating || isDisabled}
+                                    className="p-1 min-w-8 h-8 rounded-md hover:bg-black/10 text-black"
+                                >
+                                    <IconLayoutDashboard size={18} />
+                                </Button>
+                            </NextLink>
+                            <Tooltip.Content>
+                                <p>Control Center</p>
+                            </Tooltip.Content>
+                        </Tooltip>
+
                         <Separator orientation="vertical" className="h-6" />
 
                         <div className="flex gap-1 items-center">
-                            <Button
-                                isIconOnly
-                                size="sm"
-                                variant="ghost"
-                                onPress={() => togglePanel("templates")}
-                                isDisabled={isAiGenerating || isDisabled}
-                                className={clsx(
-                                    "p-1 min-w-8 h-8 rounded-md hover:bg-black/10 text-black",
-                                    activePanel === "templates" &&
-                                        "bg-black/10",
-                                )}
-                            >
-                                <IconPalette size={18} />
-                            </Button>
-                            {user && (
+                            <Tooltip delay={0}>
                                 <Button
                                     isIconOnly
                                     size="sm"
                                     variant="ghost"
-                                    onPress={() => togglePanel("save")}
+                                    onPress={() => togglePanel("templates")}
                                     isDisabled={isAiGenerating || isDisabled}
                                     className={clsx(
                                         "p-1 min-w-8 h-8 rounded-md hover:bg-black/10 text-black",
-                                        activePanel === "save" && "bg-black/10",
-                                    )}
-                                >
-                                    <IconDeviceFloppy size={18} />
-                                </Button>
-                            )}
-                            <Button
-                                isIconOnly
-                                size="sm"
-                                variant="ghost"
-                                onPress={() => togglePanel("settings")}
-                                isDisabled={isAiGenerating || isDisabled}
-                                className={clsx(
-                                    "p-1 min-w-8 h-8 rounded-md hover:bg-black/10 text-black",
-                                    activePanel === "settings" && "bg-black/10",
-                                )}
-                            >
-                                <IconSettings size={18} />
-                            </Button>
-                            {isAdmin && getEditorContent && (
-                                <Button
-                                    isIconOnly
-                                    size="sm"
-                                    variant="ghost"
-                                    onPress={() => togglePanel("admin-save")}
-                                    isDisabled={isAiGenerating || isDisabled}
-                                    className={clsx(
-                                        "p-1 min-w-8 h-8 rounded-md hover:bg-black/10 text-black",
-                                        activePanel === "admin-save" &&
+                                        activePanel === "templates" &&
                                             "bg-black/10",
                                     )}
                                 >
-                                    <IconLayoutGrid size={18} />
+                                    <IconPalette size={18} />
                                 </Button>
+                                <Tooltip.Content>
+                                    <p>Templates</p>
+                                </Tooltip.Content>
+                            </Tooltip>
+
+                            {user && (
+                                <Tooltip delay={0}>
+                                    <Button
+                                        isIconOnly
+                                        size="sm"
+                                        variant="ghost"
+                                        onPress={() => togglePanel("save")}
+                                        isDisabled={
+                                            isAiGenerating || isDisabled
+                                        }
+                                        className={clsx(
+                                            "p-1 min-w-8 h-8 rounded-md hover:bg-black/10 text-black",
+                                            activePanel === "save" &&
+                                                "bg-black/10",
+                                        )}
+                                    >
+                                        <IconDeviceFloppy size={18} />
+                                    </Button>
+                                    <Tooltip.Content>
+                                        <p>Save & Export</p>
+                                    </Tooltip.Content>
+                                </Tooltip>
+                            )}
+
+                            <Tooltip delay={0}>
+                                <Button
+                                    isIconOnly
+                                    size="sm"
+                                    variant="ghost"
+                                    onPress={() => togglePanel("settings")}
+                                    isDisabled={isAiGenerating || isDisabled}
+                                    className={clsx(
+                                        "p-1 min-w-8 h-8 rounded-md hover:bg-black/10 text-black",
+                                        activePanel === "settings" &&
+                                            "bg-black/10",
+                                    )}
+                                >
+                                    <IconSettings size={18} />
+                                </Button>
+                                <Tooltip.Content>
+                                    <p>Settings</p>
+                                </Tooltip.Content>
+                            </Tooltip>
+
+                            {isAdmin && getEditorContent && (
+                                <Tooltip delay={0}>
+                                    <Button
+                                        isIconOnly
+                                        size="sm"
+                                        variant="ghost"
+                                        onPress={() =>
+                                            togglePanel("admin-save")
+                                        }
+                                        isDisabled={
+                                            isAiGenerating || isDisabled
+                                        }
+                                        className={clsx(
+                                            "p-1 min-w-8 h-8 rounded-md hover:bg-black/10 text-black",
+                                            activePanel === "admin-save" &&
+                                                "bg-black/10",
+                                        )}
+                                    >
+                                        <IconSparkles size={18} />
+                                    </Button>
+                                    <Tooltip.Content>
+                                        <p>Save Template</p>
+                                    </Tooltip.Content>
+                                </Tooltip>
                             )}
                         </div>
 
