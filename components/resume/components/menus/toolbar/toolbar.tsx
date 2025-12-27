@@ -2,10 +2,14 @@
 
 import { AiIcon } from "@/components/common/ai-icon";
 import { useAuth } from "@/lib/auth/context";
+import type { UserResume } from "@/lib/hooks/use-resumes";
 import { Button, Separator } from "@heroui/react";
 import {
+    IconCheck,
     IconDeviceFloppy,
     IconDownload,
+    IconFile,
+    IconLoader2,
     IconPalette,
     IconSettings,
     IconTargetArrow,
@@ -28,6 +32,10 @@ interface ToolbarProps {
     getEditor?: () => Editor | null;
     onTemplateSelect?: (template: Template) => void;
     onAiGeneratingChange?: (isGenerating: boolean) => void;
+    currentResume?: UserResume | null;
+    isSaving?: boolean;
+    hasUnsavedChanges?: boolean;
+    onOpenResumeSelector?: () => void;
 }
 
 type ActivePanel = "templates" | "settings" | "save" | "ai" | "ats" | null;
@@ -38,6 +46,10 @@ export function Toolbar({
     getEditor,
     onTemplateSelect,
     onAiGeneratingChange,
+    currentResume,
+    isSaving,
+    hasUnsavedChanges,
+    onOpenResumeSelector,
 }: ToolbarProps) {
     const { isAdmin } = useAuth();
     const [activePanel, setActivePanel] = useState<ActivePanel>(null);
@@ -103,7 +115,12 @@ export function Toolbar({
         if (activePanel === "ats") {
             return { width: "500px", height: "450px" };
         }
-        return { width: isAdmin ? "374px" : "338px", height: "52px" };
+        // Base width + resume name button if present
+        let baseWidth = isAdmin ? 374 : 338;
+        if (currentResume) {
+            baseWidth += 180; // Space for resume name button
+        }
+        return { width: `${baseWidth}px`, height: "52px" };
     };
 
     const { width, height } = getDimensions();
@@ -205,6 +222,40 @@ export function Toolbar({
             >
                 <div className="flex justify-center w-full">
                     <div className="flex gap-2 items-center px-3 py-2 whitespace-nowrap">
+                        {currentResume && (
+                            <>
+                                <button
+                                    type="button"
+                                    onClick={onOpenResumeSelector}
+                                    className="flex items-center gap-2 px-2 py-1 rounded-md hover:bg-black/5 transition-colors text-sm"
+                                >
+                                    <IconFile
+                                        size={16}
+                                        className="text-black/50"
+                                    />
+                                    <span className="text-black/70 max-w-32 truncate">
+                                        {currentResume.name}
+                                    </span>
+                                    {isSaving ? (
+                                        <IconLoader2
+                                            size={14}
+                                            className="animate-spin text-black/40"
+                                        />
+                                    ) : hasUnsavedChanges ? (
+                                        <span className="w-2 h-2 rounded-full bg-orange-400" />
+                                    ) : (
+                                        <IconCheck
+                                            size={14}
+                                            className="text-green-500"
+                                        />
+                                    )}
+                                </button>
+                                <Separator
+                                    orientation="vertical"
+                                    className="h-6"
+                                />
+                            </>
+                        )}
                         <Button
                             isIconOnly
                             className={`bg-transparent data-[hover=true]:bg-black/5 min-w-fit w-fit h-fit p-1 rounded-full ${

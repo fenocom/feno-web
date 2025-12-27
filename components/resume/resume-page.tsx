@@ -1,5 +1,7 @@
 "use client";
 
+import { useAuth } from "@/lib/auth/context";
+import { type UserResume, useResumes } from "@/lib/hooks/use-resumes";
 import { extractResumeData } from "@/lib/resume-parser/extractor";
 import { injectResumeData } from "@/lib/resume-parser/injector";
 import { useCallback, useEffect, useRef, useState } from "react";
@@ -7,14 +9,31 @@ import { AuroraBorder } from "./components/aurora-border";
 import type { Template } from "./components/menus/toolbar/templates-panel/template-card";
 import { Toolbar } from "./components/menus/toolbar/toolbar";
 import { ResumeEditor, type ResumeEditorRef } from "./components/resume-editor";
+import { ResumeSelector } from "./components/resume-selector";
 import { DottedBackground } from "./dotted-bg";
 
 export const ResumePage = () => {
+    const { user, isLoading: isAuthLoading } = useAuth();
     const editorRef = useRef<ResumeEditorRef>(null);
     const scrollContainerRef = useRef<HTMLDivElement>(null);
     const [showLeftShadow, setShowLeftShadow] = useState(false);
     const [showRightShadow, setShowRightShadow] = useState(false);
     const [isAiGenerating, setIsAiGenerating] = useState(false);
+    const [showSelector, setShowSelector] = useState(false);
+    const [editorReady, setEditorReady] = useState(false);
+    const hasInitializedRef = useRef(false);
+
+    const {
+        resumes,
+        currentResume,
+        isLoading: isResumesLoading,
+        isSaving,
+        hasUnsavedChanges,
+        createResume,
+        deleteResume,
+        selectResume,
+        scheduleAutoSave,
+    } = useResumes();
 
     const checkScroll = useCallback(() => {
         if (!scrollContainerRef.current) return;
@@ -31,6 +50,40 @@ export const ResumePage = () => {
         window.addEventListener("resize", checkScroll);
         return () => window.removeEventListener("resize", checkScroll);
     }, [checkScroll]);
+
+    // Show selector for logged in users with no current resume
+    useEffect(() => {
+        if (isAuthLoading || isResumesLoading || hasInitializedRef.current)
+            return;
+
+        if (user && !currentResume && resumes.length > 0) {
+            setShowSelector(true);
+        }
+        hasInitializedRef.current = true;
+    }, [user, currentResume, resumes, isAuthLoading, isResumesLoading]);
+
+    // Load resume content into editor when selected
+    useEffect(() => {
+        if (!currentResume || !editorRef.current?.editor || !editorReady)
+            return;
+
+        const resumeData = currentResume.resume_data;
+        if (resumeData && typeof resumeData === "object") {
+            editorRef.current.editor.commands.setContent(resumeData);
+        }
+    }, [currentResume, editorReady]);
+
+    // Auto-save on content change
+    const handleEditorUpdate = useCallback(() => {
+        if (!currentResume || !editorRef.current?.editor) return;
+
+        const content = editorRef.current.editor.getJSON();
+        scheduleAutoSave(content as Record<string, unknown>);
+    }, [currentResume, scheduleAutoSave]);
+
+    const handleEditorReady = useCallback(() => {
+        setEditorReady(true);
+    }, []);
 
     const handleExport = () => {
         editorRef.current?.exportPdf();
@@ -57,6 +110,42 @@ export const ResumePage = () => {
         editorRef.current.editor.commands.setContent(newContent);
     }, []);
 
+    const handleResumeSelect = useCallback(
+        (resume: UserResume) => {
+            selectResume(resume);
+            setShowSelector(false);
+        },
+        [selectResume],
+    );
+
+    const handleCreateNewResume = useCallback(
+        async (name: string) => {
+            const defaultContent = editorRef.current?.editor?.getJSON() ?? {};
+            const newResume = await createResume(
+                name,
+                defaultContent as Record<string, unknown>,
+                resumes.length === 0,
+            );
+            if (newResume) {
+                setShowSelector(false);
+            }
+        },
+        [createResume, resumes.length],
+    );
+
+    const handleDeleteResume = useCallback(
+        async (resumeId: string) => {
+            await deleteResume(resumeId);
+        },
+        [deleteResume],
+    );
+
+    const handleOpenSelector = useCallback(() => {
+        if (user) {
+            setShowSelector(true);
+        }
+    }, [user]);
+
     return (
         <div className="resume-page-wrapper relative w-full min-h-screen flex justify-center px-2 sm:px-10 py-12 pb-32">
             <div className="no-print">
@@ -75,7 +164,11 @@ export const ResumePage = () => {
                             onScroll={checkScroll}
                         >
                             <div className="min-w-fit">
-                                <ResumeEditor ref={editorRef} />
+                                <ResumeEditor
+                                    ref={editorRef}
+                                    onUpdate={handleEditorUpdate}
+                                    onReady={handleEditorReady}
+                                />
                             </div>
                         </div>
 
@@ -99,8 +192,22 @@ export const ResumePage = () => {
                     getEditor={getEditor}
                     onTemplateSelect={handleTemplateSelect}
                     onAiGeneratingChange={setIsAiGenerating}
+                    currentResume={currentResume}
+                    isSaving={isSaving}
+                    hasUnsavedChanges={hasUnsavedChanges}
+                    onOpenResumeSelector={handleOpenSelector}
                 />
             </div>
+
+            {showSelector && user && (
+                <ResumeSelector
+                    resumes={resumes}
+                    isLoading={isResumesLoading}
+                    onSelect={handleResumeSelect}
+                    onCreateNew={handleCreateNewResume}
+                    onDelete={handleDeleteResume}
+                />
+            )}
         </div>
     );
 };

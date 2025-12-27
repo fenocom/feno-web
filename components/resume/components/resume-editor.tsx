@@ -18,10 +18,12 @@ export type ResumeEditorRef = {
 interface ResumeEditorProps {
     initialContent?: JSONContent;
     readOnly?: boolean;
+    onUpdate?: () => void;
+    onReady?: () => void;
 }
 
 export const ResumeEditor = forwardRef<ResumeEditorRef, ResumeEditorProps>(
-    ({ initialContent, readOnly = false }, ref) => {
+    ({ initialContent, readOnly = false, onUpdate, onReady }, ref) => {
         const editor = useEditor({
             content: initialContent || classicTemplate,
             immediatelyRender: false,
@@ -31,6 +33,12 @@ export const ResumeEditor = forwardRef<ResumeEditorRef, ResumeEditorProps>(
                 attributes: {
                     class: "outline-none p-0",
                 },
+            },
+            onUpdate: () => {
+                onUpdate?.();
+            },
+            onCreate: () => {
+                onReady?.();
             },
         });
 
