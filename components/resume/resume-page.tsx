@@ -33,14 +33,13 @@ export const ResumePage = () => {
         deleteResume,
         selectResume,
         scheduleAutoSave,
+        saveNow,
     } = useResumes();
 
     const checkScroll = useCallback(() => {
         if (!scrollContainerRef.current) return;
-
         const { scrollLeft, scrollWidth, clientWidth } =
             scrollContainerRef.current;
-
         setShowLeftShadow(scrollLeft > 0);
         setShowRightShadow(scrollLeft < scrollWidth - clientWidth - 1);
     }, []);
@@ -51,32 +50,26 @@ export const ResumePage = () => {
         return () => window.removeEventListener("resize", checkScroll);
     }, [checkScroll]);
 
-    // Show selector for logged in users with no current resume
     useEffect(() => {
         if (isAuthLoading || isResumesLoading || hasInitializedRef.current)
             return;
-
         if (user && !currentResume && resumes.length > 0) {
             setShowSelector(true);
         }
         hasInitializedRef.current = true;
     }, [user, currentResume, resumes, isAuthLoading, isResumesLoading]);
 
-    // Load resume content into editor when selected
     useEffect(() => {
         if (!currentResume || !editorRef.current?.editor || !editorReady)
             return;
-
         const resumeData = currentResume.resume_data;
         if (resumeData && typeof resumeData === "object") {
             editorRef.current.editor.commands.setContent(resumeData);
         }
     }, [currentResume, editorReady]);
 
-    // Auto-save on content change
     const handleEditorUpdate = useCallback(() => {
         if (!currentResume || !editorRef.current?.editor) return;
-
         const content = editorRef.current.editor.getJSON();
         scheduleAutoSave(content as Record<string, unknown>);
     }, [currentResume, scheduleAutoSave]);
@@ -99,14 +92,12 @@ export const ResumePage = () => {
 
     const handleTemplateSelect = useCallback((template: Template) => {
         if (!editorRef.current?.editor) return;
-
         const currentContent = editorRef.current.editor.getJSON();
         const extractedData = extractResumeData(currentContent);
         const newContent = injectResumeData(
             template.resume_data,
             extractedData,
         );
-
         editorRef.current.editor.commands.setContent(newContent);
     }, []);
 
@@ -140,11 +131,24 @@ export const ResumePage = () => {
         [deleteResume],
     );
 
-    const handleOpenSelector = useCallback(() => {
-        if (user) {
-            setShowSelector(true);
-        }
-    }, [user]);
+    const handleSaveNow = useCallback(() => {
+        saveNow();
+    }, [saveNow]);
+
+    const handleSaveNew = useCallback(
+        async (name: string) => {
+            const content = editorRef.current?.editor?.getJSON() ?? {};
+            await createResume(name, content as Record<string, unknown>, false);
+        },
+        [createResume],
+    );
+
+    const handleSwitchResume = useCallback(
+        (resume: UserResume) => {
+            selectResume(resume);
+        },
+        [selectResume],
+    );
 
     return (
         <div className="resume-page-wrapper relative w-full min-h-screen flex justify-center px-2 sm:px-10 py-12 pb-32">
@@ -171,16 +175,13 @@ export const ResumePage = () => {
                                 />
                             </div>
                         </div>
-
                         <div
                             className={`no-print pointer-events-none absolute top-0 left-0 bottom-0 w-8 bg-linear-to-r from-black/5 to-transparent z-10 transition-opacity duration-300 ${showLeftShadow ? "opacity-100" : "opacity-0"}`}
                         />
-
                         <div
                             className={`no-print pointer-events-none absolute top-0 right-0 bottom-0 w-8 bg-linear-to-l from-black/5 to-transparent z-10 transition-opacity duration-300 ${showRightShadow ? "opacity-100" : "opacity-0"}`}
                         />
                     </div>
-
                     <div className="no-print top-0 left-0 absolute pointer-events-none w-full h-full bg-[url('/noise.png')] bg-repeat bg-size-[50px] rounded-xl z-[-1]" />
                 </div>
             </AuroraBorder>
@@ -193,9 +194,12 @@ export const ResumePage = () => {
                     onTemplateSelect={handleTemplateSelect}
                     onAiGeneratingChange={setIsAiGenerating}
                     currentResume={currentResume}
+                    resumes={resumes}
                     isSaving={isSaving}
                     hasUnsavedChanges={hasUnsavedChanges}
-                    onOpenResumeSelector={handleOpenSelector}
+                    onSaveNow={handleSaveNow}
+                    onSaveNew={handleSaveNew}
+                    onSwitchResume={handleSwitchResume}
                 />
             </div>
 

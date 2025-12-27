@@ -5,11 +5,9 @@ import { useAuth } from "@/lib/auth/context";
 import type { UserResume } from "@/lib/hooks/use-resumes";
 import { Button, Separator } from "@heroui/react";
 import {
-    IconCheck,
     IconDeviceFloppy,
     IconDownload,
-    IconFile,
-    IconLoader2,
+    IconLayoutGrid,
     IconPalette,
     IconSettings,
     IconTargetArrow,
@@ -21,6 +19,7 @@ import { useEffect, useRef, useState } from "react";
 import { PortfolioButton } from "../../../components/portfolio-button";
 import { AiAssistantPanel } from "./ai-assistant-panel";
 import { AtsPanel } from "./ats-panel";
+import { SavePanel } from "./save-panel";
 import { SaveTemplatePanel } from "./save-template-panel";
 import { SettingsPanel } from "./settings-panel";
 import { TemplatesPanel } from "./templates-panel";
@@ -33,12 +32,22 @@ interface ToolbarProps {
     onTemplateSelect?: (template: Template) => void;
     onAiGeneratingChange?: (isGenerating: boolean) => void;
     currentResume?: UserResume | null;
+    resumes?: UserResume[];
     isSaving?: boolean;
     hasUnsavedChanges?: boolean;
-    onOpenResumeSelector?: () => void;
+    onSaveNow?: () => void;
+    onSaveNew?: (name: string) => void;
+    onSwitchResume?: (resume: UserResume) => void;
 }
 
-type ActivePanel = "templates" | "settings" | "save" | "ai" | "ats" | null;
+type ActivePanel =
+    | "templates"
+    | "settings"
+    | "admin-save"
+    | "ai"
+    | "ats"
+    | "save"
+    | null;
 
 export function Toolbar({
     onExport,
@@ -47,11 +56,14 @@ export function Toolbar({
     onTemplateSelect,
     onAiGeneratingChange,
     currentResume,
-    isSaving,
-    hasUnsavedChanges,
-    onOpenResumeSelector,
+    resumes = [],
+    isSaving = false,
+    hasUnsavedChanges = false,
+    onSaveNow,
+    onSaveNew,
+    onSwitchResume,
 }: ToolbarProps) {
-    const { isAdmin } = useAuth();
+    const { isAdmin, user } = useAuth();
     const [activePanel, setActivePanel] = useState<ActivePanel>(null);
     const [isTemplatesExpanded, setIsTemplatesExpanded] = useState(false);
     const [isAiGenerating, setIsAiGenerating] = useState(false);
@@ -103,7 +115,7 @@ export function Toolbar({
                 height: isTemplatesExpanded ? "90vh" : "480px",
             };
         }
-        if (activePanel === "save") {
+        if (activePanel === "admin-save") {
             return { width: "700px", height: "552px" };
         }
         if (activePanel === "settings") {
@@ -115,11 +127,13 @@ export function Toolbar({
         if (activePanel === "ats") {
             return { width: "500px", height: "450px" };
         }
-        // Base width + resume name button if present
-        let baseWidth = isAdmin ? 374 : 338;
-        if (currentResume) {
-            baseWidth += 180; // Space for resume name button
+        if (activePanel === "save") {
+            return {
+                width: "380px",
+                height: currentResume ? "320px" : "220px",
+            };
         }
+        const baseWidth = isAdmin ? 374 : 338;
         return { width: `${baseWidth}px`, height: "52px" };
     };
 
@@ -129,21 +143,14 @@ export function Toolbar({
         <motion.div
             ref={toolbarRef}
             className="fixed bottom-6 left-1/2 -translate-x-1/2 shadow-xl z-50 rounded-3xl border border-black/10 bg-white overflow-hidden flex flex-col"
-            animate={{
-                width,
-                height,
-            }}
-            transition={{
-                type: "spring",
-                bounce: 0.15,
-                duration: 0.5,
-            }}
+            animate={{ width, height }}
+            transition={{ type: "spring", bounce: 0.15, duration: 0.5 }}
         >
             <div className="w-full relative flex-1 overflow-hidden">
                 <div
                     className={clsx(
                         "w-full h-full transition-opacity duration-300",
-                        activePanel === "save"
+                        activePanel === "admin-save"
                             ? "relative z-10 opacity-100"
                             : "absolute inset-0 invisible opacity-0 pointer-events-none",
                     )}
@@ -168,9 +175,7 @@ export function Toolbar({
                             setActivePanel(null);
                             setIsTemplatesExpanded(false);
                         }}
-                        onSelect={(t) => {
-                            onTemplateSelect?.(t);
-                        }}
+                        onSelect={(t) => onTemplateSelect?.(t)}
                         isExpanded={isTemplatesExpanded}
                         onToggleExpand={() =>
                             setIsTemplatesExpanded(!isTemplatesExpanded)
@@ -213,6 +218,29 @@ export function Toolbar({
                         onAnalyzingChange={handleAiGeneratingChange}
                     />
                 </div>
+                <div
+                    className={clsx(
+                        "w-full h-full transition-opacity duration-300",
+                        activePanel === "save"
+                            ? "relative z-10 opacity-100"
+                            : "absolute inset-0 invisible opacity-0 pointer-events-none",
+                    )}
+                >
+                    {user && (
+                        <SavePanel
+                            currentResume={currentResume ?? null}
+                            resumes={resumes}
+                            isSaving={isSaving}
+                            hasUnsavedChanges={hasUnsavedChanges}
+                            onSaveNow={() => onSaveNow?.()}
+                            onSaveNew={(name) => onSaveNew?.(name)}
+                            onSwitchResume={(resume) =>
+                                onSwitchResume?.(resume)
+                            }
+                            onClose={() => setActivePanel(null)}
+                        />
+                    )}
+                </div>
             </div>
             <div
                 className={clsx(
@@ -222,45 +250,12 @@ export function Toolbar({
             >
                 <div className="flex justify-center w-full">
                     <div className="flex gap-2 items-center px-3 py-2 whitespace-nowrap">
-                        {currentResume && (
-                            <>
-                                <button
-                                    type="button"
-                                    onClick={onOpenResumeSelector}
-                                    className="flex items-center gap-2 px-2 py-1 rounded-md hover:bg-black/5 transition-colors text-sm"
-                                >
-                                    <IconFile
-                                        size={16}
-                                        className="text-black/50"
-                                    />
-                                    <span className="text-black/70 max-w-32 truncate">
-                                        {currentResume.name}
-                                    </span>
-                                    {isSaving ? (
-                                        <IconLoader2
-                                            size={14}
-                                            className="animate-spin text-black/40"
-                                        />
-                                    ) : hasUnsavedChanges ? (
-                                        <span className="w-2 h-2 rounded-full bg-orange-400" />
-                                    ) : (
-                                        <IconCheck
-                                            size={14}
-                                            className="text-green-500"
-                                        />
-                                    )}
-                                </button>
-                                <Separator
-                                    orientation="vertical"
-                                    className="h-6"
-                                />
-                            </>
-                        )}
                         <Button
                             isIconOnly
-                            className={`bg-transparent data-[hover=true]:bg-black/5 min-w-fit w-fit h-fit p-1 rounded-full ${
-                                activePanel === "ai" ? "bg-black/5" : ""
-                            }`}
+                            className={clsx(
+                                "bg-transparent data-[hover=true]:bg-black/5 min-w-fit w-fit h-fit p-1 rounded-full",
+                                activePanel === "ai" && "bg-black/5",
+                            )}
                             onPress={() => togglePanel("ai")}
                             isDisabled={isAiGenerating && activePanel !== "ai"}
                         >
@@ -272,9 +267,10 @@ export function Toolbar({
                             variant="ghost"
                             onPress={() => togglePanel("ats")}
                             isDisabled={isAiGenerating && activePanel !== "ats"}
-                            className={`p-1 min-w-8 h-8 rounded-md hover:bg-black/10 ${
-                                activePanel === "ats" ? "bg-black/10" : ""
-                            } text-black`}
+                            className={clsx(
+                                "p-1 min-w-8 h-8 rounded-md hover:bg-black/10 text-black",
+                                activePanel === "ats" && "bg-black/10",
+                            )}
                         >
                             <IconTargetArrow size={18} />
                         </Button>
@@ -287,14 +283,29 @@ export function Toolbar({
                                 variant="ghost"
                                 onPress={() => togglePanel("templates")}
                                 isDisabled={isAiGenerating}
-                                className={`p-1 min-w-8 h-8 rounded-md hover:bg-black/10 ${
-                                    activePanel === "templates"
-                                        ? "bg-black/10"
-                                        : ""
-                                } text-black`}
+                                className={clsx(
+                                    "p-1 min-w-8 h-8 rounded-md hover:bg-black/10 text-black",
+                                    activePanel === "templates" &&
+                                        "bg-black/10",
+                                )}
                             >
                                 <IconPalette size={18} />
                             </Button>
+                            {user && (
+                                <Button
+                                    isIconOnly
+                                    size="sm"
+                                    variant="ghost"
+                                    onPress={() => togglePanel("save")}
+                                    isDisabled={isAiGenerating}
+                                    className={clsx(
+                                        "p-1 min-w-8 h-8 rounded-md hover:bg-black/10 text-black",
+                                        activePanel === "save" && "bg-black/10",
+                                    )}
+                                >
+                                    <IconDeviceFloppy size={18} />
+                                </Button>
+                            )}
                             <Button
                                 isIconOnly
                                 size="sm"
@@ -311,11 +322,10 @@ export function Toolbar({
                                 variant="ghost"
                                 onPress={() => togglePanel("settings")}
                                 isDisabled={isAiGenerating}
-                                className={`p-1 min-w-8 h-8 rounded-md hover:bg-black/10 ${
-                                    activePanel === "settings"
-                                        ? "bg-black/10"
-                                        : ""
-                                } text-black`}
+                                className={clsx(
+                                    "p-1 min-w-8 h-8 rounded-md hover:bg-black/10 text-black",
+                                    activePanel === "settings" && "bg-black/10",
+                                )}
                             >
                                 <IconSettings size={18} />
                             </Button>
@@ -324,15 +334,15 @@ export function Toolbar({
                                     isIconOnly
                                     size="sm"
                                     variant="ghost"
-                                    onPress={() => togglePanel("save")}
+                                    onPress={() => togglePanel("admin-save")}
                                     isDisabled={isAiGenerating}
-                                    className={`p-1 min-w-8 h-8 rounded-md hover:bg-black/10 ${
-                                        activePanel === "save"
-                                            ? "bg-black/10"
-                                            : ""
-                                    } text-black`}
+                                    className={clsx(
+                                        "p-1 min-w-8 h-8 rounded-md hover:bg-black/10 text-black",
+                                        activePanel === "admin-save" &&
+                                            "bg-black/10",
+                                    )}
                                 >
-                                    <IconDeviceFloppy size={18} />
+                                    <IconLayoutGrid size={18} />
                                 </Button>
                             )}
                         </div>
