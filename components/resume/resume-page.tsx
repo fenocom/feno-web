@@ -3,6 +3,7 @@
 import { extractResumeData } from "@/lib/resume-parser/extractor";
 import { injectResumeData } from "@/lib/resume-parser/injector";
 import { useCallback, useEffect, useRef, useState } from "react";
+import { AuroraBorder } from "./components/aurora-border";
 import type { Template } from "./components/menus/toolbar/templates-panel/template-card";
 import { Toolbar } from "./components/menus/toolbar/toolbar";
 import { ResumeEditor, type ResumeEditorRef } from "./components/resume-editor";
@@ -13,6 +14,7 @@ export const ResumePage = () => {
     const scrollContainerRef = useRef<HTMLDivElement>(null);
     const [showLeftShadow, setShowLeftShadow] = useState(false);
     const [showRightShadow, setShowRightShadow] = useState(false);
+    const [isAiGenerating, setIsAiGenerating] = useState(false);
 
     const checkScroll = useCallback(() => {
         if (!scrollContainerRef.current) return;
@@ -21,7 +23,6 @@ export const ResumePage = () => {
             scrollContainerRef.current;
 
         setShowLeftShadow(scrollLeft > 0);
-        // Using a small threshold (1px) to account for potential rounding issues
         setShowRightShadow(scrollLeft < scrollWidth - clientWidth - 1);
     }, []);
 
@@ -29,7 +30,6 @@ export const ResumePage = () => {
         checkScroll();
         window.addEventListener("resize", checkScroll);
         return () => window.removeEventListener("resize", checkScroll);
-        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [checkScroll]);
 
     const handleExport = () => {
@@ -40,18 +40,17 @@ export const ResumePage = () => {
         return editorRef.current?.editor?.getJSON() ?? null;
     }, []);
 
+    const getEditor = useCallback(() => {
+        return editorRef.current?.editor ?? null;
+    }, []);
+
     const handleTemplateSelect = useCallback((template: Template) => {
         if (!editorRef.current?.editor) return;
 
         const currentContent = editorRef.current.editor.getJSON();
-
         const extractedData = extractResumeData(currentContent);
-
-        // If template.resume_data is just the JSON structure, passing it directly is correct.
-
         const newContent = injectResumeData(
             template.resume_data,
-
             extractedData,
         );
 
@@ -64,37 +63,42 @@ export const ResumePage = () => {
                 <DottedBackground />
             </div>
 
-            <div className="resume-inner-container p-1 border border-black/5 relative bg-black/5 rounded-xl z-10 backdrop-blur-sm transition-colors duration-300 focus-within:bg-blue-500/5 focus-within:border-blue-500/20 h-fit max-w-full">
-                <div className="resume-scroll-container relative rounded-lg border border-black/5 overflow-hidden">
-                    <div
-                        ref={scrollContainerRef}
-                        className="overflow-x-auto"
-                        onScroll={checkScroll}
-                    >
-                        <div className="min-w-fit">
-                            <ResumeEditor ref={editorRef} />
+            <AuroraBorder
+                isActive={isAiGenerating}
+                className="h-fit max-w-full z-10"
+            >
+                <div className="resume-inner-container p-1 border border-black/5 relative bg-black/5 rounded-xl backdrop-blur-sm transition-colors duration-300 focus-within:bg-blue-500/5 focus-within:border-blue-500/20 h-fit max-w-full">
+                    <div className="resume-scroll-container relative rounded-lg border border-black/5 overflow-hidden">
+                        <div
+                            ref={scrollContainerRef}
+                            className="overflow-x-auto"
+                            onScroll={checkScroll}
+                        >
+                            <div className="min-w-fit">
+                                <ResumeEditor ref={editorRef} />
+                            </div>
                         </div>
+
+                        <div
+                            className={`no-print pointer-events-none absolute top-0 left-0 bottom-0 w-8 bg-linear-to-r from-black/5 to-transparent z-10 transition-opacity duration-300 ${showLeftShadow ? "opacity-100" : "opacity-0"}`}
+                        />
+
+                        <div
+                            className={`no-print pointer-events-none absolute top-0 right-0 bottom-0 w-8 bg-linear-to-l from-black/5 to-transparent z-10 transition-opacity duration-300 ${showRightShadow ? "opacity-100" : "opacity-0"}`}
+                        />
                     </div>
 
-                    {/* Scroll shadows */}
-
-                    <div
-                        className={`no-print pointer-events-none absolute top-0 left-0 bottom-0 w-8 bg-linear-to-r from-black/5 to-transparent z-10 transition-opacity duration-300 ${showLeftShadow ? "opacity-100" : "opacity-0"}`}
-                    />
-
-                    <div
-                        className={`no-print pointer-events-none absolute top-0 right-0 bottom-0 w-8 bg-linear-to-l from-black/5 to-transparent z-10 transition-opacity duration-300 ${showRightShadow ? "opacity-100" : "opacity-0"}`}
-                    />
+                    <div className="no-print top-0 left-0 absolute pointer-events-none w-full h-full bg-[url('/noise.png')] bg-repeat bg-size-[50px] rounded-xl z-[-1]" />
                 </div>
-
-                <div className="no-print top-0 left-0 absolute pointer-events-none w-full h-full bg-[url('/noise.png')] bg-repeat bg-size-[50px] rounded-xl z-[-1]" />
-            </div>
+            </AuroraBorder>
 
             <div className="no-print relative z-10">
                 <Toolbar
                     onExport={handleExport}
                     getEditorContent={getEditorContent}
+                    getEditor={getEditor}
                     onTemplateSelect={handleTemplateSelect}
+                    onAiGeneratingChange={setIsAiGenerating}
                 />
             </div>
         </div>

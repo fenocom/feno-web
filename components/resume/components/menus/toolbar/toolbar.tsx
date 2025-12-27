@@ -9,6 +9,7 @@ import {
     IconPalette,
     IconSettings,
 } from "@tabler/icons-react";
+import type { Editor } from "@tiptap/core";
 import clsx from "clsx";
 import { motion } from "framer-motion";
 import { useEffect, useRef, useState } from "react";
@@ -22,7 +23,9 @@ import type { Template } from "./templates-panel/template-card";
 interface ToolbarProps {
     onExport?: () => void;
     getEditorContent?: () => unknown;
+    getEditor?: () => Editor | null;
     onTemplateSelect?: (template: Template) => void;
+    onAiGeneratingChange?: (isGenerating: boolean) => void;
 }
 
 type ActivePanel = "templates" | "settings" | "save" | "ai" | null;
@@ -30,11 +33,14 @@ type ActivePanel = "templates" | "settings" | "save" | "ai" | null;
 export function Toolbar({
     onExport,
     getEditorContent,
+    getEditor,
     onTemplateSelect,
+    onAiGeneratingChange,
 }: ToolbarProps) {
     const { isAdmin } = useAuth();
     const [activePanel, setActivePanel] = useState<ActivePanel>(null);
     const [isTemplatesExpanded, setIsTemplatesExpanded] = useState(false);
+    const [isAiGenerating, setIsAiGenerating] = useState(false);
     const toolbarRef = useRef<HTMLDivElement>(null);
 
     useEffect(() => {
@@ -45,17 +51,26 @@ export function Toolbar({
                 toolbarRef.current &&
                 !toolbarRef.current.contains(event.target as Node)
             ) {
-                setActivePanel(null);
-                setIsTemplatesExpanded(false);
+                if (!isAiGenerating) {
+                    setActivePanel(null);
+                    setIsTemplatesExpanded(false);
+                }
             }
         };
 
         document.addEventListener("mousedown", handleClickOutside);
         return () =>
             document.removeEventListener("mousedown", handleClickOutside);
-    }, [activePanel]);
+    }, [activePanel, isAiGenerating]);
+
+    const handleAiGeneratingChange = (generating: boolean) => {
+        setIsAiGenerating(generating);
+        onAiGeneratingChange?.(generating);
+    };
 
     const togglePanel = (panel: ActivePanel) => {
+        if (isAiGenerating) return;
+
         if (activePanel === panel) {
             setActivePanel(null);
             setIsTemplatesExpanded(false);
@@ -133,10 +148,6 @@ export function Toolbar({
                         }}
                         onSelect={(t) => {
                             onTemplateSelect?.(t);
-                            // Also close panel? Maybe keeping it open is better UX for previewing?
-                            // But usually selecting implies "I chose this".
-                            // I'll keep it open or let user close it.
-                            // Current logic for other panels closes them? No.
                         }}
                         isExpanded={isTemplatesExpanded}
                         onToggleExpand={() =>
@@ -162,7 +173,10 @@ export function Toolbar({
                             : "absolute inset-0 invisible opacity-0 pointer-events-none",
                     )}
                 >
-                    <AiAssistantPanel onClose={() => setActivePanel(null)} />
+                    <AiAssistantPanel
+                        editor={getEditor?.() ?? null}
+                        onGeneratingChange={handleAiGeneratingChange}
+                    />
                 </div>
             </div>
             <div
@@ -179,6 +193,7 @@ export function Toolbar({
                                 activePanel === "ai" ? "bg-black/5" : ""
                             }`}
                             onPress={() => togglePanel("ai")}
+                            isDisabled={isAiGenerating && activePanel !== "ai"}
                         >
                             <AiIcon size={28} />
                         </Button>
@@ -190,6 +205,7 @@ export function Toolbar({
                                 size="sm"
                                 variant="ghost"
                                 onPress={() => togglePanel("templates")}
+                                isDisabled={isAiGenerating}
                                 className={`p-1 min-w-8 h-8 rounded-md hover:bg-black/10 ${
                                     activePanel === "templates"
                                         ? "bg-black/10"
@@ -203,6 +219,7 @@ export function Toolbar({
                                 size="sm"
                                 variant="ghost"
                                 onPress={onExport}
+                                isDisabled={isAiGenerating}
                                 className="p-1 min-w-8 h-8 rounded-md text-black hover:bg-black/10"
                             >
                                 <IconDownload size={18} />
@@ -212,6 +229,7 @@ export function Toolbar({
                                 size="sm"
                                 variant="ghost"
                                 onPress={() => togglePanel("settings")}
+                                isDisabled={isAiGenerating}
                                 className={`p-1 min-w-8 h-8 rounded-md hover:bg-black/10 ${
                                     activePanel === "settings"
                                         ? "bg-black/10"
@@ -226,6 +244,7 @@ export function Toolbar({
                                     size="sm"
                                     variant="ghost"
                                     onPress={() => togglePanel("save")}
+                                    isDisabled={isAiGenerating}
                                     className={`p-1 min-w-8 h-8 rounded-md hover:bg-black/10 ${
                                         activePanel === "save"
                                             ? "bg-black/10"
