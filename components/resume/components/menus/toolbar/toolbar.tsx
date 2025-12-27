@@ -6,7 +6,6 @@ import type { UserResume } from "@/lib/hooks/use-resumes";
 import { Button, Separator } from "@heroui/react";
 import {
     IconDeviceFloppy,
-    IconDownload,
     IconLayoutGrid,
     IconPalette,
     IconSettings,
@@ -130,7 +129,7 @@ export function Toolbar({
         if (activePanel === "save") {
             return {
                 width: "380px",
-                height: currentResume ? "320px" : "220px",
+                height: currentResume ? "380px" : "280px",
             };
         }
         const baseWidth = isAdmin ? 374 : 338;
@@ -237,6 +236,7 @@ export function Toolbar({
                             onSwitchResume={(resume) =>
                                 onSwitchResume?.(resume)
                             }
+                            onExport={() => onExport?.()}
                             onClose={() => setActivePanel(null)}
                         />
                     )}
@@ -306,16 +306,6 @@ export function Toolbar({
                                     <IconDeviceFloppy size={18} />
                                 </Button>
                             )}
-                            <Button
-                                isIconOnly
-                                size="sm"
-                                variant="ghost"
-                                onPress={onExport}
-                                isDisabled={isAiGenerating}
-                                className="p-1 min-w-8 h-8 rounded-md text-black hover:bg-black/10"
-                            >
-                                <IconDownload size={18} />
-                            </Button>
                             <Button
                                 isIconOnly
                                 size="sm"

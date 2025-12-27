@@ -1,12 +1,13 @@
 "use client";
 
 import type { UserResume } from "@/lib/hooks/use-resumes";
-import { Button, Input, Spinner } from "@heroui/react";
+import { Button, Input, Separator, Spinner } from "@heroui/react";
 import {
     IconCheck,
     IconChevronRight,
     IconCloudUpload,
     IconDeviceFloppy,
+    IconDownload,
     IconFile,
     IconLoader2,
     IconPlus,
@@ -22,6 +23,7 @@ interface SavePanelProps {
     onSaveNow: () => void;
     onSaveNew: (name: string) => void;
     onSwitchResume: (resume: UserResume) => void;
+    onExport: () => void;
     onClose: () => void;
 }
 
@@ -33,6 +35,7 @@ export function SavePanel({
     onSaveNow,
     onSaveNew,
     onSwitchResume,
+    onExport,
     onClose,
 }: SavePanelProps) {
     const [showNewForm, setShowNewForm] = useState(false);
@@ -151,6 +154,15 @@ export function SavePanel({
                             </div>
                         </div>
                     )}
+                    <Separator className="my-3" />
+                    <Button
+                        variant="ghost"
+                        className="w-full flex items-center gap-2"
+                        onPress={onExport}
+                    >
+                        <IconDownload size={18} />
+                        Download as PDF
+                    </Button>
                 </div>
             </div>
         );
@@ -307,6 +319,16 @@ export function SavePanel({
                             Switch Resume
                         </Button>
                     ))}
+
+                <Separator className="my-3" />
+                <Button
+                    variant="ghost"
+                    className="w-full flex items-center gap-2"
+                    onPress={onExport}
+                >
+                    <IconDownload size={18} />
+                    Download as PDF
+                </Button>
             </div>
         </div>
     );
