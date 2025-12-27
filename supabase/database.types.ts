@@ -70,12 +70,162 @@ export type Database = {
                 };
                 Relationships: [];
             };
+            user_resumes: {
+                Row: {
+                    id: string;
+                    user_id: string;
+                    name: string;
+                    resume_data: Json;
+                    is_default: boolean;
+                    created_at: string | null;
+                    updated_at: string | null;
+                };
+                Insert: {
+                    id?: string;
+                    user_id: string;
+                    name?: string;
+                    resume_data: Json;
+                    is_default?: boolean;
+                    created_at?: string | null;
+                    updated_at?: string | null;
+                };
+                Update: {
+                    id?: string;
+                    user_id?: string;
+                    name?: string;
+                    resume_data?: Json;
+                    is_default?: boolean;
+                    created_at?: string | null;
+                    updated_at?: string | null;
+                };
+                Relationships: [
+                    {
+                        foreignKeyName: "user_resumes_user_id_fkey";
+                        columns: ["user_id"];
+                        isOneToOne: false;
+                        referencedRelation: "users";
+                        referencedColumns: ["id"];
+                    },
+                ];
+            };
+            ai_usage: {
+                Row: {
+                    id: string;
+                    user_id: string;
+                    calls_count: number;
+                    period_start: string;
+                    period_type: string;
+                    created_at: string | null;
+                    updated_at: string | null;
+                };
+                Insert: {
+                    id?: string;
+                    user_id: string;
+                    calls_count?: number;
+                    period_start: string;
+                    period_type: string;
+                    created_at?: string | null;
+                    updated_at?: string | null;
+                };
+                Update: {
+                    id?: string;
+                    user_id?: string;
+                    calls_count?: number;
+                    period_start?: string;
+                    period_type?: string;
+                    created_at?: string | null;
+                    updated_at?: string | null;
+                };
+                Relationships: [
+                    {
+                        foreignKeyName: "ai_usage_user_id_fkey";
+                        columns: ["user_id"];
+                        isOneToOne: false;
+                        referencedRelation: "users";
+                        referencedColumns: ["id"];
+                    },
+                ];
+            };
+            user_portfolios: {
+                Row: {
+                    id: string;
+                    user_id: string;
+                    subdomain: string | null;
+                    html_content: string | null;
+                    resume_id: string | null;
+                    template_id: string | null;
+                    is_published: boolean;
+                    created_at: string | null;
+                    updated_at: string | null;
+                };
+                Insert: {
+                    id?: string;
+                    user_id: string;
+                    subdomain?: string | null;
+                    html_content?: string | null;
+                    resume_id?: string | null;
+                    template_id?: string | null;
+                    is_published?: boolean;
+                    created_at?: string | null;
+                    updated_at?: string | null;
+                };
+                Update: {
+                    id?: string;
+                    user_id?: string;
+                    subdomain?: string | null;
+                    html_content?: string | null;
+                    resume_id?: string | null;
+                    template_id?: string | null;
+                    is_published?: boolean;
+                    created_at?: string | null;
+                    updated_at?: string | null;
+                };
+                Relationships: [
+                    {
+                        foreignKeyName: "user_portfolios_resume_id_fkey";
+                        columns: ["resume_id"];
+                        isOneToOne: false;
+                        referencedRelation: "user_resumes";
+                        referencedColumns: ["id"];
+                    },
+                    {
+                        foreignKeyName: "user_portfolios_user_id_fkey";
+                        columns: ["user_id"];
+                        isOneToOne: true;
+                        referencedRelation: "users";
+                        referencedColumns: ["id"];
+                    },
+                ];
+            };
         };
         Views: {
             [_ in never]: never;
         };
         Functions: {
-            [_ in never]: never;
+            get_or_create_ai_usage: {
+                Args: {
+                    p_user_id: string;
+                    p_period_type: string;
+                    p_period_start: string;
+                };
+                Returns: {
+                    id: string;
+                    user_id: string;
+                    calls_count: number;
+                    period_start: string;
+                    period_type: string;
+                    created_at: string | null;
+                    updated_at: string | null;
+                };
+            };
+            increment_ai_usage: {
+                Args: {
+                    p_user_id: string;
+                    p_period_type: string;
+                    p_period_start: string;
+                };
+                Returns: number;
+            };
         };
         Enums: {
             [_ in never]: never;
