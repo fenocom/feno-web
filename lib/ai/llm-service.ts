@@ -1,25 +1,22 @@
 import type { Attachment, LLMMessage, LLMStreamChunk } from "./types";
 
-const OLLAMA_BASE_URL = "http://localhost:11434";
-
 export async function* streamCompletion(
-    model: string,
+    _model: string,
     messages: LLMMessage[],
     signal?: AbortSignal,
 ): AsyncGenerator<string, void, unknown> {
-    const response = await fetch(`${OLLAMA_BASE_URL}/api/chat`, {
+    const response = await fetch("/api/ai/chat", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-            model,
-            messages,
-            stream: true,
-        }),
+        body: JSON.stringify({ messages }),
         signal,
     });
 
     if (!response.ok) {
-        throw new Error(`LLM request failed: ${response.statusText}`);
+        const error = await response.json().catch(() => ({}));
+        throw new Error(
+            error.error || `Request failed: ${response.statusText}`,
+        );
     }
 
     const reader = response.body?.getReader();
