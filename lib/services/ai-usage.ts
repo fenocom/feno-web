@@ -67,7 +67,7 @@ export async function getAiUsage(
 
     const supabase = createAdminClient();
 
-    const { data, error } = await (supabase as any)
+    const { data, error } = await supabase
         .from("ai_usage")
         .select("calls_count")
         .eq("user_id", userId)
@@ -96,7 +96,7 @@ export async function incrementAiUsage(
 
     const supabase = createAdminClient();
 
-    const { data, error } = await (supabase as any).rpc("increment_ai_usage", {
+    const { data, error } = await supabase.rpc("increment_ai_usage", {
         p_user_id: userId,
         p_period_type: tierLimits.periodType,
         p_period_start: periodStart.toISOString(),

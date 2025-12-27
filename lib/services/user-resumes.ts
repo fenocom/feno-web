@@ -1,4 +1,5 @@
 import { createAdminClient } from "@/lib/supabase/admin";
+import type { Database, Json } from "@/supabase/database.types";
 
 export interface UserResume {
     id: string;
@@ -26,7 +27,7 @@ export interface UpdateResumeInput {
 export async function getUserResumes(userId: string): Promise<UserResume[]> {
     const supabase = createAdminClient();
 
-    const { data, error } = await (supabase as any)
+    const { data, error } = await supabase
         .from("user_resumes")
         .select("*")
         .eq("user_id", userId)
@@ -37,7 +38,7 @@ export async function getUserResumes(userId: string): Promise<UserResume[]> {
         throw new Error("Failed to get resumes");
     }
 
-    return data || [];
+    return (data as unknown as UserResume[]) || [];
 }
 
 export async function getResumeById(
@@ -46,7 +47,7 @@ export async function getResumeById(
 ): Promise<UserResume | null> {
     const supabase = createAdminClient();
 
-    const { data, error } = await (supabase as any)
+    const { data, error } = await supabase
         .from("user_resumes")
         .select("*")
         .eq("id", resumeId)
@@ -61,7 +62,7 @@ export async function getResumeById(
         throw new Error("Failed to get resume");
     }
 
-    return data;
+    return data as unknown as UserResume;
 }
 
 export async function getDefaultResume(
@@ -69,7 +70,7 @@ export async function getDefaultResume(
 ): Promise<UserResume | null> {
     const supabase = createAdminClient();
 
-    const { data, error } = await (supabase as any)
+    const { data, error } = await supabase
         .from("user_resumes")
         .select("*")
         .eq("user_id", userId)
@@ -84,7 +85,7 @@ export async function getDefaultResume(
         throw new Error("Failed to get default resume");
     }
 
-    return data;
+    return data as unknown as UserResume;
 }
 
 export async function createResume(
@@ -92,12 +93,12 @@ export async function createResume(
 ): Promise<UserResume> {
     const supabase = createAdminClient();
 
-    const { data, error } = await (supabase as any)
+    const { data, error } = await supabase
         .from("user_resumes")
         .insert({
             user_id: input.userId,
             name: input.name,
-            resume_data: input.resumeData,
+            resume_data: input.resumeData as unknown as Json,
             is_default: input.isDefault ?? false,
         })
         .select()
@@ -108,7 +109,7 @@ export async function createResume(
         throw new Error("Failed to create resume");
     }
 
-    return data;
+    return data as unknown as UserResume;
 }
 
 export async function updateResume(
@@ -118,13 +119,14 @@ export async function updateResume(
 ): Promise<UserResume> {
     const supabase = createAdminClient();
 
-    const updateData: Record<string, unknown> = {};
+    const updateData: Database["public"]["Tables"]["user_resumes"]["Update"] =
+        {};
     if (input.name !== undefined) updateData.name = input.name;
     if (input.resumeData !== undefined)
-        updateData.resume_data = input.resumeData;
+        updateData.resume_data = input.resumeData as unknown as Json;
     if (input.isDefault !== undefined) updateData.is_default = input.isDefault;
 
-    const { data, error } = await (supabase as any)
+    const { data, error } = await supabase
         .from("user_resumes")
         .update(updateData)
         .eq("id", resumeId)
@@ -137,7 +139,7 @@ export async function updateResume(
         throw new Error("Failed to update resume");
     }
 
-    return data;
+    return data as unknown as UserResume;
 }
 
 export async function deleteResume(
@@ -146,7 +148,7 @@ export async function deleteResume(
 ): Promise<void> {
     const supabase = createAdminClient();
 
-    const { error } = await (supabase as any)
+    const { error } = await supabase
         .from("user_resumes")
         .delete()
         .eq("id", resumeId)
