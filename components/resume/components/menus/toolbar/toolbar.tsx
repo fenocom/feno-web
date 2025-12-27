@@ -9,8 +9,8 @@ import {
     IconLayoutDashboard,
     IconPalette,
     IconSettings,
-    IconSparkles,
     IconTargetArrow,
+    IconTemplate,
 } from "@tabler/icons-react";
 import type { Editor } from "@tiptap/core";
 import clsx from "clsx";
@@ -393,7 +393,7 @@ export function Toolbar({
                                                 "bg-black/10",
                                         )}
                                     >
-                                        <IconSparkles size={18} />
+                                        <IconTemplate size={18} />
                                     </Button>
                                     <Tooltip.Content>
                                         <p>Save Template</p>
