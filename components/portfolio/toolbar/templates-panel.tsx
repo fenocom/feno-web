@@ -1,5 +1,6 @@
 "use client";
 
+import { useAiUsage } from "@/lib/hooks/use-ai-usage";
 import {
     getTemplateImageUrl,
     usePortfolioTemplates,
@@ -8,25 +9,13 @@ import {
 import { Button, Spinner } from "@heroui/react";
 import { IconCheck, IconSparkles, IconX } from "@tabler/icons-react";
 import clsx from "clsx";
-import { useEffect, useState } from "react";
+import { useEffect, useRef } from "react";
 
 interface TemplatesPanelProps {
     onSelect: (template: PortfolioTemplate) => void;
     onClose: () => void;
     isRestyling: boolean;
     selectedId?: string;
-}
-
-interface UsageData {
-    limit: number;
-    used: number;
-    remaining: number;
-    periodType: "monthly" | "daily";
-}
-
-interface UsageResponse {
-    hasAccess: boolean;
-    usage: UsageData | null;
 }
 
 export function TemplatesPanel({
@@ -36,19 +25,15 @@ export function TemplatesPanel({
     selectedId,
 }: TemplatesPanelProps) {
     const { templates, isLoading } = usePortfolioTemplates();
-    const [usage, setUsage] = useState<UsageResponse | null>(null);
+    const { hasAccess, remaining, limit, isLimitReached, usage, refetch } = useAiUsage();
+    const wasRestylingRef = useRef(false);
 
     useEffect(() => {
-        fetch("/api/ai/usage")
-            .then((res) => res.json())
-            .then(setUsage)
-            .catch(() => {});
-    }, []);
-
-    const hasAccess = usage?.hasAccess ?? false;
-    const remaining = usage?.usage?.remaining ?? 0;
-    const limit = usage?.usage?.limit ?? 0;
-    const isLimitReached = hasAccess && remaining === 0;
+        if (wasRestylingRef.current && !isRestyling) {
+            refetch();
+        }
+        wasRestylingRef.current = isRestyling;
+    }, [isRestyling, refetch]);
 
     return (
         <div className="flex flex-col h-full w-full">

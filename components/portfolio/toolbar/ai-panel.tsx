@@ -1,9 +1,11 @@
 "use client";
 
 import { AiIcon } from "@/components/common/ai-icon";
+import { parseStreamResponse } from "@/lib/ai/stream-utils";
+import { useAiUsage } from "@/lib/hooks/use-ai-usage";
 import { Button, TextArea } from "@heroui/react";
 import { IconLoader2, IconSend, IconX } from "@tabler/icons-react";
-import { useCallback, useEffect, useRef, useState } from "react";
+import { useCallback, useRef, useState } from "react";
 
 interface AiPanelProps {
     html: string;
@@ -11,36 +13,14 @@ interface AiPanelProps {
     onClose: () => void;
 }
 
-interface UsageData {
-    limit: number;
-    used: number;
-    remaining: number;
-    periodType: "monthly" | "daily";
-}
-
-interface UsageResponse {
-    hasAccess: boolean;
-    usage: UsageData | null;
-}
-
 export function AiPanel({ html, onApply, onClose }: AiPanelProps) {
     const [prompt, setPrompt] = useState("");
     const [isGenerating, setIsGenerating] = useState(false);
     const [error, setError] = useState<string | null>(null);
-    const [usage, setUsage] = useState<UsageResponse | null>(null);
     const abortControllerRef = useRef<AbortController | null>(null);
-
-    useEffect(() => {
-        fetch("/api/ai/usage")
-            .then((res) => res.json())
-            .then(setUsage)
-            .catch(() => {});
-    }, []);
+    const { hasAccess, remaining, limit, isLimitReached, usage, refetch } = useAiUsage();
 
     const handleSubmit = useCallback(async () => {
-        const cleanHtml = (text: string) => {
-            return text.replace(/^```html\n?/, "").replace(/^```\n?/, "").replace(/\n?```$/, "");
-        };
         if (!prompt.trim() || isGenerating) return;
 
         setIsGenerating(true);
@@ -60,33 +40,10 @@ export function AiPanel({ html, onApply, onClose }: AiPanelProps) {
                 throw new Error(data.error || "Failed to edit portfolio");
             }
 
-            const reader = response.body?.getReader();
-            if (!reader) throw new Error("No response body");
-
-            const decoder = new TextDecoder();
-            let accumulatedHtml = "";
-
-            while (true) {
-                const { done, value } = await reader.read();
-                if (done) break;
-
-                const chunk = decoder.decode(value, { stream: true });
-                const lines = chunk.split("\n");
-
-                for (const line of lines) {
-                    if (!line.trim()) continue;
-                    try {
-                        const data = JSON.parse(line);
-                        if (data.done) break;
-                        if (data.content) {
-                            accumulatedHtml += data.content;
-                        }
-                    } catch {}
-                }
-            }
-
-            onApply(cleanHtml(accumulatedHtml));
+            const result = await parseStreamResponse(response);
+            onApply(result);
             setPrompt("");
+            refetch();
         } catch (err) {
             if (err instanceof Error && err.name !== "AbortError") {
                 setError(err.message);
@@ -95,16 +52,11 @@ export function AiPanel({ html, onApply, onClose }: AiPanelProps) {
             setIsGenerating(false);
             abortControllerRef.current = null;
         }
-    }, [html, prompt, isGenerating, onApply]);
+    }, [html, prompt, isGenerating, onApply, refetch]);
 
     const handleCancel = useCallback(() => {
         abortControllerRef.current?.abort();
     }, []);
-
-    const hasAccess = usage?.hasAccess ?? false;
-    const remaining = usage?.usage?.remaining ?? 0;
-    const limit = usage?.usage?.limit ?? 0;
-    const isLimitReached = hasAccess && remaining === 0;
 
     return (
         <div className="flex flex-col h-full w-full">

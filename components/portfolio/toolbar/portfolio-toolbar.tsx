@@ -1,9 +1,10 @@
 "use client";
 
 import { AiIcon } from "@/components/common/ai-icon";
+import { parseStreamResponse } from "@/lib/ai/stream-utils";
+import { useAuth } from "@/lib/auth/context";
 import type { UserPortfolio } from "@/lib/hooks/use-portfolio";
 import type { PortfolioTemplate } from "@/lib/hooks/use-portfolio-templates";
-import { useAuth } from "@/lib/auth/context";
 import { Button, Tooltip } from "@heroui/react";
 import {
     IconCode,
@@ -74,9 +75,6 @@ export function PortfolioToolbar({
     }, [activePanel, isRestyling]);
 
     const handleTemplateSelect = useCallback(async (template: PortfolioTemplate) => {
-        const cleanHtml = (text: string) => {
-            return text.replace(/^```html\n?/, "").replace(/^```\n?/, "").replace(/\n?```$/, "");
-        };
         if (!html || isRestyling) return;
 
         setSelectedTemplateId(template.id);
@@ -93,33 +91,10 @@ export function PortfolioToolbar({
                 throw new Error("Failed to restyle portfolio");
             }
 
-            const reader = response.body?.getReader();
-            if (!reader) throw new Error("No response body");
-
-            const decoder = new TextDecoder();
-            let accumulatedHtml = "";
-
-            while (true) {
-                const { done, value } = await reader.read();
-                if (done) break;
-
-                const chunk = decoder.decode(value, { stream: true });
-                const lines = chunk.split("\n");
-
-                for (const line of lines) {
-                    if (!line.trim()) continue;
-                    try {
-                        const data = JSON.parse(line);
-                        if (data.done) break;
-                        if (data.content) accumulatedHtml += data.content;
-                    } catch {}
-                }
-            }
-
-            onHtmlChange?.(cleanHtml(accumulatedHtml));
+            const result = await parseStreamResponse(response);
+            onHtmlChange?.(result);
             setActivePanel(null);
-        } catch (err) {
-            console.error(err);
+        } catch {
         } finally {
             setIsRestyling(false);
             setSelectedTemplateId(undefined);
