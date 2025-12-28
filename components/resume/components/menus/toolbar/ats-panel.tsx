@@ -1,5 +1,6 @@
 "use client";
 
+import { useAiUsage } from "@/lib/hooks/use-ai-usage";
 import { Button } from "@heroui/react";
 import {
     IconAlertCircle,
@@ -10,7 +11,7 @@ import {
     IconTargetArrow,
 } from "@tabler/icons-react";
 import type { Editor } from "@tiptap/core";
-import { useCallback, useEffect, useState } from "react";
+import { useCallback, useState } from "react";
 
 interface AtsPanelProps {
     editor: Editor | null;
@@ -32,20 +33,6 @@ interface AtsAnalysis {
         found: string[];
         missing: string[];
     };
-}
-
-interface UsageData {
-    limit: number;
-    used: number;
-    remaining: number;
-    periodType: "monthly" | "daily";
-    resetsAt: string;
-}
-
-interface UsageResponse {
-    tier: number;
-    hasAccess: boolean;
-    usage: UsageData | null;
 }
 
 function extractTextFromEditor(editor: Editor): string {
@@ -74,27 +61,8 @@ export const AtsPanel = ({ editor, onAnalyzingChange }: AtsPanelProps) => {
     const [isAnalyzing, setIsAnalyzing] = useState(false);
     const [error, setError] = useState<string | null>(null);
     const [analysis, setAnalysis] = useState<AtsAnalysis | null>(null);
-    const [usage, setUsage] = useState<UsageResponse | null>(null);
-    const [isLoadingUsage, setIsLoadingUsage] = useState(true);
     const [showDetails, setShowDetails] = useState(false);
-
-    const fetchUsage = useCallback(async () => {
-        try {
-            const response = await fetch("/api/ai/usage");
-            if (response.ok) {
-                const data = await response.json();
-                setUsage(data);
-            }
-        } catch {
-            console.error("Failed to fetch usage");
-        } finally {
-            setIsLoadingUsage(false);
-        }
-    }, []);
-
-    useEffect(() => {
-        fetchUsage();
-    }, [fetchUsage]);
+    const { hasAccess, remaining, limit, periodType, isLimitReached, isLoading: isLoadingUsage, usage, refetch } = useAiUsage();
 
     const handleAnalyze = useCallback(async () => {
         if (!editor) return;
@@ -124,7 +92,7 @@ export const AtsPanel = ({ editor, onAnalyzingChange }: AtsPanelProps) => {
             }
 
             setAnalysis(data.analysis);
-            fetchUsage();
+            refetch();
         } catch (err) {
             setError(
                 err instanceof Error ? err.message : "Failed to analyze resume",
@@ -133,13 +101,7 @@ export const AtsPanel = ({ editor, onAnalyzingChange }: AtsPanelProps) => {
             setIsAnalyzing(false);
             onAnalyzingChange?.(false);
         }
-    }, [editor, onAnalyzingChange, fetchUsage]);
-
-    const hasAccess = usage?.hasAccess ?? false;
-    const remaining = usage?.usage?.remaining ?? 0;
-    const limit = usage?.usage?.limit ?? 0;
-    const periodType = usage?.usage?.periodType;
-    const isLimitReached = hasAccess && remaining === 0;
+    }, [editor, onAnalyzingChange, refetch]);
 
     return (
         <div className="w-full h-full flex flex-col">

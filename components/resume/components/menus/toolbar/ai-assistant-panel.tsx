@@ -12,29 +12,16 @@ import {
     validateFile,
 } from "@/lib/ai";
 import type { Attachment } from "@/lib/ai/types";
+import { useAiUsage } from "@/lib/hooks/use-ai-usage";
 import { Button, TextArea } from "@heroui/react";
 import { IconLoader2, IconPaperclip, IconSend } from "@tabler/icons-react";
 import type { Editor, JSONContent } from "@tiptap/core";
-import { useCallback, useEffect, useRef, useState } from "react";
+import { useCallback, useRef, useState } from "react";
 import { FileAttachmentPreview } from "./file-attachment-preview";
 
 interface AiAssistantPanelProps {
     editor: Editor | null;
     onGeneratingChange?: (isGenerating: boolean) => void;
-}
-
-interface UsageData {
-    limit: number;
-    used: number;
-    remaining: number;
-    periodType: "monthly" | "daily";
-    resetsAt: string;
-}
-
-interface UsageResponse {
-    tier: number;
-    hasAccess: boolean;
-    usage: UsageData | null;
 }
 
 const MODEL_ID = "gemini-2.0-flash";
@@ -47,28 +34,9 @@ export const AiAssistantPanel = ({
     const [attachments, setAttachments] = useState<Attachment[]>([]);
     const [isGenerating, setIsGenerating] = useState(false);
     const [error, setError] = useState<string | null>(null);
-    const [usage, setUsage] = useState<UsageResponse | null>(null);
-    const [isLoadingUsage, setIsLoadingUsage] = useState(true);
     const fileInputRef = useRef<HTMLInputElement>(null);
     const abortControllerRef = useRef<AbortController | null>(null);
-
-    const fetchUsage = useCallback(async () => {
-        try {
-            const response = await fetch("/api/ai/usage");
-            if (response.ok) {
-                const data = await response.json();
-                setUsage(data);
-            }
-        } catch {
-            console.error("Failed to fetch usage");
-        } finally {
-            setIsLoadingUsage(false);
-        }
-    }, []);
-
-    useEffect(() => {
-        fetchUsage();
-    }, [fetchUsage]);
+    const { hasAccess, remaining, limit, periodType, isLimitReached, isLoading: isLoadingUsage, usage, refetch } = useAiUsage();
 
     const handleFileSelect = useCallback(
         async (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -153,7 +121,7 @@ export const AiAssistantPanel = ({
             setPrompt("");
             attachments.forEach(revokeAttachmentPreview);
             setAttachments([]);
-            fetchUsage();
+            refetch();
         } catch (err) {
             if (err instanceof Error && err.name === "AbortError") {
                 return;
@@ -169,17 +137,11 @@ export const AiAssistantPanel = ({
             onGeneratingChange?.(false);
             abortControllerRef.current = null;
         }
-    }, [editor, prompt, attachments, onGeneratingChange, fetchUsage]);
+    }, [editor, prompt, attachments, onGeneratingChange, refetch]);
 
     const handleCancel = useCallback(() => {
         abortControllerRef.current?.abort();
     }, []);
-
-    const hasAccess = usage?.hasAccess ?? false;
-    const remaining = usage?.usage?.remaining ?? 0;
-    const limit = usage?.usage?.limit ?? 0;
-    const periodType = usage?.usage?.periodType;
-    const isLimitReached = hasAccess && remaining === 0;
 
     return (
         <div className="w-full h-full flex flex-col">
