@@ -1,6 +1,6 @@
 "use client";
 
-import { useResumes, type UserResume } from "@/lib/hooks/use-resumes";
+import { type UserResume, useResumes } from "@/lib/hooks/use-resumes";
 import { Button, Spinner } from "@heroui/react";
 import {
     IconArrowRight,
@@ -44,6 +44,13 @@ export function PortfolioWizard({
     const contentRef = useRef<HTMLDivElement>(null);
 
     const { resumes, isLoading: isResumesLoading } = useResumes();
+
+    const cleanHtml = (html: string) => {
+        return html
+            .replace(/^```html\n?/, "")
+            .replace(/^```\n?/, "")
+            .replace(/\n?```$/, "");
+    };
 
     const handleGenerate = async () => {
         if (!selectedTemplate || !selectedResume) return;
@@ -95,7 +102,7 @@ export function PortfolioWizard({
                 }
             }
 
-            onGenerate(accumulatedHtml);
+            onGenerate(cleanHtml(accumulatedHtml));
         } catch (error) {
             console.error(error);
             setIsGenerating(false);
@@ -139,8 +146,7 @@ export function PortfolioWizard({
                     >
                         1. Style
                     </span>
-                    <span>/
-                    </span>
+                    <span>/</span>
                     <span
                         className={clsx(
                             step === "resume" && "text-black font-medium",
@@ -215,7 +221,9 @@ export function PortfolioWizard({
                                     <button
                                         type="button"
                                         key={resume.id}
-                                        onClick={() => setSelectedResume(resume)}
+                                        onClick={() =>
+                                            setSelectedResume(resume)
+                                        }
                                         className={clsx(
                                             "flex items-center gap-4 p-4 rounded-xl border transition-all text-left w-full",
                                             selectedResume?.id === resume.id
