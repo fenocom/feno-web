@@ -1,9 +1,13 @@
 "use client";
 
-import type { DeviceType } from "../portfolio-page";
 import { Button, Tooltip } from "@heroui/react";
-import { IconDeviceDesktop, IconDeviceMobile, IconDeviceTablet } from "@tabler/icons-react";
+import {
+    IconDeviceDesktop,
+    IconDeviceMobile,
+    IconDeviceTablet,
+} from "@tabler/icons-react";
 import clsx from "clsx";
+import type { DeviceType } from "../portfolio-page";
 
 interface DeviceToggleProps {
     device: DeviceType;
@@ -11,13 +15,21 @@ interface DeviceToggleProps {
     isDisabled?: boolean;
 }
 
-const devices: { type: DeviceType; icon: typeof IconDeviceDesktop; label: string }[] = [
+const devices: {
+    type: DeviceType;
+    icon: typeof IconDeviceDesktop;
+    label: string;
+}[] = [
     { type: "desktop", icon: IconDeviceDesktop, label: "Desktop" },
     { type: "tablet", icon: IconDeviceTablet, label: "Tablet" },
     { type: "mobile", icon: IconDeviceMobile, label: "Mobile" },
 ];
 
-export function DeviceToggle({ device, onChange, isDisabled }: DeviceToggleProps) {
+export function DeviceToggle({
+    device,
+    onChange,
+    isDisabled,
+}: DeviceToggleProps) {
     return (
         <div className="flex gap-0.5 bg-black/5 rounded-lg p-0.5">
             {devices.map(({ type, icon: Icon, label }) => (

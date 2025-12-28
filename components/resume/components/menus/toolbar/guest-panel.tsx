@@ -22,7 +22,8 @@ export function GuestPanel({ onClose, onExport }: GuestPanelProps) {
             </div>
             <div className="flex-1 p-4 space-y-3">
                 <p className="text-sm text-black/60">
-                    Login to save your resume to the cloud and access it from anywhere.
+                    Login to save your resume to the cloud and access it from
+                    anywhere.
                 </p>
                 <Button
                     className="w-full bg-black text-white flex items-center gap-2"

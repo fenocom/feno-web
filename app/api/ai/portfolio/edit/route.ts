@@ -22,11 +22,34 @@ REQUIREMENTS:
 2. Keep all existing Tailwind CSS and styling unless explicitly asked to change.
 3. Preserve the overall structure and layout unless instructed otherwise.
 4. Maintain the existing CSS variables (--feno-color-hue, --feno-color-chroma, --feno-font-family-*).
-5. Return the COMPLETE modified HTML document starting with <!DOCTYPE html>.
-6. Do not add any comments or explanations.
-7. Only return the HTML code, nothing else.
+5. Preserve all feno-section classes on section elements.
+6. Return the COMPLETE modified HTML document starting with <!DOCTYPE html>.
+7. Do not add any comments or explanations.
+8. Only return the HTML code, nothing else.
 
 Return the complete modified HTML:`;
+}
+
+function buildSectionEditPrompt(sectionHtml: string, instruction: string) {
+    return `You are an expert web developer. Your task is to modify a specific section of an HTML portfolio website based on the user's instruction.
+
+CURRENT SECTION HTML:
+${sectionHtml}
+
+USER INSTRUCTION:
+${instruction}
+
+REQUIREMENTS:
+1. Modify the section HTML based on the user's instruction.
+2. Keep all existing Tailwind CSS classes unless explicitly asked to change.
+3. Preserve the feno-section class on the root element.
+4. Maintain consistency with the existing styling approach.
+5. Return ONLY the modified section HTML (not a complete document).
+6. The returned HTML should start with the same root element (section, div, etc.) that has the feno-section class.
+7. Do not add any comments or explanations.
+8. Only return the HTML code, nothing else.
+
+Return the modified section HTML:`;
 }
 
 export async function POST(req: NextRequest) {
@@ -55,7 +78,10 @@ export async function POST(req: NextRequest) {
         if (!success) {
             return new Response(
                 JSON.stringify({ error: "Too many requests" }),
-                { status: 429, headers: { "Content-Type": "application/json" } },
+                {
+                    status: 429,
+                    headers: { "Content-Type": "application/json" },
+                },
             );
         }
     }
@@ -81,16 +107,32 @@ export async function POST(req: NextRequest) {
     }
 
     try {
-        const { html, instruction } = await req.json();
+        const { html, instruction, sectionHtml } = await req.json();
 
-        if (!html || !instruction) {
+        if (!instruction) {
             return new Response(
-                JSON.stringify({ error: "Missing html or instruction" }),
-                { status: 400, headers: { "Content-Type": "application/json" } },
+                JSON.stringify({ error: "Missing instruction" }),
+                {
+                    status: 400,
+                    headers: { "Content-Type": "application/json" },
+                },
             );
         }
 
-        const prompt = buildEditPrompt(html, instruction);
+        if (!html && !sectionHtml) {
+            return new Response(
+                JSON.stringify({ error: "Missing html or sectionHtml" }),
+                {
+                    status: 400,
+                    headers: { "Content-Type": "application/json" },
+                },
+            );
+        }
+
+        const isEditingSection = !!sectionHtml;
+        const prompt = isEditingSection
+            ? buildSectionEditPrompt(sectionHtml, instruction)
+            : buildEditPrompt(html, instruction);
 
         const response = await fetch(
             `https://generativelanguage.googleapis.com/v1beta/models/${GEMINI_MODEL}:streamGenerateContent?alt=sse&key=${GEMINI_API_KEY}`,
@@ -106,7 +148,10 @@ export async function POST(req: NextRequest) {
         if (!response.ok) {
             return new Response(
                 JSON.stringify({ error: "Failed to communicate with AI" }),
-                { status: 500, headers: { "Content-Type": "application/json" } },
+                {
+                    status: 500,
+                    headers: { "Content-Type": "application/json" },
+                },
             );
         }
 

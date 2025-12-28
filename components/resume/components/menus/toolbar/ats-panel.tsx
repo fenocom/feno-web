@@ -62,7 +62,16 @@ export const AtsPanel = ({ editor, onAnalyzingChange }: AtsPanelProps) => {
     const [error, setError] = useState<string | null>(null);
     const [analysis, setAnalysis] = useState<AtsAnalysis | null>(null);
     const [showDetails, setShowDetails] = useState(false);
-    const { hasAccess, remaining, limit, periodType, isLimitReached, isLoading: isLoadingUsage, usage, refetch } = useAiUsage();
+    const {
+        hasAccess,
+        remaining,
+        limit,
+        periodType,
+        isLimitReached,
+        isLoading: isLoadingUsage,
+        usage,
+        refetch,
+    } = useAiUsage();
 
     const handleAnalyze = useCallback(async () => {
         if (!editor) return;

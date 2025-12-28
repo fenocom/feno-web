@@ -5,19 +5,44 @@ import { DottedBackground } from "@/components/resume/dotted-bg";
 import { useAuth } from "@/lib/auth/context";
 import { usePortfolio } from "@/lib/hooks/use-portfolio";
 import { Spinner } from "@heroui/react";
-import { useCallback, useState } from "react";
+import { useCallback, useRef, useState } from "react";
+import {
+    BubbleMenu,
+    type ElementStyles,
+    type SelectedElement,
+} from "./bubble-menu";
+import {
+    PortfolioView,
+    type PortfolioViewHandle,
+    type SelectedSection,
+} from "./portfolio-view";
 import { PortfolioToolbar } from "./toolbar/portfolio-toolbar";
-import { PortfolioView } from "./portfolio-view";
 import { PortfolioWizard } from "./wizard/portfolio-wizard";
 
 export type DeviceType = "desktop" | "tablet" | "mobile";
 
 export function PortfolioPage() {
     const { isLoading: isAuthLoading, user } = useAuth();
-    const { portfolio, isLoading: isPortfolioLoading, saveHtml, publish, unpublish, isSaving } = usePortfolio();
+    const {
+        portfolio,
+        isLoading: isPortfolioLoading,
+        saveHtml,
+        publish,
+        unpublish,
+        isSaving,
+    } = usePortfolio();
     const [isGenerating, setIsGenerating] = useState(false);
     const [generatedHtml, setGeneratedHtml] = useState("");
     const [device, setDevice] = useState<DeviceType>("desktop");
+    const [selectorMode, setSelectorMode] = useState(false);
+    const [selectedSection, setSelectedSection] =
+        useState<SelectedSection | null>(null);
+    const [editMode, setEditMode] = useState(false);
+    const [selectedElement, setSelectedElement] =
+        useState<SelectedElement | null>(null);
+
+    const portfolioViewRef = useRef<PortfolioViewHandle>(null);
+    const containerRef = useRef<HTMLDivElement>(null);
 
     const currentHtml = generatedHtml || portfolio?.html_content || "";
     const hasContent = !!currentHtml;
@@ -30,6 +55,25 @@ export function PortfolioPage() {
 
     const handleHtmlChange = useCallback((html: string) => {
         setGeneratedHtml(html);
+    }, []);
+
+    const handleStyleChange = useCallback(
+        (property: keyof ElementStyles, value: string) => {
+            portfolioViewRef.current?.applyStyle(property, value);
+            // Update the selected element's styles locally for immediate feedback
+            if (selectedElement) {
+                setSelectedElement({
+                    ...selectedElement,
+                    styles: { ...selectedElement.styles, [property]: value },
+                });
+            }
+        },
+        [selectedElement],
+    );
+
+    const handleCloseBubbleMenu = useCallback(() => {
+        setSelectedElement(null);
+        setEditMode(false);
     }, []);
 
     if (isAuthLoading || isPortfolioLoading) {
@@ -45,8 +89,20 @@ export function PortfolioPage() {
 
     if (hasContent) {
         return (
-            <div className="w-full min-h-screen relative bg-neutral-100 flex flex-col items-center">
-                <PortfolioView html={currentHtml} device={device} />
+            <div
+                ref={containerRef}
+                className="w-full min-h-screen relative bg-neutral-100 flex flex-col items-center"
+            >
+                <PortfolioView
+                    ref={portfolioViewRef}
+                    html={currentHtml}
+                    device={device}
+                    selectorMode={selectorMode}
+                    onSectionSelect={setSelectedSection}
+                    editMode={editMode}
+                    onElementSelect={setSelectedElement}
+                    onHtmlUpdate={handleHtmlChange}
+                />
                 <PortfolioToolbar
                     html={currentHtml}
                     onHtmlChange={handleHtmlChange}
@@ -58,7 +114,20 @@ export function PortfolioPage() {
                     portfolio={portfolio}
                     isSaving={isSaving}
                     isAuthenticated={!!user}
+                    selectorMode={selectorMode}
+                    onSelectorModeChange={setSelectorMode}
+                    selectedSection={selectedSection}
+                    editMode={editMode}
+                    onEditModeChange={setEditMode}
                 />
+                {editMode && selectedElement && (
+                    <BubbleMenu
+                        element={selectedElement}
+                        onStyleChange={handleStyleChange}
+                        onClose={handleCloseBubbleMenu}
+                        containerRef={containerRef}
+                    />
+                )}
             </div>
         );
     }

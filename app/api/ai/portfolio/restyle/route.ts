@@ -59,7 +59,10 @@ export async function POST(req: NextRequest) {
         if (!success) {
             return new Response(
                 JSON.stringify({ error: "Too many requests" }),
-                { status: 429, headers: { "Content-Type": "application/json" } },
+                {
+                    status: 429,
+                    headers: { "Content-Type": "application/json" },
+                },
             );
         }
     }
@@ -90,7 +93,10 @@ export async function POST(req: NextRequest) {
         if (!html || !templateId) {
             return new Response(
                 JSON.stringify({ error: "Missing html or templateId" }),
-                { status: 400, headers: { "Content-Type": "application/json" } },
+                {
+                    status: 400,
+                    headers: { "Content-Type": "application/json" },
+                },
             );
         }
 
@@ -103,7 +109,10 @@ export async function POST(req: NextRequest) {
         if (templateError || !template) {
             return new Response(
                 JSON.stringify({ error: "Template not found" }),
-                { status: 404, headers: { "Content-Type": "application/json" } },
+                {
+                    status: 404,
+                    headers: { "Content-Type": "application/json" },
+                },
             );
         }
 
@@ -114,7 +123,10 @@ export async function POST(req: NextRequest) {
         if (imageError || !imageData) {
             return new Response(
                 JSON.stringify({ error: "Failed to access template image" }),
-                { status: 500, headers: { "Content-Type": "application/json" } },
+                {
+                    status: 500,
+                    headers: { "Content-Type": "application/json" },
+                },
             );
         }
 
@@ -134,7 +146,12 @@ export async function POST(req: NextRequest) {
                             role: "user",
                             parts: [
                                 { text: prompt },
-                                { inlineData: { mimeType: template.mime_type, data: base64 } },
+                                {
+                                    inlineData: {
+                                        mimeType: template.mime_type,
+                                        data: base64,
+                                    },
+                                },
                             ],
                         },
                     ],
@@ -145,7 +162,10 @@ export async function POST(req: NextRequest) {
         if (!response.ok) {
             return new Response(
                 JSON.stringify({ error: "Failed to communicate with AI" }),
-                { status: 500, headers: { "Content-Type": "application/json" } },
+                {
+                    status: 500,
+                    headers: { "Content-Type": "application/json" },
+                },
             );
         }
 

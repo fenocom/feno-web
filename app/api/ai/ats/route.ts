@@ -156,11 +156,17 @@ export async function POST(req: NextRequest) {
         const data = await response.json();
 
         const tokenUsage = extractTokenUsage(data);
-        await incrementAiUsage(user.id, tier, tokenUsage ? {
-            inputTokens: tokenUsage.promptTokenCount,
-            outputTokens: tokenUsage.candidatesTokenCount,
-            totalTokens: tokenUsage.totalTokenCount,
-        } : undefined);
+        await incrementAiUsage(
+            user.id,
+            tier,
+            tokenUsage
+                ? {
+                      inputTokens: tokenUsage.promptTokenCount,
+                      outputTokens: tokenUsage.candidatesTokenCount,
+                      totalTokens: tokenUsage.totalTokenCount,
+                  }
+                : undefined,
+        );
 
         const resultText = data.candidates?.[0]?.content?.parts?.[0]?.text;
 

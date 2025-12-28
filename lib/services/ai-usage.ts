@@ -82,7 +82,12 @@ export async function getAiUsage(
         .eq("period_start", periodStart.toISOString())
         .single();
 
-    const record = data as { calls_count: number; input_tokens: number; output_tokens: number; total_tokens: number } | null;
+    const record = data as {
+        calls_count: number;
+        input_tokens: number;
+        output_tokens: number;
+        total_tokens: number;
+    } | null;
     const used = error || !record ? 0 : record.calls_count;
     const tokens: TokenUsage = {
         inputTokens: record?.input_tokens ?? 0,
@@ -135,7 +140,11 @@ export async function incrementAiUsage(
             remaining: Math.max(0, tierLimits.limit - newCount),
             periodType: tierLimits.periodType,
             resetsAt,
-            tokens: tokens ?? { inputTokens: 0, outputTokens: 0, totalTokens: 0 },
+            tokens: tokens ?? {
+                inputTokens: 0,
+                outputTokens: 0,
+                totalTokens: 0,
+            },
         },
     };
 }

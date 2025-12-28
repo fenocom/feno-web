@@ -46,7 +46,9 @@ export async function parseStreamResponse(
     return cleanHtmlResponse(accumulated);
 }
 
-export function extractTokenUsage(data: Record<string, unknown>): GeminiTokenUsage | null {
+export function extractTokenUsage(
+    data: Record<string, unknown>,
+): GeminiTokenUsage | null {
     const usage = data.usageMetadata as Record<string, number> | undefined;
     if (!usage) return null;
     return {
@@ -93,7 +95,8 @@ export async function streamGeminiResponse(
 
                         try {
                             const data = JSON.parse(jsonStr);
-                            const text = data.candidates?.[0]?.content?.parts?.[0]?.text;
+                            const text =
+                                data.candidates?.[0]?.content?.parts?.[0]?.text;
                             if (text) {
                                 controller.enqueue(
                                     encoder.encode(
@@ -111,7 +114,9 @@ export async function streamGeminiResponse(
             }
 
             controller.enqueue(
-                encoder.encode(`${JSON.stringify({ content: "", done: true })}\n`),
+                encoder.encode(
+                    `${JSON.stringify({ content: "", done: true })}\n`,
+                ),
             );
             controller.close();
         },

@@ -36,7 +36,16 @@ export const AiAssistantPanel = ({
     const [error, setError] = useState<string | null>(null);
     const fileInputRef = useRef<HTMLInputElement>(null);
     const abortControllerRef = useRef<AbortController | null>(null);
-    const { hasAccess, remaining, limit, periodType, isLimitReached, isLoading: isLoadingUsage, usage, refetch } = useAiUsage();
+    const {
+        hasAccess,
+        remaining,
+        limit,
+        periodType,
+        isLimitReached,
+        isLoading: isLoadingUsage,
+        usage,
+        refetch,
+    } = useAiUsage();
 
     const handleFileSelect = useCallback(
         async (e: React.ChangeEvent<HTMLInputElement>) => {

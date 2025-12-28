@@ -1,4 +1,5 @@
 import { initialWebsiteGenerator } from "@/lib/ai/portfolio-generator";
+import { summarizeResumeForPortfolio } from "@/lib/ai/resume-summarizer";
 import { streamGeminiResponse } from "@/lib/ai/stream-utils";
 import { ratelimit } from "@/lib/ratelimit";
 import { checkAiUsageLimit, incrementAiUsage } from "@/lib/services/ai-usage";
@@ -121,8 +122,12 @@ export async function POST(req: NextRequest) {
         const arrayBuffer = await imageData.arrayBuffer();
         const base64 = Buffer.from(arrayBuffer).toString("base64");
 
+        const resumeSummary = await summarizeResumeForPortfolio(
+            resume.resume_data as Record<string, unknown>,
+        );
+
         const messages = await initialWebsiteGenerator({
-            resumeContent: JSON.stringify(resume.resume_data, null, 2),
+            resumeContent: resumeSummary,
             templatePrompt: template.prompt,
             templateImage: {
                 base64,

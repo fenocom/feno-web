@@ -2,9 +2,9 @@
 
 import { useAiUsage } from "@/lib/hooks/use-ai-usage";
 import {
+    type PortfolioTemplate,
     getTemplateImageUrl,
     usePortfolioTemplates,
-    type PortfolioTemplate,
 } from "@/lib/hooks/use-portfolio-templates";
 import { Button, Spinner } from "@heroui/react";
 import { IconCheck, IconSparkles, IconX } from "@tabler/icons-react";
@@ -25,7 +25,8 @@ export function TemplatesPanel({
     selectedId,
 }: TemplatesPanelProps) {
     const { templates, isLoading } = usePortfolioTemplates();
-    const { hasAccess, remaining, limit, isLimitReached, usage, refetch } = useAiUsage();
+    const { hasAccess, remaining, limit, isLimitReached, usage, refetch } =
+        useAiUsage();
     const wasRestylingRef = useRef(false);
 
     useEffect(() => {
@@ -46,7 +47,9 @@ export function TemplatesPanel({
                 </div>
                 <div className="flex items-center gap-2">
                     {hasAccess && usage?.usage && (
-                        <span className={`text-xs px-2 py-1 rounded ${remaining === 0 ? "bg-red-100 text-red-600" : remaining <= 3 ? "bg-yellow-100 text-yellow-700" : "bg-black/5 text-black/50"}`}>
+                        <span
+                            className={`text-xs px-2 py-1 rounded ${remaining === 0 ? "bg-red-100 text-red-600" : remaining <= 3 ? "bg-yellow-100 text-yellow-700" : "bg-black/5 text-black/50"}`}
+                        >
                             {remaining}/{limit}
                         </span>
                     )}
@@ -86,19 +89,31 @@ export function TemplatesPanel({
                             <button
                                 type="button"
                                 key={template.id}
-                                onClick={() => !isRestyling && hasAccess && !isLimitReached && onSelect(template)}
-                                disabled={isRestyling || !hasAccess || isLimitReached}
+                                onClick={() =>
+                                    !isRestyling &&
+                                    hasAccess &&
+                                    !isLimitReached &&
+                                    onSelect(template)
+                                }
+                                disabled={
+                                    isRestyling || !hasAccess || isLimitReached
+                                }
                                 className={clsx(
                                     "relative rounded-lg border-2 overflow-hidden transition-all text-left flex flex-col h-[200px]",
                                     selectedId === template.id
                                         ? "border-black ring-2 ring-black/10"
                                         : "border-transparent hover:border-black/20 bg-black/5",
-                                    (isRestyling || !hasAccess || isLimitReached) && "opacity-50 cursor-not-allowed",
+                                    (isRestyling ||
+                                        !hasAccess ||
+                                        isLimitReached) &&
+                                        "opacity-50 cursor-not-allowed",
                                 )}
                             >
                                 <div className="w-full flex-1 relative bg-white overflow-y-auto scrollbar-hide">
                                     <img
-                                        src={getTemplateImageUrl(template.image_path)}
+                                        src={getTemplateImageUrl(
+                                            template.image_path,
+                                        )}
                                         alt={template.name}
                                         className="w-full h-auto block"
                                     />

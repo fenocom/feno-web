@@ -1,8 +1,8 @@
 "use client";
 
 import { Button } from "@heroui/react";
-import { IconCheck, IconX } from "@tabler/icons-react";
 import Editor, { useMonaco } from "@monaco-editor/react";
+import { IconCheck, IconX } from "@tabler/icons-react";
 import { useCallback, useEffect, useState } from "react";
 
 interface CodePanelProps {
@@ -38,11 +38,14 @@ export function CodePanel({ html, onApply, onClose }: CodePanelProps) {
         setHasChanges(false);
     }, [html]);
 
-    const handleChange = useCallback((value: string | undefined) => {
-        const newCode = value ?? "";
-        setCode(newCode);
-        setHasChanges(newCode !== html);
-    }, [html]);
+    const handleChange = useCallback(
+        (value: string | undefined) => {
+            const newCode = value ?? "";
+            setCode(newCode);
+            setHasChanges(newCode !== html);
+        },
+        [html],
+    );
 
     const handleApply = useCallback(() => {
         onApply(code);

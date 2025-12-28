@@ -2,7 +2,12 @@
 
 import type { UserPortfolio } from "@/lib/hooks/use-portfolio";
 import { Button, Input } from "@heroui/react";
-import { IconCheck, IconExternalLink, IconWorldUpload, IconX } from "@tabler/icons-react";
+import {
+    IconCheck,
+    IconExternalLink,
+    IconWorldUpload,
+    IconX,
+} from "@tabler/icons-react";
 import { useCallback, useEffect, useState } from "react";
 
 interface SubdomainPanelProps {
@@ -29,10 +34,14 @@ export function SubdomainPanel({
 
     const handlePublish = useCallback(async () => {
         const validateSubdomain = (value: string) => {
-            if (value.length < 3) return "Subdomain must be at least 3 characters";
-            if (value.length > 30) return "Subdomain must be less than 30 characters";
-            if (!/^[a-z0-9-]+$/.test(value)) return "Only lowercase letters, numbers, and hyphens";
-            if (value.startsWith("-") || value.endsWith("-")) return "Cannot start or end with hyphen";
+            if (value.length < 3)
+                return "Subdomain must be at least 3 characters";
+            if (value.length > 30)
+                return "Subdomain must be less than 30 characters";
+            if (!/^[a-z0-9-]+$/.test(value))
+                return "Only lowercase letters, numbers, and hyphens";
+            if (value.startsWith("-") || value.endsWith("-"))
+                return "Cannot start or end with hyphen";
             return null;
         };
         const validationError = validateSubdomain(subdomain);
@@ -53,7 +62,9 @@ export function SubdomainPanel({
     }, [onUnpublish]);
 
     const isPublished = portfolio?.is_published;
-    const liveUrl = isPublished ? `https://${portfolio?.subdomain}.feno.me` : null;
+    const liveUrl = isPublished
+        ? `https://${portfolio?.subdomain}.feno.me`
+        : null;
 
     return (
         <div className="flex flex-col h-full w-full">
@@ -88,7 +99,12 @@ export function SubdomainPanel({
                 )}
 
                 <div className="space-y-2">
-                    <label htmlFor="subdomain-input" className="text-sm font-medium">Subdomain</label>
+                    <label
+                        htmlFor="subdomain-input"
+                        className="text-sm font-medium"
+                    >
+                        Subdomain
+                    </label>
                     <div className="flex items-center gap-2">
                         <Input
                             id="subdomain-input"
