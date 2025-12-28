@@ -52,3 +52,22 @@ export const MIME_TYPES: Record<string, AttachmentType> = {
     "text/markdown": "text",
     "application/pdf": "pdf",
 };
+
+export interface AiUsageData {
+    limit: number;
+    used: number;
+    remaining: number;
+    periodType: "monthly" | "daily";
+    resetsAt: string;
+}
+
+export interface AiUsageResponse {
+    tier: number;
+    hasAccess: boolean;
+    usage: AiUsageData | null;
+}
+
+export interface StreamChunk {
+    content: string;
+    done: boolean;
+}
