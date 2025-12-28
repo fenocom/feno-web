@@ -1,49 +1,52 @@
 "use client";
 
-import { Button } from "@heroui/react";
-import { IconLogin, IconX } from "@tabler/icons-react";
+import { Button, Separator } from "@heroui/react";
+import { IconCloudUpload, IconDownload, IconLogin } from "@tabler/icons-react";
 import { useRouter } from "next/navigation";
 
 interface GuestPanelProps {
     onClose: () => void;
+    onExport?: () => void;
 }
 
-export function GuestPanel({ onClose }: GuestPanelProps) {
+export function GuestPanel({ onClose, onExport }: GuestPanelProps) {
     const router = useRouter();
 
     return (
-        <div className="overflow-hidden w-full h-full flex items-center px-6">
-            <div className="flex items-center justify-between w-full">
-                <div className="flex flex-col">
-                    <span className="font-bold text-neutral-900 text-base">
-                        You are not Logged in
-                    </span>
-                    <span className="text-sm text-neutral-500">
-                        Login in to save and manage your resumes
-                    </span>
-                </div>
+        <div className="w-full h-full flex flex-col">
+            <div className="flex items-center justify-between px-4 py-3 border-b border-black/5">
                 <div className="flex items-center gap-2">
-                    <Button
-                        size="sm"
-                        className="h-9 px-4 rounded-xl bg-black text-white font-medium flex items-center gap-2"
-                        onPress={() => {
-                            router.push("/login");
-                            onClose();
-                        }}
-                    >
-                        <IconLogin size={18} />
-                        Login
-                    </Button>
-                    <Button
-                        isIconOnly
-                        size="sm"
-                        variant="ghost"
-                        onPress={onClose}
-                        className="p-1 min-w-8 h-8 rounded-full text-black hover:bg-black/10"
-                    >
-                        <IconX size={18} />
-                    </Button>
+                    <IconCloudUpload size={20} />
+                    <span className="font-semibold text-sm">Save Resume</span>
                 </div>
+            </div>
+            <div className="flex-1 p-4 space-y-3">
+                <p className="text-sm text-black/60">
+                    Login to save your resume to the cloud and access it from anywhere.
+                </p>
+                <Button
+                    className="w-full bg-black text-white flex items-center gap-2"
+                    onPress={() => {
+                        router.push("/login");
+                        onClose();
+                    }}
+                >
+                    <IconLogin size={18} />
+                    Login to Save
+                </Button>
+                {onExport && (
+                    <>
+                        <Separator className="my-3" />
+                        <Button
+                            variant="ghost"
+                            className="w-full flex items-center gap-2"
+                            onPress={onExport}
+                        >
+                            <IconDownload size={18} />
+                            Download as PDF
+                        </Button>
+                    </>
+                )}
             </div>
         </div>
     );

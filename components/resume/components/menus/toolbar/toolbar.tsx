@@ -20,6 +20,7 @@ import { useEffect, useRef, useState } from "react";
 import { PortfolioButton } from "../../../components/portfolio-button";
 import { AiAssistantPanel } from "./ai-assistant-panel";
 import { AtsPanel } from "./ats-panel";
+import { GuestPanel } from "./guest-panel";
 import { SavePanel } from "./save-panel";
 import { SaveTemplatePanel } from "./save-template-panel";
 import { SettingsPanel } from "./settings-panel";
@@ -127,6 +128,9 @@ export function Toolbar({
             return { width: "500px", height: "450px" };
         }
         if (activePanel === "save") {
+            if (!user) {
+                return { width: "380px", height: "220px" };
+            }
             return {
                 width: "380px",
                 height: currentResume ? "380px" : "280px",
@@ -225,13 +229,18 @@ export function Toolbar({
                             : "absolute inset-0 invisible opacity-0 pointer-events-none",
                     )}
                 >
-                    {user && (
+                    {user ? (
                         <SavePanel
                             currentResume={currentResume ?? null}
                             isSaving={isSaving}
                             hasUnsavedChanges={hasUnsavedChanges}
                             onSaveNow={() => onSaveNow?.()}
                             onSaveNew={(name) => onSaveNew?.(name)}
+                            onExport={() => onExport?.()}
+                            onClose={() => setActivePanel(null)}
+                        />
+                    ) : (
+                        <GuestPanel
                             onExport={() => onExport?.()}
                             onClose={() => setActivePanel(null)}
                         />
@@ -328,29 +337,24 @@ export function Toolbar({
                                 </Tooltip.Content>
                             </Tooltip>
 
-                            {user && (
-                                <Tooltip delay={0}>
-                                    <Button
-                                        isIconOnly
-                                        size="sm"
-                                        variant="ghost"
-                                        onPress={() => togglePanel("save")}
-                                        isDisabled={
-                                            isAiGenerating || isDisabled
-                                        }
-                                        className={clsx(
-                                            "p-1 min-w-8 h-8 rounded-md hover:bg-black/10 text-black",
-                                            activePanel === "save" &&
-                                                "bg-black/10",
-                                        )}
-                                    >
-                                        <IconDeviceFloppy size={18} />
-                                    </Button>
-                                    <Tooltip.Content>
-                                        <p>Save & Export</p>
-                                    </Tooltip.Content>
-                                </Tooltip>
-                            )}
+                            <Tooltip delay={0}>
+                                <Button
+                                    isIconOnly
+                                    size="sm"
+                                    variant="ghost"
+                                    onPress={() => togglePanel("save")}
+                                    isDisabled={isAiGenerating || isDisabled}
+                                    className={clsx(
+                                        "p-1 min-w-8 h-8 rounded-md hover:bg-black/10 text-black",
+                                        activePanel === "save" && "bg-black/10",
+                                    )}
+                                >
+                                    <IconDeviceFloppy size={18} />
+                                </Button>
+                                <Tooltip.Content>
+                                    <p>Save & Export</p>
+                                </Tooltip.Content>
+                            </Tooltip>
 
                             <Tooltip delay={0}>
                                 <Button
