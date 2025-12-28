@@ -5,11 +5,11 @@ import { extractResumeData } from "@/lib/resume-parser/extractor";
 import { injectResumeData } from "@/lib/resume-parser/injector";
 import { motion } from "framer-motion";
 import { useCallback, useEffect, useRef, useState } from "react";
-import { ResumeEditorWrapper } from "./components/resume-editor-wrapper";
-import { ResumeLoadingPlaceholder } from "./components/resume-loading-placeholder";
 import type { Template } from "./components/menus/toolbar/templates-panel/template-card";
 import { Toolbar } from "./components/menus/toolbar/toolbar";
 import { ResumeEditor, type ResumeEditorRef } from "./components/resume-editor";
+import { ResumeEditorWrapper } from "./components/resume-editor-wrapper";
+import { ResumeLoadingPlaceholder } from "./components/resume-loading-placeholder";
 import { DottedBackground } from "./dotted-bg";
 
 interface ResumePageProps {
@@ -44,13 +44,7 @@ export const ResumePage = ({ initialResumeId }: ResumePageProps) => {
                 selectResume(foundResume);
             }
         }
-    }, [
-        shouldFetch,
-        isResumesLoading,
-        initialResumeId,
-        resumes,
-        selectResume,
-    ]);
+    }, [shouldFetch, isResumesLoading, initialResumeId, resumes, selectResume]);
 
     useEffect(() => {
         if (!currentResume || !editorRef.current?.editor || !editorReady)

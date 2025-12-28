@@ -197,6 +197,33 @@ export type Database = {
                     },
                 ];
             };
+            portfolio_templates: {
+                Row: {
+                    id: string;
+                    name: string;
+                    image_path: string;
+                    prompt: string;
+                    mime_type: string;
+                    created_at: string | null;
+                };
+                Insert: {
+                    id?: string;
+                    name: string;
+                    image_path: string;
+                    prompt: string;
+                    mime_type?: string;
+                    created_at?: string | null;
+                };
+                Update: {
+                    id?: string;
+                    name?: string;
+                    image_path?: string;
+                    prompt?: string;
+                    mime_type?: string;
+                    created_at?: string | null;
+                };
+                Relationships: [];
+            };
         };
         Views: {
             [_ in never]: never;

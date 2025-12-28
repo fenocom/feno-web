@@ -103,9 +103,49 @@ export async function POST(req: NextRequest) {
             });
         }
 
+        // Fetch template from DB
+        const { data: template, error: templateError } = await supabase
+            .from("portfolio_templates")
+            .select("*")
+            .eq("id", templateId)
+            .single();
+
+        if (templateError || !template) {
+            return new Response(
+                JSON.stringify({ error: "Template not found" }),
+                {
+                    status: 404,
+                    headers: { "Content-Type": "application/json" },
+                },
+            );
+        }
+
+        // Download image from storage
+        const { data: imageData, error: imageError } = await supabase.storage
+            .from("portfolio-templates")
+            .download(template.image_path);
+
+        if (imageError || !imageData) {
+            console.error("Failed to download template image:", imageError);
+            return new Response(
+                JSON.stringify({ error: "Failed to access template image" }),
+                {
+                    status: 500,
+                    headers: { "Content-Type": "application/json" },
+                },
+            );
+        }
+
+        const arrayBuffer = await imageData.arrayBuffer();
+        const base64 = Buffer.from(arrayBuffer).toString("base64");
+
         const messages = await initialWebsiteGenerator({
-            content: JSON.stringify(resume.resume_data, null, 2),
-            templateId,
+            resumeContent: JSON.stringify(resume.resume_data, null, 2),
+            templatePrompt: template.prompt,
+            templateImage: {
+                base64,
+                mimeType: template.mime_type,
+            },
         });
 
         const response = await fetch(
@@ -158,7 +198,7 @@ export async function POST(req: NextRequest) {
 
                             try {
                                 const data = JSON.parse(jsonStr);
-                                const text = 
+                                const text =
                                     data.candidates?.[0]?.content?.parts?.[0]
                                         ?.text;
                                 if (text) {
@@ -167,8 +207,7 @@ export async function POST(req: NextRequest) {
                                             `${JSON.stringify({
                                                 content: text,
                                                 done: false,
-                                            })}
-`,
+                                            })}\n`,
                                         ),
                                     );
                                 }
@@ -182,8 +221,7 @@ export async function POST(req: NextRequest) {
                         `${JSON.stringify({
                             content: "",
                             done: true,
-                        })}
-`,
+                        })}\n`,
                     ),
                 );
                 controller.close();

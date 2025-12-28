@@ -12,7 +12,8 @@ export async function GET(request: NextRequest) {
     }
 
     if (ratelimit) {
-        const identifier = request.headers.get("x-forwarded-for") || "anonymous";
+        const identifier =
+            request.headers.get("x-forwarded-for") || "anonymous";
         const { success } = await ratelimit.limit(identifier);
         if (!success) {
             return NextResponse.json(
@@ -24,7 +25,6 @@ export async function GET(request: NextRequest) {
 
     const { searchParams } = new URL(request.url);
     const sort = searchParams.get("sort") || "popularity";
-
 
     try {
         const response = await fetch(

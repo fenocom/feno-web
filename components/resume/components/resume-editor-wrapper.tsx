@@ -31,7 +31,10 @@ export function ResumeEditorWrapper({
     }, [checkScroll]);
 
     return (
-        <AuroraBorder isActive={isAiGenerating} className="h-fit max-w-full z-10">
+        <AuroraBorder
+            isActive={isAiGenerating}
+            className="h-fit max-w-full z-10"
+        >
             <div className="resume-inner-container p-1 border border-black/5 relative bg-black/5 rounded-xl backdrop-blur-sm transition-colors duration-300 focus-within:bg-blue-500/5 focus-within:border-blue-500/20 h-fit max-w-full">
                 <div className="resume-scroll-container relative rounded-lg border border-black/5 overflow-hidden">
                     <div

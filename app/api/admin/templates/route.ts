@@ -85,7 +85,9 @@ export async function GET(request: NextRequest) {
 
         if (ratelimit) {
             const identifier =
-                user?.id || request.headers.get("x-forwarded-for") || "anonymous";
+                user?.id ||
+                request.headers.get("x-forwarded-for") ||
+                "anonymous";
             const { success } = await ratelimit.limit(identifier);
             if (!success) {
                 return NextResponse.json(

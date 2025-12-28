@@ -1,44 +1,26 @@
-import fs from "node:fs/promises";
-import path from "node:path";
-import { getImageMimeType, getImageTemplatePath } from "./image-utils";
-
-interface FileUploadResult {
-    uri: string;
-    mimeType: string;
+export interface PortfolioGenerationInput {
+    resumeContent: string;
+    templatePrompt: string;
+    templateImage?: {
+        base64: string;
+        mimeType: string;
+    };
+    pageType?: string;
 }
 
 export const initialWebsiteGenerator = async ({
-    content,
-    templateId,
+    resumeContent,
+    templatePrompt,
+    templateImage,
     pageType = "portfolio",
-}: {
-    content: string;
-    templateId: string;
-    pageType?: string;
-}) => {
-    const imagePath = getImageTemplatePath(templateId);
-
-    let imageFile: FileUploadResult | null = null;
-    try {
-        // Construct path to public directory
-        const fullPath = path.join(process.cwd(), "public", imagePath);
-        const imageBuffer = await fs.readFile(fullPath);
-        const base64Data = imageBuffer.toString("base64");
-
-        imageFile = {
-            uri: base64Data,
-            mimeType: getImageMimeType(templateId),
-        };
-    } catch (error) {
-        console.error("Error reading template image:", error);
-    }
-
+}: PortfolioGenerationInput) => {
     const promptText = `Your goal is to generate a complete ${pageType} website.
 
 Here is the data using which we have to build this page:
-${content}
+${resumeContent}
 
 I'm showing you a screenshot of a ${pageType} design. Use this screenshot ONLY as a visual reference for layout and styling.
+${templatePrompt}
 
 REQUIREMENTS:
 1. Generate a COMPLETE HTML document with no comments.
@@ -74,14 +56,17 @@ REQUIREMENTS:
 
 Do not include any content not found in the provided data.`;
 
-    const parts = [];
+    const parts: {
+        text?: string;
+        inlineData?: { mimeType: string; data: string };
+    }[] = [];
     parts.push({ text: promptText });
 
-    if (imageFile) {
+    if (templateImage) {
         parts.push({
             inlineData: {
-                mimeType: imageFile.mimeType,
-                data: imageFile.uri,
+                mimeType: templateImage.mimeType,
+                data: templateImage.base64,
             },
         });
     }

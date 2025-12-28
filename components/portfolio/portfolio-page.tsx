@@ -1,25 +1,27 @@
 "use client";
 
-import { useAuth } from "@/lib/auth/context";
-import { DottedBackground } from "@/components/resume/dotted-bg";
 import { AuroraBorder } from "@/components/resume/components/aurora-border";
+import { DottedBackground } from "@/components/resume/dotted-bg";
+import { useAuth } from "@/lib/auth/context";
+import { Spinner } from "@heroui/react";
+import { useState } from "react";
 import { PortfolioToolbar } from "./toolbar/portfolio-toolbar";
 import { PortfolioWizard } from "./wizard/portfolio-wizard";
-import { useState } from "react";
-import { Spinner } from "@heroui/react";
 
 export function PortfolioPage() {
     const { isLoading: isAuthLoading } = useAuth();
-    const [portfolio, _setPortfolio] = useState<{ html_content?: string } | null>(null);
+    const [portfolio, _setPortfolio] = useState<{
+        html_content?: string;
+    } | null>(null);
     const [isGenerating, setIsGenerating] = useState(false);
     const [generatedHtml, setGeneratedHtml] = useState("");
 
     // TODO: Fetch portfolio from DB
-    
+
     const hasContent = !!(portfolio?.html_content || generatedHtml);
 
     if (isAuthLoading) {
-         return (
+        return (
             <div className="fixed inset-0 z-50 flex items-center justify-center bg-white/80 backdrop-blur-sm">
                 <div className="flex flex-col items-center gap-4">
                     <Spinner size="lg" color="current" className="text-black" />
@@ -32,21 +34,21 @@ export function PortfolioPage() {
     if (hasContent) {
         return (
             <div className="w-full min-h-screen relative bg-white">
-                 {/* Using iframe for isolation or direct HTML? 
+                {/* Using iframe for isolation or direct HTML? 
                      Direct HTML allows Tailwind if classes match. 
                      Prompt says "html content will be the entire viewport". 
                  */}
-                 <iframe 
+                <iframe
                     srcDoc={generatedHtml || portfolio?.html_content}
                     className="w-full h-screen border-none"
                     title="Portfolio"
-                 />
-                 
-                 <div className="fixed bottom-0 left-0 right-0 z-50 pointer-events-none">
-                     <div className="pointer-events-auto">
+                />
+
+                <div className="fixed bottom-0 left-0 right-0 z-50 pointer-events-none">
+                    <div className="pointer-events-auto">
                         <PortfolioToolbar />
-                     </div>
-                 </div>
+                    </div>
+                </div>
             </div>
         );
     }
