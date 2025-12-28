@@ -19,7 +19,7 @@ import NextLink from "next/link";
 import { useEffect, useRef, useState } from "react";
 import { PortfolioButton } from "../../../components/portfolio-button";
 import { AiAssistantPanel } from "./ai-assistant-panel";
-import { AtsPanel } from "./ats-panel";
+import { AtsAnalysis, AtsPanel } from "./ats-panel";
 import { GuestPanel } from "./guest-panel";
 import { SavePanel } from "./save-panel";
 import { SaveTemplatePanel } from "./save-template-panel";
@@ -219,6 +219,10 @@ export function Toolbar({
                     <AtsPanel
                         editor={getEditor?.() ?? null}
                         resumeId={currentResume?.id}
+                        initialAnalysis={
+                            (currentResume?.ats_analysis as unknown as AtsAnalysis) ??
+                            null
+                        }
                         onAnalyzingChange={handleAiGeneratingChange}
                     />
                 </div>

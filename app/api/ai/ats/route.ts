@@ -195,7 +195,6 @@ export async function POST(req: NextRequest) {
             );
         }
 
-        // Store latest ATS score and analysis if resumeId is provided
         if (resumeId && typeof analysis.score === "number") {
             try {
                 const { updateResume } = await import("@/lib/services/user-resumes");
@@ -205,7 +204,6 @@ export async function POST(req: NextRequest) {
                 });
             } catch (error) {
                 console.error("Failed to update resume with ATS score:", error);
-                // We don't return an error here because the analysis itself succeeded
             }
         }
 

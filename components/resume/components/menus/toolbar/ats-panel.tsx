@@ -11,21 +11,22 @@ import {
     IconTargetArrow,
 } from "@tabler/icons-react";
 import type { Editor } from "@tiptap/core";
-import { useCallback, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 
 interface AtsPanelProps {
     editor: Editor | null;
     resumeId?: string;
+    initialAnalysis?: AtsAnalysis | null;
     onAnalyzingChange?: (isAnalyzing: boolean) => void;
 }
 
-interface AtsIssue {
+export interface AtsIssue {
     severity: "high" | "medium" | "low";
     issue: string;
     suggestion: string;
 }
 
-interface AtsAnalysis {
+export interface AtsAnalysis {
     score: number;
     summary: string;
     strengths: string[];
@@ -61,11 +62,14 @@ function getSeverityColor(severity: string): string {
 export const AtsPanel = ({
     editor,
     resumeId,
+    initialAnalysis,
     onAnalyzingChange,
 }: AtsPanelProps) => {
     const [isAnalyzing, setIsAnalyzing] = useState(false);
     const [error, setError] = useState<string | null>(null);
-    const [analysis, setAnalysis] = useState<AtsAnalysis | null>(null);
+    const [analysis, setAnalysis] = useState<AtsAnalysis | null>(
+        initialAnalysis ?? null,
+    );
     const [showDetails, setShowDetails] = useState(false);
     const {
         hasAccess,
@@ -77,6 +81,12 @@ export const AtsPanel = ({
         usage,
         refetch,
     } = useAiUsage();
+
+    useEffect(() => {
+        if (initialAnalysis) {
+            setAnalysis(initialAnalysis);
+        }
+    }, [initialAnalysis]);
 
     const handleAnalyze = useCallback(async () => {
         if (!editor) return;
