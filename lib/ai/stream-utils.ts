@@ -1,5 +1,11 @@
 import type { StreamChunk } from "./types";
 
+export interface GeminiTokenUsage {
+    promptTokenCount: number;
+    candidatesTokenCount: number;
+    totalTokenCount: number;
+}
+
 export function cleanHtmlResponse(text: string): string {
     return text
         .replace(/^```html\n?/, "")
@@ -40,12 +46,28 @@ export async function parseStreamResponse(
     return cleanHtmlResponse(accumulated);
 }
 
+export function extractTokenUsage(data: Record<string, unknown>): GeminiTokenUsage | null {
+    const usage = data.usageMetadata as Record<string, number> | undefined;
+    if (!usage) return null;
+    return {
+        promptTokenCount: usage.promptTokenCount ?? 0,
+        candidatesTokenCount: usage.candidatesTokenCount ?? 0,
+        totalTokenCount: usage.totalTokenCount ?? 0,
+    };
+}
+
+export interface StreamResult {
+    stream: ReadableStream;
+    getTokenUsage: () => GeminiTokenUsage | null;
+}
+
 export async function streamGeminiResponse(
     geminiResponse: Response,
-): Promise<ReadableStream> {
+): Promise<StreamResult> {
     const encoder = new TextEncoder();
+    let tokenUsage: GeminiTokenUsage | null = null;
 
-    return new ReadableStream({
+    const stream = new ReadableStream({
         async start(controller) {
             const reader = geminiResponse.body?.getReader();
             if (!reader) {
@@ -71,14 +93,17 @@ export async function streamGeminiResponse(
 
                         try {
                             const data = JSON.parse(jsonStr);
-                            const text =
-                                data.candidates?.[0]?.content?.parts?.[0]?.text;
+                            const text = data.candidates?.[0]?.content?.parts?.[0]?.text;
                             if (text) {
                                 controller.enqueue(
                                     encoder.encode(
                                         `${JSON.stringify({ content: text, done: false })}\n`,
                                     ),
                                 );
+                            }
+                            const usage = extractTokenUsage(data);
+                            if (usage) {
+                                tokenUsage = usage;
                             }
                         } catch {}
                     }
@@ -91,4 +116,9 @@ export async function streamGeminiResponse(
             controller.close();
         },
     });
+
+    return {
+        stream,
+        getTokenUsage: () => tokenUsage,
+    };
 }
