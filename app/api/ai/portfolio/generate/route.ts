@@ -1,4 +1,5 @@
 import { initialWebsiteGenerator } from "@/lib/ai/portfolio-generator";
+import { streamGeminiResponse } from "@/lib/ai/stream-utils";
 import { ratelimit } from "@/lib/ratelimit";
 import { checkAiUsageLimit, incrementAiUsage } from "@/lib/services/ai-usage";
 import { getResumeById } from "@/lib/services/user-resumes";
@@ -86,7 +87,6 @@ export async function POST(req: NextRequest) {
             });
         }
 
-        // Fetch template from DB
         const { data: template, error: templateError } = await supabase
             .from("portfolio_templates")
             .select("*")
@@ -103,7 +103,6 @@ export async function POST(req: NextRequest) {
             );
         }
 
-        // Download image from storage
         const { data: imageData, error: imageError } = await supabase.storage
             .from("portfolio-templates")
             .download(template.image_path);
@@ -154,62 +153,7 @@ export async function POST(req: NextRequest) {
 
         await incrementAiUsage(user.id, tier);
 
-        const encoder = new TextEncoder();
-        const stream = new ReadableStream({
-            async start(controller) {
-                const reader = response.body?.getReader();
-                if (!reader) {
-                    controller.close();
-                    return;
-                }
-
-                const decoder = new TextDecoder();
-                let buffer = "";
-
-                while (true) {
-                    const { done, value } = await reader.read();
-                    if (done) break;
-
-                    buffer += decoder.decode(value, { stream: true });
-                    const lines = buffer.split("\n");
-                    buffer = lines.pop() || "";
-
-                    for (const line of lines) {
-                        if (line.startsWith("data: ")) {
-                            const jsonStr = line.slice(6);
-                            if (jsonStr.trim() === "[DONE]") continue;
-
-                            try {
-                                const data = JSON.parse(jsonStr);
-                                const text =
-                                    data.candidates?.[0]?.content?.parts?.[0]
-                                        ?.text;
-                                if (text) {
-                                    controller.enqueue(
-                                        encoder.encode(
-                                            `${JSON.stringify({
-                                                content: text,
-                                                done: false,
-                                            })}\n`,
-                                        ),
-                                    );
-                                }
-                            } catch {}
-                        }
-                    }
-                }
-
-                controller.enqueue(
-                    encoder.encode(
-                        `${JSON.stringify({
-                            content: "",
-                            done: true,
-                        })}\n`,
-                    ),
-                );
-                controller.close();
-            },
-        });
+        const stream = await streamGeminiResponse(response);
 
         return new Response(stream, {
             headers: {
