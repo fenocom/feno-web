@@ -1,11 +1,18 @@
 import { createAdminClient } from "@/lib/supabase/admin";
 
+export interface TokenUsage {
+    inputTokens: number;
+    outputTokens: number;
+    totalTokens: number;
+}
+
 export interface UsageLimits {
     limit: number;
     used: number;
     remaining: number;
     periodType: "monthly" | "daily";
     resetsAt: Date;
+    tokens: TokenUsage;
 }
 
 export interface TierLimits {
@@ -69,13 +76,19 @@ export async function getAiUsage(
 
     const { data, error } = await supabase
         .from("ai_usage")
-        .select("calls_count")
+        .select("calls_count, input_tokens, output_tokens, total_tokens")
         .eq("user_id", userId)
         .eq("period_type", tierLimits.periodType)
         .eq("period_start", periodStart.toISOString())
         .single();
 
-    const used = error || !data ? 0 : data.calls_count;
+    const record = data as { calls_count: number; input_tokens: number; output_tokens: number; total_tokens: number } | null;
+    const used = error || !record ? 0 : record.calls_count;
+    const tokens: TokenUsage = {
+        inputTokens: record?.input_tokens ?? 0,
+        outputTokens: record?.output_tokens ?? 0,
+        totalTokens: record?.total_tokens ?? 0,
+    };
 
     return {
         limit: tierLimits.limit,
@@ -83,12 +96,14 @@ export async function getAiUsage(
         remaining: Math.max(0, tierLimits.limit - used),
         periodType: tierLimits.periodType,
         resetsAt,
+        tokens,
     };
 }
 
 export async function incrementAiUsage(
     userId: string,
     tier: number,
+    tokens?: TokenUsage,
 ): Promise<{ success: boolean; usage: UsageLimits }> {
     const tierLimits = getTierLimits(tier);
     const periodStart = getPeriodStart(tierLimits.periodType);
@@ -100,6 +115,9 @@ export async function incrementAiUsage(
         p_user_id: userId,
         p_period_type: tierLimits.periodType,
         p_period_start: periodStart.toISOString(),
+        p_input_tokens: tokens?.inputTokens ?? 0,
+        p_output_tokens: tokens?.outputTokens ?? 0,
+        p_total_tokens: tokens?.totalTokens ?? 0,
     });
 
     if (error) {
@@ -117,6 +135,7 @@ export async function incrementAiUsage(
             remaining: Math.max(0, tierLimits.limit - newCount),
             periodType: tierLimits.periodType,
             resetsAt,
+            tokens: tokens ?? { inputTokens: 0, outputTokens: 0, totalTokens: 0 },
         },
     };
 }

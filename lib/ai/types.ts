@@ -59,6 +59,9 @@ export interface AiUsageData {
     remaining: number;
     periodType: "monthly" | "daily";
     resetsAt: string;
+    inputTokens: number;
+    outputTokens: number;
+    totalTokens: number;
 }
 
 export interface AiUsageResponse {
