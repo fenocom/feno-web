@@ -1,11 +1,12 @@
 "use client";
 
+import { useAuth } from "@/lib/auth/context";
 import {
     getTemplateImageUrl,
     usePortfolioTemplates,
 } from "@/lib/hooks/use-portfolio-templates";
 import { type UserResume, useResumes } from "@/lib/hooks/use-resumes";
-import { Button, Spinner } from "@heroui/react";
+import { Button, Spinner, Tooltip } from "@heroui/react";
 import {
     IconArrowRight,
     IconCheck,
@@ -27,6 +28,7 @@ export function PortfolioWizard({
     isGenerating,
     setIsGenerating,
 }: PortfolioWizardProps) {
+    const { user } = useAuth();
     const [step, setStep] = useState<"template" | "resume">("template");
     const [selectedTemplate, setSelectedTemplate] = useState<string | null>(
         null,
@@ -40,6 +42,18 @@ export function PortfolioWizard({
     const { resumes, isLoading: isResumesLoading } = useResumes();
     const { templates, isLoading: isTemplatesLoading } =
         usePortfolioTemplates();
+
+    const getUserTier = () => {
+        if (!user) return 0;
+        const appMeta = user.app_metadata || {};
+        const userMeta = user.user_metadata || {};
+        if (typeof appMeta.tier === "number") return appMeta.tier;
+        if (appMeta.plan === "premium" || userMeta.plan === "premium") return 2;
+        return 1;
+    };
+
+    const tier = getUserTier();
+    const canGenerate = tier >= 2;
 
     const cleanHtml = (html: string) => {
         return html
@@ -281,7 +295,7 @@ export function PortfolioWizard({
                     >
                         Next: Select Content <IconArrowRight size={16} />
                     </Button>
-                ) : (
+                ) : canGenerate ? (
                     <Button
                         className="bg-black text-white"
                         isDisabled={!selectedResume}
@@ -289,6 +303,34 @@ export function PortfolioWizard({
                     >
                         Generate Portfolio <IconSparkles size={16} />
                     </Button>
+                ) : (
+                    <Tooltip delay={0}>
+                        <div className="inline-block">
+                            <Button
+                                className="bg-black text-white opacity-50"
+                                isDisabled={true}
+                            >
+                                Generate Portfolio <IconSparkles size={16} />
+                            </Button>
+                        </div>
+                        <Tooltip.Content>
+                            <div className="px-1 py-2 max-w-xs">
+                                <p className="font-semibold text-small">
+                                    Premium Feature
+                                </p>
+                                <p className="text-tiny">
+                                    Portfolio generation is available for
+                                    Premium users.
+                                </p>
+                                <NextLink
+                                    href="/pricing"
+                                    className="text-tiny text-blue-500 underline mt-1 block"
+                                >
+                                    Upgrade to Premium
+                                </NextLink>
+                            </div>
+                        </Tooltip.Content>
+                    </Tooltip>
                 )}
             </div>
         </div>
