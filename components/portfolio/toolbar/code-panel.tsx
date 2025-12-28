@@ -2,6 +2,7 @@
 
 import { Button } from "@heroui/react";
 import { IconCheck, IconX } from "@tabler/icons-react";
+import Editor, { useMonaco } from "@monaco-editor/react";
 import { useCallback, useEffect, useState } from "react";
 
 interface CodePanelProps {
@@ -13,15 +14,34 @@ interface CodePanelProps {
 export function CodePanel({ html, onApply, onClose }: CodePanelProps) {
     const [code, setCode] = useState(html);
     const [hasChanges, setHasChanges] = useState(false);
+    const monaco = useMonaco();
+
+    useEffect(() => {
+        if (monaco) {
+            monaco.editor.defineTheme("feno-light", {
+                base: "vs",
+                inherit: true,
+                rules: [],
+                colors: {
+                    "editor.background": "#f5f5f5",
+                    "editor.lineHighlightBackground": "#00000008",
+                    "editorLineNumber.foreground": "#00000040",
+                    "editorIndentGuide.background": "#00000010",
+                },
+            });
+            monaco.editor.setTheme("feno-light");
+        }
+    }, [monaco]);
 
     useEffect(() => {
         setCode(html);
         setHasChanges(false);
     }, [html]);
 
-    const handleChange = useCallback((e: React.ChangeEvent<HTMLTextAreaElement>) => {
-        setCode(e.target.value);
-        setHasChanges(e.target.value !== html);
+    const handleChange = useCallback((value: string | undefined) => {
+        const newCode = value ?? "";
+        setCode(newCode);
+        setHasChanges(newCode !== html);
     }, [html]);
 
     const handleApply = useCallback(() => {
@@ -52,12 +72,26 @@ export function CodePanel({ html, onApply, onClose }: CodePanelProps) {
                     </Button>
                 </div>
             </div>
-            <div className="flex-1 p-2 overflow-hidden">
-                <textarea
+            <div className="flex-1 overflow-hidden rounded-lg m-2 bg-[#f5f5f5]">
+                <Editor
+                    height="100%"
+                    language="html"
                     value={code}
                     onChange={handleChange}
-                    className="w-full h-full font-mono text-xs bg-black/5 rounded-lg p-3 resize-none outline-none focus:ring-2 focus:ring-black/10"
-                    spellCheck={false}
+                    theme="feno-light"
+                    options={{
+                        minimap: { enabled: false },
+                        fontSize: 12,
+                        lineNumbers: "on",
+                        scrollBeyondLastLine: false,
+                        wordWrap: "on",
+                        padding: { top: 12, bottom: 12 },
+                        renderLineHighlight: "line",
+                        scrollbar: {
+                            verticalScrollbarSize: 8,
+                            horizontalScrollbarSize: 8,
+                        },
+                    }}
                 />
             </div>
         </div>
