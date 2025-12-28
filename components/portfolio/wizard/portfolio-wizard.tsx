@@ -1,5 +1,9 @@
 "use client";
 
+import {
+    getTemplateImageUrl,
+    usePortfolioTemplates,
+} from "@/lib/hooks/use-portfolio-templates";
 import { type UserResume, useResumes } from "@/lib/hooks/use-resumes";
 import { Button, Spinner } from "@heroui/react";
 import {
@@ -9,7 +13,6 @@ import {
     IconSparkles,
 } from "@tabler/icons-react";
 import clsx from "clsx";
-import Image from "next/image";
 import NextLink from "next/link";
 import { useRef, useState } from "react";
 
@@ -18,15 +21,6 @@ interface PortfolioWizardProps {
     isGenerating: boolean;
     setIsGenerating: (generating: boolean) => void;
 }
-
-const TEMPLATES = [
-    { id: "feno:1", name: "Minimal Dark", image: "/templates/image-1.png" },
-    { id: "feno:2", name: "Clean Light", image: "/templates/image-2.png" },
-    { id: "feno:3", name: "Vibrant", image: "/templates/image-3.png" },
-    { id: "feno:4", name: "Bold Modern", image: "/templates/image-4.png" },
-    { id: "feno:5", name: "Polished", image: "/templates/image-5.png" },
-    { id: "feno:6", name: "Educational", image: "/templates/image-6.webp" },
-];
 
 export function PortfolioWizard({
     onGenerate,
@@ -44,6 +38,8 @@ export function PortfolioWizard({
     const contentRef = useRef<HTMLDivElement>(null);
 
     const { resumes, isLoading: isResumesLoading } = useResumes();
+    const { templates, isLoading: isTemplatesLoading } =
+        usePortfolioTemplates();
 
     const cleanHtml = (html: string) => {
         return html
@@ -159,42 +155,56 @@ export function PortfolioWizard({
 
             <div className="flex-1 overflow-y-auto p-6 min-h-0">
                 {step === "template" ? (
-                    <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-4">
-                        {TEMPLATES.map((template) => (
-                            <button
-                                type="button"
-                                key={template.id}
-                                onClick={() => setSelectedTemplate(template.id)}
-                                className={clsx(
-                                    "group relative rounded-lg border-2 overflow-hidden transition-all text-left",
-                                    selectedTemplate === template.id
-                                        ? "border-black ring-2 ring-black/5 ring-offset-2"
-                                        : "border-transparent hover:border-black/10 bg-black/5",
-                                )}
-                            >
-                                <div className="aspect-[3/4] relative bg-white">
-                                    <Image
-                                        src={template.image}
-                                        alt={template.name}
-                                        fill
-                                        className="object-cover"
-                                        sizes="(max-width: 768px) 50vw, 33vw"
-                                    />
-                                    <div className="absolute inset-0 bg-black/0 group-hover:bg-black/5 transition-colors" />
-                                </div>
-                                <div className="p-2 bg-white border-t border-black/5">
-                                    <span className="font-medium text-xs">
-                                        {template.name}
-                                    </span>
-                                </div>
-                                {selectedTemplate === template.id && (
-                                    <div className="absolute top-2 right-2 bg-black text-white rounded-full p-1 shadow-lg z-10">
-                                        <IconCheck size={12} />
+                    isTemplatesLoading ? (
+                        <div className="flex items-center justify-center h-40">
+                            <Spinner size="lg" />
+                        </div>
+                    ) : (
+                        <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-4">
+                            {templates.map((template) => (
+                                <button
+                                    type="button"
+                                    key={template.id}
+                                    onClick={() =>
+                                        setSelectedTemplate(template.id)
+                                    }
+                                    className={clsx(
+                                        "group relative rounded-lg border-2 overflow-hidden transition-all text-left flex flex-col w-full h-[300px]", // Fixed height
+                                        selectedTemplate === template.id
+                                            ? "border-black ring-2 ring-black/5 ring-offset-2"
+                                            : "border-transparent hover:border-black/10 bg-black/5",
+                                    )}
+                                >
+                                    {/* Image Container with invisible scroll */}
+                                    <div className="w-full flex-1 relative bg-white overflow-y-auto scrollbar-hide">
+                                        <div className="relative w-full min-h-full">
+                                            {/* Use img tag or Image with width/height auto to preserve aspect ratio and fit width */}
+                                            {/* Next.js Image with fill needs parent relative. */}
+                                            {/* To avoid horizontal cropping, we let height grow. */}
+                                            <img
+                                                src={getTemplateImageUrl(
+                                                    template.image_path,
+                                                )}
+                                                alt={template.name}
+                                                className="w-full h-auto block"
+                                            />
+                                        </div>
+                                        <div className="absolute inset-0 bg-black/0 group-hover:bg-black/5 transition-colors pointer-events-none" />
                                     </div>
-                                )}
-                            </button>
-                        ))}
-                    </div>
+                                    <div className="p-2 bg-white border-t border-black/5 shrink-0">
+                                        <span className="font-medium text-xs">
+                                            {template.name}
+                                        </span>
+                                    </div>
+                                    {selectedTemplate === template.id && (
+                                        <div className="absolute top-2 right-2 bg-black text-white rounded-full p-1 shadow-lg z-10">
+                                            <IconCheck size={12} />
+                                        </div>
+                                    )}
+                                </button>
+                            ))}
+                        </div>
+                    )
                 ) : (
                     <div className="max-w-2xl mx-auto space-y-4 w-full">
                         {isResumesLoading ? (
