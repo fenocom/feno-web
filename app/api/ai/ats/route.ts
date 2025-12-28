@@ -104,7 +104,7 @@ export async function POST(req: NextRequest) {
     }
 
     try {
-        const { resumeText } = await req.json();
+        const { resumeText, resumeId } = await req.json();
 
         if (!resumeText || typeof resumeText !== "string") {
             return new Response(
@@ -193,6 +193,20 @@ export async function POST(req: NextRequest) {
                     headers: { "Content-Type": "application/json" },
                 },
             );
+        }
+
+        // Store latest ATS score and analysis if resumeId is provided
+        if (resumeId && typeof analysis.score === "number") {
+            try {
+                const { updateResume } = await import("@/lib/services/user-resumes");
+                await updateResume(resumeId, user.id, {
+                    atsScore: analysis.score,
+                    atsAnalysis: analysis,
+                });
+            } catch (error) {
+                console.error("Failed to update resume with ATS score:", error);
+                // We don't return an error here because the analysis itself succeeded
+            }
         }
 
         return new Response(JSON.stringify({ analysis }), {

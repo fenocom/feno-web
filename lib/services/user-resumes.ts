@@ -7,6 +7,8 @@ export interface UserResume {
     name: string;
     resume_data: Record<string, unknown>;
     is_default: boolean;
+    ats_score?: number;
+    ats_analysis?: Record<string, unknown>;
     created_at: string;
     updated_at: string;
 }
@@ -22,6 +24,8 @@ export interface UpdateResumeInput {
     name?: string;
     resumeData?: Record<string, unknown>;
     isDefault?: boolean;
+    atsScore?: number;
+    atsAnalysis?: Record<string, unknown>;
 }
 
 export async function getUserResumes(userId: string): Promise<UserResume[]> {
@@ -125,6 +129,9 @@ export async function updateResume(
     if (input.resumeData !== undefined)
         updateData.resume_data = input.resumeData as unknown as Json;
     if (input.isDefault !== undefined) updateData.is_default = input.isDefault;
+    if (input.atsScore !== undefined) updateData.ats_score = input.atsScore;
+    if (input.atsAnalysis !== undefined)
+        updateData.ats_analysis = input.atsAnalysis as unknown as Json;
 
     const { data, error } = await supabase
         .from("user_resumes")

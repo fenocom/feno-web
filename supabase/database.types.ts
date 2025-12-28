@@ -77,6 +77,8 @@ export type Database = {
                     name: string;
                     resume_data: Json;
                     is_default: boolean;
+                    ats_score: number | null;
+                    ats_analysis: Json | null;
                     created_at: string | null;
                     updated_at: string | null;
                 };
@@ -86,6 +88,8 @@ export type Database = {
                     name?: string;
                     resume_data: Json;
                     is_default?: boolean;
+                    ats_score?: number | null;
+                    ats_analysis?: Json | null;
                     created_at?: string | null;
                     updated_at?: string | null;
                 };
@@ -95,6 +99,8 @@ export type Database = {
                     name?: string;
                     resume_data?: Json;
                     is_default?: boolean;
+                    ats_score?: number | null;
+                    ats_analysis?: Json | null;
                     created_at?: string | null;
                     updated_at?: string | null;
                 };

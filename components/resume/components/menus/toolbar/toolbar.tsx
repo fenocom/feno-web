@@ -218,6 +218,7 @@ export function Toolbar({
                 >
                     <AtsPanel
                         editor={getEditor?.() ?? null}
+                        resumeId={currentResume?.id}
                         onAnalyzingChange={handleAiGeneratingChange}
                     />
                 </div>

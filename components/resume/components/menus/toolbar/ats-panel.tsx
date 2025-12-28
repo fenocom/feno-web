@@ -15,6 +15,7 @@ import { useCallback, useState } from "react";
 
 interface AtsPanelProps {
     editor: Editor | null;
+    resumeId?: string;
     onAnalyzingChange?: (isAnalyzing: boolean) => void;
 }
 
@@ -57,7 +58,11 @@ function getSeverityColor(severity: string): string {
     return "bg-blue-100 text-blue-700";
 }
 
-export const AtsPanel = ({ editor, onAnalyzingChange }: AtsPanelProps) => {
+export const AtsPanel = ({
+    editor,
+    resumeId,
+    onAnalyzingChange,
+}: AtsPanelProps) => {
     const [isAnalyzing, setIsAnalyzing] = useState(false);
     const [error, setError] = useState<string | null>(null);
     const [analysis, setAnalysis] = useState<AtsAnalysis | null>(null);
@@ -91,7 +96,7 @@ export const AtsPanel = ({ editor, onAnalyzingChange }: AtsPanelProps) => {
             const response = await fetch("/api/ai/ats", {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
-                body: JSON.stringify({ resumeText }),
+                body: JSON.stringify({ resumeText, resumeId }),
             });
 
             const data = await response.json();

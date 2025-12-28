@@ -8,6 +8,8 @@ export interface UserResume {
     name: string;
     resume_data: Record<string, unknown>;
     is_default: boolean;
+    ats_score?: number;
+    ats_analysis?: Record<string, unknown>;
     created_at: string;
     updated_at: string;
 }
