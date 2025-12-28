@@ -32,10 +32,6 @@ export function PortfolioPage() {
         setGeneratedHtml(html);
     }, []);
 
-    const handleRegenerate = useCallback(() => {
-        setGeneratedHtml("");
-    }, []);
-
     if (isAuthLoading || isPortfolioLoading) {
         return (
             <div className="fixed inset-0 z-50 flex items-center justify-center bg-white/80 backdrop-blur-sm">
@@ -57,7 +53,6 @@ export function PortfolioPage() {
                     onSave={handleSave}
                     onPublish={publish}
                     onUnpublish={unpublish}
-                    onRegenerate={handleRegenerate}
                     device={device}
                     onDeviceChange={setDevice}
                     portfolio={portfolio}
