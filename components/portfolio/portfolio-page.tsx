@@ -3,24 +3,40 @@
 import { AuroraBorder } from "@/components/resume/components/aurora-border";
 import { DottedBackground } from "@/components/resume/dotted-bg";
 import { useAuth } from "@/lib/auth/context";
+import { usePortfolio } from "@/lib/hooks/use-portfolio";
 import { Spinner } from "@heroui/react";
-import { useState } from "react";
+import { useCallback, useState } from "react";
 import { PortfolioToolbar } from "./toolbar/portfolio-toolbar";
+import { PortfolioView } from "./portfolio-view";
 import { PortfolioWizard } from "./wizard/portfolio-wizard";
 
+export type DeviceType = "desktop" | "tablet" | "mobile";
+
 export function PortfolioPage() {
-    const { isLoading: isAuthLoading } = useAuth();
-    const [portfolio, _setPortfolio] = useState<{
-        html_content?: string;
-    } | null>(null);
+    const { isLoading: isAuthLoading, user } = useAuth();
+    const { portfolio, isLoading: isPortfolioLoading, saveHtml, publish, unpublish, isSaving } = usePortfolio();
     const [isGenerating, setIsGenerating] = useState(false);
     const [generatedHtml, setGeneratedHtml] = useState("");
+    const [device, setDevice] = useState<DeviceType>("desktop");
 
-    // TODO: Fetch portfolio from DB
+    const currentHtml = generatedHtml || portfolio?.html_content || "";
+    const hasContent = !!currentHtml;
 
-    const hasContent = !!(portfolio?.html_content || generatedHtml);
+    const handleSave = useCallback(async () => {
+        if (currentHtml) {
+            await saveHtml(currentHtml);
+        }
+    }, [currentHtml, saveHtml]);
 
-    if (isAuthLoading) {
+    const handleHtmlChange = useCallback((html: string) => {
+        setGeneratedHtml(html);
+    }, []);
+
+    const handleRegenerate = useCallback(() => {
+        setGeneratedHtml("");
+    }, []);
+
+    if (isAuthLoading || isPortfolioLoading) {
         return (
             <div className="fixed inset-0 z-50 flex items-center justify-center bg-white/80 backdrop-blur-sm">
                 <div className="flex flex-col items-center gap-4">
@@ -33,22 +49,21 @@ export function PortfolioPage() {
 
     if (hasContent) {
         return (
-            <div className="w-full min-h-screen relative bg-white">
-                {/* Using iframe for isolation or direct HTML? 
-                     Direct HTML allows Tailwind if classes match. 
-                     Prompt says "html content will be the entire viewport". 
-                 */}
-                <iframe
-                    srcDoc={generatedHtml || portfolio?.html_content}
-                    className="w-full h-screen border-none"
-                    title="Portfolio"
+            <div className="w-full min-h-screen relative bg-neutral-100 flex flex-col items-center">
+                <PortfolioView html={currentHtml} device={device} />
+                <PortfolioToolbar
+                    html={currentHtml}
+                    onHtmlChange={handleHtmlChange}
+                    onSave={handleSave}
+                    onPublish={publish}
+                    onUnpublish={unpublish}
+                    onRegenerate={handleRegenerate}
+                    device={device}
+                    onDeviceChange={setDevice}
+                    portfolio={portfolio}
+                    isSaving={isSaving}
+                    isAuthenticated={!!user}
                 />
-
-                <div className="fixed bottom-0 left-0 right-0 z-50 pointer-events-none">
-                    <div className="pointer-events-auto">
-                        <PortfolioToolbar />
-                    </div>
-                </div>
             </div>
         );
     }
@@ -73,10 +88,6 @@ export function PortfolioPage() {
                     </div>
                 </div>
             </AuroraBorder>
-
-            <div className="no-print relative z-10">
-                <PortfolioToolbar isDisabled={isGenerating} />
-            </div>
         </div>
     );
 }

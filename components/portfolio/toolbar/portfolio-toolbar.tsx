@@ -1,13 +1,14 @@
 "use client";
 
 import { AiIcon } from "@/components/common/ai-icon";
-import { PortfolioButton } from "@/components/resume/components/portfolio-button";
+import type { UserPortfolio } from "@/lib/hooks/use-portfolio";
 import { useAuth } from "@/lib/auth/context";
 import { Button, Tooltip } from "@heroui/react";
 import {
     IconCode,
     IconDeviceFloppy,
     IconLayoutDashboard,
+    IconLoader2,
     IconPlus,
     IconRefresh,
     IconWorldUpload,
@@ -16,46 +17,86 @@ import clsx from "clsx";
 import { motion } from "framer-motion";
 import NextLink from "next/link";
 import { useEffect, useRef, useState } from "react";
+import type { DeviceType } from "../portfolio-page";
 import { AddTemplatePanel } from "./add-template-panel";
+import { AiPanel } from "./ai-panel";
+import { CodePanel } from "./code-panel";
+import { DeviceToggle } from "./device-toggle";
+import { SubdomainPanel } from "./subdomain-panel";
 
 interface PortfolioToolbarProps {
-    isDisabled?: boolean;
+    html?: string;
+    onHtmlChange?: (html: string) => void;
+    onSave?: () => Promise<void>;
+    onPublish?: (subdomain: string) => Promise<boolean>;
+    onUnpublish?: () => Promise<boolean>;
+    onRegenerate?: () => void;
+    device?: DeviceType;
+    onDeviceChange?: (device: DeviceType) => void;
+    portfolio?: UserPortfolio | null;
+    isSaving?: boolean;
+    isAuthenticated?: boolean;
 }
 
-type ActivePanel = "add-template" | null;
+type ActivePanel = "ai" | "code" | "subdomain" | "add-template" | null;
 
 export function PortfolioToolbar({
-    isDisabled = false,
+    html = "",
+    onHtmlChange,
+    onSave,
+    onPublish,
+    onUnpublish,
+    onRegenerate,
+    device = "desktop",
+    onDeviceChange,
+    portfolio,
+    isSaving = false,
+    isAuthenticated = false,
 }: PortfolioToolbarProps) {
-    const { user, isAdmin } = useAuth();
+    const { isAdmin } = useAuth();
     const [activePanel, setActivePanel] = useState<ActivePanel>(null);
     const toolbarRef = useRef<HTMLDivElement>(null);
 
+    const hasContent = !!html;
+    const isDisabled = !hasContent;
+
     useEffect(() => {
         if (!activePanel) return;
-
         const handleClickOutside = (event: MouseEvent) => {
-            if (
-                toolbarRef.current &&
-                !toolbarRef.current.contains(event.target as Node)
-            ) {
+            if (toolbarRef.current && !toolbarRef.current.contains(event.target as Node)) {
                 setActivePanel(null);
             }
         };
-
         document.addEventListener("mousedown", handleClickOutside);
-        return () =>
-            document.removeEventListener("mousedown", handleClickOutside);
+        return () => document.removeEventListener("mousedown", handleClickOutside);
     }, [activePanel]);
 
     const getDimensions = () => {
-        if (activePanel === "add-template") {
-            return { width: "400px", height: "500px" };
+        switch (activePanel) {
+            case "ai": return { width: "450px", height: "320px" };
+            case "code": return { width: "600px", height: "500px" };
+            case "subdomain": return { width: "380px", height: "320px" };
+            case "add-template": return { width: "400px", height: "500px" };
+            default: return { width: "auto", height: "52px" };
         }
-        return { width: "auto", height: "52px" };
     };
 
     const { width, height } = getDimensions();
+
+    const renderPanel = () => {
+        switch (activePanel) {
+            case "ai":
+                return <AiPanel html={html} onApply={(h) => { onHtmlChange?.(h); setActivePanel(null); }} onClose={() => setActivePanel(null)} />;
+            case "code":
+                return <CodePanel html={html} onApply={(h) => { onHtmlChange?.(h); setActivePanel(null); }} onClose={() => setActivePanel(null)} />;
+            case "subdomain":
+                return <SubdomainPanel portfolio={portfolio ?? null} onPublish={onPublish ?? (async () => false)} onUnpublish={onUnpublish ?? (async () => false)} onClose={() => setActivePanel(null)} isSaving={isSaving} />;
+            case "add-template":
+                return <AddTemplatePanel onClose={() => setActivePanel(null)} />;
+            default:
+                return null;
+        }
+    };
 
     return (
         <motion.div
@@ -66,129 +107,90 @@ export function PortfolioToolbar({
             transition={{ type: "spring", bounce: 0.15, duration: 0.5 }}
         >
             <div className="w-full relative flex-1 overflow-hidden">
-                <div
-                    className={clsx(
-                        "w-full h-full transition-opacity duration-300",
-                        activePanel === "add-template"
-                            ? "relative z-10 opacity-100"
-                            : "absolute inset-0 invisible opacity-0 pointer-events-none",
-                    )}
-                >
-                    {activePanel === "add-template" && (
-                        <AddTemplatePanel
-                            onClose={() => setActivePanel(null)}
-                        />
-                    )}
+                <div className={clsx("w-full h-full transition-opacity duration-300", activePanel ? "relative z-10 opacity-100" : "absolute inset-0 invisible opacity-0 pointer-events-none")}>
+                    {renderPanel()}
                 </div>
             </div>
 
-            <div
-                className={clsx(
-                    "relative z-10 text-black w-full",
-                    activePanel && "border-t border-black/10",
-                )}
-            >
+            <div className={clsx("relative z-10 text-black w-full", activePanel && "border-t border-black/10")}>
                 <div className="flex justify-center w-full">
                     <div className="flex gap-2 items-center px-3 py-2 whitespace-nowrap">
                         <Tooltip delay={0}>
                             <Button
                                 isIconOnly
-                                className={clsx(
-                                    "bg-transparent data-[hover=true]:bg-black/5 min-w-fit w-fit h-fit p-1 rounded-full",
-                                )}
-                                isDisabled={isDisabled || !!activePanel}
+                                className={clsx("bg-transparent data-[hover=true]:bg-black/5 min-w-fit w-fit h-fit p-1 rounded-full", activePanel === "ai" && "bg-black/10")}
+                                isDisabled={isDisabled}
+                                onPress={() => setActivePanel(activePanel === "ai" ? null : "ai")}
                             >
                                 <AiIcon size={28} />
                             </Button>
-                            <Tooltip.Content>
-                                <p>AI Assistant</p>
-                            </Tooltip.Content>
+                            <Tooltip.Content><p>AI Editor</p></Tooltip.Content>
                         </Tooltip>
 
                         <Tooltip delay={0}>
                             <NextLink href="/control-center">
-                                <Button
-                                    isIconOnly
-                                    size="sm"
-                                    variant="ghost"
-                                    isDisabled={isDisabled || !!activePanel}
-                                    className="p-1 min-w-8 h-8 rounded-md hover:bg-black/10 text-black"
-                                >
+                                <Button isIconOnly size="sm" variant="ghost" isDisabled={!!activePanel} className="p-1 min-w-8 h-8 rounded-md hover:bg-black/10 text-black">
                                     <IconLayoutDashboard size={18} />
                                 </Button>
                             </NextLink>
-                            <Tooltip.Content>
-                                <p>Control Center</p>
-                            </Tooltip.Content>
+                            <Tooltip.Content><p>Control Center</p></Tooltip.Content>
                         </Tooltip>
 
                         <div className="w-px h-6 bg-black/10 mx-1" />
 
+                        {hasContent && onDeviceChange && (
+                            <>
+                                <DeviceToggle device={device} onChange={onDeviceChange} isDisabled={!!activePanel} />
+                                <div className="w-px h-6 bg-black/10 mx-1" />
+                            </>
+                        )}
+
                         <div className="flex gap-1 items-center">
-                            <Tooltip delay={0}>
-                                <Button
-                                    isIconOnly
-                                    size="sm"
-                                    variant="ghost"
-                                    isDisabled={isDisabled || !!activePanel}
-                                    className="p-1 min-w-8 h-8 rounded-md hover:bg-black/10 text-black"
-                                >
-                                    <IconRefresh size={18} />
-                                </Button>
-                                <Tooltip.Content>
-                                    <p>Regenerate</p>
-                                </Tooltip.Content>
-                            </Tooltip>
+                            {onRegenerate && (
+                                <Tooltip delay={0}>
+                                    <Button isIconOnly size="sm" variant="ghost" onPress={onRegenerate} isDisabled={!!activePanel} className="p-1 min-w-8 h-8 rounded-md hover:bg-black/10 text-black">
+                                        <IconRefresh size={18} />
+                                    </Button>
+                                    <Tooltip.Content><p>Regenerate</p></Tooltip.Content>
+                                </Tooltip>
+                            )}
 
                             <Tooltip delay={0}>
                                 <Button
-                                    isIconOnly
-                                    size="sm"
-                                    variant="ghost"
-                                    isDisabled={isDisabled || !!activePanel}
-                                    className="p-1 min-w-8 h-8 rounded-md hover:bg-black/10 text-black"
+                                    isIconOnly size="sm" variant="ghost"
+                                    isDisabled={isDisabled}
+                                    onPress={() => setActivePanel(activePanel === "code" ? null : "code")}
+                                    className={clsx("p-1 min-w-8 h-8 rounded-md hover:bg-black/10 text-black", activePanel === "code" && "bg-black/10")}
                                 >
                                     <IconCode size={18} />
                                 </Button>
-                                <Tooltip.Content>
-                                    <p>Edit Code</p>
-                                </Tooltip.Content>
+                                <Tooltip.Content><p>Edit Code</p></Tooltip.Content>
                             </Tooltip>
 
-                            {user && (
+                            {isAuthenticated && (
                                 <>
                                     <Tooltip delay={0}>
                                         <Button
-                                            isIconOnly
-                                            size="sm"
-                                            variant="ghost"
-                                            isDisabled={
-                                                isDisabled || !!activePanel
-                                            }
+                                            isIconOnly size="sm" variant="ghost"
+                                            isDisabled={isDisabled || isSaving}
+                                            onPress={onSave}
                                             className="p-1 min-w-8 h-8 rounded-md hover:bg-black/10 text-black"
                                         >
-                                            <IconDeviceFloppy size={18} />
+                                            {isSaving ? <IconLoader2 size={18} className="animate-spin" /> : <IconDeviceFloppy size={18} />}
                                         </Button>
-                                        <Tooltip.Content>
-                                            <p>Save</p>
-                                        </Tooltip.Content>
+                                        <Tooltip.Content><p>{isSaving ? "Saving..." : "Save"}</p></Tooltip.Content>
                                     </Tooltip>
 
                                     <Tooltip delay={0}>
                                         <Button
-                                            isIconOnly
-                                            size="sm"
-                                            variant="ghost"
-                                            isDisabled={
-                                                isDisabled || !!activePanel
-                                            }
-                                            className="p-1 min-w-8 h-8 rounded-md hover:bg-black/10 text-black"
+                                            isIconOnly size="sm" variant="ghost"
+                                            isDisabled={isDisabled}
+                                            onPress={() => setActivePanel(activePanel === "subdomain" ? null : "subdomain")}
+                                            className={clsx("p-1 min-w-8 h-8 rounded-md hover:bg-black/10 text-black", activePanel === "subdomain" && "bg-black/10")}
                                         >
                                             <IconWorldUpload size={18} />
                                         </Button>
-                                        <Tooltip.Content>
-                                            <p>Publish</p>
-                                        </Tooltip.Content>
+                                        <Tooltip.Content><p>Publish</p></Tooltip.Content>
                                     </Tooltip>
                                 </>
                             )}
@@ -196,30 +198,16 @@ export function PortfolioToolbar({
                             {isAdmin && (
                                 <Tooltip delay={0}>
                                     <Button
-                                        isIconOnly
-                                        size="sm"
-                                        variant="ghost"
-                                        onPress={() =>
-                                            setActivePanel("add-template")
-                                        }
-                                        isDisabled={isDisabled}
-                                        className={clsx(
-                                            "p-1 min-w-8 h-8 rounded-md hover:bg-black/10 text-black",
-                                            activePanel === "add-template" &&
-                                                "bg-black/10",
-                                        )}
+                                        isIconOnly size="sm" variant="ghost"
+                                        onPress={() => setActivePanel(activePanel === "add-template" ? null : "add-template")}
+                                        className={clsx("p-1 min-w-8 h-8 rounded-md hover:bg-black/10 text-black", activePanel === "add-template" && "bg-black/10")}
                                     >
                                         <IconPlus size={18} />
                                     </Button>
-                                    <Tooltip.Content>
-                                        <p>Add Template</p>
-                                    </Tooltip.Content>
+                                    <Tooltip.Content><p>Add Template</p></Tooltip.Content>
                                 </Tooltip>
                             )}
                         </div>
-
-                        <div className="w-px h-6 bg-black/10 mx-1" />
-                        <PortfolioButton />
                     </div>
                 </div>
             </div>
