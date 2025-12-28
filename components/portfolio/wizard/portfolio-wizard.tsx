@@ -305,9 +305,13 @@ export function PortfolioWizard({
                     </Button>
                 ) : (
                     <Tooltip delay={0}>
-                        <div className="inline-block">
+                        <div
+                            className="inline-block cursor-not-allowed"
+                            // biome-ignore lint/a11y/noNoninteractiveTabindex: Tooltip wrapper for disabled button
+                            tabIndex={0}
+                        >
                             <Button
-                                className="bg-black text-white opacity-50"
+                                className="bg-black text-white opacity-50 pointer-events-none"
                                 isDisabled={true}
                             >
                                 Generate Portfolio <IconSparkles size={16} />
