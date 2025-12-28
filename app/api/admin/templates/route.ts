@@ -1,6 +1,7 @@
 import { ratelimit } from "@/lib/ratelimit";
 import { createTemplate, getTemplates } from "@/lib/services/templates";
 import { createClient } from "@/lib/supabase/server";
+import { getUserTier } from "@/lib/tier";
 import { type NextRequest, NextResponse } from "next/server";
 
 export async function POST(request: NextRequest) {
@@ -99,17 +100,7 @@ export async function GET(request: NextRequest) {
 
         let maxTier = 0;
         if (user) {
-            maxTier = 1;
-
-            const metadataTier = user.app_metadata?.tier;
-            if (typeof metadataTier === "number") {
-                maxTier = metadataTier;
-            } else {
-                const isPremium =
-                    user.app_metadata?.plan === "premium" ||
-                    user.user_metadata?.plan === "premium";
-                if (isPremium) maxTier = 2;
-            }
+            maxTier = getUserTier(user);
         }
 
         const { data, count } = await getTemplates({

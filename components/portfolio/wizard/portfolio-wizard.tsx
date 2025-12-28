@@ -6,6 +6,7 @@ import {
     usePortfolioTemplates,
 } from "@/lib/hooks/use-portfolio-templates";
 import { type UserResume, useResumes } from "@/lib/hooks/use-resumes";
+import { getUserTier } from "@/lib/tier";
 import { Button, Spinner, Tooltip } from "@heroui/react";
 import {
     IconArrowRight,
@@ -43,16 +44,7 @@ export function PortfolioWizard({
     const { templates, isLoading: isTemplatesLoading } =
         usePortfolioTemplates();
 
-    const getUserTier = () => {
-        if (!user) return 0;
-        const appMeta = user.app_metadata || {};
-        const userMeta = user.user_metadata || {};
-        if (typeof appMeta.tier === "number") return appMeta.tier;
-        if (appMeta.plan === "premium" || userMeta.plan === "premium") return 2;
-        return 1;
-    };
-
-    const tier = getUserTier();
+    const tier = getUserTier(user);
     const canGenerate = tier >= 2;
 
     const cleanHtml = (html: string) => {

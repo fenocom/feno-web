@@ -3,28 +3,11 @@ import { ratelimit } from "@/lib/ratelimit";
 import { checkAiUsageLimit, incrementAiUsage } from "@/lib/services/ai-usage";
 import { getResumeById } from "@/lib/services/user-resumes";
 import { createClient } from "@/lib/supabase/server";
+import { getUserTier } from "@/lib/tier";
 import type { NextRequest } from "next/server";
 
 const GEMINI_API_KEY = process.env.GEMINI_API_KEY;
 const GEMINI_MODEL = "gemini-2.0-flash";
-
-function getUserTier(user: {
-    app_metadata?: Record<string, unknown>;
-    user_metadata?: Record<string, unknown>;
-}): number {
-    const appMeta = user.app_metadata || {};
-    const userMeta = user.user_metadata || {};
-
-    if (typeof appMeta.tier === "number") {
-        return appMeta.tier;
-    }
-
-    if (appMeta.plan === "premium" || userMeta.plan === "premium") {
-        return 2;
-    }
-
-    return 1;
-}
 
 export async function POST(req: NextRequest) {
     if (!GEMINI_API_KEY) {
