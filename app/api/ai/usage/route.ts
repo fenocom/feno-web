@@ -50,7 +50,16 @@ export async function GET() {
             JSON.stringify({
                 tier,
                 hasAccess: true,
-                usage,
+                usage: {
+                    limit: usage.limit,
+                    used: usage.used,
+                    remaining: usage.remaining,
+                    periodType: usage.periodType,
+                    resetsAt: usage.resetsAt.toISOString(),
+                    inputTokens: usage.tokens.inputTokens,
+                    outputTokens: usage.tokens.outputTokens,
+                    totalTokens: usage.tokens.totalTokens,
+                },
             }),
             { status: 200, headers: { "Content-Type": "application/json" } },
         );

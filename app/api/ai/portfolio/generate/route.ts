@@ -153,7 +153,7 @@ export async function POST(req: NextRequest) {
 
         await incrementAiUsage(user.id, tier);
 
-        const stream = await streamGeminiResponse(response);
+        const { stream } = await streamGeminiResponse(response);
 
         return new Response(stream, {
             headers: {

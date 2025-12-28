@@ -1,3 +1,4 @@
+import { extractTokenUsage } from "@/lib/ai/stream-utils";
 import { ratelimit } from "@/lib/ratelimit";
 import { checkAiUsageLimit, incrementAiUsage } from "@/lib/services/ai-usage";
 import { createClient } from "@/lib/supabase/server";
@@ -152,9 +153,15 @@ export async function POST(req: NextRequest) {
             });
         }
 
-        await incrementAiUsage(user.id, tier);
-
         const data = await response.json();
+
+        const tokenUsage = extractTokenUsage(data);
+        await incrementAiUsage(user.id, tier, tokenUsage ? {
+            inputTokens: tokenUsage.promptTokenCount,
+            outputTokens: tokenUsage.candidatesTokenCount,
+            totalTokens: tokenUsage.totalTokenCount,
+        } : undefined);
+
         const resultText = data.candidates?.[0]?.content?.parts?.[0]?.text;
 
         if (!resultText) {
