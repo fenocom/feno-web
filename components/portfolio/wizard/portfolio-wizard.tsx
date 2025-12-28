@@ -169,18 +169,14 @@ export function PortfolioWizard({
                                         setSelectedTemplate(template.id)
                                     }
                                     className={clsx(
-                                        "group relative rounded-lg border-2 overflow-hidden transition-all text-left flex flex-col w-full h-[300px]", // Fixed height
+                                        "group relative rounded-lg border-2 overflow-hidden transition-all text-left flex flex-col w-full h-[450px]",
                                         selectedTemplate === template.id
                                             ? "border-black ring-2 ring-black/5 ring-offset-2"
                                             : "border-transparent hover:border-black/10 bg-black/5",
                                     )}
                                 >
-                                    {/* Image Container with invisible scroll */}
                                     <div className="w-full flex-1 relative bg-white overflow-y-auto scrollbar-hide">
                                         <div className="relative w-full min-h-full">
-                                            {/* Use img tag or Image with width/height auto to preserve aspect ratio and fit width */}
-                                            {/* Next.js Image with fill needs parent relative. */}
-                                            {/* To avoid horizontal cropping, we let height grow. */}
                                             <img
                                                 src={getTemplateImageUrl(
                                                     template.image_path,
