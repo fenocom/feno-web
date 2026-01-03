@@ -119,7 +119,13 @@ export function Toolbar({
             return { width: "700px", height: "552px" };
         }
         if (activePanel === "settings") {
-            return { width: "500px", height: "124px" };
+            if (!user) {
+                return { width: "500px", height: "200px" };
+            }
+            return {
+                width: "500px",
+                height: "124px",
+            };
         }
         if (activePanel === "ai") {
             return { width: "500px", height: "350px" };
@@ -129,7 +135,7 @@ export function Toolbar({
         }
         if (activePanel === "save") {
             if (!user) {
-                return { width: "380px", height: "220px" };
+                return { width: "380px", height: "280px" };
             }
             return {
                 width: "380px",
@@ -332,7 +338,7 @@ export function Toolbar({
                                     className={clsx(
                                         "p-1 min-w-8 h-8 rounded-md hover:bg-black/10 text-black",
                                         activePanel === "templates" &&
-                                            "bg-black/10",
+                                        "bg-black/10",
                                     )}
                                 >
                                     <IconPalette size={18} />
@@ -371,7 +377,7 @@ export function Toolbar({
                                     className={clsx(
                                         "p-1 min-w-8 h-8 rounded-md hover:bg-black/10 text-black",
                                         activePanel === "settings" &&
-                                            "bg-black/10",
+                                        "bg-black/10",
                                     )}
                                 >
                                     <IconSettings size={18} />
@@ -396,7 +402,7 @@ export function Toolbar({
                                         className={clsx(
                                             "p-1 min-w-8 h-8 rounded-md hover:bg-black/10 text-black",
                                             activePanel === "admin-save" &&
-                                                "bg-black/10",
+                                            "bg-black/10",
                                         )}
                                     >
                                         <IconTemplate size={18} />
