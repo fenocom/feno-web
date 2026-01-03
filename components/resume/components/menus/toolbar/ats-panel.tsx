@@ -125,7 +125,7 @@ export const AtsPanel = ({
             setIsAnalyzing(false);
             onAnalyzingChange?.(false);
         }
-    }, [editor, onAnalyzingChange, refetch]);
+    }, [editor, onAnalyzingChange, refetch, resumeId]);
 
     return (
         <div className="w-full h-full flex flex-col">

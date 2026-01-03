@@ -156,7 +156,7 @@ export const AiAssistantPanel = ({
         <div className="w-full h-full flex flex-col">
             <div className="flex items-center justify-between px-4 py-2 border-b border-black/5">
                 <div className="flex items-center gap-2">
-                    <AiIcon size={20} />
+                    <AiIcon size={24} />
                     <span className="font-semibold text-sm">AI Assistant</span>
                 </div>
                 {!isLoadingUsage && hasAccess && usage?.usage && (

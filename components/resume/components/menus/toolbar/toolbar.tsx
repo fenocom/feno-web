@@ -19,7 +19,7 @@ import NextLink from "next/link";
 import { useEffect, useRef, useState } from "react";
 import { PortfolioButton } from "../../../components/portfolio-button";
 import { AiAssistantPanel } from "./ai-assistant-panel";
-import { AtsAnalysis, AtsPanel } from "./ats-panel";
+import { type AtsAnalysis, AtsPanel } from "./ats-panel";
 import { GuestPanel } from "./guest-panel";
 import { SavePanel } from "./save-panel";
 import { SaveTemplatePanel } from "./save-template-panel";
@@ -338,7 +338,7 @@ export function Toolbar({
                                     className={clsx(
                                         "p-1 min-w-8 h-8 rounded-md hover:bg-black/10 text-black",
                                         activePanel === "templates" &&
-                                        "bg-black/10",
+                                            "bg-black/10",
                                     )}
                                 >
                                     <IconPalette size={18} />
@@ -377,7 +377,7 @@ export function Toolbar({
                                     className={clsx(
                                         "p-1 min-w-8 h-8 rounded-md hover:bg-black/10 text-black",
                                         activePanel === "settings" &&
-                                        "bg-black/10",
+                                            "bg-black/10",
                                     )}
                                 >
                                     <IconSettings size={18} />
@@ -402,7 +402,7 @@ export function Toolbar({
                                         className={clsx(
                                             "p-1 min-w-8 h-8 rounded-md hover:bg-black/10 text-black",
                                             activePanel === "admin-save" &&
-                                            "bg-black/10",
+                                                "bg-black/10",
                                         )}
                                     >
                                         <IconTemplate size={18} />

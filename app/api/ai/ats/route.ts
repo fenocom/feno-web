@@ -197,7 +197,9 @@ export async function POST(req: NextRequest) {
 
         if (resumeId && typeof analysis.score === "number") {
             try {
-                const { updateResume } = await import("@/lib/services/user-resumes");
+                const { updateResume } = await import(
+                    "@/lib/services/user-resumes"
+                );
                 await updateResume(resumeId, user.id, {
                     atsScore: analysis.score,
                     atsAnalysis: analysis,

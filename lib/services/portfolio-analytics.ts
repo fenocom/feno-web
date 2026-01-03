@@ -1,5 +1,7 @@
 import crypto from "node:crypto";
 import { createAdminClient } from "@/lib/supabase/admin";
+import type { Database } from "@/supabase/database.types";
+import type { SupabaseClient } from "@supabase/supabase-js";
 
 interface PageViewRow {
     date: string;
@@ -118,20 +120,117 @@ export function extractReferrerDomain(referrer: string): string | null {
     }
 }
 
+type AnalyticsSchema = {
+    public: {
+        Tables: Database["public"]["Tables"] & {
+            portfolio_page_views: {
+                Row: PageViewRow & {
+                    portfolio_id: string;
+                    hour: number | null;
+                };
+                Insert: never; // We only read or increment via RPC
+                Update: never;
+                Relationships: [];
+            };
+            portfolio_clicks: {
+                Row: ClickRow & { portfolio_id: string; date: string };
+                Insert: {
+                    portfolio_id: string;
+                    date: string;
+                    x_percent: number;
+                    y_percent: number;
+                    element_tag?: string | null;
+                    element_text?: string | null;
+                    element_href?: string | null;
+                    click_count: number;
+                }[];
+                Update: never;
+                Relationships: [];
+            };
+            portfolio_geo_stats: {
+                Row: GeoStatRow & { portfolio_id: string };
+                Insert: never;
+                Update: never;
+                Relationships: [];
+            };
+            portfolio_referrers: {
+                Row: ReferrerRow & { portfolio_id: string };
+                Insert: never;
+                Update: never;
+                Relationships: [];
+            };
+            portfolio_device_stats: {
+                Row: DeviceStatRow & { portfolio_id: string };
+                Insert: never;
+                Update: never;
+                Relationships: [];
+            };
+        };
+        Functions: Database["public"]["Functions"] & {
+            check_visitor_session: {
+                Args: { p_portfolio_id: string; p_visitor_hash: string };
+                Returns: boolean;
+            };
+            increment_page_view: {
+                Args: {
+                    p_portfolio_id: string;
+                    p_date: string;
+                    p_hour: number;
+                    p_is_unique: boolean;
+                };
+                Returns: undefined;
+            };
+            increment_geo_stat: {
+                Args: {
+                    p_portfolio_id: string;
+                    p_date: string;
+                    p_country_code: string;
+                    p_country_name: string;
+                    p_is_unique: boolean;
+                };
+                Returns: undefined;
+            };
+            increment_referrer_stat: {
+                Args: {
+                    p_portfolio_id: string;
+                    p_date: string;
+                    p_referrer_domain: string;
+                    p_referrer_url: string;
+                };
+                Returns: undefined;
+            };
+            increment_device_stat: {
+                Args: {
+                    p_portfolio_id: string;
+                    p_date: string;
+                    p_device_type: string;
+                    p_browser: string;
+                    p_os: string;
+                };
+                Returns: undefined;
+            };
+        };
+        Views: Database["public"]["Views"];
+        Enums: Database["public"]["Enums"];
+        CompositeTypes: Database["public"]["CompositeTypes"];
+    };
+};
+
+function getAnalyticsClient() {
+    return createAdminClient() as unknown as SupabaseClient<AnalyticsSchema>;
+}
+
 export async function recordPageView(event: PageViewEvent): Promise<void> {
-    const supabase = createAdminClient();
+    const supabase = getAnalyticsClient();
     const today = new Date().toISOString().split("T")[0];
     const currentHour = new Date().getHours();
 
-    const { data: isUnique } = await (supabase.rpc as any)(
-        "check_visitor_session",
-        {
-            p_portfolio_id: event.portfolioId,
-            p_visitor_hash: event.visitorHash,
-        },
-    );
+    const { data: isUnique } = await supabase.rpc("check_visitor_session", {
+        p_portfolio_id: event.portfolioId,
+        p_visitor_hash: event.visitorHash,
+    });
 
-    await (supabase.rpc as any)("increment_page_view", {
+    await supabase.rpc("increment_page_view", {
         p_portfolio_id: event.portfolioId,
         p_date: today,
         p_hour: currentHour,
@@ -139,7 +238,7 @@ export async function recordPageView(event: PageViewEvent): Promise<void> {
     });
 
     if (event.countryCode) {
-        await (supabase.rpc as any)("increment_geo_stat", {
+        await supabase.rpc("increment_geo_stat", {
             p_portfolio_id: event.portfolioId,
             p_date: today,
             p_country_code: event.countryCode,
@@ -149,7 +248,7 @@ export async function recordPageView(event: PageViewEvent): Promise<void> {
     }
 
     if (event.referrerDomain) {
-        await (supabase.rpc as any)("increment_referrer_stat", {
+        await supabase.rpc("increment_referrer_stat", {
             p_portfolio_id: event.portfolioId,
             p_date: today,
             p_referrer_domain: event.referrerDomain,
@@ -157,7 +256,7 @@ export async function recordPageView(event: PageViewEvent): Promise<void> {
         });
     }
 
-    await (supabase.rpc as any)("increment_device_stat", {
+    await supabase.rpc("increment_device_stat", {
         p_portfolio_id: event.portfolioId,
         p_date: today,
         p_device_type: event.deviceType,
@@ -169,7 +268,7 @@ export async function recordPageView(event: PageViewEvent): Promise<void> {
 export async function recordClicks(clicks: ClickEvent[]): Promise<void> {
     if (clicks.length === 0) return;
 
-    const supabase = createAdminClient();
+    const supabase = getAnalyticsClient();
     const today = new Date().toISOString().split("T")[0];
 
     const clicksData = clicks.map((click) => ({
@@ -183,38 +282,34 @@ export async function recordClicks(clicks: ClickEvent[]): Promise<void> {
         click_count: 1,
     }));
 
-    await (supabase.from as any)("portfolio_clicks").insert(clicksData);
+    await supabase.from("portfolio_clicks").insert(clicksData);
 }
 
 export async function getAnalyticsSummary(
     portfolioId: string,
     days = 30,
 ): Promise<AnalyticsSummary> {
-    const supabase = createAdminClient();
+    const supabase = getAnalyticsClient();
     const startDate = new Date();
     startDate.setDate(startDate.getDate() - days);
     const startDateStr = startDate.toISOString().split("T")[0];
 
-    const { data: viewsByDay } = (await (supabase.from as any)(
-        "portfolio_page_views",
-    )
+    const { data: viewsByDay } = await supabase
+        .from("portfolio_page_views")
         .select("date, views, unique_visitors")
         .eq("portfolio_id", portfolioId)
         .gte("date", startDateStr)
         .is("hour", null)
-        .order("date", { ascending: true })) as { data: PageViewRow[] | null };
+        .order("date", { ascending: true });
 
     let dailyViews: PageViewRow[] = viewsByDay || [];
     if (dailyViews.length === 0) {
-        const { data: hourlyViews } = (await (supabase.from as any)(
-            "portfolio_page_views",
-        )
+        const { data: hourlyViews } = await supabase
+            .from("portfolio_page_views")
             .select("date, views, unique_visitors")
             .eq("portfolio_id", portfolioId)
             .gte("date", startDateStr)
-            .order("date", { ascending: true })) as {
-            data: PageViewRow[] | null;
-        };
+            .order("date", { ascending: true });
 
         const dailyMap = new Map<string, { views: number; unique: number }>();
         for (const hv of hourlyViews || []) {
@@ -237,14 +332,13 @@ export async function getAnalyticsSummary(
         0,
     );
 
-    const { data: geoStats } = (await (supabase.from as any)(
-        "portfolio_geo_stats",
-    )
+    const { data: geoStats } = await supabase
+        .from("portfolio_geo_stats")
         .select("country_code, country_name, views")
         .eq("portfolio_id", portfolioId)
         .gte("date", startDateStr)
         .order("views", { ascending: false })
-        .limit(10)) as { data: GeoStatRow[] | null };
+        .limit(10);
 
     const countryMap = new Map<string, { name: string; views: number }>();
     for (const gs of geoStats || []) {
@@ -262,14 +356,13 @@ export async function getAnalyticsSummary(
         .sort((a, b) => b.views - a.views)
         .slice(0, 10);
 
-    const { data: referrerStats } = (await (supabase.from as any)(
-        "portfolio_referrers",
-    )
+    const { data: referrerStats } = await supabase
+        .from("portfolio_referrers")
         .select("referrer_domain, views")
         .eq("portfolio_id", portfolioId)
         .gte("date", startDateStr)
         .order("views", { ascending: false })
-        .limit(10)) as { data: ReferrerRow[] | null };
+        .limit(10);
 
     const referrerMap = new Map<string, number>();
     for (const rs of referrerStats || []) {
@@ -281,12 +374,11 @@ export async function getAnalyticsSummary(
         .sort((a, b) => b.views - a.views)
         .slice(0, 10);
 
-    const { data: deviceStats } = (await (supabase.from as any)(
-        "portfolio_device_stats",
-    )
+    const { data: deviceStats } = await supabase
+        .from("portfolio_device_stats")
         .select("device_type, browser, views")
         .eq("portfolio_id", portfolioId)
-        .gte("date", startDateStr)) as { data: DeviceStatRow[] | null };
+        .gte("date", startDateStr);
 
     const deviceMap = new Map<string, number>();
     const browserMap = new Map<string, number>();
@@ -329,17 +421,18 @@ export async function getHeatmapData(
     portfolioId: string,
     days = 30,
 ): Promise<HeatmapData> {
-    const supabase = createAdminClient();
+    const supabase = getAnalyticsClient();
     const startDate = new Date();
     startDate.setDate(startDate.getDate() - days);
     const startDateStr = startDate.toISOString().split("T")[0];
 
-    const { data: clicks } = (await (supabase.from as any)("portfolio_clicks")
+    const { data: clicks } = await supabase
+        .from("portfolio_clicks")
         .select(
             "x_percent, y_percent, click_count, element_tag, element_text, element_href",
         )
         .eq("portfolio_id", portfolioId)
-        .gte("date", startDateStr)) as { data: ClickRow[] | null };
+        .gte("date", startDateStr);
 
     const positionMap = new Map<string, number>();
     const elementMap = new Map<
